@@ -1,13 +1,13 @@
-plugins {
-    `java-gradle-plugin`
-    jacoco
-    kotlin("jvm")
-    id("org.jetbrains.dokka")
-    id("org.danilopianini.git-sensitive-semantic-versioning")
-    id("com.gradle.plugin-publish")
-    id("pl.droidsonroids.jacoco.testkit")
-    id("org.jlleitschuh.gradle.ktlint")
-    id("io.gitlab.arturbosch.detekt")
+ plugins {
+     `java-gradle-plugin`
+     jacoco
+     id("org.jetbrains.kotlin.jvm") version "1.5.0-RC"
+     id("org.jetbrains.dokka") version "1.4.30"
+     id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.3"
+     id("com.gradle.plugin-publish") version "0.14.0"
+     id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
+     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+     id("io.gitlab.arturbosch.detekt") version "1.17.0-RC2"
 }
 
 group = "org.meshuagalassi"
