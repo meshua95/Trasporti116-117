@@ -1,7 +1,7 @@
 plugins {
     `java-gradle-plugin`
     jacoco
-    kotlin("jvm")
+    kotlin("jvm") version "14.0.1"
     id("org.jetbrains.dokka")
     id("org.danilopianini.git-sensitive-semantic-versioning")
     id("com.gradle.plugin-publish")
