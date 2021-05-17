@@ -1,0 +1,56 @@
+{
+  "@id": "dtmi:num116117:ambulanza;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Ambulanza",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "number",
+      "schema": "integer"
+    },
+    {
+      "@type": "Property",
+      "name": "stato",
+      "schema": "dtmi:num116117:statoAmbulanza;1"
+    },
+    {
+      "@type": "Component",
+      "name": "GPS",
+      "schema": "dtmi:num116117:GPS;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "usa"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:statoAmbulanza;1",
+      "@type": "Enum",
+      "valueSchema": "integer",
+      "enumValues": [
+        {
+          "name": "guasta",
+          "displayName": "Guasta",
+          "enumValue": 1
+        },
+        {
+          "name": "pronta",
+          "displayName": "Pronta",
+          "enumValue": 2
+        },
+        {
+          "name": "inUso",
+          "displayName": "In Uso",
+          "enumValue": 3
+        },
+        {
+          "name": "inManutenzione",
+          "displayName": "In Manutenzione",
+          "enumValue": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "@id": "dtmi:num116117:GPS;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "GPS",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "longitudine",
+      "schema": "double"
+    },
+    {
+      "@type": "Property",
+      "name": "latitudine",
+      "schema": "double"
+    }
+  ]
+}

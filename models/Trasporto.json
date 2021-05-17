@@ -1,0 +1,104 @@
+{
+  "@id": "dtmi:num116117:trasporto;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Trasporto",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "itinerario",
+      "schema": "dtmi:num116117:itinerario;1"
+    },
+    {
+      "@type": "Property",
+      "name": "dataOra",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Property",
+      "name": "stato",
+      "schema": "dtmi:num116117:statoTrasporto;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "usa"
+    },
+    {
+      "@type": "Relationship",
+      "name": "trasporta"
+    },
+    {
+      "@type": "Relationship",
+      "name": "guidata"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:itinerario;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "partenza",
+          "schema": "dtmi:num116117:luogo;1"
+        },
+        {
+          "name": "destinazione",
+          "schema": "dtmi:num116117:luogo;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:statoTrasporto;1",
+      "@type": "Enum",
+      "valueSchema": "integer",
+      "enumValues": [
+        {
+          "name": "nonIniziato",
+          "displayName": "Non Iniziato",
+          "enumValue": 1
+        },
+        {
+          "name": "inCorso",
+          "displayName": "In Corso",
+          "enumValue": 2
+        },
+        {
+          "name": "concluso",
+          "displayName": "Concluso",
+          "enumValue": 3
+        },
+        {
+          "name": "annullato",
+          "displayName": "Annullato",
+          "enumValue": 0
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:luogo;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "via",
+          "schema": "string"
+        },
+        {
+          "name": "numero",
+          "schema": "string"
+        },
+        {
+          "name": "citta",
+          "schema": "string"
+        },
+        {
+          "name": "provincia",
+          "schema": "string"
+        },
+        {
+          "name": "CAP",
+          "schema": "integer"
+        }
+      ]
+    }
+  ]
+}

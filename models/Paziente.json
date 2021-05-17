@@ -1,0 +1,67 @@
+{
+  "@id": "dtmi:num116117:paziente;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Paziente",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "datiAnagrafici",
+      "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "trasporta"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:datiAnagraficiPaziente;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "nome",
+          "schema": "string"
+        },
+        {
+          "name": "cognome",
+          "schema": "string"
+        },
+        {
+          "name": "dataNascita",
+          "schema": "date"
+        },
+        {
+          "name": "residenza",
+          "schema": "dtmi:num116117:residenzaPaziente;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:residenzaPaziente;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "via",
+          "schema": "string"
+        },
+        {
+          "name": "numero",
+          "schema": "string"
+        },
+        {
+          "name": "citta",
+          "schema": "string"
+        },
+        {
+          "name": "provincia",
+          "schema": "string"
+        },
+        {
+          "name": "CAP",
+          "schema": "integer"
+        }
+      ]
+    }
+  ]
+}
