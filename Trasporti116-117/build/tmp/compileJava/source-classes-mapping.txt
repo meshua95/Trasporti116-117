@@ -1,0 +1,21 @@
+domain/trasporto/DatiAnagraficiOperatore.java
+ domain.trasporto.DatiAnagraficiOperatore
+ domain.trasporto.DatiAnagraficiOperatore$Residenza
+Main.java
+ Main
+domain/trasporto/StatoTrasporto.java
+ domain.trasporto.StatoTrasporto
+domain/trasporto/Itinerario.java
+ domain.trasporto.Itinerario
+ domain.trasporto.Itinerario$Luogo
+utils/Constants.java
+ utils.Constants
+domain/ambulanza/StatoAmbulanza.java
+ domain.ambulanza.StatoAmbulanza
+digitalTwins/DigitalTwinsBuilder.java
+ digitalTwins.DigitalTwinsBuilder
+domain/paziente/DatiAnagraficiPaziente.java
+ domain.paziente.DatiAnagraficiPaziente
+ domain.paziente.DatiAnagraficiPaziente$Residenza
+digitalTwins/Client.java
+ digitalTwins.Client
