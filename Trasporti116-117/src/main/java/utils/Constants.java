@@ -1,7 +1,7 @@
 package utils;
 
 public class Constants {
-    public static final String ENDPOINT = "https://116117TrasportiInstance.api.weu.digitaltwins.azure.net";
+    public static final String ENDPOINT = "https://116117TrasportiInstance-m.api.weu.digitaltwins.azure.net";
   // public static final String ENDPOINT = "https://116117eventgrid.westeurope-1.eventgrid.azure.net/api/events/topics/endpoints/endpoint116117?api-version=2020-12-01";
     public static final String TENANT_ID = "920c92c2-cf38-438d-848f-0a3950a5d588";
     public static final String CLIENT_ID = "113b6334-ced9-4a04-bfff-bdeba75be720";

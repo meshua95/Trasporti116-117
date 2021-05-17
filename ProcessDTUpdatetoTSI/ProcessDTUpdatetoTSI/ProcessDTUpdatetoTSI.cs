@@ -13,8 +13,8 @@ namespace UpdateTSI
     {
         [FunctionName("ProcessDTUpdatetoTSI")]
         public static async Task Run(
-            [EventHubTrigger("TwinHub116117", Connection = "Endpoint=sb://namespace116117.servicebus.windows.net/;SharedAccessKeyName=AuthRule116117;SharedAccessKey=xKel4e7bP5oaKnDDt+RLyn6WG8YItGFPwa6IHUelrBo=;EntityPath=TwinHub116117")] EventData myEventHubMessage,
-            [EventHub("TimeSeriesHub116117", Connection = "Endpoint=sb://namespace116117.servicebus.windows.net/;SharedAccessKeyName=AuthRuleTSH116117;SharedAccessKey=mNgx714FUuoYlxdL9IWfF7GN97okADEtWmCj0VgqGWo=;EntityPath=TimeSeriesHub116117")] IAsyncCollector<string> outputEvents,
+            [EventHubTrigger("twins-event-hub", Connection = "EventHubAppSetting-Twins")] EventData myEventHubMessage,
+            [EventHub("tsi-event-hub", Connection = "EventHubAppSeting-TSI")] IAsyncCollector<string> outputEvents,
             ILogger log)
         {
             JObject message = (JObject)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(myEventHubMessage.Body));

@@ -1,4 +1,4 @@
-﻿<Properties StartupConfiguration="{D235C09E-8BF5-4281-A1A3-AD38F599831F}|Default">
+﻿<Properties>
   <MonoDevelop.Ide.ItemProperties.ProcessDTUpdatetoTSI PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="ProcessDTUpdatetoTSI/ProcessDTUpdatetoTSI.cs">
     <Files>
@@ -8,11 +8,12 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ProcessDTUpdatetoTSI" expanded="True">
-            <Node name="ProcessDTUpdatetoTSI" expanded="True" selected="True">
+            <Node name="ProcessDTUpdatetoTSI" expanded="True">
               <Node name="Dependencies" expanded="True">
                 <Node name="FrameworkReferences" expanded="True" />
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
+              <Node name="ProcessDTUpdatetoTSI.cs" selected="True" />
             </Node>
           </Node>
         </State>
