@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
+ */
+
 package domain.trasporto;
 
 public class Itinerario {

@@ -1,5 +1,8 @@
-package domain.paziente;
+/*
+ * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
+ */
 
+package domain.paziente;
 
 import java.time.LocalDate;
 
