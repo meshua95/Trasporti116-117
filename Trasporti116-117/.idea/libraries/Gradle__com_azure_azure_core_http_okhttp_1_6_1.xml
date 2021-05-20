@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.azure:azure-core-http-okhttp:1.6.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.azure/azure-core-http-okhttp/1.6.1/cc5b702c69a1d937c2de9ee167f9ef6856073773/azure-core-http-okhttp-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.azure/azure-core-http-okhttp/1.6.1/9ea7444e9bc85bbb214cb59e7be5e4be5e05ac8/azure-core-http-okhttp-1.6.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

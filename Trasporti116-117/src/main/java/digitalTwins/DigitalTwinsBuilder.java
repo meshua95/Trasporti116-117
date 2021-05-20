@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
+ */
+
 package digitalTwins;
 
 import com.azure.digitaltwins.core.BasicRelationship;

@@ -1,9 +1,16 @@
+/*
+ * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
+ */
+
 import digitalTwins.Client;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;
+<<<<<<< HEAD
 import domain.trasporto.Itinerario;
 import domain.trasporto.StatoTrasporto;
 import java.time.LocalDateTime;
+=======
+>>>>>>> 47c08738671b226a10da4323223aafb78c4e4fa8
 
 public class Main {
 
