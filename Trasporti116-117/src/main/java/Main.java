@@ -2,6 +2,7 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
+import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String... arg) {
         Client.createClient();
 
-        DigitalTwinsBuilder.createAmbulanzaDigitalTwin("ambulanza1", StatoAmbulanza.PRONTA, 1);
+    /*    DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 1);
 
         DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",
@@ -41,7 +42,6 @@ public class Main {
                         LocalDate.of(1981, 4, 3),
                         new DatiAnagraficiOperatore.Residenza("ferrari", "111A", "Forlì", "FC", 47122)
                 )
-
         );
 
         DigitalTwinsBuilder.createTrasportoDigitalTwin("Trasporto1",
@@ -52,6 +52,10 @@ public class Main {
                         new Itinerario.Luogo("corso cavour","189C","Cesena", "FC", 47521)),
                 "ambulanza1",
                 "paziente1",
-                "operatore1");
+                "operatore1");*/
+       System.out.println( Client.getClient().getRelationship( "ambulanza1",
+                "ambulanza1toGPS1",
+                BasicRelationship.class));
     }
+
 }

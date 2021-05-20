@@ -21,21 +21,41 @@ import java.time.LocalDateTime;
 
 public class DigitalTwinsBuilder {
 
-    public static void createAmbulanzaDigitalTwin(String dtId, StatoAmbulanza stato, int numeroAmbulanza){
-        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(dtId)
+    public static void createAmbulanzaDigitalTwin(StatoAmbulanza stato, int numeroAmbulanza){
+
+        String ambulanzaId = "ambulanza"+numeroAmbulanza;
+        String GSPId = "GPS"+numeroAmbulanza;
+        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanzaId)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANZA_MODEL_ID)
                 )
                 .addToContents("number", numeroAmbulanza)
-                .addToContents(
-                        "GPS",
-
-                        new BasicDigitalTwinComponent()
-                )
                 .addToContents("stato", stato.getValue());
+        BasicDigitalTwin GPSdt = new BasicDigitalTwin(GSPId)
+                .setMetadata(
+                        new BasicDigitalTwinMetadata().setModelId(Constants.GPS_MODEL_ID)
+                );
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, ambulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanzaId, ambulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(GSPId, GPSdt, BasicDigitalTwin.class);
+
         System.out.println(basicTwinResponse.getId());
+        System.out.println(basicTwinResponseGPS.getId());
+
+        BasicRelationship rel =
+                new BasicRelationship(
+                        ambulanzaId + "to" + GSPId,
+                        ambulanzaId,
+                        GSPId,
+                        "contiene");
+
+        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
+                ambulanzaId,
+                ambulanzaId + "to" + GSPId,
+                rel,
+                BasicRelationship.class);
+        System.out.println(createdRelationship.getId());
+
     }
 
     public static void createPazienteDigitalTwin(String dtId, DatiAnagraficiPaziente datiAnagraficiPaziente, StatoDiSalute statoDiSalute, Autonomia autonomia){
