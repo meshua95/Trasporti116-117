@@ -10,6 +10,21 @@
       "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
     },
     {
+      "@type": "Property",
+      "name": "autonomia",
+      "schema": "dtmi:num116117:autonomiaPaziente;1"
+    },
+    {
+      "@type": "Property",
+      "name": "datiAnagrafici",
+      "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
+    },
+    {
+      "@type": "Property",
+      "name": "statoDiSalute",
+      "schema": "dtmi:num116117:statoDiSalute;1"
+    },
+    {
       "@type": "Relationship",
       "name": "trasporta"
     }
@@ -60,6 +75,38 @@
         {
           "name": "CAP",
           "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:statoDiSalute;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "descrizione",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:autonomiaPaziente;1",
+      "@type": "Enum",
+      "valueSchema": "integer",
+      "enumValues": [
+        {
+          "name": "autonomo",
+          "displayName": "autonomo",
+          "enumValue": 1
+        },
+        {
+          "name": "parzialmenteAutonomo",
+          "displayName": "Parzialmente autonomo",
+          "enumValue": 2
+        },
+        {
+          "name": "nonAutonomo",
+          "displayName": "Non autonomo",
+          "enumValue": 3
         }
       ]
     }

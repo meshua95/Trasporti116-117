@@ -5,12 +5,12 @@
   "displayName": "GPS",
   "contents": [
     {
-      "@type": "Property",
+      "@type": "Telemetry",
       "name": "longitudine",
       "schema": "double"
     },
     {
-      "@type": "Property",
+      "@type": "Telemetry",
       "name": "latitudine",
       "schema": "double"
     }
