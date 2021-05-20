@@ -5,7 +5,9 @@
 package digitalTwins;
 
 import com.azure.digitaltwins.core.BasicRelationship;
+import domain.paziente.Autonomia;
 import domain.paziente.DatiAnagraficiPaziente;
+import domain.paziente.StatoDiSalute;
 import domain.trasporto.Itinerario;
 import domain.ambulanza.StatoAmbulanza;
 import domain.trasporto.StatoTrasporto;
@@ -27,21 +29,23 @@ public class DigitalTwinsBuilder {
                 .addToContents("number", numeroAmbulanza)
                 .addToContents(
                         "GPS",
+
                         new BasicDigitalTwinComponent()
-                                .addToContents("longitudine", 0)
-                                .addToContents("latitudine", 0))
+                )
                 .addToContents("stato", stato.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, ambulanzaDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
     }
 
-    public static void createPazienteDigitalTwin(String dtId, DatiAnagraficiPaziente datiAnagraficiPaziente){
+    public static void createPazienteDigitalTwin(String dtId, DatiAnagraficiPaziente datiAnagraficiPaziente, StatoDiSalute statoDiSalute, Autonomia autonomia){
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(dtId)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.PAZIENTE_ID)
                 )
-                .addToContents("datiAnagrafici", datiAnagraficiPaziente);
+                .addToContents("datiAnagrafici", datiAnagraficiPaziente)
+                .addToContents("statoDiSalute", statoDiSalute)
+                .addToContents("autonomia", autonomia.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, pazienteDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
