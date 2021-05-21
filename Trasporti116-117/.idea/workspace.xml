@@ -29,12 +29,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74a46528-b62a-4472-86e4-61fd377cf1f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ProcessDTUpdatetoTSI/.vs/ProcessDTUpdatetoTSI/xs/UserPrefs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ProcessDTUpdatetoTSI/.vs/ProcessDTUpdatetoTSI/xs/UserPrefs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +140,9 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <configuration name="Trasporti116-117 [wrapper]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -150,9 +161,16 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Gradle.Trasporti116-117 [init]" />
+      <item itemvalue="Gradle.Trasporti116-117 [wrapper]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -198,55 +216,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="533" y="170" key="#com.intellij.ide.util.MemberChooser" timestamp="1621500255554">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="533" y="170" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621500255554" />
-    <state width="1398" height="198" key="GridCell.Tab.0.bottom" timestamp="1621590504654">
-      <screen x="-237" y="-1055" width="1920" height="1055" />
-    </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413503" />
-    <state width="1878" height="254" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1621321964759" />
-    <state width="1398" height="198" key="GridCell.Tab.0.bottom/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504654" />
-    <state width="1398" height="198" key="GridCell.Tab.0.center" timestamp="1621590504654">
-      <screen x="-237" y="-1055" width="1920" height="1055" />
-    </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.center/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413502" />
-    <state width="1878" height="254" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1621321964758" />
-    <state width="1398" height="198" key="GridCell.Tab.0.center/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504654" />
-    <state width="1398" height="198" key="GridCell.Tab.0.left" timestamp="1621590504653">
-      <screen x="-237" y="-1055" width="1920" height="1055" />
-    </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.left/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413501" />
-    <state width="1878" height="254" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1621321964755" />
-    <state width="1398" height="198" key="GridCell.Tab.0.left/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504653" />
-    <state width="1398" height="198" key="GridCell.Tab.0.right" timestamp="1621590504654">
-      <screen x="-237" y="-1055" width="1920" height="1055" />
-    </state>
-    <state width="1398" height="240" key="GridCell.Tab.0.right/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413502" />
-    <state width="1878" height="254" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1621321964758" />
-    <state width="1398" height="198" key="GridCell.Tab.0.right/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504654" />
-    <state width="1398" height="304" key="GridCell.Tab.1.bottom" timestamp="1621516413480">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.bottom/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413480" />
-    <state width="1398" height="304" key="GridCell.Tab.1.center" timestamp="1621516413479">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.center/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413479" />
-    <state width="1398" height="304" key="GridCell.Tab.1.left" timestamp="1621516413478">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.left/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413478" />
-    <state width="1398" height="304" key="GridCell.Tab.1.right" timestamp="1621516413479">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1398" height="304" key="GridCell.Tab.1.right/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413479" />
-    <state x="457" y="-812" key="MultipleFileMergeDialog" timestamp="1621590520353">
-      <screen x="-237" y="-1055" width="1920" height="1055" />
-    </state>
-    <state x="457" y="-812" key="MultipleFileMergeDialog/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590520353" />
   </component>
 </project>
