@@ -4,6 +4,7 @@
 
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import digitalTwins.DigitalTwinEraser;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;
 import domain.paziente.Autonomia;
@@ -15,13 +16,17 @@ import domain.trasporto.StatoTrasporto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String... arg) {
         Client.createClient();
-
-        DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 1);
+        DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
+      //  DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
 
      /*   DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",

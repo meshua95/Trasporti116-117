@@ -1,7 +1,6 @@
 plugins {
     jacoco     //java code coverage
     id("java")  //javadoc
-    id("org.jetbrains.kotlin.jvm") version "1.5.0-RC"
     id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.3"
     id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
     id("io.gitlab.arturbosch.detekt") version "1.17.0-RC2"
@@ -33,8 +32,8 @@ tasks.jacocoTestReport{
     }
 }
 
-//tasks.javadoc {
+tasks.javadoc {
     //senza sorgente javadoc non crea nessuna documentazione
-    //source = sourceSets.main.allJava
-//}
+   // source = sourceSets.main.allJava
+}
 
