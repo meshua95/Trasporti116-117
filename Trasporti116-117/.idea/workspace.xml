@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:develop" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="74a46528-b62a-4472-86e4-61fd377cf1f7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ProcessDTUpdatetoTSI/.vs/ProcessDTUpdatetoTSI/xs/UserPrefs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ProcessDTUpdatetoTSI/.vs/ProcessDTUpdatetoTSI/xs/UserPrefs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Trasporti116-117" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Trasporti116-117" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1sQcu62P4u5U0tVaa3cO44tFw7e" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15429688" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Trasporti116-117.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Trasporti116-117 [init]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="init" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Trasporti116-117 [wrapper]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="wrapper" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.Trasporti116-117 [wrapper]" />
+        <item itemvalue="Gradle.Trasporti116-117 [init]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74a46528-b62a-4472-86e4-61fd377cf1f7" name="Default Changelist" comment="" />
+      <created>1620808473659</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620808473659</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develop" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="533" y="170" key="#com.intellij.ide.util.MemberChooser" timestamp="1621500255554">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="533" y="170" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621500255554" />
+    <state width="1398" height="198" key="GridCell.Tab.0.bottom" timestamp="1621590504654">
+      <screen x="-237" y="-1055" width="1920" height="1055" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.bottom/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413503" />
+    <state width="1878" height="254" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1621321964759" />
+    <state width="1398" height="198" key="GridCell.Tab.0.bottom/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504654" />
+    <state width="1398" height="198" key="GridCell.Tab.0.center" timestamp="1621590504654">
+      <screen x="-237" y="-1055" width="1920" height="1055" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.center/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413502" />
+    <state width="1878" height="254" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1621321964758" />
+    <state width="1398" height="198" key="GridCell.Tab.0.center/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504654" />
+    <state width="1398" height="198" key="GridCell.Tab.0.left" timestamp="1621590504653">
+      <screen x="-237" y="-1055" width="1920" height="1055" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.left/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413501" />
+    <state width="1878" height="254" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1621321964755" />
+    <state width="1398" height="198" key="GridCell.Tab.0.left/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504653" />
+    <state width="1398" height="198" key="GridCell.Tab.0.right" timestamp="1621590504654">
+      <screen x="-237" y="-1055" width="1920" height="1055" />
+    </state>
+    <state width="1398" height="240" key="GridCell.Tab.0.right/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413502" />
+    <state width="1878" height="254" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1621321964758" />
+    <state width="1398" height="198" key="GridCell.Tab.0.right/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590504654" />
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom" timestamp="1621516413480">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.bottom/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413480" />
+    <state width="1398" height="304" key="GridCell.Tab.1.center" timestamp="1621516413479">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.center/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413479" />
+    <state width="1398" height="304" key="GridCell.Tab.1.left" timestamp="1621516413478">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.left/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413478" />
+    <state width="1398" height="304" key="GridCell.Tab.1.right" timestamp="1621516413479">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="304" key="GridCell.Tab.1.right/0.0.1440.900/-237.-1080.1920.1080@0.0.1440.900" timestamp="1621516413479" />
+    <state x="457" y="-812" key="MultipleFileMergeDialog" timestamp="1621590520353">
+      <screen x="-237" y="-1055" width="1920" height="1055" />
+    </state>
+    <state x="457" y="-812" key="MultipleFileMergeDialog/0.25.1440.801/-237.-1055.1920.1055@-237.-1055.1920.1055" timestamp="1621590520353" />
+  </component>
+</project>
