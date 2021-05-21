@@ -34,7 +34,9 @@ public class DigitalTwinsBuilder {
         BasicDigitalTwin GPSdt = new BasicDigitalTwin(GSPId)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.GPS_MODEL_ID)
-                );
+                )
+                .addToContents("longitudine", 0)
+                .addToContents("latitudine", 0);
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanzaId, ambulanzaDT, BasicDigitalTwin.class);
         BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(GSPId, GPSdt, BasicDigitalTwin.class);

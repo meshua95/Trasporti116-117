@@ -21,9 +21,9 @@ public class Main {
     public static void main(String... arg) {
         Client.createClient();
 
-    /*    DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 1);
+        DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 1);
 
-        DigitalTwinsBuilder.createPazienteDigitalTwin(
+     /*   DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",
                 new DatiAnagraficiPaziente(
                         "Mario",
@@ -53,9 +53,6 @@ public class Main {
                 "ambulanza1",
                 "paziente1",
                 "operatore1");*/
-       System.out.println( Client.getClient().getRelationship( "ambulanza1",
-                "ambulanza1toGPS1",
-                BasicRelationship.class));
     }
 
 }
