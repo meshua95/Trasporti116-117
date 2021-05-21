@@ -15,13 +15,12 @@
       "schema": "dtmi:num116117:statoAmbulanza;1"
     },
     {
-      "@type": "Component",
-      "name": "GPS",
-      "schema": "dtmi:num116117:GPS;1"
+      "@type": "Relationship",
+      "name": "usa"
     },
     {
       "@type": "Relationship",
-      "name": "usa"
+      "name": "contiene"
     }
   ],
   "schemas": [

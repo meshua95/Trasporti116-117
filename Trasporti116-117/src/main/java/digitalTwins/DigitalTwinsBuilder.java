@@ -5,7 +5,9 @@
 package digitalTwins;
 
 import com.azure.digitaltwins.core.BasicRelationship;
+import domain.paziente.Autonomia;
 import domain.paziente.DatiAnagraficiPaziente;
+import domain.paziente.StatoDiSalute;
 import domain.trasporto.Itinerario;
 import domain.ambulanza.StatoAmbulanza;
 import domain.trasporto.StatoTrasporto;
@@ -19,29 +21,51 @@ import java.time.LocalDateTime;
 
 public class DigitalTwinsBuilder {
 
-    public static void createAmbulanzaDigitalTwin(String dtId, StatoAmbulanza stato, int numeroAmbulanza){
-        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(dtId)
+    public static void createAmbulanzaDigitalTwin(StatoAmbulanza stato, int numeroAmbulanza){
+
+        String ambulanzaId = "ambulanza"+numeroAmbulanza;
+        String GSPId = "GPS"+numeroAmbulanza;
+        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanzaId)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANZA_MODEL_ID)
                 )
                 .addToContents("number", numeroAmbulanza)
-                .addToContents(
-                        "GPS",
-                        new BasicDigitalTwinComponent()
-                                .addToContents("longitudine", 0)
-                                .addToContents("latitudine", 0))
                 .addToContents("stato", stato.getValue());
+        BasicDigitalTwin GPSdt = new BasicDigitalTwin(GSPId)
+                .setMetadata(
+                        new BasicDigitalTwinMetadata().setModelId(Constants.GPS_MODEL_ID)
+                );
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, ambulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanzaId, ambulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(GSPId, GPSdt, BasicDigitalTwin.class);
+
         System.out.println(basicTwinResponse.getId());
+        System.out.println(basicTwinResponseGPS.getId());
+
+        BasicRelationship rel =
+                new BasicRelationship(
+                        ambulanzaId + "to" + GSPId,
+                        ambulanzaId,
+                        GSPId,
+                        "contiene");
+
+        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
+                ambulanzaId,
+                ambulanzaId + "to" + GSPId,
+                rel,
+                BasicRelationship.class);
+        System.out.println(createdRelationship.getId());
+
     }
 
-    public static void createPazienteDigitalTwin(String dtId, DatiAnagraficiPaziente datiAnagraficiPaziente){
+    public static void createPazienteDigitalTwin(String dtId, DatiAnagraficiPaziente datiAnagraficiPaziente, StatoDiSalute statoDiSalute, Autonomia autonomia){
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(dtId)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.PAZIENTE_ID)
                 )
-                .addToContents("datiAnagrafici", datiAnagraficiPaziente);
+                .addToContents("datiAnagrafici", datiAnagraficiPaziente)
+                .addToContents("statoDiSalute", statoDiSalute)
+                .addToContents("autonomia", autonomia.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, pazienteDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
