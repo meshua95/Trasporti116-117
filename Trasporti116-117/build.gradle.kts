@@ -32,8 +32,15 @@ tasks.jacocoTestReport{
     }
 }
 
+/*
+sourceSets{
+    buildDir("src/main/java")
+}
+
 tasks.javadoc {
     //senza sorgente javadoc non crea nessuna documentazione
-   // source = sourceSets.main.allJava
+    source = sourceSets.main.allJava
 }
+
+*/
 
