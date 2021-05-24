@@ -1,8 +1,13 @@
 domain/trasporto/DatiAnagraficiOperatore.java
  domain.trasporto.DatiAnagraficiOperatore
  domain.trasporto.DatiAnagraficiOperatore$Residenza
+<<<<<<< HEAD
 digitalTwins/DigitalTwinEraser.java
  digitalTwins.DigitalTwinEraser
+=======
+Main.java
+ Main
+>>>>>>> fed18a8be888729a6c380aa00a76223b7f055a03
 domain/trasporto/StatoTrasporto.java
  domain.trasporto.StatoTrasporto
 domain/trasporto/Itinerario.java
@@ -23,5 +28,10 @@ digitalTwins/Client.java
  digitalTwins.Client
 domain/paziente/StatoDiSalute.java
  domain.paziente.StatoDiSalute
+<<<<<<< HEAD
 Main.java
  Main
+=======
+digitalTwins/DigitalTwinEraser.java
+ digitalTwins.DigitalTwinEraser
+>>>>>>> fed18a8be888729a6c380aa00a76223b7f055a03

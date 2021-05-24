@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.fusesource.jansi.AnsiRenderer.test
+
 plugins {
     //jacoco     //java code coverage
     java
@@ -32,12 +34,10 @@ tasks.jacocoTestReport{
         html.isEnabled = true
     }
 }
-*/
-/*
+
 sourceSets{
     buildDir("src/main/java")
 }
-
 
 tasks.javadoc {
     //senza sorgente javadoc non crea nessuna documentazione

@@ -82,7 +82,6 @@ public class DigitalTwinsBuilder {
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, OperatoreAmbulanzaDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
-
     }
 
     public static void createTrasportoDigitalTwin(String dtId, LocalDateTime dataOra, StatoTrasporto stato, Itinerario itinerario, String ambulanzaId, String pazienteId, String operatoreId){
@@ -123,6 +122,4 @@ public class DigitalTwinsBuilder {
                 trasportotoAmbulanzaRelationship,
                 BasicRelationship.class);
     }
-
-
 }
