@@ -19,9 +19,10 @@ public class Client {
                 .credential(
                         new DefaultAzureCredentialBuilder().build()
                 )
-                        .endpoint(Constants.ENDPOINT)
+                .endpoint(Constants.ENDPOINT)
                 .httpClient(new OkHttpAsyncHttpClientBuilder().build())
-            .buildClient();
+                .buildClient();
+
     }
 
     public static DigitalTwinsClient getClient(){
