@@ -1,0 +1,15 @@
+language: java
+
+git:
+  depth: false
+  autocrlf: input
+
+os:
+  - linux
+  - osx
+
+install:
+  - true
+
+script:
+  - ./gradlew check   #lancia il task che prevede i test
