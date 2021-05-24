@@ -1,9 +1,9 @@
 # Compiled class file
 *.class
 build/
-.idea/*
+.idea/
 *.DS_Store
-.gradle/*
+.gradle/
 .vs/
 
 # Log file
