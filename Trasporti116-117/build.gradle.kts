@@ -7,6 +7,14 @@ plugins {
     id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.3"
     //id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
     //id("io.gitlab.arturbosch.detekt") version "1.17.0-RC2"
+    kotlin("jvm") version "1.4.10"
+    application
+    id("org.openjfx.javafxplugin") version "0.0.9"
+    id("org.beryx.jlink") version "2.22.1"
+}
+
+application {
+    mainClass.set("org.beryx.jlink.test.kotlin.JavaFX")
 }
 
 gitSemVer{
@@ -15,6 +23,17 @@ gitSemVer{
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.web")
+}
+
+jlink{
+    launcher {
+        name = "hello"
+    }
+    imageZip.set(project.file("${project.buildDir}/image-zip/hello-image.zip"))
 }
 
 dependencies {

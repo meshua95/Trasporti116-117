@@ -4,7 +4,6 @@
 
 package digitalTwins;
 
-import com.azure.core.http.okhttp.OkHttpAsyncHttpClientBuilder;
 import com.azure.digitaltwins.core.DigitalTwinsClient;
 import com.azure.digitaltwins.core.DigitalTwinsClientBuilder;
 import com.azure.identity.ClientSecretCredentialBuilder;
@@ -25,12 +24,7 @@ public class Client {
                                 .build()
                 )
                 .endpoint(Constants.ENDPOINT)
-                .httpClient(new OkHttpAsyncHttpClientBuilder().build())
                 .buildClient();
-<<<<<<< HEAD
-
-=======
->>>>>>> fed18a8be888729a6c380aa00a76223b7f055a03
     }
 
     public static DigitalTwinsClient getClient(){
