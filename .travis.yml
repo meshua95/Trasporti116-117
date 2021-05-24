@@ -6,7 +6,7 @@ git:
 
 os:
   - linux
-  - windows
+  - osx
 
 install:
   - true
