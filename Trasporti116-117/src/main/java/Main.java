@@ -8,12 +8,7 @@ import digitalTwins.Client;
 import digitalTwins.DigitalTwinEraser;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;
-import domain.paziente.Autonomia;
-import domain.paziente.DatiAnagraficiPaziente;
-import domain.paziente.StatoDiSalute;
-import domain.trasporto.DatiAnagraficiOperatore;
-import domain.trasporto.Itinerario;
-import domain.trasporto.StatoTrasporto;
+
 
 public class Main {
     public static void main(String... arg) {
