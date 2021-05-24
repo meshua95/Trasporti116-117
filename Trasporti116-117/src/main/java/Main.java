@@ -15,10 +15,6 @@ import domain.trasporto.DatiAnagraficiOperatore;
 import domain.trasporto.Itinerario;
 import domain.trasporto.StatoTrasporto;
 
-import junit.extensions.*;
-import org.junit.Test;
-
-
 public class Main {
     public static void main(String... arg) {
         Client.createClient();
