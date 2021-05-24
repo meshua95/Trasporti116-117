@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.fusesource.jansi.AnsiRenderer.test
+
 plugins {
     jacoco     //java code coverage
     id("java")  //javadoc
@@ -23,6 +25,9 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("org.apache.clerezza.ext:org.json.simple:0.4")
     implementation("com.azure:azure-core-http-okhttp:1.6.1")
+    testImplementation ("junit:junit:4.12")
+    implementation ("junit:junit:4.12")
+
 }
 
 tasks.jacocoTestReport{
@@ -32,10 +37,14 @@ tasks.jacocoTestReport{
     }
 }
 
+
 /*
 sourceSets{
     buildDir("src/main/java")
 }
+
+
+
 
 tasks.javadoc {
     //senza sorgente javadoc non crea nessuna documentazione

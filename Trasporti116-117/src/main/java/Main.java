@@ -3,6 +3,7 @@
  */
 
 import com.azure.digitaltwins.core.BasicRelationship;
+import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.DigitalTwinEraser;
 import digitalTwins.DigitalTwinsBuilder;
@@ -14,20 +15,19 @@ import domain.trasporto.DatiAnagraficiOperatore;
 import domain.trasporto.Itinerario;
 import domain.trasporto.StatoTrasporto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import junit.extensions.*;
+import org.junit.Test;
+
 
 public class Main {
-
     public static void main(String... arg) {
         Client.createClient();
-        DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
-      //  DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
-
+        //DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
+        try {
+            DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
+        }catch (ErrorResponseException ex){
+           ex.printStackTrace();
+        }
      /*   DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",
                 new DatiAnagraficiPaziente(

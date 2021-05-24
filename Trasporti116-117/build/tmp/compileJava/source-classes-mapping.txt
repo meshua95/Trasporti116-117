@@ -1,8 +1,8 @@
 domain/trasporto/DatiAnagraficiOperatore.java
  domain.trasporto.DatiAnagraficiOperatore
  domain.trasporto.DatiAnagraficiOperatore$Residenza
-domain/paziente/StatoDiSalute.java
- domain.paziente.StatoDiSalute
+Main.java
+ Main
 domain/trasporto/StatoTrasporto.java
  domain.trasporto.StatoTrasporto
 domain/trasporto/Itinerario.java
@@ -21,7 +21,7 @@ domain/paziente/DatiAnagraficiPaziente.java
  domain.paziente.DatiAnagraficiPaziente$Residenza
 digitalTwins/Client.java
  digitalTwins.Client
-Main.java
- Main
+domain/paziente/StatoDiSalute.java
+ domain.paziente.StatoDiSalute
 digitalTwins/DigitalTwinEraser.java
  digitalTwins.DigitalTwinEraser
