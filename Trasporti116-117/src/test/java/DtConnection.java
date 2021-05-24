@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class DtConnection{
 
     @Test
-    void testConnection(){
+    public void testConnection(){
         Client.createClient();
         assertNotNull(Client.getClient());
     }
