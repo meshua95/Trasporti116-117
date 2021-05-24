@@ -13,12 +13,12 @@ import org.junit.Test;
 public class DtAmbulanza {
 
     @BeforeClass
-    void createConnection(){
+    public static void createConnection(){
         Client.createClient();
     }
 
     @Test
-    void createAmbulanza(){
+    public void createAmbulanza(){
         int idAmbulanza = 3;
         DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, idAmbulanza);
         Client.getClient().getDigitalTwin("ambulanza3", BasicDigitalTwin.class);

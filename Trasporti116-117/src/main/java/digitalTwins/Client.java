@@ -27,10 +27,6 @@ public class Client {
                 .endpoint(Constants.ENDPOINT)
                 .httpClient(new OkHttpAsyncHttpClientBuilder().build())
                 .buildClient();
-<<<<<<< HEAD
-
-=======
->>>>>>> fed18a8be888729a6c380aa00a76223b7f055a03
     }
 
     public static DigitalTwinsClient getClient(){

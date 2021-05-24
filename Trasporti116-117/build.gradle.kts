@@ -3,6 +3,7 @@ import org.gradle.internal.impldep.org.fusesource.jansi.AnsiRenderer.test
 plugins {
     //jacoco     //java code coverage
     java
+    id("java-library")
     id("java")  //javadoc
     id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.3"
     //id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
@@ -25,7 +26,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.30")
     implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("com.azure:azure-core-http-okhttp:1.6.1")
-    testImplementation("junit:junit:4.13")
+    testImplementation("junit:junit:4.12")
 }
 /*
 tasks.jacocoTestReport{
