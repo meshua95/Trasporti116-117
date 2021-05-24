@@ -23,11 +23,8 @@ public class Main {
     public static void main(String... arg) {
         Client.createClient();
         //DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
-        try {
-            DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
-        }catch (ErrorResponseException ex){
-           ex.printStackTrace();
-        }
+        DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
+
      /*   DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",
                 new DatiAnagraficiPaziente(

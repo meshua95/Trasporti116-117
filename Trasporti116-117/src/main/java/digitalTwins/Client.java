@@ -15,14 +15,7 @@ public class Client {
     private static DigitalTwinsClient client;
 
     public static void createClient(){
-    // Create client
-  /*  client = new DigitalTwinsClientBuilder()
-                .credential(
-                        new DefaultAzureCredentialBuilder().build()
-                )
-                        .endpoint(Constants.ENDPOINT)
-                .httpClient(new OkHttpAsyncHttpClientBuilder().build())
-            .buildClient();*/
+    // Create client connection
         client = new DigitalTwinsClientBuilder()
                 .credential(
                         new ClientSecretCredentialBuilder()
@@ -34,7 +27,6 @@ public class Client {
                 .endpoint(Constants.ENDPOINT)
                 .httpClient(new OkHttpAsyncHttpClientBuilder().build())
                 .buildClient();
-
     }
 
     public static DigitalTwinsClient getClient(){
