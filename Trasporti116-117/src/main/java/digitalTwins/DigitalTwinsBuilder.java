@@ -12,7 +12,6 @@ import domain.trasporto.Itinerario;
 import domain.ambulanza.StatoAmbulanza;
 import domain.trasporto.StatoTrasporto;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import com.azure.digitaltwins.core.BasicDigitalTwinComponent;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import domain.trasporto.DatiAnagraficiOperatore;
 import utils.Constants;
@@ -98,17 +97,16 @@ public class DigitalTwinsBuilder {
         System.out.println(basicTwinResponse.getId());
 
         //add relationship whit ambulanza
-        createdTrasportoRelationship(dtId, ambulanzaId, "usa");
+        createTrasportoRelationship(dtId, ambulanzaId, "usa");
 
         //add relationship whit paziente
-
-        createdTrasportoRelationship(dtId, pazienteId, "trasporta");
+        createTrasportoRelationship(dtId, pazienteId, "trasporta");
 
         //add relationship whit operatore
-        createdTrasportoRelationship(dtId, operatoreId, "guidata");
+        createTrasportoRelationship(dtId, operatoreId, "guidata");
     }
 
-    private static void createdTrasportoRelationship(String trasportoId, String targetId, String relationshipName){
+    private static void createTrasportoRelationship(String trasportoId, String targetId, String relationshipName){
         BasicRelationship trasportotoAmbulanzaRelationship =
                 new BasicRelationship(
                         trasportoId + "to" + targetId,
