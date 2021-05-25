@@ -17,7 +17,7 @@ public class Main {
         //Client.createClient();
         //DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
       //  DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
-        Client.createClient();
+        Client.getClient();
         System.out.println(DigitalTwinQuery.getAllPazienteIdTwins());
         MainApp.main(arg);
      /*   DigitalTwinsBuilder.createPazienteDigitalTwin(

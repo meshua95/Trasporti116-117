@@ -24,7 +24,7 @@ public class DtPaziente {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     @Test

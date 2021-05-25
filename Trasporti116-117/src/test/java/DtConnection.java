@@ -11,7 +11,7 @@ public class DtConnection{
 
     @Test
     public void testConnection(){
-        Client.createClient();
+        Client.getClient();
         assertNotNull(Client.getClient());
     }
 }

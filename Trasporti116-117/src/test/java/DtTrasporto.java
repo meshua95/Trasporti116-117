@@ -32,7 +32,7 @@ public class DtTrasporto {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     private void createAmbulanza(){

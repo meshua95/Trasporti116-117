@@ -21,7 +21,7 @@ public class DtOperatore {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     @Test
