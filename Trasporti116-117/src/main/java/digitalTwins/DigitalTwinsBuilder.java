@@ -107,7 +107,7 @@ public class DigitalTwinsBuilder {
     }
 
     private static void createTrasportoRelationship(String trasportoId, String targetId, String relationshipName){
-        BasicRelationship trasportotoAmbulanzaRelationship =
+        BasicRelationship trasportoToTargetRelationship =
                 new BasicRelationship(
                         trasportoId + "to" + targetId,
                         trasportoId,
@@ -117,7 +117,7 @@ public class DigitalTwinsBuilder {
         BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
                 trasportoId,
                 trasportoId + "to" + targetId,
-                trasportotoAmbulanzaRelationship,
+                trasportoToTargetRelationship,
                 BasicRelationship.class);
     }
 }
