@@ -8,14 +8,15 @@ import digitalTwins.Client;
 import digitalTwins.DigitalTwinEraser;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;
+import view.MainApp;
 
 
 public class Main {
     public static void main(String... arg) {
-        Client.createClient();
+        //Client.createClient();
         //DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
-        DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
-
+      //  DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
+        MainApp.main(arg);
      /*   DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",
                 new DatiAnagraficiPaziente(
