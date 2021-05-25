@@ -6,6 +6,7 @@ import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.DigitalTwinEraser;
+import digitalTwins.DigitalTwinQuery;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;
 import view.MainApp;
@@ -16,6 +17,8 @@ public class Main {
         //Client.createClient();
         //DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza2","GPS2"));
       //  DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, 2);
+        Client.createClient();
+        System.out.println(DigitalTwinQuery.getAllPazienteIdTwins());
         MainApp.main(arg);
      /*   DigitalTwinsBuilder.createPazienteDigitalTwin(
                 "paziente1",

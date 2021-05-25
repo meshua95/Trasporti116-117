@@ -13,7 +13,7 @@ import domain.ambulanza.StatoAmbulanza;
 import domain.trasporto.StatoTrasporto;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
-import domain.trasporto.DatiAnagraficiOperatore;
+import domain.operatore.DatiAnagraficiOperatore;
 import utils.Constants;
 
 import java.time.LocalDateTime;

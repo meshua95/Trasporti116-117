@@ -2,7 +2,7 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.trasporto;
+package domain.operatore;
 
 
 import java.time.LocalDate;

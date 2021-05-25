@@ -17,8 +17,6 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Client.createClient();
-        System.out.println(Paths.get("src/main/resources/scene.fxml").toUri().toURL());
         Parent root = FXMLLoader.load(Paths.get("src/main/resources/scene.fxml").toUri().toURL());
 
         Scene scene = new Scene(root);

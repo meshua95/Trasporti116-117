@@ -12,7 +12,7 @@ import domain.ambulanza.StatoAmbulanza;
 import domain.paziente.Autonomia;
 import domain.paziente.DatiAnagraficiPaziente;
 import domain.paziente.StatoDiSalute;
-import domain.trasporto.DatiAnagraficiOperatore;
+import domain.operatore.DatiAnagraficiOperatore;
 import domain.trasporto.Itinerario;
 import domain.trasporto.StatoTrasporto;
 import org.junit.BeforeClass;
