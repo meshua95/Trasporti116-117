@@ -7,7 +7,7 @@ import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.DigitalTwinEraser;
 import digitalTwins.DigitalTwinsBuilder;
-import domain.trasporto.DatiAnagraficiOperatore;
+import domain.operatore.DatiAnagraficiOperatore;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

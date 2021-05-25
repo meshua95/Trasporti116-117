@@ -13,7 +13,7 @@ import domain.ambulanza.StatoAmbulanza;
 import domain.paziente.Autonomia;
 import domain.paziente.DatiAnagraficiPaziente;
 import domain.paziente.StatoDiSalute;
-import domain.trasporto.DatiAnagraficiOperatore;
+import domain.operatore.DatiAnagraficiOperatore;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
