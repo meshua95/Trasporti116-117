@@ -34,7 +34,7 @@ public class DtAmbulanza {
     @Test
     public void deleteAmbulanza(){
         try{
-            AmbulanceDigitalTwin.deleteAmbulanza(Arrays.asList("ambulanza" + idAmbulanza));
+            AmbulanceDigitalTwin.deleteAmbulanza("ambulanza" + idAmbulanza);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

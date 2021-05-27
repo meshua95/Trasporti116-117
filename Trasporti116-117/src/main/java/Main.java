@@ -8,8 +8,8 @@ import view.MainApp;
 
 public class Main {
     public static void main(String... arg) {
-        Client.getClient();
         System.out.println(PatientDigitalTwin.getAllPatientId());
+        Client.getClient().listRelationships("ambulanza4",String.class).forEach(System.out::println);
         MainApp.main(arg);
     }
 
