@@ -9,7 +9,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
-import model.StatoAmbulanza;
+import model.AmbulanceState;
 import utils.Constants;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AmbulanzaDigitalTwin {
 
-    public static void createAmbulanza(StatoAmbulanza stato, int numeroAmbulanza){
+    public static void createAmbulanza(AmbulanceState stato, int numeroAmbulanza){
         String ambulanzaId = "ambulanza"+numeroAmbulanza;
         String GSPId = "GPS"+numeroAmbulanza;
         BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanzaId)

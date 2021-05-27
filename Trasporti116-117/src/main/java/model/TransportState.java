@@ -4,15 +4,15 @@
 
 package model;
 
-public enum StatoAmbulanza {
-    GUASTA(1),
-    PRONTA(2),
-    IN_USO(3),
-    IN_MANUTENZIONE(4);
+public enum TransportState {
+    NOT_STARTED(1),
+    IN_PROGRESS(2),
+    ENDED(3),
+    CANCELLED(0);
 
     private int value;
 
-    StatoAmbulanza(int value)
+    TransportState(int value)
     {
         this.value = value;
     }

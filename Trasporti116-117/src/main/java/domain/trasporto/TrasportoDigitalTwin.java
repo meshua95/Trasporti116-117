@@ -9,7 +9,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
 import model.Itinerario;
-import model.StatoTrasporto;
+import model.TransportState;
 import utils.Constants;
 
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TrasportoDigitalTwin {
 
-    public static void createTrasporto(String dtId, LocalDateTime dataOra, StatoTrasporto stato, Itinerario itinerario, String ambulanzaId, String pazienteId, String operatoreId){
+    public static void createTrasporto(String dtId, LocalDateTime dataOra, TransportState stato, Itinerario itinerario, String ambulanzaId, String pazienteId, String operatoreId){
         //create digital twin "trasporto"
         BasicDigitalTwin trasportoDT = new BasicDigitalTwin(dtId)
                 .setMetadata(

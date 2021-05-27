@@ -31,7 +31,7 @@ public class DtTrasporto {
     }
 
     private void createAmbulanza(){
-        AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, idAmbulanza);
+        AmbulanzaDigitalTwin.createAmbulanza(AmbulanceState.READY, idAmbulanza);
     }
 
     private void createPaziente(){
@@ -42,7 +42,7 @@ public class DtTrasporto {
                         LocalDate.of(1981, 4, 3),
                         new Location(new Address ("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode("47122"))
                 );
-        StatoDiSalute statoSalute = new StatoDiSalute("Niente da riferire");
+        HealthState statoSalute = new HealthState("Niente da riferire");
 
         PazienteDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.NOT_AUTONOMOUS);
     }
@@ -60,7 +60,7 @@ public class DtTrasporto {
     private void createTrasporto(){
         TrasportoDigitalTwin.createTrasporto(idTrasporto,
                 LocalDateTime.of(2021,05,05,18,00),
-                StatoTrasporto.CONCLUSO,
+                TransportState.ENDED,
                 new Itinerario(
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
                         new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),

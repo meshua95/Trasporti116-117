@@ -6,11 +6,11 @@ package model;
 
 public class Itinerario {
 
-    private Location partenza;
-    private Location destinazione;
+    private Location departure;
+    private Location destination;
 
-    public Itinerario(Location partenza, Location destinazione) {
-        this.partenza = partenza;
-        this.destinazione = destinazione;
+    public Itinerario(Location departure, Location destination) {
+        this.departure = departure;
+        this.destination = destination;
     }
 }

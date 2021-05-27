@@ -5,13 +5,13 @@
 package domain.trasporto;
 
 import model.Itinerario;
-import model.StatoTrasporto;
+import model.TransportState;
 
 public class Trasporto {
     private Itinerario itinerario;
-    private StatoTrasporto stato;
+    private TransportState stato;
 
-    public Trasporto(Itinerario itinerario, StatoTrasporto stato) {
+    public Trasporto(Itinerario itinerario, TransportState stato) {
         this.itinerario = itinerario;
         this.stato = stato;
     }

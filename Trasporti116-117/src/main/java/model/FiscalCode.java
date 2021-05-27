@@ -8,8 +8,8 @@ public class FiscalCode {
 
     private String fiscalCode;
 
-    public FiscalCode(String codiceFiscale) {
-        this.fiscalCode = codiceFiscale;
+    public FiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
     }
 
     public String getFiscalCode() {

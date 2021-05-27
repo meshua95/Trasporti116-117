@@ -10,4 +10,8 @@ public class HouseNumber {
     public HouseNumber(String houseNumber){
         this.houseNumber = houseNumber;
     }
+
+    public String getHouseNumber(){
+        return this.houseNumber;
+    }
 }

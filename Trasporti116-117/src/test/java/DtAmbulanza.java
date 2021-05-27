@@ -7,7 +7,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import domain.ambulanza.AmbulanzaDigitalTwin;
-import model.StatoAmbulanza;
+import model.AmbulanceState;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class DtAmbulanza {
     @Test
     public void createAmbulanza(){
 
-        AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, idAmbulanza);
+        AmbulanzaDigitalTwin.createAmbulanza(AmbulanceState.READY, idAmbulanza);
         assertEquals(Client.getClient().getDigitalTwin("ambulanza" + idAmbulanza, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 

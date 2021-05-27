@@ -10,4 +10,8 @@ public class District {
     public District(String district){
         this.district = district;
     }
+
+    public String getDistrict(){
+        return this.district;
+    }
 }

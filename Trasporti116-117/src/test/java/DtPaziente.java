@@ -31,7 +31,7 @@ public class DtPaziente {
                         "Rossi",
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
-        StatoDiSalute statoSalute = new StatoDiSalute("Niente da riferire");
+        HealthState statoSalute = new HealthState("Niente da riferire");
 
         PazienteDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.PARTIALLY_AUTONOMOUS);
         assertEquals(Client.getClient().getDigitalTwin(idPaziente, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);

@@ -154,7 +154,7 @@ public class FXMLController implements Initializable {
                                 dataTrasporto.getValue().getDayOfMonth(),
                                 Integer.parseInt(hourTrasporto.getText()),
                                 Integer.parseInt(minTrasporto.getText())),
-                        StatoTrasporto.NON_INIZIATO,
+                        TransportState.NOT_STARTED,
                         new Itinerario(
                                 new Location(new Address(viaPartenza.getText()),
                                         new HouseNumber(numeroPartenza.getText()),
@@ -193,7 +193,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, Integer.parseInt(numAmbulanza.getText())));
+                .ifPresent(response -> AmbulanzaDigitalTwin.createAmbulanza(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
 
     }
 
@@ -282,7 +282,7 @@ public class FXMLController implements Initializable {
                                         new City(città.getText()),
                                         new District(provincia.getText()),
                                         new PostalCode(cap.getText()))),
-                        new StatoDiSalute(statoSalute.getText()),
+                        new HealthState(statoSalute.getText()),
                         autonomy.getValue()
                 ));
 
