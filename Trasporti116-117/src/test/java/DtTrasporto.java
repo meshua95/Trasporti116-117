@@ -101,7 +101,7 @@ public class DtTrasporto {
     @Test
     public void deleteTrasporto(){
         try{
-            TransportDigitalTwin.deleteTrasporto(idTrasporto);
+            TransportDigitalTwin.deleteTransport(idTrasporto);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

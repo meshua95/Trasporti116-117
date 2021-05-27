@@ -4,25 +4,16 @@ import domain.ambulanza.AmbulanceDigitalTwin;
 import domain.operatore.OperatorDigitalTwin;
 import domain.paziente.PatientDigitalTwin;
 import domain.trasporto.TransportDigitalTwin;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import model.*;
 
 import java.time.LocalDateTime;
 
-public class TransportDialog {
-    public static void createTrasportoDialog(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Aggiungi Trasporto");
+public class TransportDialog extends DtDialog{
 
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
-
+    @Override
+    public void createEntity(){
+        initialize("Aggiungi Trasporto");
         gridPane.add(new Label("Partenza"), 0, 1);
 
         TextField viaPartenza = new TextField();
@@ -95,7 +86,7 @@ public class TransportDialog {
         gridPane.add(paziente, 1, 15);
 
         ComboBox<String> operatore = new ComboBox<>();
-        OperatorDigitalTwin.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+        OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
         gridPane.add(new Label("Operatore"), 0, 16);
         gridPane.add(operatore, 1, 16);
 
@@ -130,5 +121,21 @@ public class TransportDialog {
                         paziente.getValue(),
                         operatore.getValue()));
 
+    }
+
+    @Override
+    public void deleteEntity() {
+        initialize("Elimina Trasporto");
+
+        ComboBox<String> transport = new ComboBox<>();
+        TransportDigitalTwin.getAllTransportId().forEach(t -> transport.getItems().add(t.getId()));
+        gridPane.add(new Label("Trasporto"), 0, 17);
+        gridPane.add(transport, 1, 17);
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        dialog.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(transport.getValue()));
     }
 }
