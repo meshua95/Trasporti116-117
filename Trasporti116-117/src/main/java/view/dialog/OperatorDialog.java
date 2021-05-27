@@ -1,26 +1,17 @@
 package view.dialog;
 
+import domain.ambulanza.AmbulanceDigitalTwin;
 import domain.operatore.OperatorDigitalTwin;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import model.*;
 
 import java.time.LocalDate;
 
-public class OperatorDialog {
+public class OperatorDialog extends DtDialog {
 
-    public static void createOperatoreDialog(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Inserisci operatore");
-
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
-
+    @Override
+    public void createEntity(){
+        initialize("Inserisci operatore");
         TextField nome = new TextField();
         nome.setPromptText("Nome");
         gridPane.add(new Label("Nome"), 0, 0);
@@ -85,5 +76,21 @@ public class OperatorDialog {
                         )
                 ));
 
+    }
+
+    @Override
+    public void deleteEntity() {
+        initialize("Elimina operatore");
+
+        ComboBox<String> operatore = new ComboBox<>();
+       OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+        gridPane.add(new Label("Operatore"), 0, 17);
+        gridPane.add(operatore, 1, 17);
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        dialog.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(operatore.getValue()));
     }
 }

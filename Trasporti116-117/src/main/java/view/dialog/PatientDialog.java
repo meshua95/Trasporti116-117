@@ -1,5 +1,6 @@
 package view.dialog;
 
+import domain.ambulanza.AmbulanceDigitalTwin;
 import domain.paziente.PatientDigitalTwin;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -8,17 +9,10 @@ import model.*;
 
 import java.time.LocalDate;
 
-public class PatientDialog {
-    public static void createPazienteDialog(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Inserisci paziente");
-
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
+public class PatientDialog extends DtDialog{
+    @Override
+    public void createEntity(){
+        initialize("Aggiungi Paziente");
 
         TextField nome = new TextField();
         nome.setPromptText("Nome");
@@ -100,4 +94,19 @@ public class PatientDialog {
 
     }
 
+    @Override
+    public void deleteEntity() {
+        initialize("Rimuovi Paziente");
+
+        ComboBox<String> paziente = new ComboBox<>();
+        PatientDigitalTwin.getAllPatientId().forEach(p -> paziente.getItems().add(p.getFiscalCode()));
+        gridPane.add(new Label("Paziente"), 0, 17);
+        gridPane.add(paziente, 1, 17);
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        dialog.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(paziente.getValue()));
+    }
 }

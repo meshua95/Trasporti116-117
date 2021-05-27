@@ -39,10 +39,15 @@ public class FXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        addAmbulanza.setOnAction(event -> AmbulanceDialog.createAmbulanzaDialog());
-        addPaziente.setOnAction(event -> PatientDialog.createPazienteDialog());
-        addOperatore.setOnAction(event -> OperatorDialog.createOperatoreDialog());
-        addTrasporto.setOnAction(event -> TransportDialog.createTrasportoDialog());
-        rmAmbulanza.setOnAction(event -> AmbulanceDialog.removeAmbulanzaDialog());
+
+        addAmbulanza.setOnAction(event -> new AmbulanceDialog().createEntity());
+        addPaziente.setOnAction(event -> new PatientDialog().createEntity());
+        addOperatore.setOnAction(event -> new OperatorDialog().createEntity());
+        addTrasporto.setOnAction(event -> new TransportDialog().createEntity());
+
+        rmAmbulanza.setOnAction(event -> new AmbulanceDialog().deleteEntity());
+        rmPaziente.setOnAction(event -> new PatientDialog().deleteEntity());
+        rmOperatore.setOnAction(event -> new OperatorDialog().deleteEntity());
+        rmTrasporto.setOnAction(event -> new TransportDialog().deleteEntity());
     }
 }

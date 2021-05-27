@@ -4,15 +4,18 @@
 
 package domain.trasporto;
 
+import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import domain.operatore.OperatorId;
 import model.Route;
 import model.TransportState;
 import utils.Constants;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransportDigitalTwin {
@@ -55,13 +58,21 @@ public class TransportDigitalTwin {
                 BasicRelationship.class);
     }
 
-    public static void deleteTrasporto(String idTrasporto) {
+    public static void deleteTransport(String idTrasporto) {
             Client.getClient().listRelationships(idTrasporto, BasicRelationship.class)
                     .forEach(rel -> Client.getClient().deleteRelationship(idTrasporto, rel.getId()));
             Client.getClient().deleteDigitalTwin(idTrasporto);
     }
 
-    public static void deleteAllTrasporto(List<String> dtId) {
-        dtId.forEach(TransportDigitalTwin::deleteTrasporto);
+    public static void deleteAllTransport(List<String> dtId) {
+        dtId.forEach(TransportDigitalTwin::deleteTransport);
+    }
+
+    public static ArrayList<TransportId> getAllTransportId(){
+        ArrayList<TransportId> transoprtIds = new ArrayList<>();
+        String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.TRASPORTO_ID + "'";
+        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
+        pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
+        return transoprtIds;
     }
 }

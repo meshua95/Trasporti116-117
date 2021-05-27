@@ -33,7 +33,7 @@ public class OperatorDigitalTwin {
         Client.getClient().deleteDigitalTwin(idOperatore);
     }
 
-    public static ArrayList<OperatorId> getAllOperatoreIdTwins(){
+    public static ArrayList<OperatorId> getAllOperatoreId(){
         ArrayList<OperatorId> operatoriIds = new ArrayList<>();
         String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.OPERATORE_AMBULANZA_ID + "'";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);

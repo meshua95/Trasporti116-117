@@ -1,26 +1,15 @@
 package view.dialog;
-
 import domain.ambulanza.AmbulanceDigitalTwin;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import model.AmbulanceState;
 
-public class AmbulanceDialog {
-    public static void createAmbulanzaDialog(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Aggiungi ambulanza");
+public class AmbulanceDialog extends DtDialog{
 
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
+    public void createEntity(){
+        initialize("Crea Ambulanza");
 
         TextField numAmbulanza = new TextField();
         numAmbulanza.setPromptText("Numero ambulanza");
-
         gridPane.add(new Label("Numero ambulanza"), 0, 0);
         gridPane.add(numAmbulanza, 1, 0);
 
@@ -31,16 +20,9 @@ public class AmbulanceDialog {
                 .ifPresent(response -> AmbulanceDigitalTwin.createAmbulanza(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
     }
 
-    public static void removeAmbulanzaDialog(){
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Rimuovi ambulanza");
-
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(20, 150, 10, 10));
+    @Override
+    public void deleteEntity(){
+        initialize("Cancella Ambulanza");
 
         ComboBox<String> ambulanza = new ComboBox<>();
         AmbulanceDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
@@ -52,7 +34,6 @@ public class AmbulanceDialog {
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(ambulanza.getValue()));
-
     }
 
 }

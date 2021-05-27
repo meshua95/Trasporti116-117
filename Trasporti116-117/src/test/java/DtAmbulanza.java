@@ -10,9 +10,6 @@ import domain.ambulanza.AmbulanceDigitalTwin;
 import model.AmbulanceState;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class DtAmbulanza {
@@ -26,7 +23,6 @@ public class DtAmbulanza {
 
     @Test
     public void createAmbulanza(){
-
         AmbulanceDigitalTwin.createAmbulanza(AmbulanceState.READY, idAmbulanza);
         assertEquals(Client.getClient().getDigitalTwin("ambulanza" + idAmbulanza, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
@@ -39,5 +35,4 @@ public class DtAmbulanza {
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }
     }
-
 }
