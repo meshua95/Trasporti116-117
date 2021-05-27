@@ -15,3 +15,8 @@ branches:
   only:
     - develop
     - master
+
+jdk:
+  - oraclejdk8
+
+script: ant build
