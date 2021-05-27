@@ -18,5 +18,3 @@ branches:
 
 jdk:
   - oraclejdk14
-
-script: ant build
