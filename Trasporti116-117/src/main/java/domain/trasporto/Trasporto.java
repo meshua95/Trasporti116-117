@@ -4,6 +4,9 @@
 
 package domain.trasporto;
 
+import model.Itinerario;
+import model.StatoTrasporto;
+
 public class Trasporto {
     private Itinerario itinerario;
     private StatoTrasporto stato;

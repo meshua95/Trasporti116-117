@@ -2,7 +2,7 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.trasporto;
+package model;
 
 public enum StatoTrasporto {
     NON_INIZIATO(1),

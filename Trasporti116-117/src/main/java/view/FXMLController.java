@@ -8,12 +8,10 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import digitalTwins.DigitalTwinsBuilder;
-import domain.ambulanza.StatoAmbulanza;
-import domain.paziente.Autonomia;
-import domain.paziente.DatiAnagraficiPaziente;
-import domain.paziente.StatoDiSalute;
-import domain.operatore.DatiAnagraficiOperatore;
+import domain.ambulanza.AmbulanzaDigitalTwin;
+import model.*;
+import domain.operatore.OperatoreDigitalTwin;
+import domain.paziente.PazienteDigitalTwin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -76,7 +74,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, Integer.parseInt(numAmbulanza.getText())));
+                .ifPresent(response -> AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, Integer.parseInt(numAmbulanza.getText())));
 
     }
 
@@ -140,28 +138,33 @@ public class FXMLController implements Initializable {
         gridPane.add(new Label("Stato di salute"), 0, 9);
         gridPane.add(statoSalute, 1, 9);
 
-        ComboBox<Autonomia> autonomia = new ComboBox<>();
-        autonomia.getItems().addAll(
-                Autonomia.AUTONOMO,
-                Autonomia.PARZIALMENTE_AUTONOMO,
-                Autonomia.NON_AUTONOMO
+        ComboBox<Autonomy> autonomy = new ComboBox<>();
+        autonomy.getItems().addAll(
+                Autonomy.AUTONOMOUS,
+                Autonomy.PARTIALLY_AUTONOMOUS,
+                Autonomy.NOT_AUTONOMOUS
         );
         gridPane.add(new Label("Autonomia"), 0, 10);
-        gridPane.add(autonomia, 1, 10);
+        gridPane.add(autonomy, 1, 10);
 
         dialog.getDialogPane().setContent(gridPane);
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createPazienteDigitalTwin(
+                .ifPresent(response -> PazienteDigitalTwin.createPaziente(
                         cf.getText(),
-                        new DatiAnagraficiPaziente(
+                        new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new DatiAnagraficiPaziente.Residenza(via.getText(),numero.getText(),città.getText(), provincia.getText(), Integer.parseInt(cap.getText()))),
+                                new Location(
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(cap.getText()))),
                         new StatoDiSalute(statoSalute.getText()),
-                        autonomia.getValue()
+                        autonomy.getValue()
                 ));
 
     }
@@ -226,13 +229,18 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createOperatoreAmbulanzaDigitalTwin(
+                .ifPresent(response -> OperatoreDigitalTwin.createOperatore(
                         cf.getText(),
-                        new DatiAnagraficiOperatore(
+                        new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new DatiAnagraficiOperatore.Residenza(via.getText(),numero.getText(),città.getText(), provincia.getText(), Integer.parseInt(cap.getText()))
+                                new Location(
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(cap.getText()))
                         )
                 ));
 

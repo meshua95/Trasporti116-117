@@ -2,7 +2,7 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.ambulanza;
+package model;
 
 public enum StatoAmbulanza {
     GUASTA(1),
