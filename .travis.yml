@@ -11,9 +11,6 @@ os:
 install:
   - true
 
-script:
-  - ./gradlew test   #lancia il task che prevede i test
-
 branches:
   only:
     - develop
