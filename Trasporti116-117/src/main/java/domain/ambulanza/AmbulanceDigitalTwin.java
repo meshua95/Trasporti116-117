@@ -9,11 +9,11 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import model.AmbulanceId;
 import model.AmbulanceState;
 import utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AmbulanceDigitalTwin {
 

@@ -99,7 +99,7 @@ public class TransportDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> TransportDigitalTwin.createTrasporto("Trasporto2",
+                .ifPresent(response -> TransportDigitalTwin.createTrasporto(
                         LocalDateTime.of(dataTrasporto.getValue().getYear(),
                                 dataTrasporto.getValue().getMonth(),
                                 dataTrasporto.getValue().getDayOfMonth(),
@@ -117,9 +117,9 @@ public class TransportDialog extends DtDialog{
                                         new City(cittàArrivo.getText()),
                                         new District(provinciaArrivo.getText()),
                                         new PostalCode(capArrivo.getText()))),
-                        ambulanza.getValue(),
-                        paziente.getValue(),
-                        operatore.getValue()));
+                        new AmbulanceId(ambulanza.getValue()),
+                        new FiscalCode(paziente.getValue()),
+                        new OperatorId(operatore.getValue())));
 
     }
 

@@ -1,4 +1,8 @@
-package domain.operatore;
+/*
+ * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
+ */
+
+package model;
 
 public class OperatorId {
     private String operatorId;

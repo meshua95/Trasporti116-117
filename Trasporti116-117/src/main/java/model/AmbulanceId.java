@@ -1,4 +1,8 @@
-package domain.ambulanza;
+/*
+ * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
+ */
+
+package model;
 
 public class AmbulanceId {
     private String ambulanceId;
