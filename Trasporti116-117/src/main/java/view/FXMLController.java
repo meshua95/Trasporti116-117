@@ -140,7 +140,7 @@ public class FXMLController implements Initializable {
         gridPane.add(operatore, 1, 16);
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        AmbulanceDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
+        AmbulanceDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
