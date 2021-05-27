@@ -55,12 +55,10 @@ public class AmbulanzaDigitalTwin {
 
     }
 
-    public static void deleteAmbulanza(List<String> dtId) {
-        dtId.forEach(id -> {
-            Client.getClient().listRelationships(id, BasicRelationship.class)
-                    .forEach(rel -> Client.getClient().deleteRelationship(id, rel.getId()));
-            Client.getClient().deleteDigitalTwin(id);
-        });
+    public static void deleteAmbulanza(String dtId) {
+        Client.getClient().listRelationships(dtId, BasicRelationship.class)
+                .forEach(rel -> Client.getClient().deleteRelationship(dtId, rel.getId()));
+        Client.getClient().deleteDigitalTwin(dtId);
     }
 
     public static ArrayList<IdAmbulanza> getAllAmbulanzaIdTwins(){

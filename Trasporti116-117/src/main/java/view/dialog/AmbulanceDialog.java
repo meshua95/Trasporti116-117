@@ -1,11 +1,10 @@
 package view.dialog;
 
-import digitalTwins.DigitalTwinQuery;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.ambulanza.StatoAmbulanza;
+import domain.ambulanza.AmbulanzaDigitalTwin;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.AmbulanceState;
 
 public class AmbulanceDialog {
     public static void createAmbulanzaDialog(){
@@ -29,8 +28,7 @@ public class AmbulanceDialog {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, Integer.parseInt(numAmbulanza.getText())));
-
+                .ifPresent(response -> AmbulanzaDigitalTwin.createAmbulanza(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
     }
 
     public static void removeAmbulanzaDialog(){
@@ -45,7 +43,7 @@ public class AmbulanceDialog {
         gridPane.setPadding(new Insets(20, 150, 10, 10));
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        DigitalTwinQuery.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
+        AmbulanzaDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
@@ -53,7 +51,7 @@ public class AmbulanceDialog {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinEraser.deleteTwin(ambulanza.getValue()));
+                .ifPresent(response -> AmbulanzaDigitalTwin.deleteAmbulanza(ambulanza.getValue()));
 
     }
 

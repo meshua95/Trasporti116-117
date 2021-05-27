@@ -1,12 +1,13 @@
 package view.dialog;
 
-import digitalTwins.DigitalTwinQuery;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.trasporto.Itinerario;
-import domain.trasporto.StatoTrasporto;
+import domain.ambulanza.AmbulanzaDigitalTwin;
+import domain.operatore.OperatoreDigitalTwin;
+import domain.paziente.PazienteDigitalTwin;
+import domain.trasporto.TrasportoDigitalTwin;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.*;
 
 import java.time.LocalDateTime;
 
@@ -89,17 +90,17 @@ public class TransportDialog {
         gridPane.add(minTrasporto, 2, 14);
 
         ComboBox<String> paziente = new ComboBox<>();
-        DigitalTwinQuery.getAllPazienteIdTwins().forEach(p -> paziente.getItems().add(p.getCodiceFiscale()));
+        PazienteDigitalTwin.getAllPatientId().forEach(p -> paziente.getItems().add(p.getFiscalCode()));
         gridPane.add(new Label("Paziente"), 0, 15);
         gridPane.add(paziente, 1, 15);
 
         ComboBox<String> operatore = new ComboBox<>();
-        DigitalTwinQuery.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+        OperatoreDigitalTwin.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
         gridPane.add(new Label("Operatore"), 0, 16);
         gridPane.add(operatore, 1, 16);
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        DigitalTwinQuery.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
+        AmbulanzaDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
@@ -107,24 +108,24 @@ public class TransportDialog {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createTrasportoDigitalTwin("Trasporto2",
+                .ifPresent(response -> TrasportoDigitalTwin.createTrasporto("Trasporto2",
                         LocalDateTime.of(dataTrasporto.getValue().getYear(),
                                 dataTrasporto.getValue().getMonth(),
                                 dataTrasporto.getValue().getDayOfMonth(),
                                 Integer.parseInt(hourTrasporto.getText()),
                                 Integer.parseInt(minTrasporto.getText())),
-                        StatoTrasporto.NON_INIZIATO,
+                        TransportState.NOT_STARTED,
                         new Itinerario(
-                                new Itinerario.Luogo(viaPartenza.getText(),
-                                        numeroPartenza.getText(),
-                                        cittàPartenza.getText(),
-                                        provinciaPartenza.getText(),
-                                        Integer.parseInt(capPartenza.getText())),
-                                new Itinerario.Luogo(viaArrivo.getText(),
-                                        numeroArrivo.getText(),
-                                        cittàArrivo.getText(),
-                                        provinciaArrivo.getText(),
-                                        Integer.parseInt(capArrivo.getText()))),
+                                new Location(new Address(viaPartenza.getText()),
+                                        new HouseNumber(numeroPartenza.getText()),
+                                        new City(cittàPartenza.getText()),
+                                        new District(provinciaPartenza.getText()),
+                                        new PostalCode(capPartenza.getText())),
+                                new Location(new Address(viaArrivo.getText()),
+                                        new HouseNumber(numeroArrivo.getText()),
+                                        new City(cittàArrivo.getText()),
+                                        new District(provinciaArrivo.getText()),
+                                        new PostalCode(capArrivo.getText()))),
                         ambulanza.getValue(),
                         paziente.getValue(),
                         operatore.getValue()));

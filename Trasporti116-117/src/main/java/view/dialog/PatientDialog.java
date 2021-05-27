@@ -1,12 +1,10 @@
 package view.dialog;
 
-import digitalTwins.DigitalTwinsBuilder;
-import domain.paziente.Autonomia;
-import domain.paziente.DatiAnagraficiPaziente;
-import domain.paziente.StatoDiSalute;
+import domain.paziente.PazienteDigitalTwin;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.*;
 
 import java.time.LocalDate;
 
@@ -71,11 +69,11 @@ public class PatientDialog {
         gridPane.add(new Label("Stato di salute"), 0, 9);
         gridPane.add(statoSalute, 1, 9);
 
-        ComboBox<Autonomia> autonomia = new ComboBox<>();
+        ComboBox<Autonomy> autonomia = new ComboBox<>();
         autonomia.getItems().addAll(
-                Autonomia.AUTONOMO,
-                Autonomia.PARZIALMENTE_AUTONOMO,
-                Autonomia.NON_AUTONOMO
+                Autonomy.AUTONOMOUS,
+                Autonomy.NOT_AUTONOMOUS,
+                Autonomy.PARTIALLY_AUTONOMOUS
         );
         gridPane.add(new Label("Autonomia"), 0, 10);
         gridPane.add(autonomia, 1, 10);
@@ -84,14 +82,19 @@ public class PatientDialog {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createPazienteDigitalTwin(
+                .ifPresent(response -> PazienteDigitalTwin.createPaziente(
                         cf.getText(),
-                        new DatiAnagraficiPaziente(
+                        new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new DatiAnagraficiPaziente.Residenza(via.getText(),numero.getText(),città.getText(), provincia.getText(), Integer.parseInt(cap.getText()))),
-                        new StatoDiSalute(statoSalute.getText()),
+                                new Location(
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(cap.getText()))),
+                        new HealthState(statoSalute.getText()),
                         autonomia.getValue()
                 ));
 

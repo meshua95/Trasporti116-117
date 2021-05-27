@@ -1,10 +1,10 @@
 package view.dialog;
 
-import digitalTwins.DigitalTwinsBuilder;
-import domain.operatore.DatiAnagraficiOperatore;
+import domain.operatore.OperatoreDigitalTwin;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import model.*;
 
 import java.time.LocalDate;
 
@@ -70,13 +70,18 @@ public class OperatorDialog {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createOperatoreAmbulanzaDigitalTwin(
+                .ifPresent(response -> OperatoreDigitalTwin.createOperatore(
                         cf.getText(),
-                        new DatiAnagraficiOperatore(
+                        new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new DatiAnagraficiOperatore.Residenza(via.getText(),numero.getText(),città.getText(), provincia.getText(), Integer.parseInt(cap.getText()))
+                                new Location(
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(cap.getText()))
                         )
                 ));
 
