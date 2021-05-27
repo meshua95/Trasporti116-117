@@ -1,13 +1,13 @@
 package domain.operatore;
 
 public class OperatorId {
-    private String codiceFiscale;
+    private String operatorId;
 
-    public OperatorId(String codiceFiscale) {
-        this.codiceFiscale = codiceFiscale;
+    public OperatorId(String operatorId) {
+        this.operatorId = operatorId;
     }
 
-    public String getCodiceFiscale() {
-        return codiceFiscale;
+    public String getOperatorId() {
+        return this.operatorId;
     }
 }

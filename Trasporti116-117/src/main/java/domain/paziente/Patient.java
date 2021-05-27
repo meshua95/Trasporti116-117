@@ -9,13 +9,13 @@ import model.*;
 public class Patient {
     private FiscalCode fiscalCode;
     private HealthState healthState;
-    private PersonalData datiAnagraficiPaziente;
+    private PersonalData personalData;
     private Autonomy autonomy;
 
-    public Patient(FiscalCode cf, HealthState healthState, PersonalData datiAnagraficiPaziente, Autonomy autonomy) {
+    public Patient(FiscalCode cf, HealthState healthState, PersonalData personalData, Autonomy autonomy) {
         this.fiscalCode = cf;
         this.healthState = healthState;
-        this.datiAnagraficiPaziente = datiAnagraficiPaziente;
+        this.personalData = personalData;
         this.autonomy = autonomy;
     }
 
@@ -23,8 +23,8 @@ public class Patient {
         return healthState;
     }
 
-    public PersonalData getDatiAnagraficiPaziente() {
-        return datiAnagraficiPaziente;
+    public PersonalData getPersonalData() {
+        return personalData;
     }
 
     public Autonomy getAutonomy() {

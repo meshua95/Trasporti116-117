@@ -86,7 +86,7 @@ public class TransportDialog extends DtDialog{
         gridPane.add(paziente, 1, 15);
 
         ComboBox<String> operatore = new ComboBox<>();
-        OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+        OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getOperatorId()));
         gridPane.add(new Label("Operatore"), 0, 16);
         gridPane.add(operatore, 1, 16);
 
