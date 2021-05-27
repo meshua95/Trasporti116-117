@@ -15,7 +15,7 @@ import utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AmbulanzaDigitalTwin {
+public class AmbulanceDigitalTwin {
 
     public static void createAmbulanza(AmbulanceState stato, int numeroAmbulanza){
         String ambulanzaId = "ambulanza"+numeroAmbulanza;
@@ -63,11 +63,11 @@ public class AmbulanzaDigitalTwin {
         });
     }
 
-    public static ArrayList<IdAmbulanza> getAllAmbulanzaIdTwins(){
-        ArrayList<IdAmbulanza> ambulanzeIds = new ArrayList<>();
+    public static ArrayList<AmbulanceId> getAllAmbulanzaIdTwins(){
+        ArrayList<AmbulanceId> ambulanzeIds = new ArrayList<>();
         String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.AMBULANZA_MODEL_ID + "'";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        pageableResponse.forEach(r-> ambulanzeIds.add(new IdAmbulanza(r.getId())));
+        pageableResponse.forEach(r-> ambulanzeIds.add(new AmbulanceId(r.getId())));
         return ambulanzeIds;
     }
 }

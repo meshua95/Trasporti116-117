@@ -6,11 +6,11 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import domain.ambulanza.AmbulanzaDigitalTwin;
+import domain.ambulanza.AmbulanceDigitalTwin;
 import model.*;
-import domain.operatore.OperatoreDigitalTwin;
-import domain.paziente.PazienteDigitalTwin;
-import domain.trasporto.TrasportoDigitalTwin;
+import domain.operatore.OperatorDigitalTwin;
+import domain.paziente.PatientDigitalTwin;
+import domain.trasporto.TransportDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class DtTrasporto {
     }
 
     private void createAmbulanza(){
-        AmbulanzaDigitalTwin.createAmbulanza(AmbulanceState.READY, idAmbulanza);
+        AmbulanceDigitalTwin.createAmbulanza(AmbulanceState.READY, idAmbulanza);
     }
 
     private void createPaziente(){
@@ -44,7 +44,7 @@ public class DtTrasporto {
                 );
         HealthState statoSalute = new HealthState("Niente da riferire");
 
-        PazienteDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.NOT_AUTONOMOUS);
+        PatientDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.NOT_AUTONOMOUS);
     }
 
     private void createOperatore(){
@@ -54,14 +54,14 @@ public class DtTrasporto {
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
 
-        OperatoreDigitalTwin.createOperatore(idOperatore, personalData);
+        OperatorDigitalTwin.createOperatore(idOperatore, personalData);
     }
 
     private void createTrasporto(){
-        TrasportoDigitalTwin.createTrasporto(idTrasporto,
+        TransportDigitalTwin.createTrasporto(idTrasporto,
                 LocalDateTime.of(2021,05,05,18,00),
                 TransportState.ENDED,
-                new Itinerario(
+                new Route(
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
                         new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),
                 "ambulanza" + idAmbulanza,
@@ -101,7 +101,7 @@ public class DtTrasporto {
     @Test
     public void deleteTrasporto(){
         try{
-            TrasportoDigitalTwin.deleteTrasporto(idTrasporto);
+            TransportDigitalTwin.deleteTrasporto(idTrasporto);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

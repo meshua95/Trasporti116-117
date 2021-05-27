@@ -3,13 +3,13 @@
  */
 
 import digitalTwins.Client;
-import domain.paziente.PazienteDigitalTwin;
+import domain.paziente.PatientDigitalTwin;
 import view.MainApp;
 
 public class Main {
     public static void main(String... arg) {
         Client.getClient();
-        System.out.println(PazienteDigitalTwin.getAllPatientId());
+        System.out.println(PatientDigitalTwin.getAllPatientId());
         MainApp.main(arg);
     }
 

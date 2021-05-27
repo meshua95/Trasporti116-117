@@ -4,12 +4,12 @@
 
 package model;
 
-public class Itinerario {
+public class Route {
 
     private Location departure;
     private Location destination;
 
-    public Itinerario(Location departure, Location destination) {
+    public Route(Location departure, Location destination) {
         this.departure = departure;
         this.destination = destination;
     }

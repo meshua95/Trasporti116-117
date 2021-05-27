@@ -1,9 +1,9 @@
 package domain.operatore;
 
-public class IdOperatore {
+public class OperatorId {
     private String codiceFiscale;
 
-    public IdOperatore(String codiceFiscale) {
+    public OperatorId(String codiceFiscale) {
         this.codiceFiscale = codiceFiscale;
     }
 

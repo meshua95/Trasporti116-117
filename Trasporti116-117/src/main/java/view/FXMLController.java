@@ -9,11 +9,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-import domain.ambulanza.AmbulanzaDigitalTwin;
-import domain.trasporto.TrasportoDigitalTwin;
+import domain.ambulanza.AmbulanceDigitalTwin;
+import domain.trasporto.TransportDigitalTwin;
 import model.*;
-import domain.operatore.OperatoreDigitalTwin;
-import domain.paziente.PazienteDigitalTwin;
+import domain.operatore.OperatorDigitalTwin;
+import domain.paziente.PatientDigitalTwin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -130,17 +130,17 @@ public class FXMLController implements Initializable {
         gridPane.add(minTrasporto, 2, 14);
 
         ComboBox<String> paziente = new ComboBox<>();
-        PazienteDigitalTwin.getAllPatientId().forEach(p -> paziente.getItems().add(p.getFiscalCode()));
+        PatientDigitalTwin.getAllPatientId().forEach(p -> paziente.getItems().add(p.getFiscalCode()));
         gridPane.add(new Label("Paziente"), 0, 15);
         gridPane.add(paziente, 1, 15);
 
         ComboBox<String> operatore = new ComboBox<>();
-        OperatoreDigitalTwin.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+        OperatorDigitalTwin.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
         gridPane.add(new Label("Operatore"), 0, 16);
         gridPane.add(operatore, 1, 16);
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        AmbulanzaDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
+        AmbulanceDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
@@ -148,14 +148,14 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> TrasportoDigitalTwin.createTrasporto("Trasporto2",
+                .ifPresent(response -> TransportDigitalTwin.createTrasporto("Trasporto2",
                         LocalDateTime.of(dataTrasporto.getValue().getYear(),
                                 dataTrasporto.getValue().getMonth(),
                                 dataTrasporto.getValue().getDayOfMonth(),
                                 Integer.parseInt(hourTrasporto.getText()),
                                 Integer.parseInt(minTrasporto.getText())),
                         TransportState.NOT_STARTED,
-                        new Itinerario(
+                        new Route(
                                 new Location(new Address(viaPartenza.getText()),
                                         new HouseNumber(numeroPartenza.getText()),
                                         new City(cittàPartenza.getText()),
@@ -193,7 +193,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanzaDigitalTwin.createAmbulanza(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
+                .ifPresent(response -> AmbulanceDigitalTwin.createAmbulanza(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
 
     }
 
@@ -270,7 +270,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> PazienteDigitalTwin.createPaziente(
+                .ifPresent(response -> PatientDigitalTwin.createPaziente(
                         cf.getText(),
                         new PersonalData(
                                 nome.getText(),
@@ -348,7 +348,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> OperatoreDigitalTwin.createOperatore(
+                .ifPresent(response -> OperatorDigitalTwin.createOperatore(
                         cf.getText(),
                         new PersonalData(
                                 nome.getText(),

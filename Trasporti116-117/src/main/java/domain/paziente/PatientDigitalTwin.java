@@ -14,7 +14,7 @@ import utils.Constants;
 
 import java.util.ArrayList;
 
-public class PazienteDigitalTwin {
+public class PatientDigitalTwin {
 
     public static void createPaziente(String dtId, PersonalData datiAnagraficiPaziente, HealthState healthState, Autonomy autonomy){
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(dtId)

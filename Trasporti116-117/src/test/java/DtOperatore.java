@@ -6,7 +6,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import model.*;
-import domain.operatore.OperatoreDigitalTwin;
+import domain.operatore.OperatorDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,14 +31,14 @@ public class DtOperatore {
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
 
-        OperatoreDigitalTwin.createOperatore(idOperatore, personalData);
+        OperatorDigitalTwin.createOperatore(idOperatore, personalData);
         assertEquals(Client.getClient().getDigitalTwin(idOperatore, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void deleteOperatore(){
         try{
-            OperatoreDigitalTwin.deleteOperatore(idOperatore);
+            OperatorDigitalTwin.deleteOperatore(idOperatore);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

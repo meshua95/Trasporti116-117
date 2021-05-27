@@ -8,23 +8,23 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
-import model.Itinerario;
+import model.Route;
 import model.TransportState;
 import utils.Constants;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class TrasportoDigitalTwin {
+public class TransportDigitalTwin {
 
-    public static void createTrasporto(String dtId, LocalDateTime dataOra, TransportState stato, Itinerario itinerario, String ambulanzaId, String pazienteId, String operatoreId){
+    public static void createTrasporto(String dtId, LocalDateTime dataOra, TransportState stato, Route route, String ambulanzaId, String pazienteId, String operatoreId){
         //create digital twin "trasporto"
         BasicDigitalTwin trasportoDT = new BasicDigitalTwin(dtId)
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRASPORTO_ID)
                 )
                 .addToContents("dataOra", dataOra)
-                .addToContents("itinerario", itinerario)
+                .addToContents("itinerario", route)
                 .addToContents("stato", stato.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, trasportoDT, BasicDigitalTwin.class);
@@ -62,6 +62,6 @@ public class TrasportoDigitalTwin {
     }
 
     public static void deleteAllTrasporto(List<String> dtId) {
-        dtId.forEach(TrasportoDigitalTwin::deleteTrasporto);
+        dtId.forEach(TransportDigitalTwin::deleteTrasporto);
     }
 }

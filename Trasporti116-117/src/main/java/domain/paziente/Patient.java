@@ -6,13 +6,13 @@ package domain.paziente;
 
 import model.*;
 
-public class Paziente {
+public class Patient {
     private FiscalCode fiscalCode;
     private HealthState healthState;
     private PersonalData datiAnagraficiPaziente;
     private Autonomy autonomy;
 
-    public Paziente(FiscalCode cf, HealthState healthState, PersonalData datiAnagraficiPaziente, Autonomy autonomy) {
+    public Patient(FiscalCode cf, HealthState healthState, PersonalData datiAnagraficiPaziente, Autonomy autonomy) {
         this.fiscalCode = cf;
         this.healthState = healthState;
         this.datiAnagraficiPaziente = datiAnagraficiPaziente;
