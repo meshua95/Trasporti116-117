@@ -5,14 +5,12 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import digitalTwins.DigitalTwinEraser;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.operatore.DatiAnagraficiOperatore;
+import model.*;
+import domain.operatore.OperatoreDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,26 +19,26 @@ public class DtOperatore {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     @Test
     public void createOperatore(){
 
-        DatiAnagraficiOperatore datiAnagrafici =
-                new DatiAnagraficiOperatore("Mario",
+        PersonalData personalData =
+                new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
-                        new DatiAnagraficiOperatore.Residenza("settembre","13B","Cesena", "FC", 47521));
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
 
-        DigitalTwinsBuilder.createOperatoreAmbulanzaDigitalTwin(idOperatore, datiAnagrafici);
+        OperatoreDigitalTwin.createOperatore(idOperatore, personalData);
         assertEquals(Client.getClient().getDigitalTwin(idOperatore, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void deleteOperatore(){
         try{
-            DigitalTwinEraser.deleteTwins(Arrays.asList(idOperatore));
+            OperatoreDigitalTwin.deleteOperatore(idOperatore);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

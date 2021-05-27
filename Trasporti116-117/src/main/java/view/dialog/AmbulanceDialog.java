@@ -1,6 +1,5 @@
 package view.dialog;
 
-import digitalTwins.DigitalTwinEraser;
 import digitalTwins.DigitalTwinQuery;
 import digitalTwins.DigitalTwinsBuilder;
 import domain.ambulanza.StatoAmbulanza;

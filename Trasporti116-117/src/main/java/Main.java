@@ -3,15 +3,13 @@
  */
 
 import digitalTwins.Client;
-import digitalTwins.DigitalTwinEraser;
-import digitalTwins.DigitalTwinQuery;
+import domain.paziente.PazienteDigitalTwin;
 import view.MainApp;
 
 public class Main {
     public static void main(String... arg) {
-        Client.createClient();
-        DigitalTwinEraser.deleteTwin("ambulanza4");
-       // MainApp.main(arg);
+        System.out.println(PazienteDigitalTwin.getAllPatientId());
+        MainApp.main(arg);
     }
 
 }

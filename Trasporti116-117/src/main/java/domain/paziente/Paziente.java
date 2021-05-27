@@ -4,27 +4,34 @@
 
 package domain.paziente;
 
+import model.*;
+
 public class Paziente {
-    private StatoDiSalute statoDiSalute;
-    private DatiAnagraficiPaziente datiAnagraficiPaziente;
-    private Autonomia autonomia;
+    private FiscalCode fiscalCode;
+    private HealthState healthState;
+    private PersonalData datiAnagraficiPaziente;
+    private Autonomy autonomy;
 
-    public Paziente(StatoDiSalute statoDiSalute, DatiAnagraficiPaziente datiAnagraficiPaziente, Autonomia autonomia) {
-        this.statoDiSalute = statoDiSalute;
+    public Paziente(FiscalCode cf, HealthState healthState, PersonalData datiAnagraficiPaziente, Autonomy autonomy) {
+        this.fiscalCode = cf;
+        this.healthState = healthState;
         this.datiAnagraficiPaziente = datiAnagraficiPaziente;
-        this.autonomia = autonomia;
+        this.autonomy = autonomy;
     }
 
-
-    public StatoDiSalute getStatoDiSalute() {
-        return statoDiSalute;
+    public HealthState getStatoDiSalute() {
+        return healthState;
     }
 
-    public DatiAnagraficiPaziente getDatiAnagraficiPaziente() {
+    public PersonalData getDatiAnagraficiPaziente() {
         return datiAnagraficiPaziente;
     }
 
-    public Autonomia getAutonomia() {
-        return autonomia;
+    public Autonomy getAutonomy() {
+        return this.autonomy;
+    }
+
+    public FiscalCode getFiscalCode(){
+        return this.fiscalCode;
     }
 }

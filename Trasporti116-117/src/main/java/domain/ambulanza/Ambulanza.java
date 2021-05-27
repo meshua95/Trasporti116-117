@@ -4,14 +4,16 @@
 
 package domain.ambulanza;
 
-public class Ambulanza {
-    private StatoAmbulanza stato;
+import model.AmbulanceState;
 
-    public Ambulanza(StatoAmbulanza stato) {
+public class Ambulanza {
+    private final AmbulanceState stato;
+
+    public Ambulanza(AmbulanceState stato) {
         this.stato = stato;
     }
 
-    public StatoAmbulanza getStato() {
+    public AmbulanceState getStato() {
         return stato;
     }
 }
