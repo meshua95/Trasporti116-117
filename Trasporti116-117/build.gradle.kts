@@ -40,6 +40,18 @@ tasks.jacocoTestReport{
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform() // Use JUnit 5 engine
+    testLogging.showStandardStreams = true
+    testLogging {
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = true
+        events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+}
+
 /*
 sourceSets{
     buildDir("src/main/java")
