@@ -83,7 +83,7 @@ public class OperatorDialog extends DtDialog {
         initialize("Elimina operatore");
 
         ComboBox<String> operatore = new ComboBox<>();
-       OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+       OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getOperatorId()));
         gridPane.add(new Label("Operatore"), 0, 17);
         gridPane.add(operatore, 1, 17);
 

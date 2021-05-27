@@ -9,9 +9,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
-import domain.operatore.OperatorId;
-import model.Route;
-import model.TransportState;
+import model.*;
 import utils.Constants;
 
 import java.time.LocalDateTime;
@@ -20,9 +18,11 @@ import java.util.List;
 
 public class TransportDigitalTwin {
 
-    public static void createTrasporto(String dtId, LocalDateTime dataOra, TransportState stato, Route route, String ambulanzaId, String pazienteId, String operatoreId){
+    public static void createTrasporto(LocalDateTime dataOra, TransportState stato, Route route, AmbulanceId ambulanzaId, FiscalCode pazienteId, OperatorId operatoreId){
+        TransportId transportId = generateTransportId(pazienteId, ambulanzaId, dataOra);
+
         //create digital twin "trasporto"
-        BasicDigitalTwin trasportoDT = new BasicDigitalTwin(dtId)
+        BasicDigitalTwin trasportoDT = new BasicDigitalTwin(transportId.toString())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRASPORTO_ID)
                 )
@@ -30,32 +30,17 @@ public class TransportDigitalTwin {
                 .addToContents("itinerario", route)
                 .addToContents("stato", stato.getValue());
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, trasportoDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.toString(), trasportoDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
         //add relationship whit ambulanza
-        createTrasportoRelationship(dtId, ambulanzaId, "usa");
+        createTrasportoRelationship(transportId.toString(), ambulanzaId.toString(), "usa");
 
         //add relationship whit paziente
-        createTrasportoRelationship(dtId, pazienteId, "trasporta");
+        createTrasportoRelationship(transportId.toString(), pazienteId.toString(), "trasporta");
 
         //add relationship whit operatore
-        createTrasportoRelationship(dtId, operatoreId, "guidata");
-    }
-
-    private static void createTrasportoRelationship(String trasportoId, String targetId, String relationshipName){
-        BasicRelationship trasportoToTargetRelationship =
-                new BasicRelationship(
-                        trasportoId + "to" + targetId,
-                        trasportoId,
-                        targetId,
-                        relationshipName);
-
-        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
-                trasportoId,
-                trasportoId + "to" + targetId,
-                trasportoToTargetRelationship,
-                BasicRelationship.class);
+        createTrasportoRelationship(transportId.toString(), operatoreId.toString(), "guidata");
     }
 
     public static void deleteTransport(String idTrasporto) {
@@ -74,5 +59,26 @@ public class TransportDigitalTwin {
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
         return transoprtIds;
+    }
+
+    private static void createTrasportoRelationship(String trasportoId, String targetId, String relationshipName){
+        BasicRelationship trasportoToTargetRelationship =
+                new BasicRelationship(
+                        trasportoId + "to" + targetId,
+                        trasportoId,
+                        targetId,
+                        relationshipName);
+
+        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
+                trasportoId,
+                trasportoId + "to" + targetId,
+                trasportoToTargetRelationship,
+                BasicRelationship.class);
+    }
+
+    private static TransportId generateTransportId(FiscalCode patientId, AmbulanceId ambulanceId, LocalDateTime dataOra){
+        return new TransportId(patientId.toString() +"-"
+                + ambulanceId.toString() + "-"
+                + dataOra.toString());
     }
 }

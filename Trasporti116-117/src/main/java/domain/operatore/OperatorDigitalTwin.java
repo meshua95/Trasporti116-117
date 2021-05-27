@@ -9,6 +9,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import model.OperatorId;
 import model.PersonalData;
 import utils.Constants;
 

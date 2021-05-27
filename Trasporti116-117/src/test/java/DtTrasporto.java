@@ -58,15 +58,15 @@ public class DtTrasporto {
     }
 
     private void createTrasporto(){
-        TransportDigitalTwin.createTrasporto(idTrasporto,
+        TransportDigitalTwin.createTrasporto(
                 LocalDateTime.of(2021,05,05,18,00),
                 TransportState.ENDED,
                 new Route(
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
                         new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),
-                "ambulanza" + idAmbulanza,
-                idPaziente,
-                idOperatore);
+                new AmbulanceId("ambulanza" + idAmbulanza),
+                new FiscalCode(idPaziente),
+                new OperatorId(idOperatore));
     }
 
     @Test
