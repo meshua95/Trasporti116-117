@@ -14,10 +14,6 @@ install:
 script:
   - ./gradlew test   #lancia il task che prevede i test
 
-before_install:
-  - sudo apt update
-  - sudo apt install openfx
-
 branches:
   only:
     - develop
