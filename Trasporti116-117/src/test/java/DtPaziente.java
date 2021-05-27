@@ -5,16 +5,12 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import digitalTwins.DigitalTwinEraser;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.paziente.Autonomia;
-import domain.paziente.DatiAnagraficiPaziente;
-import domain.paziente.StatoDiSalute;
+import model.*;
+import domain.paziente.PazienteDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,27 +20,27 @@ public class DtPaziente {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     @Test
     public void createPaziente(){
 
-        DatiAnagraficiPaziente datiAnagrafici =
-                new DatiAnagraficiPaziente("Mario",
+        PersonalData datiAnagrafici =
+                new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
-                        new DatiAnagraficiPaziente.Residenza("settembre","13B","Cesena", "FC", 47521));
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
         StatoDiSalute statoSalute = new StatoDiSalute("Niente da riferire");
 
-        DigitalTwinsBuilder.createPazienteDigitalTwin(idPaziente, datiAnagrafici, statoSalute, Autonomia.PARZIALMENTE_AUTONOMO);
+        PazienteDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.PARTIALLY_AUTONOMOUS);
         assertEquals(Client.getClient().getDigitalTwin(idPaziente, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void deletePaziente(){
         try{
-            DigitalTwinEraser.deleteTwins(Arrays.asList(idPaziente));
+            PazienteDigitalTwin.deletePaziente(idPaziente);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

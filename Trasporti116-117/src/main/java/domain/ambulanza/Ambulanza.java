@@ -4,8 +4,10 @@
 
 package domain.ambulanza;
 
+import model.StatoAmbulanza;
+
 public class Ambulanza {
-    private StatoAmbulanza stato;
+    private final StatoAmbulanza stato;
 
     public Ambulanza(StatoAmbulanza stato) {
         this.stato = stato;

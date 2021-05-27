@@ -6,21 +6,16 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import digitalTwins.DigitalTwinEraser;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.ambulanza.StatoAmbulanza;
-import domain.paziente.Autonomia;
-import domain.paziente.DatiAnagraficiPaziente;
-import domain.paziente.StatoDiSalute;
-import domain.operatore.DatiAnagraficiOperatore;
-import domain.trasporto.Itinerario;
-import domain.trasporto.StatoTrasporto;
+import domain.ambulanza.AmbulanzaDigitalTwin;
+import model.*;
+import domain.operatore.OperatoreDigitalTwin;
+import domain.paziente.PazienteDigitalTwin;
+import domain.trasporto.TrasportoDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,43 +27,43 @@ public class DtTrasporto {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     private void createAmbulanza(){
-        DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, idAmbulanza);
+        AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, idAmbulanza);
     }
 
     private void createPaziente(){
-        DatiAnagraficiPaziente datiAnagrafici =
-                new DatiAnagraficiPaziente(
+        PersonalData datiAnagrafici =
+                new PersonalData(
                         "Francesco",
                         "Bianchi",
                         LocalDate.of(1981, 4, 3),
-                        new DatiAnagraficiPaziente.Residenza("ferrari", "111A", "Forlì", "FC", 47122)
+                        new Location(new Address ("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode("47122"))
                 );
         StatoDiSalute statoSalute = new StatoDiSalute("Niente da riferire");
 
-        DigitalTwinsBuilder.createPazienteDigitalTwin(idPaziente, datiAnagrafici, statoSalute, Autonomia.NON_AUTONOMO);
+        PazienteDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.NOT_AUTONOMOUS);
     }
 
     private void createOperatore(){
-        DatiAnagraficiOperatore datiAnagrafici =
-                new DatiAnagraficiOperatore("Mario",
+        PersonalData personalData =
+                new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
-                        new DatiAnagraficiOperatore.Residenza("settembre","13B","Cesena", "FC", 47521));
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
 
-        DigitalTwinsBuilder.createOperatoreAmbulanzaDigitalTwin(idOperatore, datiAnagrafici);
+        OperatoreDigitalTwin.createOperatore(idOperatore, personalData);
     }
 
     private void createTrasporto(){
-        DigitalTwinsBuilder.createTrasportoDigitalTwin(idTrasporto,
+        TrasportoDigitalTwin.createTrasporto(idTrasporto,
                 LocalDateTime.of(2021,05,05,18,00),
                 StatoTrasporto.CONCLUSO,
                 new Itinerario(
-                        new Itinerario.Luogo("settembre","13B","Cesena", "FC", 47521),
-                        new Itinerario.Luogo("corso cavour","189C","Cesena", "FC", 47521)),
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
+                        new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),
                 "ambulanza" + idAmbulanza,
                 idPaziente,
                 idOperatore);
@@ -106,7 +101,7 @@ public class DtTrasporto {
     @Test
     public void deleteTrasporto(){
         try{
-            DigitalTwinEraser.deleteTwins(Arrays.asList(idTrasporto));
+            TrasportoDigitalTwin.deleteTrasporto(idTrasporto);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

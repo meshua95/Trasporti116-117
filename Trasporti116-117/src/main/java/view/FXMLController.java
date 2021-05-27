@@ -8,19 +8,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import digitalTwins.DigitalTwinQuery;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.ambulanza.StatoAmbulanza;
-import domain.paziente.Autonomia;
-import domain.paziente.DatiAnagraficiPaziente;
-import domain.paziente.IdPaziente;
-import domain.paziente.StatoDiSalute;
-import domain.operatore.DatiAnagraficiOperatore;
-import domain.trasporto.Itinerario;
-import domain.trasporto.StatoTrasporto;
+import domain.ambulanza.AmbulanzaDigitalTwin;
+import domain.trasporto.TrasportoDigitalTwin;
+import model.*;
+import domain.operatore.OperatoreDigitalTwin;
+import domain.paziente.PazienteDigitalTwin;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -136,17 +130,17 @@ public class FXMLController implements Initializable {
         gridPane.add(minTrasporto, 2, 14);
 
         ComboBox<String> paziente = new ComboBox<>();
-        DigitalTwinQuery.getAllPazienteIdTwins().forEach(p -> paziente.getItems().add(p.getCodiceFiscale()));
+        PazienteDigitalTwin.getAllPatientId().forEach(p -> paziente.getItems().add(p.getFiscalCode()));
         gridPane.add(new Label("Paziente"), 0, 15);
         gridPane.add(paziente, 1, 15);
 
         ComboBox<String> operatore = new ComboBox<>();
-        DigitalTwinQuery.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
+        OperatoreDigitalTwin.getAllOperatoreIdTwins().forEach(o -> operatore.getItems().add(o.getCodiceFiscale()));
         gridPane.add(new Label("Operatore"), 0, 16);
         gridPane.add(operatore, 1, 16);
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        DigitalTwinQuery.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
+        AmbulanzaDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getIdAmbulanza()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
@@ -154,7 +148,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createTrasportoDigitalTwin("Trasporto2",
+                .ifPresent(response -> TrasportoDigitalTwin.createTrasporto("Trasporto2",
                         LocalDateTime.of(dataTrasporto.getValue().getYear(),
                                 dataTrasporto.getValue().getMonth(),
                                 dataTrasporto.getValue().getDayOfMonth(),
@@ -162,16 +156,16 @@ public class FXMLController implements Initializable {
                                 Integer.parseInt(minTrasporto.getText())),
                         StatoTrasporto.NON_INIZIATO,
                         new Itinerario(
-                                new Itinerario.Luogo(viaPartenza.getText(),
-                                        numeroPartenza.getText(),
-                                        cittàPartenza.getText(),
-                                        provinciaPartenza.getText(),
-                                        Integer.parseInt(capPartenza.getText())),
-                                new Itinerario.Luogo(viaArrivo.getText(),
-                                        numeroArrivo.getText(),
-                                        cittàArrivo.getText(),
-                                        provinciaArrivo.getText(),
-                                        Integer.parseInt(capArrivo.getText()))),
+                                new Location(new Address(viaPartenza.getText()),
+                                        new HouseNumber(numeroPartenza.getText()),
+                                        new City(cittàPartenza.getText()),
+                                        new District(provinciaPartenza.getText()),
+                                        new PostalCode(capPartenza.getText())),
+                                new Location(new Address(viaArrivo.getText()),
+                                        new HouseNumber(numeroArrivo.getText()),
+                                        new City(cittàArrivo.getText()),
+                                        new District(provinciaArrivo.getText()),
+                                        new PostalCode(capArrivo.getText()))),
                         ambulanza.getValue(),
                         paziente.getValue(),
                         operatore.getValue()));
@@ -199,7 +193,7 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, Integer.parseInt(numAmbulanza.getText())));
+                .ifPresent(response -> AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, Integer.parseInt(numAmbulanza.getText())));
 
     }
 
@@ -263,28 +257,33 @@ public class FXMLController implements Initializable {
         gridPane.add(new Label("Stato di salute"), 0, 9);
         gridPane.add(statoSalute, 1, 9);
 
-        ComboBox<Autonomia> autonomia = new ComboBox<>();
-        autonomia.getItems().addAll(
-                Autonomia.AUTONOMO,
-                Autonomia.PARZIALMENTE_AUTONOMO,
-                Autonomia.NON_AUTONOMO
+        ComboBox<Autonomy> autonomy = new ComboBox<>();
+        autonomy.getItems().addAll(
+                Autonomy.AUTONOMOUS,
+                Autonomy.PARTIALLY_AUTONOMOUS,
+                Autonomy.NOT_AUTONOMOUS
         );
         gridPane.add(new Label("Autonomia"), 0, 10);
-        gridPane.add(autonomia, 1, 10);
+        gridPane.add(autonomy, 1, 10);
 
         dialog.getDialogPane().setContent(gridPane);
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createPazienteDigitalTwin(
+                .ifPresent(response -> PazienteDigitalTwin.createPaziente(
                         cf.getText(),
-                        new DatiAnagraficiPaziente(
+                        new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new DatiAnagraficiPaziente.Residenza(via.getText(),numero.getText(),città.getText(), provincia.getText(), Integer.parseInt(cap.getText()))),
+                                new Location(
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(cap.getText()))),
                         new StatoDiSalute(statoSalute.getText()),
-                        autonomia.getValue()
+                        autonomy.getValue()
                 ));
 
     }
@@ -349,13 +348,18 @@ public class FXMLController implements Initializable {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> DigitalTwinsBuilder.createOperatoreAmbulanzaDigitalTwin(
+                .ifPresent(response -> OperatoreDigitalTwin.createOperatore(
                         cf.getText(),
-                        new DatiAnagraficiOperatore(
+                        new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new DatiAnagraficiOperatore.Residenza(via.getText(),numero.getText(),città.getText(), provincia.getText(), Integer.parseInt(cap.getText()))
+                                new Location(
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(cap.getText()))
                         )
                 ));
 

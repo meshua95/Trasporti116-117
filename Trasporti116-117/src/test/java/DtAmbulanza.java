@@ -6,9 +6,8 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import digitalTwins.DigitalTwinEraser;
-import digitalTwins.DigitalTwinsBuilder;
-import domain.ambulanza.StatoAmbulanza;
+import domain.ambulanza.AmbulanzaDigitalTwin;
+import model.StatoAmbulanza;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,20 +21,20 @@ public class DtAmbulanza {
 
     @BeforeClass
     public static void createConnection(){
-        Client.createClient();
+        Client.getClient();
     }
 
     @Test
     public void createAmbulanza(){
 
-        DigitalTwinsBuilder.createAmbulanzaDigitalTwin(StatoAmbulanza.PRONTA, idAmbulanza);
+        AmbulanzaDigitalTwin.createAmbulanza(StatoAmbulanza.PRONTA, idAmbulanza);
         assertEquals(Client.getClient().getDigitalTwin("ambulanza" + idAmbulanza, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void deleteAmbulanza(){
         try{
-            DigitalTwinEraser.deleteTwins(Arrays.asList("ambulanza" + idAmbulanza));
+            AmbulanzaDigitalTwin.deleteAmbulanza(Arrays.asList("ambulanza" + idAmbulanza));
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }
