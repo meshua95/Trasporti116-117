@@ -17,6 +17,6 @@ branches:
     - master
 
 jdk:
-  - oraclejdk8
+  - oraclejdk14
 
 script: ant build
