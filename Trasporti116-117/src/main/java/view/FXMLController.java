@@ -25,10 +25,6 @@ public class FXMLController implements Initializable {
     @FXML
     private Button addTransport;
     @FXML
-    private Button rmPatient;
-    @FXML
-    private Button rmOperator;
-    @FXML
     private Button rmAmbulance;
     @FXML
     private Button rmTransport;
@@ -46,8 +42,6 @@ public class FXMLController implements Initializable {
         addTransport.setOnAction(event -> new TransportDialog().createEntity());
 
         rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
-        rmPatient.setOnAction(event -> new PatientDialog().deleteEntity());
-        rmOperator.setOnAction(event -> new OperatorDialog().deleteEntity());
         rmTransport.setOnAction(event -> new TransportDialog().deleteEntity());
     }
 }

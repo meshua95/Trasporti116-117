@@ -10,7 +10,6 @@ abstract class DtDialog {
     GridPane gridPane = new GridPane();
 
     abstract void createEntity();
-    abstract void deleteEntity();
 
     protected void initialize(String title){
         dialog.setTitle(title);
