@@ -6,43 +6,43 @@
   "contents": [
     {
       "@type": "Property",
-      "name": "itinerario",
-      "schema": "dtmi:num116117:itinerario;1"
+      "name": "route",
+      "schema": "dtmi:num116117:route;1"
     },
     {
       "@type": "Property",
-      "name": "dataOra",
+      "name": "dateTime",
       "schema": "dateTime"
     },
     {
       "@type": "Property",
-      "name": "stato",
+      "name": "state",
       "schema": "dtmi:num116117:statoTrasporto;1"
     },
     {
       "@type": "Relationship",
-      "name": "usa"
+      "name": "use"
     },
     {
       "@type": "Relationship",
-      "name": "trasporta"
+      "name": "transport"
     },
     {
       "@type": "Relationship",
-      "name": "guidata"
+      "name": "drive"
     }
   ],
   "schemas": [
     {
-      "@id": "dtmi:num116117:itinerario;1",
+      "@id": "dtmi:num116117:route;1",
       "@type": "Object",
       "fields": [
         {
-          "name": "partenza",
+          "name": "departure",
           "schema": "dtmi:num116117:luogo;1"
         },
         {
-          "name": "destinazione",
+          "name": "destination",
           "schema": "dtmi:num116117:luogo;1"
         }
       ]
@@ -53,23 +53,23 @@
       "valueSchema": "integer",
       "enumValues": [
         {
-          "name": "nonIniziato",
-          "displayName": "Non Iniziato",
+          "name": "notStarted",
+          "displayName": "NotStarted",
           "enumValue": 1
         },
         {
-          "name": "inCorso",
-          "displayName": "In Corso",
+          "name": "inProgress",
+          "displayName": "InProgress",
           "enumValue": 2
         },
         {
-          "name": "concluso",
-          "displayName": "Concluso",
+          "name": "ended",
+          "displayName": "Ended",
           "enumValue": 3
         },
         {
-          "name": "annullato",
-          "displayName": "Annullato",
+          "name": "cancelled",
+          "displayName": "Cancelled",
           "enumValue": 4
         }
       ]
@@ -79,24 +79,74 @@
       "@type": "Object",
       "fields": [
         {
-          "name": "via",
-          "schema": "string"
+          "name": "address",
+          "schema": "dtmi:num116117:address;1"
         },
         {
-          "name": "numero",
-          "schema": "string"
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:houseNumber;1"
         },
         {
-          "name": "citta",
-          "schema": "string"
+          "name": "city",
+          "schema": "dtmi:num116117:city;1"
         },
         {
-          "name": "provincia",
-          "schema": "string"
+          "name": "district",
+          "schema": "dtmi:num116117:district;1"
         },
         {
-          "name": "CAP",
+          "name": "postalCode",
+          "schema": "dtmi:num116117:postalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:address;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:houseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:city;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:postalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
           "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:district;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
         }
       ]
     }

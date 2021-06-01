@@ -11,16 +11,16 @@
     },
     {
       "@type": "Property",
-      "name": "stato",
+      "name": "state",
       "schema": "dtmi:num116117:statoAmbulanza;1"
     },
     {
       "@type": "Relationship",
-      "name": "usa"
+      "name": "use"
     },
     {
       "@type": "Relationship",
-      "name": "contiene"
+      "name": "contains"
     }
   ],
   "schemas": [
@@ -30,23 +30,23 @@
       "valueSchema": "integer",
       "enumValues": [
         {
-          "name": "guasta",
-          "displayName": "Guasta",
+          "name": "fault",
+          "displayName": "Fault",
           "enumValue": 1
         },
         {
-          "name": "pronta",
-          "displayName": "Pronta",
+          "name": "ready",
+          "displayName": "Ready",
           "enumValue": 2
         },
         {
-          "name": "inUso",
-          "displayName": "In Uso",
+          "name": "used",
+          "displayName": "Used",
           "enumValue": 3
         },
         {
-          "name": "inManutenzione",
-          "displayName": "In Manutenzione",
+          "name": "maintenance",
+          "displayName": "Maintenance",
           "enumValue": 4
         }
       ]

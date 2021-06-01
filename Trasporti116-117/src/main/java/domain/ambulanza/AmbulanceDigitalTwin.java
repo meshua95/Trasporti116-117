@@ -20,37 +20,37 @@ import java.util.ArrayList;
 public class AmbulanceDigitalTwin {
 
     public static void createAmbulance(AmbulanceState stato, int numeroAmbulanza){
-        String ambulanzaId = "ambulanza"+numeroAmbulanza;
-        String GSPId = "GPS"+numeroAmbulanza;
-        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanzaId)
+        AmbulanceId ambulanceId = new AmbulanceId(numeroAmbulanza);
+
+        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANZA_MODEL_ID)
                 )
                 .addToContents("number", numeroAmbulanza)
-                .addToContents("stato", stato.getValue());
-        BasicDigitalTwin GPSdt = new BasicDigitalTwin(GSPId)
+                .addToContents("state", stato.getValue());
+        BasicDigitalTwin GPSdt = new BasicDigitalTwin(ambulanceId.getGpsId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.GPS_MODEL_ID)
                 )
-                .addToContents("longitudine", 0)
-                .addToContents("latitudine", 0);
+                .addToContents("longitude", 0)
+                .addToContents("latitude", 0);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanzaId, ambulanzaDT, BasicDigitalTwin.class);
-        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(GSPId, GPSdt, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getAmbulanceId(), ambulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getGpsId(), GPSdt, BasicDigitalTwin.class);
 
         System.out.println(basicTwinResponse.getId());
         System.out.println(basicTwinResponseGPS.getId());
 
         BasicRelationship rel =
                 new BasicRelationship(
-                        ambulanzaId + "to" + GSPId,
-                        ambulanzaId,
-                        GSPId,
-                        "contiene");
+                        ambulanceId.getAmbulanceId() + "to" + ambulanceId.getGpsId(),
+                        ambulanceId.getAmbulanceId(),
+                        ambulanceId.getGpsId(),
+                        "contains");
 
         BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
-                ambulanzaId,
-                ambulanzaId + "to" + GSPId,
+                ambulanceId.getAmbulanceId(),
+                ambulanceId.getAmbulanceId() + "to" + ambulanceId.getGpsId(),
                 rel,
                 BasicRelationship.class);
         System.out.println(createdRelationship.getId());
@@ -63,6 +63,7 @@ public class AmbulanceDigitalTwin {
         Client.getClient().listRelationships(ambulanceId.getAmbulanceId(), BasicRelationship.class)
                 .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getAmbulanceId(), rel.getId()));
         Client.getClient().deleteDigitalTwin(ambulanceId.getAmbulanceId());
+        Client.getClient().deleteDigitalTwin(ambulanceId.getGpsId());
 
         return DeleteAmbulanceStatusCode.DELETED;
     }

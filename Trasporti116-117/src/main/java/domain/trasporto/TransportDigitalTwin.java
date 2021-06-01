@@ -27,21 +27,21 @@ public class TransportDigitalTwin {
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRASPORTO_ID)
                 )
-                .addToContents("dataOra", dateTime)
-                .addToContents("itinerario", route)
-                .addToContents("stato", state.getValue());
+                .addToContents("dateTime", dateTime)
+                .addToContents("route", route)
+                .addToContents("state", state.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), trasportoDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
         //add relationship whit ambulanza
-        createTrasportoRelationship(transportId, ambulanceId.getAmbulanceId(), "usa");
+        createTrasportoRelationship(transportId, ambulanceId.getAmbulanceId(), "use");
 
         //add relationship whit paziente
-        createTrasportoRelationship(transportId, patientId.getFiscalCode(), "trasporta");
+        createTrasportoRelationship(transportId, patientId.getFiscalCode(), "transport");
 
         //add relationship whit operatore
-        createTrasportoRelationship(transportId, operatorId.getOperatorId(), "guidata");
+        createTrasportoRelationship(transportId, operatorId.getOperatorId(), "drive");
     }
 
     private static void createTrasportoRelationship(TransportId transportId, String targetId, String relationshipName){
@@ -81,7 +81,7 @@ public class TransportDigitalTwin {
         ArrayList<TransportId> transoprtIds = new ArrayList<>();
         String query = "SELECT source " +
                 "FROM DIGITALTWINS source " +
-                "JOIN target RELATED source.usa " +
+                "JOIN target RELATED source.use " +
                 "WHERE target.$dtId = '"+ id.getAmbulanceId() +"'";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));

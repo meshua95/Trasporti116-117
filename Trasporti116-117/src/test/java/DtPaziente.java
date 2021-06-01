@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DtPaziente {
 
-    private final FiscalCode idPaziente = new FiscalCode("CRGMHI12M21E730X");
+    private final FiscalCode idPaziente = new FiscalCode("paziente1");
 
     @BeforeClass
     public static void createConnection(){

@@ -16,14 +16,14 @@ import java.util.ArrayList;
 
 public class PatientDigitalTwin {
 
-    public static void createPatient(FiscalCode patientId, PersonalData datiAnagraficiPaziente, HealthState healthState, Autonomy autonomy){
+    public static void createPatient(FiscalCode patientId, PersonalData personalData, HealthState healthState, Autonomy autonomy){
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(patientId.getFiscalCode())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.PAZIENTE_ID)
                 )
-                .addToContents("datiAnagrafici", datiAnagraficiPaziente)
-                .addToContents("statoDiSalute", healthState)
-                .addToContents("autonomia", autonomy.getValue());
+                .addToContents("personalData", personalData)
+                .addToContents("healthState", healthState)
+                .addToContents("autonomy", autonomy.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(patientId.getFiscalCode(), pazienteDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());

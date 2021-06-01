@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class DtAmbulanza {
 
-    private final int idAmbulanza = 3;
+    private final int idAmbulanza = 2;
 
     @BeforeClass
     public static void createConnection(){
@@ -31,7 +31,7 @@ public class DtAmbulanza {
     @Test
     public void deleteAmbulanza(){
         try{
-            AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId("ambulanza" + idAmbulanza));
+            AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(idAmbulanza));
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

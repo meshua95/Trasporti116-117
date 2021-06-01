@@ -6,17 +6,17 @@
   "contents": [
     {
       "@type": "Property",
-      "name": "longitudine",
+      "name": "longitude",
       "schema": "double"
     },
     {
       "@type": "Property",
-      "name": "latitudine",
+      "name": "latitude",
       "schema": "double"
     },
     {
       "@type": "Relationship",
-      "name": "contiene"
+      "name": "contains"
     }
   ]
 }

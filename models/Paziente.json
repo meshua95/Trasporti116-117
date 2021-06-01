@@ -6,27 +6,22 @@
   "contents": [
     {
       "@type": "Property",
-      "name": "datiAnagrafici",
-      "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
-    },
-    {
-      "@type": "Property",
-      "name": "autonomia",
+      "name": "autonomy",
       "schema": "dtmi:num116117:autonomiaPaziente;1"
     },
     {
       "@type": "Property",
-      "name": "datiAnagrafici",
+      "name": "personalData",
       "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
     },
     {
       "@type": "Property",
-      "name": "statoDiSalute",
+      "name": "healthState",
       "schema": "dtmi:num116117:statoDiSalute;1"
     },
     {
       "@type": "Relationship",
-      "name": "trasporta"
+      "name": "transport"
     }
   ],
   "schemas": [
@@ -35,19 +30,19 @@
       "@type": "Object",
       "fields": [
         {
-          "name": "nome",
+          "name": "name",
           "schema": "string"
         },
         {
-          "name": "cognome",
+          "name": "surname",
           "schema": "string"
         },
         {
-          "name": "dataNascita",
+          "name": "birthDate",
           "schema": "date"
         },
         {
-          "name": "residenza",
+          "name": "residence",
           "schema": "dtmi:num116117:residenzaPaziente;1"
         }
       ]
@@ -57,24 +52,24 @@
       "@type": "Object",
       "fields": [
         {
-          "name": "via",
-          "schema": "string"
+          "name": "address",
+          "schema": "dtmi:num116117:patientAddress;1"
         },
         {
-          "name": "numero",
-          "schema": "string"
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:patientHouseNumber;1"
         },
         {
-          "name": "citta",
-          "schema": "string"
+          "name": "city",
+          "schema": "dtmi:num116117:patientCity;1"
         },
         {
-          "name": "provincia",
-          "schema": "string"
+          "name": "district",
+          "schema": "dtmi:num116117:patientDistrict;1"
         },
         {
-          "name": "CAP",
-          "schema": "integer"
+          "name": "postalCode",
+          "schema": "dtmi:num116117:patientPostalCode;1"
         }
       ]
     },
@@ -83,7 +78,7 @@
       "@type": "Object",
       "fields": [
         {
-          "name": "descrizione",
+          "name": "description",
           "schema": "string"
         }
       ]
@@ -94,19 +89,69 @@
       "valueSchema": "integer",
       "enumValues": [
         {
-          "name": "autonomo",
-          "displayName": "autonomo",
+          "name": "autonomous",
+          "displayName": "Autonomous",
           "enumValue": 1
         },
         {
-          "name": "parzialmenteAutonomo",
-          "displayName": "Parzialmente autonomo",
+          "name": "partiallyAutonomous",
+          "displayName": "PartiallyAutonomous",
           "enumValue": 2
         },
         {
-          "name": "nonAutonomo",
-          "displayName": "Non autonomo",
+          "name": "notAutonomous",
+          "displayName": "NotAutonomous",
           "enumValue": 3
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientAddress;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientHouseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientCity;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "posalCode",
+          "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientDistrict;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
         }
       ]
     }

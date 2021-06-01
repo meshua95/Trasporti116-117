@@ -7,7 +7,7 @@ package model;
 public enum AmbulanceState {
     FAULT(1),
     READY (2),
-    USE(3),
+    USED(3),
     MAINTENACE(4);
 
     private int value;

@@ -22,7 +22,7 @@ public class OperatorDigitalTwin {
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.OPERATORE_AMBULANZA_ID)
                 )
-                .addToContents("datiAnagrafici", personalData);
+                .addToContents("personalData", personalData);
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(operatorId.getOperatorId(), OperatoreAmbulanzaDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());

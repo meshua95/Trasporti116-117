@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 
 public class DtOperator {
-    private final OperatorId idOperatore = new OperatorId("OP01");
+    private final OperatorId idOperatore = new OperatorId("operatore1");
 
     @BeforeClass
     public static void createConnection(){

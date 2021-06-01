@@ -6,12 +6,12 @@
   "contents": [
     {
       "@type": "Property",
-      "name": "datiAnagrafici",
+      "name": "personalData",
       "schema": "dtmi:num116117:datiAnagraficiOperatore;1"
     },
     {
       "@type": "Relationship",
-      "name": "guidata"
+      "name": "drive"
     }
   ],
   "schemas": [
@@ -20,19 +20,19 @@
       "@type": "Object",
       "fields": [
         {
-          "name": "nome",
+          "name": "name",
           "schema": "string"
         },
         {
-          "name": "cognome",
+          "name": "surname",
           "schema": "string"
         },
         {
-          "name": "dataNascita",
+          "name": "birthDate",
           "schema": "date"
         },
         {
-          "name": "residenza",
+          "name": "residence",
           "schema": "dtmi:num116117:residenzaOperatore;1"
         }
       ]
@@ -42,23 +42,73 @@
       "@type": "Object",
       "fields": [
         {
-          "name": "via",
-          "schema": "string"
+          "name": "address",
+          "schema": "dtmi:num116117:operatorAddress;1"
         },
         {
-          "name": "numero",
-          "schema": "string"
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:operatorHouseNumber;1"
         },
         {
-          "name": "citta",
-          "schema": "string"
+          "name": "city",
+          "schema": "dtmi:num116117:operatorCity;1"
         },
         {
-          "name": "provincia",
-          "schema": "string"
+          "name": "district",
+          "schema": "dtmi:num116117:operatorDistrict;1"
         },
         {
-          "name": "CAP",
+          "name": "postalCode",
+          "schema": "dtmi:num116117:operatorPostalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorAddress;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorHouseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorCity;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorDistrict;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
           "schema": "integer"
         }
       ]

@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DtTransport {
     private final TransportId transportId = new TransportId("Trasporto1");
-    private final int ambulanceId = 3;
+    private final int ambulanceNumber = 3;
     private final FiscalCode patientId = new FiscalCode("CRGMHI12M21E730X");
     private final OperatorId operatorId = new OperatorId("OP01");
 
@@ -31,7 +31,7 @@ public class DtTransport {
     }
 
     private void createAmbulance(){
-        AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, ambulanceId);
+        AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, ambulanceNumber);
     }
 
     private void createPatient(){
@@ -64,7 +64,7 @@ public class DtTransport {
                 new Route(
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
                         new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),
-                new AmbulanceId("ambulanza" + ambulanceId),
+                new AmbulanceId(ambulanceNumber),
                 patientId,
                 operatorId);
     }
@@ -77,25 +77,25 @@ public class DtTransport {
 
         createTrasporto();
 
-        assertEquals(Client.getClient().getDigitalTwin(transportId.toString(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void checkTrasportoAmbulanzaRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(transportId.toString(), transportId + "toambulanza" + ambulanceId, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId + "to" + new AmbulanceId(ambulanceNumber), BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTrasportoPazienteRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(transportId.toString(), transportId + "to" + patientId, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId + "to" + patientId, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTransportOperatorRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(transportId.toString(), transportId + "to" + transportId, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId + "to" + transportId, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
