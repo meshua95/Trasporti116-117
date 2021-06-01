@@ -21,3 +21,4 @@ jdk:
 
 script:
   - cd ./Trasporti116-117/
+  - ./graldew Test
