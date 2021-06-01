@@ -1,10 +1,9 @@
 package view.dialog;
 
 import domain.ambulanza.AmbulanceDigitalTwin;
+import domain.ambulanza.AmbulanceId;
 import domain.paziente.PatientDigitalTwin;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import model.*;
 
 import java.time.LocalDate;
@@ -94,19 +93,4 @@ public class PatientDialog extends DtDialog{
 
     }
 
-    @Override
-    public void deleteEntity() {
-        initialize("Rimuovi Paziente");
-
-        ComboBox<String> paziente = new ComboBox<>();
-        PatientDigitalTwin.getAllPatientId().forEach(p -> paziente.getItems().add(p.getFiscalCode()));
-        gridPane.add(new Label("Paziente"), 0, 17);
-        gridPane.add(paziente, 1, 17);
-
-        dialog.getDialogPane().setContent(gridPane);
-
-        dialog.showAndWait()
-                .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(paziente.getValue()));
-    }
 }

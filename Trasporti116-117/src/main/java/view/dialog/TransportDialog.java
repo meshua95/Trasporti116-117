@@ -91,7 +91,7 @@ public class TransportDialog extends DtDialog{
         gridPane.add(operatore, 1, 16);
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        AmbulanceDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
+        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
@@ -99,7 +99,8 @@ public class TransportDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> TransportDigitalTwin.createTrasporto(
+                .ifPresent(response -> TransportDigitalTwin.createTrasporto(new TransportId("Trasporto2"),
+
                         LocalDateTime.of(dataTrasporto.getValue().getYear(),
                                 dataTrasporto.getValue().getMonth(),
                                 dataTrasporto.getValue().getDayOfMonth(),
@@ -123,7 +124,6 @@ public class TransportDialog extends DtDialog{
 
     }
 
-    @Override
     public void deleteEntity() {
         initialize("Elimina Trasporto");
 
@@ -136,6 +136,6 @@ public class TransportDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(transport.getValue()));
+                .ifPresent(response -> TransportDigitalTwin.deleteTransport(new TransportId(transport.getValue())));
     }
 }

@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 public class DtTrasporto {
-    private final String idTrasporto = "Trasporto1";
+    private final TransportId idTrasporto = new TransportId("Trasporto1");
     private final int idAmbulanza = 3;
     private final String idPaziente = "CRGMHI12M21E730X";
     private final String idOperatore = "RSSMRA88A08E730X";
@@ -31,7 +31,7 @@ public class DtTrasporto {
     }
 
     private void createAmbulanza(){
-        AmbulanceDigitalTwin.createAmbulanza(AmbulanceState.READY, idAmbulanza);
+        AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, idAmbulanza);
     }
 
     private void createPaziente(){
@@ -59,6 +59,7 @@ public class DtTrasporto {
 
     private void createTrasporto(){
         TransportDigitalTwin.createTrasporto(
+                new TransportId("trasporto1"),
                 LocalDateTime.of(2021,05,05,18,00),
                 TransportState.ENDED,
                 new Route(
@@ -77,29 +78,29 @@ public class DtTrasporto {
 
         createTrasporto();
 
-        assertEquals(Client.getClient().getDigitalTwin(idTrasporto, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(Client.getClient().getDigitalTwin(idTrasporto.toString(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void checkTrasportoAmbulanzaRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(idTrasporto, idTrasporto + "toambulanza" + idAmbulanza, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(idTrasporto.toString(), idTrasporto + "toambulanza" + idAmbulanza, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTrasportoPazienteRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(idTrasporto, idTrasporto + "to" + idPaziente, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(idTrasporto.toString(), idTrasporto + "to" + idPaziente, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
-    public void checkTrasportoOperatoreRelationship(){
+    public void checkTransportOperatorRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(idTrasporto, idTrasporto + "to" + idOperatore, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(idTrasporto.toString(), idTrasporto + "to" + idOperatore, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
-    public void deleteTrasporto(){
+    public void deleteTransport(){
         try{
             TransportDigitalTwin.deleteTransport(idTrasporto);
         } catch (Exception ex){

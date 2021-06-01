@@ -10,6 +10,8 @@ import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
 import model.*;
+import model.Route;
+import model.TransportState;
 import utils.Constants;
 
 import java.time.LocalDateTime;
@@ -18,9 +20,7 @@ import java.util.List;
 
 public class TransportDigitalTwin {
 
-    public static void createTrasporto(LocalDateTime dataOra, TransportState stato, Route route, AmbulanceId ambulanzaId, FiscalCode pazienteId, OperatorId operatoreId){
-        TransportId transportId = generateTransportId(pazienteId, ambulanzaId, dataOra);
-
+    public static void createTrasporto(TransportId transportId, LocalDateTime dataOra, TransportState stato, Route route, AmbulanceId ambulanzaId, FiscalCode pazienteId, OperatorId operatoreId){
         //create digital twin "trasporto"
         BasicDigitalTwin trasportoDT = new BasicDigitalTwin(transportId.toString())
                 .setMetadata(
@@ -43,19 +43,45 @@ public class TransportDigitalTwin {
         createTrasportoRelationship(transportId.toString(), operatoreId.toString(), "guidata");
     }
 
-    public static void deleteTransport(String idTrasporto) {
-            Client.getClient().listRelationships(idTrasporto, BasicRelationship.class)
-                    .forEach(rel -> Client.getClient().deleteRelationship(idTrasporto, rel.getId()));
-            Client.getClient().deleteDigitalTwin(idTrasporto);
+    private static void createTrasportoRelationship(TransportId transportId, String targetId, String relationshipName){
+        BasicRelationship trasportoToTargetRelationship =
+                new BasicRelationship(
+                        transportId + "to" + targetId,
+                        transportId.toString(),
+                        targetId,
+                        relationshipName);
+
+        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
+                transportId.toString(),
+                transportId + "to" + targetId,
+                trasportoToTargetRelationship,
+                BasicRelationship.class);
     }
 
-    public static void deleteAllTransport(List<String> dtId) {
+    public static void deleteTransport(TransportId transportId) {
+            Client.getClient().listRelationships(transportId.toString(), BasicRelationship.class)
+                    .forEach(rel -> Client.getClient().deleteRelationship(transportId.toString(), rel.getId()));
+            Client.getClient().deleteDigitalTwin(transportId.toString());
+    }
+
+    public static void deleteAllTransport(List<TransportId> dtId) {
         dtId.forEach(TransportDigitalTwin::deleteTransport);
     }
 
     public static ArrayList<TransportId> getAllTransportId(){
         ArrayList<TransportId> transoprtIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.TRASPORTO_ID + "'";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.TRASPORTO_ID + "')";
+        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
+        pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
+        return transoprtIds;
+    }
+
+    public static ArrayList<TransportId> getTransportOfAmbulance(AmbulanceId id){
+        ArrayList<TransportId> transoprtIds = new ArrayList<>();
+        String query = "SELECT source " +
+                "FROM DIGITALTWINS source " +
+                "JOIN target RELATED source.usa " +
+                "WHERE target.$dtId = '"+ id.getAmbulanceId() +"'";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
         return transoprtIds;

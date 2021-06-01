@@ -1,6 +1,7 @@
 package view.dialog;
 import domain.ambulanza.AmbulanceDigitalTwin;
 import javafx.scene.control.*;
+import model.AmbulanceId;
 import model.AmbulanceState;
 
 public class AmbulanceDialog extends DtDialog{
@@ -17,15 +18,14 @@ public class AmbulanceDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanceDigitalTwin.createAmbulanza(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
+                .ifPresent(response -> AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
     }
 
-    @Override
     public void deleteEntity(){
         initialize("Cancella Ambulanza");
 
         ComboBox<String> ambulanza = new ComboBox<>();
-        AmbulanceDigitalTwin.getAllAmbulanzaIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
+        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
         gridPane.add(new Label("Ambulanza"), 0, 17);
         gridPane.add(ambulanza, 1, 17);
 
@@ -33,7 +33,7 @@ public class AmbulanceDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(ambulanza.getValue()));
+                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(ambulanza.getValue())));
     }
 
 }

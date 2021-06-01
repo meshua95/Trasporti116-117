@@ -17,37 +17,31 @@ import view.dialog.TransportDialog;
 public class FXMLController implements Initializable {
 
     @FXML
-    private Button addPaziente;
+    private Button addPatient;
     @FXML
-    private Button addOperatore;
+    private Button addOperator;
     @FXML
-    private Button addAmbulanza;
+    private Button addAmbulance;
     @FXML
-    private Button addTrasporto;
+    private Button addTransport;
     @FXML
-    private Button rmPaziente;
+    private Button rmAmbulance;
     @FXML
-    private Button rmOperatore;
+    private Button rmTransport;
     @FXML
-    private Button rmAmbulanza;
+    private Button trackAmbulance;
     @FXML
-    private Button rmTrasporto;
-    @FXML
-    private Button trackAmbulanza;
-    @FXML
-    private Button viewTrasporti;
+    private Button viewTransport;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        addAmbulanza.setOnAction(event -> new AmbulanceDialog().createEntity());
-        addPaziente.setOnAction(event -> new PatientDialog().createEntity());
-        addOperatore.setOnAction(event -> new OperatorDialog().createEntity());
-        addTrasporto.setOnAction(event -> new TransportDialog().createEntity());
+        addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
+        addPatient.setOnAction(event -> new PatientDialog().createEntity());
+        addOperator.setOnAction(event -> new OperatorDialog().createEntity());
+        addTransport.setOnAction(event -> new TransportDialog().createEntity());
 
-        rmAmbulanza.setOnAction(event -> new AmbulanceDialog().deleteEntity());
-        rmPaziente.setOnAction(event -> new PatientDialog().deleteEntity());
-        rmOperatore.setOnAction(event -> new OperatorDialog().deleteEntity());
-        rmTrasporto.setOnAction(event -> new TransportDialog().deleteEntity());
+        rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
+        rmTransport.setOnAction(event -> new TransportDialog().deleteEntity());
     }
 }

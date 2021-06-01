@@ -1,6 +1,5 @@
 package view.dialog;
 
-import domain.ambulanza.AmbulanceDigitalTwin;
 import domain.operatore.OperatorDigitalTwin;
 import javafx.scene.control.*;
 import model.*;
@@ -78,19 +77,4 @@ public class OperatorDialog extends DtDialog {
 
     }
 
-    @Override
-    public void deleteEntity() {
-        initialize("Elimina operatore");
-
-        ComboBox<String> operatore = new ComboBox<>();
-       OperatorDigitalTwin.getAllOperatoreId().forEach(o -> operatore.getItems().add(o.getOperatorId()));
-        gridPane.add(new Label("Operatore"), 0, 17);
-        gridPane.add(operatore, 1, 17);
-
-        dialog.getDialogPane().setContent(gridPane);
-
-        dialog.showAndWait()
-                .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanceDigitalTwin.deleteAmbulanza(operatore.getValue()));
-    }
 }

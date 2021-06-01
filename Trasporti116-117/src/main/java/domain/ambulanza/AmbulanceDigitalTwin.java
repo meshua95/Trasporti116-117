@@ -10,14 +10,16 @@ import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
 import model.AmbulanceId;
+import domain.trasporto.TransportDigitalTwin;
 import model.AmbulanceState;
 import utils.Constants;
+import utils.errorCode.DeleteAmbulanceStatusCode;
 
 import java.util.ArrayList;
 
 public class AmbulanceDigitalTwin {
 
-    public static void createAmbulanza(AmbulanceState stato, int numeroAmbulanza){
+    public static void createAmbulance(AmbulanceState stato, int numeroAmbulanza){
         String ambulanzaId = "ambulanza"+numeroAmbulanza;
         String GSPId = "GPS"+numeroAmbulanza;
         BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanzaId)
@@ -52,18 +54,22 @@ public class AmbulanceDigitalTwin {
                 rel,
                 BasicRelationship.class);
         System.out.println(createdRelationship.getId());
-
     }
 
-    public static void deleteAmbulanza(String dtId) {
-        Client.getClient().listRelationships(dtId, BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(dtId, rel.getId()));
-        Client.getClient().deleteDigitalTwin(dtId);
+    public static DeleteAmbulanceStatusCode deleteAmbulance(AmbulanceId dtId) {
+        if(!TransportDigitalTwin.getTransportOfAmbulance(dtId).isEmpty()){
+            return DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING;
+        }
+        Client.getClient().listRelationships(dtId.toString(), BasicRelationship.class)
+                .forEach(rel -> Client.getClient().deleteRelationship(dtId.toString(), rel.getId()));
+        Client.getClient().deleteDigitalTwin(dtId.toString());
+
+        return DeleteAmbulanceStatusCode.DELETED;
     }
 
-    public static ArrayList<AmbulanceId> getAllAmbulanzaIdTwins(){
+    public static ArrayList<AmbulanceId> getAllAmbulanceIdTwins(){
         ArrayList<AmbulanceId> ambulanzeIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.AMBULANZA_MODEL_ID + "'";
+            String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.AMBULANZA_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> ambulanzeIds.add(new AmbulanceId(r.getId())));
         return ambulanzeIds;
