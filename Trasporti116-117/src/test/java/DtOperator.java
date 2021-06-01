@@ -14,8 +14,8 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
-public class DtOperatore {
-    private final String idOperatore = "RSSMRA88A08E730X";
+public class DtOperator {
+    private final OperatorId idOperatore = new OperatorId("OP01");
 
     @BeforeClass
     public static void createConnection(){
@@ -32,7 +32,7 @@ public class DtOperatore {
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
 
         OperatorDigitalTwin.createOperatore(idOperatore, personalData);
-        assertEquals(Client.getClient().getDigitalTwin(idOperatore, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(Client.getClient().getDigitalTwin(idOperatore.getOperatorId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test

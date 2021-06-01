@@ -1,7 +1,5 @@
 package view.dialog;
 
-import domain.ambulanza.AmbulanceDigitalTwin;
-import domain.ambulanza.AmbulanceId;
 import domain.paziente.PatientDigitalTwin;
 import javafx.scene.control.*;
 import model.*;
@@ -75,8 +73,8 @@ public class PatientDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> PatientDigitalTwin.createPaziente(
-                        cf.getText(),
+                .ifPresent(response -> PatientDigitalTwin.createPatient(
+                        new FiscalCode(cf.getText()),
                         new PersonalData(
                                 nome.getText(),
                                 cognome.getText(),

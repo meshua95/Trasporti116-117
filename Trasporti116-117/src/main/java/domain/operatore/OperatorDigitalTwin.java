@@ -17,21 +17,21 @@ import java.util.ArrayList;
 
 public class OperatorDigitalTwin {
 
-    public static void createOperatore(String dtId, PersonalData personalData){
-        BasicDigitalTwin OperatoreAmbulanzaDT = new BasicDigitalTwin(dtId)
+    public static void createOperatore(OperatorId operatorId, PersonalData personalData){
+        BasicDigitalTwin OperatoreAmbulanzaDT = new BasicDigitalTwin(operatorId.getOperatorId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.OPERATORE_AMBULANZA_ID)
                 )
                 .addToContents("datiAnagrafici", personalData);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, OperatoreAmbulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(operatorId.getOperatorId(), OperatoreAmbulanzaDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
     }
 
-    public static void deleteOperatore(String idOperatore) {
-        Client.getClient().listRelationships(idOperatore, BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(idOperatore, rel.getId()));
-        Client.getClient().deleteDigitalTwin(idOperatore);
+    public static void deleteOperatore(OperatorId idOperatore) {
+        Client.getClient().listRelationships(idOperatore.getOperatorId(), BasicRelationship.class)
+                .forEach(rel -> Client.getClient().deleteRelationship(idOperatore.getOperatorId(), rel.getId()));
+        Client.getClient().deleteDigitalTwin(idOperatore.getOperatorId());
     }
 
     public static ArrayList<OperatorId> getAllOperatoreId(){

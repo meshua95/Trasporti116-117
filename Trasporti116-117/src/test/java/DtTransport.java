@@ -19,32 +19,32 @@ import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 
-public class DtTrasporto {
-    private final TransportId idTrasporto = new TransportId("Trasporto1");
-    private final int idAmbulanza = 3;
-    private final String idPaziente = "CRGMHI12M21E730X";
-    private final String idOperatore = "RSSMRA88A08E730X";
+public class DtTransport {
+    private final TransportId transportId = new TransportId("Trasporto1");
+    private final int ambulanceId = 3;
+    private final FiscalCode patientId = new FiscalCode("CRGMHI12M21E730X");
+    private final OperatorId operatorId = new OperatorId("OP01");
 
     @BeforeClass
     public static void createConnection(){
         Client.getClient();
     }
 
-    private void createAmbulanza(){
-        AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, idAmbulanza);
+    private void createAmbulance(){
+        AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, ambulanceId);
     }
 
-    private void createPaziente(){
-        PersonalData datiAnagrafici =
+    private void createPatient(){
+        PersonalData personalData =
                 new PersonalData(
                         "Francesco",
                         "Bianchi",
                         LocalDate.of(1981, 4, 3),
                         new Location(new Address ("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode("47122"))
                 );
-        HealthState statoSalute = new HealthState("Niente da riferire");
+        HealthState healthState = new HealthState("Niente da riferire");
 
-        PatientDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.NOT_AUTONOMOUS);
+        PatientDigitalTwin.createPatient(patientId, personalData, healthState, Autonomy.NOT_AUTONOMOUS);
     }
 
     private void createOperatore(){
@@ -54,55 +54,54 @@ public class DtTrasporto {
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
 
-        OperatorDigitalTwin.createOperatore(idOperatore, personalData);
+        OperatorDigitalTwin.createOperatore(operatorId, personalData);
     }
 
     private void createTrasporto(){
-        TransportDigitalTwin.createTrasporto(
-                new TransportId("trasporto1"),
+        TransportDigitalTwin.createTransport(
                 LocalDateTime.of(2021,05,05,18,00),
                 TransportState.ENDED,
                 new Route(
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
                         new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),
-                new AmbulanceId("ambulanza" + idAmbulanza),
-                new FiscalCode(idPaziente),
-                new OperatorId(idOperatore));
+                new AmbulanceId("ambulanza" + ambulanceId),
+                patientId,
+                operatorId);
     }
 
     @Test
     public void checkTrasporto(){
-        createAmbulanza();
-        createPaziente();
+        createAmbulance();
+        createPatient();
         createOperatore();
 
         createTrasporto();
 
-        assertEquals(Client.getClient().getDigitalTwin(idTrasporto.toString(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(Client.getClient().getDigitalTwin(transportId.toString(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void checkTrasportoAmbulanzaRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(idTrasporto.toString(), idTrasporto + "toambulanza" + idAmbulanza, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.toString(), transportId + "toambulanza" + ambulanceId, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTrasportoPazienteRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(idTrasporto.toString(), idTrasporto + "to" + idPaziente, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.toString(), transportId + "to" + patientId, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTransportOperatorRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(idTrasporto.toString(), idTrasporto + "to" + idOperatore, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.toString(), transportId + "to" + transportId, BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void deleteTransport(){
         try{
-            TransportDigitalTwin.deleteTransport(idTrasporto);
+            TransportDigitalTwin.deleteTransport(transportId);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

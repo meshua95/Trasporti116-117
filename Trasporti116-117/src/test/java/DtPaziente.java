@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DtPaziente {
 
-    private final String idPaziente = "CRGMHI12M21E730X";
+    private final FiscalCode idPaziente = new FiscalCode("CRGMHI12M21E730X");
 
     @BeforeClass
     public static void createConnection(){
@@ -33,14 +33,14 @@ public class DtPaziente {
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
         HealthState statoSalute = new HealthState("Niente da riferire");
 
-        PatientDigitalTwin.createPaziente(idPaziente, datiAnagrafici, statoSalute, Autonomy.PARTIALLY_AUTONOMOUS);
-        assertEquals(Client.getClient().getDigitalTwin(idPaziente, BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        PatientDigitalTwin.createPatient(idPaziente, datiAnagrafici, statoSalute, Autonomy.PARTIALLY_AUTONOMOUS);
+        assertEquals(Client.getClient().getDigitalTwin(idPaziente.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void deletePaziente(){
         try{
-            PatientDigitalTwin.deletePaziente(idPaziente);
+            PatientDigitalTwin.deletePatient(idPaziente);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

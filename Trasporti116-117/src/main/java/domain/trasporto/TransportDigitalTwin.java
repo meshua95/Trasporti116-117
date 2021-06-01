@@ -20,48 +20,49 @@ import java.util.List;
 
 public class TransportDigitalTwin {
 
-    public static void createTrasporto(TransportId transportId, LocalDateTime dataOra, TransportState stato, Route route, AmbulanceId ambulanzaId, FiscalCode pazienteId, OperatorId operatoreId){
+    public static void createTransport(LocalDateTime dateTime, TransportState state, Route route, AmbulanceId ambulanceId, FiscalCode patientId, OperatorId operatorId){
+        TransportId transportId = generateTransportId(patientId, dateTime);
         //create digital twin "trasporto"
-        BasicDigitalTwin trasportoDT = new BasicDigitalTwin(transportId.toString())
+        BasicDigitalTwin trasportoDT = new BasicDigitalTwin(transportId.getId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRASPORTO_ID)
                 )
-                .addToContents("dataOra", dataOra)
+                .addToContents("dataOra", dateTime)
                 .addToContents("itinerario", route)
-                .addToContents("stato", stato.getValue());
+                .addToContents("stato", state.getValue());
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.toString(), trasportoDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), trasportoDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
         //add relationship whit ambulanza
-        createTrasportoRelationship(transportId.toString(), ambulanzaId.toString(), "usa");
+        createTrasportoRelationship(transportId, ambulanceId.getAmbulanceId(), "usa");
 
         //add relationship whit paziente
-        createTrasportoRelationship(transportId.toString(), pazienteId.toString(), "trasporta");
+        createTrasportoRelationship(transportId, patientId.getFiscalCode(), "trasporta");
 
         //add relationship whit operatore
-        createTrasportoRelationship(transportId.toString(), operatoreId.toString(), "guidata");
+        createTrasportoRelationship(transportId, operatorId.getOperatorId(), "guidata");
     }
 
     private static void createTrasportoRelationship(TransportId transportId, String targetId, String relationshipName){
         BasicRelationship trasportoToTargetRelationship =
                 new BasicRelationship(
                         transportId + "to" + targetId,
-                        transportId.toString(),
+                        transportId.getId(),
                         targetId,
                         relationshipName);
 
         BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
-                transportId.toString(),
+                transportId.getId(),
                 transportId + "to" + targetId,
                 trasportoToTargetRelationship,
                 BasicRelationship.class);
     }
 
     public static void deleteTransport(TransportId transportId) {
-            Client.getClient().listRelationships(transportId.toString(), BasicRelationship.class)
-                    .forEach(rel -> Client.getClient().deleteRelationship(transportId.toString(), rel.getId()));
-            Client.getClient().deleteDigitalTwin(transportId.toString());
+            Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)
+                    .forEach(rel -> Client.getClient().deleteRelationship(transportId.getId(), rel.getId()));
+            Client.getClient().deleteDigitalTwin(transportId.getId());
     }
 
     public static void deleteAllTransport(List<TransportId> dtId) {
@@ -87,24 +88,8 @@ public class TransportDigitalTwin {
         return transoprtIds;
     }
 
-    private static void createTrasportoRelationship(String trasportoId, String targetId, String relationshipName){
-        BasicRelationship trasportoToTargetRelationship =
-                new BasicRelationship(
-                        trasportoId + "to" + targetId,
-                        trasportoId,
-                        targetId,
-                        relationshipName);
-
-        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
-                trasportoId,
-                trasportoId + "to" + targetId,
-                trasportoToTargetRelationship,
-                BasicRelationship.class);
-    }
-
-    private static TransportId generateTransportId(FiscalCode patientId, AmbulanceId ambulanceId, LocalDateTime dataOra){
-        return new TransportId(patientId.toString() +"-"
-                + ambulanceId.toString() + "-"
+    private static TransportId generateTransportId(FiscalCode patientId, LocalDateTime dataOra){
+        return new TransportId(patientId.getFiscalCode() +"-"
                 + dataOra.toString());
     }
 }

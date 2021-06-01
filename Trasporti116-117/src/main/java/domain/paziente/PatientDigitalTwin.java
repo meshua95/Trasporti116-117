@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class PatientDigitalTwin {
 
-    public static void createPaziente(String dtId, PersonalData datiAnagraficiPaziente, HealthState healthState, Autonomy autonomy){
-        BasicDigitalTwin pazienteDT = new BasicDigitalTwin(dtId)
+    public static void createPatient(FiscalCode patientId, PersonalData datiAnagraficiPaziente, HealthState healthState, Autonomy autonomy){
+        BasicDigitalTwin pazienteDT = new BasicDigitalTwin(patientId.getFiscalCode())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.PAZIENTE_ID)
                 )
@@ -25,21 +25,21 @@ public class PatientDigitalTwin {
                 .addToContents("statoDiSalute", healthState)
                 .addToContents("autonomia", autonomy.getValue());
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(dtId, pazienteDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(patientId.getFiscalCode(), pazienteDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
     }
 
-    public static void deletePaziente(String idPaziente) {
-        Client.getClient().listRelationships(idPaziente, BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(idPaziente, rel.getId()));
-        Client.getClient().deleteDigitalTwin(idPaziente);
+    public static void deletePatient(FiscalCode idPatient) {
+        Client.getClient().listRelationships(idPatient.getFiscalCode(), BasicRelationship.class)
+                .forEach(rel -> Client.getClient().deleteRelationship(idPatient.getFiscalCode(), rel.getId()));
+        Client.getClient().deleteDigitalTwin(idPatient.getFiscalCode());
     }
 
     public static ArrayList<FiscalCode> getAllPatientId(){
-        ArrayList<FiscalCode> pazientiIds = new ArrayList<>();
+        ArrayList<FiscalCode> patientsIds = new ArrayList<>();
         String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.PAZIENTE_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        pageableResponse.forEach(r-> pazientiIds.add(new FiscalCode(r.getId())));
-        return pazientiIds;
+        pageableResponse.forEach(r-> patientsIds.add(new FiscalCode(r.getId())));
+        return patientsIds;
     }
 }

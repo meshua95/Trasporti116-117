@@ -99,9 +99,7 @@ public class TransportDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> TransportDigitalTwin.createTrasporto(new TransportId("Trasporto2"),
-
-                        LocalDateTime.of(dataTrasporto.getValue().getYear(),
+                .ifPresent(response -> TransportDigitalTwin.createTransport(LocalDateTime.of(dataTrasporto.getValue().getYear(),
                                 dataTrasporto.getValue().getMonth(),
                                 dataTrasporto.getValue().getDayOfMonth(),
                                 Integer.parseInt(hourTrasporto.getText()),

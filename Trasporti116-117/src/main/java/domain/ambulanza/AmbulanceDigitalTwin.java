@@ -56,13 +56,13 @@ public class AmbulanceDigitalTwin {
         System.out.println(createdRelationship.getId());
     }
 
-    public static DeleteAmbulanceStatusCode deleteAmbulance(AmbulanceId dtId) {
-        if(!TransportDigitalTwin.getTransportOfAmbulance(dtId).isEmpty()){
+    public static DeleteAmbulanceStatusCode deleteAmbulance(AmbulanceId ambulanceId) {
+        if(!TransportDigitalTwin.getTransportOfAmbulance(ambulanceId).isEmpty()){
             return DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING;
         }
-        Client.getClient().listRelationships(dtId.toString(), BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(dtId.toString(), rel.getId()));
-        Client.getClient().deleteDigitalTwin(dtId.toString());
+        Client.getClient().listRelationships(ambulanceId.getAmbulanceId(), BasicRelationship.class)
+                .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getAmbulanceId(), rel.getId()));
+        Client.getClient().deleteDigitalTwin(ambulanceId.getAmbulanceId());
 
         return DeleteAmbulanceStatusCode.DELETED;
     }
