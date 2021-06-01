@@ -37,7 +37,7 @@ public class PatientDigitalTwin {
 
     public static ArrayList<FiscalCode> getAllPatientId(){
         ArrayList<FiscalCode> pazientiIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.PAZIENTE_ID + "'";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.PAZIENTE_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> pazientiIds.add(new FiscalCode(r.getId())));
         return pazientiIds;

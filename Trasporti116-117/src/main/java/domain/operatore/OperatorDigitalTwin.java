@@ -35,7 +35,7 @@ public class OperatorDigitalTwin {
 
     public static ArrayList<OperatorId> getAllOperatoreId(){
         ArrayList<OperatorId> operatoriIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.OPERATORE_AMBULANZA_ID + "'";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.OPERATORE_AMBULANZA_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> operatoriIds.add(new OperatorId(r.getId())));
         return operatoriIds;

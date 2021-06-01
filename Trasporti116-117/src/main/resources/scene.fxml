@@ -28,19 +28,19 @@
             <BorderPane.margin>
                 <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
             </BorderPane.margin>
-            <Button fx:id="addAmbulanza" text="Aggiungi Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="addPaziente" text="Aggiungi Paziente" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="addOperatore" text="Aggiungi operatore" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="addTrasporto" text="Aggiungi trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="addAmbulance" text="Aggiungi Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="addPatient" text="Aggiungi Paziente" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="addOperator" text="Aggiungi operatore" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="addTransport" text="Aggiungi trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
         </VBox>
     </left>
 
     <center>
         <VBox alignment="CENTER" spacing="10">
-            <Button fx:id="rmAmbulanza" text="Rimuovi Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="rmPaziente" text="Rimuovi Paziente" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="rmOperatore" text="Rimuovi operatore" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="rmTrasporto" text="Rimuovi trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="rmAmbulance" text="Rimuovi Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="rmPatient" text="Rimuovi Paziente" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="rmOperator" text="Rimuovi operatore" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="rmTransport" text="Rimuovi trasporto" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
         </VBox>
     </center>
 
@@ -49,8 +49,8 @@
             <BorderPane.margin>
                 <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
             </BorderPane.margin>
-            <Button fx:id="trackAmbulanza" text="Traccia Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
-            <Button fx:id="viewTrasporti" text="Visualizza Trasporti in corso" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="trackAmbulance" text="Traccia Ambulanza" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="viewTransport" text="Visualizza Trasporti in corso" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
         </VBox>
     </right>
 </BorderPane>

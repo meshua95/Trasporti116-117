@@ -9,6 +9,7 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import domain.ambulanza.AmbulanceId;
 import domain.operatore.OperatorId;
 import model.Route;
 import model.TransportState;
@@ -70,7 +71,18 @@ public class TransportDigitalTwin {
 
     public static ArrayList<TransportId> getAllTransportId(){
         ArrayList<TransportId> transoprtIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS T WHERE T.$metadata.$model = '"+ Constants.TRASPORTO_ID + "'";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.TRASPORTO_ID + "')";
+        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
+        pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
+        return transoprtIds;
+    }
+
+    public static ArrayList<TransportId> getTransportofAmbulance(AmbulanceId id){
+        ArrayList<TransportId> transoprtIds = new ArrayList<>();
+        String query = "SELECT t " +
+                "FROM DIGITALTWINS source " +
+                "JOIN target RELATED source.feeds " +
+                "WHERE target.$dtId = '"+ id.getAmbulanceId() +"'";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
         return transoprtIds;
