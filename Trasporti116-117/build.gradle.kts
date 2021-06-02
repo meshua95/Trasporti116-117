@@ -30,7 +30,10 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.30")
     implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("com.azure:azure-core-http-okhttp:1.6.1")
+    implementation("com.sothawo:mapjfx:2.15.3")
+    implementation("org.apache.clerezza.ext:org.json.simple:0.4")
     testImplementation("junit:junit:4.13")
+
 }
 
 tasks.jacocoTestReport{

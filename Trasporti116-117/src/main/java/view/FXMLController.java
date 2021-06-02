@@ -13,6 +13,9 @@ import view.dialog.AmbulanceDialog;
 import view.dialog.OperatorDialog;
 import view.dialog.PatientDialog;
 import view.dialog.TransportDialog;
+import com.sothawo.mapjfx.*;
+
+import static view.SceneType.MAPS_SCENE;
 
 public class FXMLController implements Initializable {
 
@@ -43,5 +46,9 @@ public class FXMLController implements Initializable {
 
         rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
         rmTransport.setOnAction(event -> new TransportDialog().deleteEntity());
+
+        trackAmbulance.setOnAction(event -> {
+            MainApp.setScene(MAPS_SCENE);
+        });
     }
 }

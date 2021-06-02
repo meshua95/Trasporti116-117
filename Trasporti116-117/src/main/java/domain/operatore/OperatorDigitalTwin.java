@@ -20,7 +20,7 @@ public class OperatorDigitalTwin {
     public static void createOperatore(OperatorId operatorId, PersonalData personalData){
         BasicDigitalTwin OperatoreAmbulanzaDT = new BasicDigitalTwin(operatorId.getOperatorId())
                 .setMetadata(
-                        new BasicDigitalTwinMetadata().setModelId(Constants.OPERATORE_AMBULANZA_ID)
+                        new BasicDigitalTwinMetadata().setModelId(Constants.OPERATOR_MODEL_ID)
                 )
                 .addToContents("personalData", personalData);
 
@@ -36,7 +36,7 @@ public class OperatorDigitalTwin {
 
     public static ArrayList<OperatorId> getAllOperatoreId(){
         ArrayList<OperatorId> operatoriIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.OPERATORE_AMBULANZA_ID + "')";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.OPERATOR_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> operatoriIds.add(new OperatorId(r.getId())));
         return operatoriIds;

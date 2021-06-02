@@ -9,13 +9,17 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import javafx.util.Pair;
 import model.AmbulanceId;
 import domain.trasporto.TransportDigitalTwin;
 import model.AmbulanceState;
+import model.Coordinates;
+import org.gradle.internal.impldep.com.google.api.client.json.Json;
 import utils.Constants;
 import utils.errorCode.DeleteAmbulanceStatusCode;
-
+import org.json.simple.JSONObject;
 import java.util.ArrayList;
+import java.util.stream.DoubleStream;
 
 public class AmbulanceDigitalTwin {
 
@@ -24,7 +28,7 @@ public class AmbulanceDigitalTwin {
 
         BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
                 .setMetadata(
-                        new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANZA_MODEL_ID)
+                        new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANCE_MODEL_ID)
                 )
                 .addToContents("number", numeroAmbulanza)
                 .addToContents("state", stato.getValue());
@@ -70,9 +74,22 @@ public class AmbulanceDigitalTwin {
 
     public static ArrayList<AmbulanceId> getAllAmbulanceIdTwins(){
         ArrayList<AmbulanceId> ambulanzeIds = new ArrayList<>();
-            String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.AMBULANZA_MODEL_ID + "')";
+            String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.AMBULANCE_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> ambulanzeIds.add(new AmbulanceId(r.getId())));
         return ambulanzeIds;
+    }
+
+    public static Coordinates getGPSCoordinatesOfAmbulance(AmbulanceId ambulanceId){
+        final double longitude;
+        final double latitude;
+
+        String query= "SELECT * FROM digitaltwins  WHERE $dtId='"+ambulanceId.getGpsId()+"'";
+        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
+
+        latitude = pageableResponse.stream().mapToDouble(a-> Double.parseDouble(a.get("latitude").toString())).findFirst().getAsDouble();
+        longitude = pageableResponse.stream().mapToDouble(a-> Double.parseDouble(a.get("longitude").toString())).findFirst().getAsDouble();
+
+        return new Coordinates(longitude, latitude);
     }
 }

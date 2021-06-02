@@ -19,7 +19,7 @@ public class PatientDigitalTwin {
     public static void createPatient(FiscalCode patientId, PersonalData personalData, HealthState healthState, Autonomy autonomy){
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(patientId.getFiscalCode())
                 .setMetadata(
-                        new BasicDigitalTwinMetadata().setModelId(Constants.PAZIENTE_ID)
+                        new BasicDigitalTwinMetadata().setModelId(Constants.PATIENT_MODEL_ID)
                 )
                 .addToContents("personalData", personalData)
                 .addToContents("healthState", healthState)
@@ -37,7 +37,7 @@ public class PatientDigitalTwin {
 
     public static ArrayList<FiscalCode> getAllPatientId(){
         ArrayList<FiscalCode> patientsIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.PAZIENTE_ID + "')";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.PATIENT_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> patientsIds.add(new FiscalCode(r.getId())));
         return patientsIds;
