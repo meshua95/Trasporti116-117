@@ -7,8 +7,6 @@ import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import model.*;
 import domain.operatore.OperatorDigitalTwin;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
