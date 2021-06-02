@@ -20,9 +20,11 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 public class DtTransport {
-    private final TransportId transportId = new TransportId("Trasporto1");
-    private final int ambulanceNumber = 3;
     private final FiscalCode patientId = new FiscalCode("CRGMHI12M21E730X");
+    private final LocalDateTime dateTime = LocalDateTime.of(2021,05,05,18,00);
+    private final TransportId transportId = TransportDigitalTwin.generateTransportId(patientId, dateTime);
+    private final int ambulanceNumber = 3;
+
     private final OperatorId operatorId = new OperatorId("OP01");
 
     @BeforeClass
@@ -40,7 +42,7 @@ public class DtTransport {
                         "Francesco",
                         "Bianchi",
                         LocalDate.of(1981, 4, 3),
-                        new Location(new Address ("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode("47122"))
+                        new Location(new Address ("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode(47122))
                 );
         HealthState healthState = new HealthState("Niente da riferire");
 
@@ -52,18 +54,18 @@ public class DtTransport {
                 new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
-                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
 
         OperatorDigitalTwin.createOperatore(operatorId, personalData);
     }
 
     private void createTrasporto(){
         TransportDigitalTwin.createTransport(
-                LocalDateTime.of(2021,05,05,18,00),
+                dateTime,
                 TransportState.ENDED,
                 new Route(
-                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")),
-                        new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode("47521"))),
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
+                        new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521))),
                 new AmbulanceId(ambulanceNumber),
                 patientId,
                 operatorId);
@@ -83,19 +85,19 @@ public class DtTransport {
     @Test
     public void checkTrasportoAmbulanzaRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId + "to" + new AmbulanceId(ambulanceNumber), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(ambulanceNumber).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTrasportoPazienteRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId + "to" + patientId, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test
     public void checkTransportOperatorRelationship(){
         createTrasporto();
-        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId + "to" + transportId, BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
     }
 
     @Test

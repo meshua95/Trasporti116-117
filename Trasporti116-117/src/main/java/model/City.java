@@ -5,13 +5,13 @@
 package model;
 
 public class City {
-    private String name;
+    private String city;
 
     public City(String name){
-        this.name = name;
+        this.city = name;
     }
 
     public String getCityName(){
-        return this.name;
+        return this.city;
     }
 }

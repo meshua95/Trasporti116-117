@@ -84,7 +84,7 @@ public class PatientDialog extends DtDialog{
                                         new HouseNumber(numero.getText()),
                                         new City(città.getText()),
                                         new District(provincia.getText()),
-                                        new PostalCode(cap.getText()))),
+                                        new PostalCode(Integer.parseInt(cap.getText())))),
                         new HealthState(statoSalute.getText()),
                         autonomia.getValue()
                 ));

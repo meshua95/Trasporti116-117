@@ -5,13 +5,13 @@
 package model;
 
 public class PostalCode {
-    private String postalCode;
+    private int postalCode;
 
-    public PostalCode(String postalCode){
+    public PostalCode(int postalCode){
         this.postalCode = postalCode;
     }
 
-    public String getPostalCode(){
+    public int getPostalCode(){
         return this.postalCode;
     }
 }

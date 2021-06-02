@@ -22,6 +22,8 @@ public class TransportDigitalTwin {
 
     public static void createTransport(LocalDateTime dateTime, TransportState state, Route route, AmbulanceId ambulanceId, FiscalCode patientId, OperatorId operatorId){
         TransportId transportId = generateTransportId(patientId, dateTime);
+        System.out.println(transportId.getId());
+
         //create digital twin "trasporto"
         BasicDigitalTwin trasportoDT = new BasicDigitalTwin(transportId.getId())
                 .setMetadata(
@@ -30,7 +32,7 @@ public class TransportDigitalTwin {
                 .addToContents("dateTime", dateTime)
                 .addToContents("route", route)
                 .addToContents("state", state.getValue());
-
+        System.out.println(transportId.getId());
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), trasportoDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
@@ -47,14 +49,14 @@ public class TransportDigitalTwin {
     private static void createTrasportoRelationship(TransportId transportId, String targetId, String relationshipName){
         BasicRelationship trasportoToTargetRelationship =
                 new BasicRelationship(
-                        transportId + "to" + targetId,
+                        transportId.getId() + "to" + targetId,
                         transportId.getId(),
                         targetId,
                         relationshipName);
 
         BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
                 transportId.getId(),
-                transportId + "to" + targetId,
+                transportId.getId() + "to" + targetId,
                 trasportoToTargetRelationship,
                 BasicRelationship.class);
     }
@@ -88,8 +90,7 @@ public class TransportDigitalTwin {
         return transoprtIds;
     }
 
-    private static TransportId generateTransportId(FiscalCode patientId, LocalDateTime dataOra){
-        return new TransportId(patientId.getFiscalCode() +"-"
-                + dataOra.toString());
+    public static TransportId generateTransportId(FiscalCode patientId, LocalDateTime dataOra){
+        return new TransportId(dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_" + patientId.getFiscalCode());
     }
 }

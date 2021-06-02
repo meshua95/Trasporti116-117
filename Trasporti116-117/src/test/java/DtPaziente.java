@@ -30,7 +30,7 @@ public class DtPaziente {
                 new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
-                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
         HealthState statoSalute = new HealthState("Niente da riferire");
 
         PatientDigitalTwin.createPatient(idPaziente, datiAnagrafici, statoSalute, Autonomy.PARTIALLY_AUTONOMOUS);

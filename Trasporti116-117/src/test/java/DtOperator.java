@@ -29,7 +29,7 @@ public class DtOperator {
                 new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
-                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode("47521")));
+                        new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
 
         OperatorDigitalTwin.createOperatore(idOperatore, personalData);
         assertEquals(Client.getClient().getDigitalTwin(idOperatore.getOperatorId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
