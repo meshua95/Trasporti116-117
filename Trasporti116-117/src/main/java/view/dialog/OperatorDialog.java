@@ -60,7 +60,7 @@ public class OperatorDialog extends DtDialog {
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> OperatorDigitalTwin.createOperatore(
+                .ifPresent(response -> OperatorDigitalTwin.createOperator(
                         new OperatorId(cf.getText()),
                         new PersonalData(
                                 nome.getText(),

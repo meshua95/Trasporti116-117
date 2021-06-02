@@ -21,9 +21,9 @@ import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
-public class DtAmbulanza {
+public class DtAmbulance {
 
-    private final int ambulanceNumber = 2;
+    private final int ambulanceNumber = 0;
     private final AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
 
     @BeforeClass
@@ -35,23 +35,30 @@ public class DtAmbulanza {
     @Test
     public void createAmbulanceWithAmbulanceId(){
         AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, ambulanceId);
+
         assertEquals(Client.getClient().getDigitalTwin(this.ambulanceId.getAmbulanceId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
         assertEquals(Client.getClient().getDigitalTwin(this.ambulanceId.getGpsId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
         assertEquals(Client.getClient().getRelationship(ambulanceId.getAmbulanceId(), ambulanceId.getAmbulanceId() + "to" + ambulanceId.getGpsId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        AmbulanceDigitalTwin.deleteAmbulance(ambulanceId);
     }
 
     @Test
     public void createAmbulanceWithAmbulanceNumber(){
         AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, ambulanceNumber);
+
         assertEquals(Client.getClient().getDigitalTwin(new AmbulanceId(ambulanceNumber).getAmbulanceId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
         assertEquals(Client.getClient().getDigitalTwin(new AmbulanceId(ambulanceNumber).getGpsId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
         assertEquals(Client.getClient().getRelationship(new AmbulanceId(ambulanceNumber).getAmbulanceId(), new AmbulanceId(ambulanceNumber).getAmbulanceId() + "to" + new AmbulanceId(ambulanceNumber).getGpsId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        AmbulanceDigitalTwin.deleteAmbulance(ambulanceId);
     }
 
     @Test
     public void deleteAmbulanceWithNoRelationship(){
         AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
         AmbulanceDigitalTwin.createAmbulance(AmbulanceState.MAINTENACE, ambulanceNumber);
+
         assertEquals(AmbulanceDigitalTwin.deleteAmbulance(ambulanceId), DeleteAmbulanceStatusCode.DELETED);
         try {
             Client.getClient().getDigitalTwin(ambulanceId.getAmbulanceId(), BasicDigitalTwin.class);
@@ -78,25 +85,31 @@ public class DtAmbulanza {
                         new Location(new Address ("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode(47122))
                 );
         HealthState healthState = new HealthState("Niente da riferire");
-        FiscalCode patientId = new FiscalCode("CRGMHI12M21E730X");
+        FiscalCode patientId = new FiscalCode("paziente0");
         PatientDigitalTwin.createPatient(patientId, personalData, healthState, Autonomy.NOT_AUTONOMOUS);
 
-        OperatorId operatorId = new OperatorId("OP01");
+        OperatorId operatorId = new OperatorId("OP00");
         PersonalData personalOperatorData =
                 new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
-        OperatorDigitalTwin.createOperatore(operatorId, personalOperatorData);
+        OperatorDigitalTwin.createOperator(operatorId, personalOperatorData);
 
         AmbulanceDigitalTwin.createAmbulance(AmbulanceState.MAINTENACE, ambulanceId);
 
         LocalDateTime dateTime = LocalDateTime.of(2021,05,05,18,00);
-        TransportDigitalTwin.createTransport(dateTime, TransportState.NOT_STARTED, route, ambulanceId, patientId, operatorId);
+        TransportId transportId = TransportDigitalTwin.createTransport(dateTime, TransportState.NOT_STARTED, route, ambulanceId, patientId, operatorId);
 
         int deleteAmbulanceResult = AmbulanceDigitalTwin.deleteAmbulance(ambulanceId).getValue();
         assertEquals(deleteAmbulanceResult, DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING.getValue());
         assertEquals(Client.getClient().getDigitalTwin(this.ambulanceId.getGpsId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
         assertEquals(Client.getClient().getDigitalTwin(this.ambulanceId.getAmbulanceId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+
+
+        TransportDigitalTwin.deleteTransport(transportId);
+        OperatorDigitalTwin.deleteOperatore(operatorId);
+        PatientDigitalTwin.deletePatient(patientId);
+        AmbulanceDigitalTwin.deleteAmbulance(ambulanceId);
     }
 }

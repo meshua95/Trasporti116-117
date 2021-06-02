@@ -8,10 +8,11 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
+import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import model.AmbulanceId;
-import domain.trasporto.TransportDigitalTwin;
 import model.AmbulanceState;
+import utils.AzureErrorMessage;
 import utils.Constants;
 import utils.errorCode.DeleteAmbulanceStatusCode;
 
@@ -62,15 +63,19 @@ public class AmbulanceDigitalTwin {
     }
 
     public static DeleteAmbulanceStatusCode deleteAmbulance(AmbulanceId ambulanceId) {
-        if(!TransportDigitalTwin.getTransportOfAmbulance(ambulanceId).isEmpty()){
-            return DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING;
-        }
-        Client.getClient().listRelationships(ambulanceId.getAmbulanceId(), BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getAmbulanceId(), rel.getId()));
-        Client.getClient().deleteDigitalTwin(ambulanceId.getAmbulanceId());
-        Client.getClient().deleteDigitalTwin(ambulanceId.getGpsId());
+        try{
+            Client.getClient().listRelationships(ambulanceId.getAmbulanceId(), BasicRelationship.class)
+                    .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getAmbulanceId(), rel.getId()));
+            Client.getClient().deleteDigitalTwin(ambulanceId.getAmbulanceId());
+            Client.getClient().deleteDigitalTwin(ambulanceId.getGpsId());
 
-        return DeleteAmbulanceStatusCode.DELETED;
+            return DeleteAmbulanceStatusCode.DELETED;
+        } catch(ErrorResponseException e){
+            if(e.getLocalizedMessage().contains(AzureErrorMessage.RELATIONSHIP_NOT_DELETED)) {
+                return DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING;
+            }
+            throw e;
+        }
     }
 
     public static ArrayList<AmbulanceId> getAllAmbulanceIdTwins(){

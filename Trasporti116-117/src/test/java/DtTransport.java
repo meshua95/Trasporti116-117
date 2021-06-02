@@ -20,11 +20,11 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 public class DtTransport {
-    private final FiscalCode patientId = new FiscalCode("CRGMHI12M21E730X");
+    private final FiscalCode patientId = new FiscalCode("paziente0");
     private final LocalDateTime dateTime = LocalDateTime.of(2021,05,05,18,00);
     private final TransportId transportId = TransportDigitalTwin.generateTransportId(patientId, dateTime);
-    private final int ambulanceNumber = 3;
-    private final OperatorId operatorId = new OperatorId("OP01");
+    private final int ambulanceNumber = 0;
+    private final OperatorId operatorId = new OperatorId("OP00");
 
     @BeforeClass
     public static void createConnection(){
@@ -55,7 +55,7 @@ public class DtTransport {
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
 
-        OperatorDigitalTwin.createOperatore(operatorId, personalData);
+        OperatorDigitalTwin.createOperator(operatorId, personalData);
     }
 
     private void createTrasporto(){

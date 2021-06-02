@@ -14,9 +14,9 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
-public class DtPaziente {
+public class DtPatient {
 
-    private final FiscalCode idPaziente = new FiscalCode("paziente1");
+    private final FiscalCode idPatient = new FiscalCode("paziente0");
 
     @BeforeClass
     public static void createConnection(){
@@ -25,22 +25,21 @@ public class DtPaziente {
 
     @Test
     public void createPaziente(){
-
-        PersonalData datiAnagrafici =
+        PersonalData personalData =
                 new PersonalData("Mario",
                         "Rossi",
                         LocalDate.of(1988, 1,8),
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
-        HealthState statoSalute = new HealthState("Niente da riferire");
+        HealthState healthState = new HealthState("Niente da riferire");
 
-        PatientDigitalTwin.createPatient(idPaziente, datiAnagrafici, statoSalute, Autonomy.PARTIALLY_AUTONOMOUS);
-        assertEquals(Client.getClient().getDigitalTwin(idPaziente.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        PatientDigitalTwin.createPatient(idPatient, personalData, healthState, Autonomy.PARTIALLY_AUTONOMOUS);
+        assertEquals(Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
     }
 
     @Test
     public void deletePaziente(){
         try{
-            PatientDigitalTwin.deletePatient(idPaziente);
+            PatientDigitalTwin.deletePatient(idPatient);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }

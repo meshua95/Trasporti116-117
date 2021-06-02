@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class AmbulanceIdGeneration {
-    private int ambulanceNumber = 2;
+    private final int ambulanceNumber = 2;
 
     @Test
     public void createAmbulanceIdByAmbulanceNumber(){

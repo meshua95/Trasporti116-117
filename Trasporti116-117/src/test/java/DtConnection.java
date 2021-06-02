@@ -12,7 +12,6 @@ public class DtConnection{
 
     @Test
     public void testConnection(){
-        //Client.getClient();
         assertEquals(Client.getClient().getClass(), DigitalTwinsClient.class);
     }
 }

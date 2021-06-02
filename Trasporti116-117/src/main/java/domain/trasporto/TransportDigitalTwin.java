@@ -20,8 +20,9 @@ import java.util.List;
 
 public class TransportDigitalTwin {
 
-    public static void createTransport(LocalDateTime dateTime, TransportState state, Route route, AmbulanceId ambulanceId, FiscalCode patientId, OperatorId operatorId){
+    public static TransportId createTransport(LocalDateTime dateTime, TransportState state, Route route, AmbulanceId ambulanceId, FiscalCode patientId, OperatorId operatorId){
         TransportId transportId = generateTransportId(patientId, dateTime);
+        System.out.println(transportId);
 
         //create digital twin "trasporto"
         BasicDigitalTwin transportDT = new BasicDigitalTwin(transportId.getId())
@@ -43,6 +44,8 @@ public class TransportDigitalTwin {
 
         //add relationship whit operatore
         createTrasportoRelationship(transportId, operatorId.getOperatorId(), "drive");
+
+        return transportId;
     }
 
     private static void createTrasportoRelationship(TransportId transportId, String targetId, String relationshipName){
@@ -61,9 +64,11 @@ public class TransportDigitalTwin {
     }
 
     public static void deleteTransport(TransportId transportId) {
-            Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)
-                    .forEach(rel -> Client.getClient().deleteRelationship(transportId.getId(), rel.getId()));
-            Client.getClient().deleteDigitalTwin(transportId.getId());
+        System.out.println(transportId.getId());
+        Client.getClient().listRelationships("2021-05-05_18-0_CRGMHI12M21E730X", BasicRelationship.class).forEach(System.out::println);
+        Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)
+                .forEach(rel -> Client.getClient().deleteRelationship(transportId.getId(), rel.getId()));
+        Client.getClient().deleteDigitalTwin(transportId.getId());
     }
 
     public static void deleteAllTransport(List<TransportId> dtId) {
@@ -79,14 +84,14 @@ public class TransportDigitalTwin {
     }
 
     public static ArrayList<TransportId> getTransportOfAmbulance(AmbulanceId id){
-        ArrayList<TransportId> transoprtIds = new ArrayList<>();
+        ArrayList<TransportId> transportIds = new ArrayList<>();
         String query = "SELECT source " +
                 "FROM DIGITALTWINS source " +
                 "JOIN target RELATED source.use " +
                 "WHERE target.$dtId = '"+ id.getAmbulanceId() +"'";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
-        return transoprtIds;
+        pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
+        return transportIds;
     }
 
     public static TransportId generateTransportId(FiscalCode patientId, LocalDateTime dataOra){
