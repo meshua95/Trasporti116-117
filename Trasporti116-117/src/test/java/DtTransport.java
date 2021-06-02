@@ -59,6 +59,10 @@ public class DtTransport {
     }
 
     private void createTrasporto(){
+        createAmbulance();
+        createPatient();
+        createOperatore();
+
         TransportDigitalTwin.createTransport(
                 dateTime,
                 TransportState.CANCELLED,
@@ -70,41 +74,60 @@ public class DtTransport {
                 operatorId);
     }
 
+    private void deleteAllTestDigitalTwin(){
+        AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(ambulanceNumber));
+        PatientDigitalTwin.deletePatient(patientId);
+        OperatorDigitalTwin.deleteOperatore(operatorId);
+    }
+
     @Test
     public void checkTrasporto(){
-        createAmbulance();
-        createPatient();
-        createOperatore();
-
         createTrasporto();
 
         assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+
+        TransportDigitalTwin.deleteTransport(transportId);
+        deleteAllTestDigitalTwin();
     }
 
     @Test
     public void checkTrasportoAmbulanzaRelationship(){
         createTrasporto();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(ambulanceNumber).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        TransportDigitalTwin.deleteTransport(transportId);
+        deleteAllTestDigitalTwin();
     }
 
     @Test
     public void checkTrasportoPazienteRelationship(){
         createTrasporto();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        TransportDigitalTwin.deleteTransport(transportId);
+        deleteAllTestDigitalTwin();
     }
 
     @Test
     public void checkTransportOperatorRelationship(){
         createTrasporto();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        TransportDigitalTwin.deleteTransport(transportId);
+        deleteAllTestDigitalTwin();
     }
 
     @Test
     public void deleteTransport(){
+        createTrasporto();
+        System.out.println("delete trasporto " + transportId.getId());
+        TransportDigitalTwin.deleteTransport(transportId);
         try{
-            TransportDigitalTwin.deleteTransport(transportId);
+            Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class);
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }
+
+        deleteAllTestDigitalTwin();
     }
 }

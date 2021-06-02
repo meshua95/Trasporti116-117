@@ -38,7 +38,7 @@ public class DtOperator {
     @Test
     public void deleteOperator(){
         OperatorDigitalTwin.createOperator(idOperator, personalData);
-        assertEquals(Client.getClient().getDigitalTwin(idOperator.getOperatorId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+
         OperatorDigitalTwin.deleteOperatore(idOperator);
         try{
             Client.getClient().getDigitalTwin(idOperator.getOperatorId(), BasicDigitalTwin.class);

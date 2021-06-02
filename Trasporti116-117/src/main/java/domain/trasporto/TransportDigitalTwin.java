@@ -56,6 +56,7 @@ public class TransportDigitalTwin {
                         targetId,
                         relationshipName);
 
+        System.out.println(targetId);
         BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
                 transportId.getId(),
                 transportId.getId() + "to" + targetId,
@@ -64,8 +65,6 @@ public class TransportDigitalTwin {
     }
 
     public static void deleteTransport(TransportId transportId) {
-        System.out.println(transportId.getId());
-        Client.getClient().listRelationships("2021-05-05_18-0_CRGMHI12M21E730X", BasicRelationship.class).forEach(System.out::println);
         Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)
                 .forEach(rel -> Client.getClient().deleteRelationship(transportId.getId(), rel.getId()));
         Client.getClient().deleteDigitalTwin(transportId.getId());
