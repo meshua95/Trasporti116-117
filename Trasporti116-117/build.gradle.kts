@@ -41,7 +41,6 @@ tasks.jacocoTestReport{
 }
 
 tasks.withType<Test> {
-    //useJUnitPlatform() // Use JUnit 5 engine
     testLogging.showStandardStreams = true
     testLogging {
         showCauses = true
