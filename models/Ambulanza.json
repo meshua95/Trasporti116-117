@@ -32,22 +32,22 @@
         {
           "name": "fault",
           "displayName": "Fault",
-          "enumValue": 1
+          "enumValue": 0
         },
         {
           "name": "ready",
           "displayName": "Ready",
-          "enumValue": 2
+          "enumValue": 1
         },
         {
           "name": "used",
           "displayName": "Used",
-          "enumValue": 3
+          "enumValue": 2
         },
         {
           "name": "maintenance",
           "displayName": "Maintenance",
-          "enumValue": 4
+          "enumValue": 3
         }
       ]
     }

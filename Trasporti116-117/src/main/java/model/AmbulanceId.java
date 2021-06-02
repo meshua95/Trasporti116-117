@@ -27,7 +27,7 @@ public class AmbulanceId {
         return this.gpsAmbulanceId.getGpsId();
     }
 
-    private int getAmbulanceNumber(){
+    public int getAmbulanceNumber(){
         String[] ambulanceIdSplitted = ambulanceId.split("-");
         return Integer.parseInt(ambulanceIdSplitted[1]);
     }

@@ -24,7 +24,6 @@ public class DtTransport {
     private final LocalDateTime dateTime = LocalDateTime.of(2021,05,05,18,00);
     private final TransportId transportId = TransportDigitalTwin.generateTransportId(patientId, dateTime);
     private final int ambulanceNumber = 3;
-
     private final OperatorId operatorId = new OperatorId("OP01");
 
     @BeforeClass
@@ -62,7 +61,7 @@ public class DtTransport {
     private void createTrasporto(){
         TransportDigitalTwin.createTransport(
                 dateTime,
-                TransportState.ENDED,
+                TransportState.CANCELLED,
                 new Route(
                         new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
                         new Location(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521))),

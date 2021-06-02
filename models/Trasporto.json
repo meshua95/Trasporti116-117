@@ -70,7 +70,7 @@
         {
           "name": "cancelled",
           "displayName": "Cancelled",
-          "enumValue": 4
+          "enumValue": 0
         }
       ]
     },

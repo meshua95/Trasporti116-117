@@ -56,6 +56,11 @@ public class AmbulanceDigitalTwin {
         System.out.println(createdRelationship.getId());
     }
 
+    public static void createAmbulance(AmbulanceState state, AmbulanceId ambulanceId){
+        int ambulanceNumber = ambulanceId.getAmbulanceNumber();
+        createAmbulance(state, ambulanceNumber);
+    }
+
     public static DeleteAmbulanceStatusCode deleteAmbulance(AmbulanceId ambulanceId) {
         if(!TransportDigitalTwin.getTransportOfAmbulance(ambulanceId).isEmpty()){
             return DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING;

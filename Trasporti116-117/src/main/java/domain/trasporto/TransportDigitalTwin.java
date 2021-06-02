@@ -22,18 +22,17 @@ public class TransportDigitalTwin {
 
     public static void createTransport(LocalDateTime dateTime, TransportState state, Route route, AmbulanceId ambulanceId, FiscalCode patientId, OperatorId operatorId){
         TransportId transportId = generateTransportId(patientId, dateTime);
-        System.out.println(transportId.getId());
 
         //create digital twin "trasporto"
-        BasicDigitalTwin trasportoDT = new BasicDigitalTwin(transportId.getId())
+        BasicDigitalTwin transportDT = new BasicDigitalTwin(transportId.getId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRASPORTO_ID)
                 )
                 .addToContents("dateTime", dateTime)
                 .addToContents("route", route)
                 .addToContents("state", state.getValue());
-        System.out.println(transportId.getId());
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), trasportoDT, BasicDigitalTwin.class);
+
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
         //add relationship whit ambulanza
