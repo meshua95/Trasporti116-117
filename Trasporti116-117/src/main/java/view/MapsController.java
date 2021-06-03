@@ -1,22 +1,20 @@
 package view;
 import com.sothawo.mapjfx.*;
-import com.sothawo.mapjfx.event.MapViewEvent;
 import domain.ambulanza.AmbulanceDigitalTwin;
-import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.shape.Circle;
+import javafx.scene.control.ComboBox;
 import javafx.util.Duration;
 import model.AmbulanceId;
 import model.Coordinates;
 
-import java.io.Serial;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static view.SceneType.MAPS_SCENE;
 import static view.SceneType.ROOT_SCENE;
 
 public class MapsController implements Initializable {
@@ -24,45 +22,25 @@ public class MapsController implements Initializable {
     private MapView mapView;
     @FXML
     private Button back;
-    private static final Coordinate coordKarlsruheHarbour = new Coordinate(44.143753271603956 , 12.250847570172596);
-    private Marker markerKaHarbour;
-    private Marker markerClick = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
-    private MapCircle circleCastle = new MapCircle(coordKarlsruheHarbour, 1_000).setVisible(true);
+    @FXML
+    private ComboBox ambulance;
+    @FXML
+    private Button track;
+
+    Timeline timeline;
+    private static final Coordinate cesenaCoordinate = new Coordinate(44.143753271603956 , 12.250847570172596);
+    private Marker ambulanceMarker = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
+
+    private static final int INITIAL_ZOOM = 10;
 
     public void initMaps(Projection projection) {
-        mapView.setCenter(coordKarlsruheHarbour);
-        markerKaHarbour = Marker.createProvided(Marker.Provided.BLUE).setPosition(coordKarlsruheHarbour).setVisible(true);
-        mapView.addMarker(markerClick);
-        mapView.setZoom(14);
-
-
-        mapView.addEventHandler(MapViewEvent.MAP_CLICKED, event -> {
-            Coordinates coordinates = AmbulanceDigitalTwin.getGPSCoordinatesOfAmbulance(new AmbulanceId(2));
-            event.consume();
-            final Coordinate newPosition = new Coordinate(coordinates.getLatitude(),coordinates.getLongitude());
-
-            if (markerClick.getVisible()) {
-                final Coordinate oldPosition = markerClick.getPosition();
-                if (oldPosition != null) {
-                    animateClickMarker(oldPosition, newPosition);
-                } else {
-                    markerClick.setPosition(newPosition);
-                    // adding can only be done after coordinate is set
-
-                    mapView.addMarker(markerClick);
-                }
-            }
-        });
-
-        // finally initialize the map view
         mapView.initialize(Configuration.builder()
                 .projection(projection)
-                .showZoomControls(false)
+                .showZoomControls(true)
                 .build());
 
-
-
-
+        mapView.setCenter(cesenaCoordinate);
+        mapView.setZoom(INITIAL_ZOOM);
     }
 
     private void animateClickMarker(Coordinate oldPosition, Coordinate newPosition) {
@@ -75,14 +53,14 @@ public class MapsController implements Initializable {
 
             {
                 setCycleDuration(Duration.seconds(1.0));
-                setOnFinished(evt -> markerClick.setPosition(newPosition));
+                setOnFinished(evt -> ambulanceMarker.setPosition(newPosition));
             }
 
             @Override
             protected void interpolate(double v) {
                 final double latitude = oldPosition.getLatitude() + v * deltaLatitude;
                 final double longitude = oldPosition.getLongitude() + v * deltaLongitude;
-                markerClick.setPosition(new Coordinate(latitude, longitude));
+                ambulanceMarker.setPosition(new Coordinate(latitude, longitude));
             }
         };
         transition.play();
@@ -90,6 +68,45 @@ public class MapsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        back.setOnAction(event ->  MainApp.setScene(ROOT_SCENE));
+        back.setOnAction(event ->  {
+            MainApp.setScene(ROOT_SCENE);
+            if (timeline!=null) {
+                timeline.stop();
+                mapView.removeMarker(ambulanceMarker);
+                mapView.setCenter(cesenaCoordinate);
+                mapView.setZoom(INITIAL_ZOOM);
+            }
+        });
+        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        track.setOnAction(event-> checkGPSPositionChange(new AmbulanceId(ambulance.getValue().toString())));
+    }
+
+    private void checkGPSPositionChange(AmbulanceId ambulanceId){
+        mapView.addMarker(ambulanceMarker);
+        timeline = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        actionEvent -> {
+                            Coordinates coordinates = AmbulanceDigitalTwin.getGPSCoordinatesOfAmbulance(ambulanceId);
+                            final Coordinate newPosition = new Coordinate(coordinates.getLatitude(), coordinates.getLongitude());
+
+                            mapView.setCenter(newPosition);
+                            if (ambulanceMarker.getVisible()) {
+                                final Coordinate oldPosition = ambulanceMarker.getPosition();
+                                if (oldPosition != null) {
+                                    animateClickMarker(oldPosition, newPosition);
+                                } else {
+                                    ambulanceMarker.setPosition(newPosition);
+                                    mapView.addMarker(ambulanceMarker);
+                                }
+                            }
+                        }
+                ),
+                new KeyFrame(
+                        Duration.seconds(1)
+                )
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 }

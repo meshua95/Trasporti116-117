@@ -12,7 +12,11 @@
         <Double fx:id="defaultMargin" fx:value="10"/>
     </fx:define>
     <top>
-        <Button fx:id="back" text="Indietro" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+        <HBox alignment="CENTER" spacing="10">
+            <ComboBox fx:id="ambulance" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="track" text="Traccia!" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="back" text="Indietro" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+        </HBox>
     </top>
     <center>
         <MapView fx:id="mapView" BorderPane.alignment="CENTER"/>
