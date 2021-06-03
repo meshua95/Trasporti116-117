@@ -27,7 +27,7 @@ public class TransportDigitalTwin {
         //create digital twin "trasporto"
         BasicDigitalTwin transportDT = new BasicDigitalTwin(transportId.getId())
                 .setMetadata(
-                        new BasicDigitalTwinMetadata().setModelId(Constants.TRASPORTO_ID)
+                        new BasicDigitalTwinMetadata().setModelId(Constants.TRANSPORT_MODEL_ID)
                 )
                 .addToContents("dateTime", dateTime)
                 .addToContents("route", route)
@@ -76,7 +76,7 @@ public class TransportDigitalTwin {
 
     public static ArrayList<TransportId> getAllTransportId(){
         ArrayList<TransportId> transoprtIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.TRASPORTO_ID + "')";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.TRANSPORT_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
         return transoprtIds;
