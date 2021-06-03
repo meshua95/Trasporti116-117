@@ -41,17 +41,17 @@ namespace IotHubtoTwins
                     // </Find_device_ID_and_longitudine>
                     JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
-                    var lat = deviceMessage["body"]["latitudine"];
-                    var lon = deviceMessage["body"]["longitudine"];
+                    var lat = deviceMessage["body"]["latitude"];
+                    var lon = deviceMessage["body"]["longitude"];
                     
                     log.LogInformation($"Device:{deviceId} Latitudine is:{lat}");
                     log.LogInformation($"Device:{deviceId} Longitudine is:{lon}");
 
                     // <Update_twin_with_device_gps>
                     var updateTwinData = new JsonPatchDocument();
-                    updateTwinData.AppendReplace("/longitudine", lon.Value<double>());
-                    updateTwinData.AppendReplace("/latitudine", lat.Value<double>());
-                    await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                    updateTwinData.AppendReplace("/longitude", lon.Value<double>());
+                    updateTwinData.AppendReplace("/latitude", lat.Value<double>());
+                    await client.UpdateDigitalTwinAsync("gps-2", updateTwinData);
                     // </Update_twin_with_gps>
                 }
             }

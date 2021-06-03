@@ -4,13 +4,8 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.12" />
-    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventGrid" Version="2.1.0" />
-    <PackageReference Include="Azure.DigitalTwins.Core" Version="1.2.2" />
-    <PackageReference Include="Azure.Identity" Version="1.4.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="**/*" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.11" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.EventHubs" Version="4.1.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
