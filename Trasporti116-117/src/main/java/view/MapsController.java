@@ -70,15 +70,13 @@ public class MapsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         back.setOnAction(event ->  {
             MainApp.setScene(ROOT_SCENE);
-            if (timeline!=null) {
-                timeline.stop();
-                mapView.removeMarker(ambulanceMarker);
-                mapView.setCenter(cesenaCoordinate);
-                mapView.setZoom(INITIAL_ZOOM);
-            }
+            resetAmbulance();
         });
         AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
-        track.setOnAction(event-> checkGPSPositionChange(new AmbulanceId(ambulance.getValue().toString())));
+        track.setOnAction(event-> {
+            resetAmbulance();
+            checkGPSPositionChange(new AmbulanceId(ambulance.getValue().toString()));
+        });
     }
 
     private void checkGPSPositionChange(AmbulanceId ambulanceId){
@@ -108,5 +106,14 @@ public class MapsController implements Initializable {
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    private void resetAmbulance(){
+        if (timeline!=null) {
+            timeline.stop();
+            mapView.removeMarker(ambulanceMarker);
+            mapView.setCenter(cesenaCoordinate);
+            mapView.setZoom(INITIAL_ZOOM);
+        }
     }
 }
