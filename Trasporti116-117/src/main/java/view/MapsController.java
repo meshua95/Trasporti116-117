@@ -31,7 +31,7 @@ public class MapsController implements Initializable {
     private static final Coordinate cesenaCoordinate = new Coordinate(44.143753271603956 , 12.250847570172596);
     private Marker ambulanceMarker = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
 
-    private static final int INITIAL_ZOOM = 10;
+    private static final int INITIAL_ZOOM = 15;
 
     public void initMaps(Projection projection) {
         mapView.initialize(Configuration.builder()
@@ -92,7 +92,7 @@ public class MapsController implements Initializable {
                             if (ambulanceMarker.getVisible()) {
                                 final Coordinate oldPosition = ambulanceMarker.getPosition();
                                 if (oldPosition != null) {
-                                    animateClickMarker(oldPosition, newPosition);
+                                    ambulanceMarker.setPosition(newPosition);
                                 } else {
                                     ambulanceMarker.setPosition(newPosition);
                                     mapView.addMarker(ambulanceMarker);
@@ -101,7 +101,7 @@ public class MapsController implements Initializable {
                         }
                 ),
                 new KeyFrame(
-                        Duration.seconds(1)
+                        Duration.seconds(0.5)
                 )
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
