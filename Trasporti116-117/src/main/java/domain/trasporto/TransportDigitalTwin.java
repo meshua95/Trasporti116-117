@@ -76,7 +76,7 @@ public class TransportDigitalTwin {
 
     public static ArrayList<TransportId> getAllTransportId(){
         ArrayList<TransportId> transoprtIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE WHERE IS_OF_MODEL('"+ Constants.TRANSPORT_MODEL_ID + "')";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.TRANSPORT_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transoprtIds.add(new TransportId(r.getId())));
         return transoprtIds;
