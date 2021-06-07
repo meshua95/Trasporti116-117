@@ -10,46 +10,12 @@
       "schema": "integer"
     },
     {
-      "@type": "Property",
-      "name": "state",
-      "schema": "dtmi:num116117:statoAmbulanza;1"
-    },
-    {
       "@type": "Relationship",
       "name": "use"
     },
     {
       "@type": "Relationship",
       "name": "contains"
-    }
-  ],
-  "schemas": [
-    {
-      "@id": "dtmi:num116117:statoAmbulanza;1",
-      "@type": "Enum",
-      "valueSchema": "integer",
-      "enumValues": [
-        {
-          "name": "fault",
-          "displayName": "Fault",
-          "enumValue": 0
-        },
-        {
-          "name": "ready",
-          "displayName": "Ready",
-          "enumValue": 1
-        },
-        {
-          "name": "used",
-          "displayName": "Used",
-          "enumValue": 2
-        },
-        {
-          "name": "maintenance",
-          "displayName": "Maintenance",
-          "enumValue": 3
-        }
-      ]
     }
   ]
 }

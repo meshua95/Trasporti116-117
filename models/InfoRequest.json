@@ -1,0 +1,23 @@
+{
+  "@id": "dtmi:num116117:infoRequest;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "IndoRequest",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "serviceRequestId",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "dateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Property",
+      "name": "description",
+      "schema": "string"
+    }
+  ]
+}
