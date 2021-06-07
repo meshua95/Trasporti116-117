@@ -5,8 +5,8 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import model.*;
-import domain.operatore.OperatorDigitalTwin;
+import domain.transportBoundedContext.*;
+import digitalTwins.operator.OperatorDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,11 +16,11 @@ import static org.junit.Assert.assertEquals;
 
 public class DtOperator {
     private final OperatorId idOperator = new OperatorId("OP00");
-    private final PersonalData personalData =
-            new PersonalData("Mario",
+    private final OperatorPersonalData personalData =
+            new OperatorPersonalData("Mario",
                     "Rossi",
                     LocalDate.of(1988, 1,8),
-                    new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
+                    new OperatorResidence(new OperatorAddress("IV Settembre"),new OperatorHouseNumber("13B"),new OperatorCity("Cesena"), new OperatorDistrict("FC"), new OperatorPostalCode(47521)));
 
     @BeforeClass
     public static void createConnection(){

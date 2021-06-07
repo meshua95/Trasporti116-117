@@ -2,7 +2,7 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-import model.AmbulanceId;
+import domain.ambulanceBoundedContext.AmbulanceId;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

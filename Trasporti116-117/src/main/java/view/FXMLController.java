@@ -12,8 +12,7 @@ import javafx.scene.control.*;
 import view.dialog.AmbulanceDialog;
 import view.dialog.OperatorDialog;
 import view.dialog.PatientDialog;
-import view.dialog.TransportDialog;
-import com.sothawo.mapjfx.*;
+import view.dialog.BookingDialog;
 
 import static view.SceneType.MAPS_SCENE;
 
@@ -42,10 +41,10 @@ public class FXMLController implements Initializable {
         addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
         addPatient.setOnAction(event -> new PatientDialog().createEntity());
         addOperator.setOnAction(event -> new OperatorDialog().createEntity());
-        addTransport.setOnAction(event -> new TransportDialog().createEntity());
+        addTransport.setOnAction(event -> new BookingDialog().createEntity());
 
         rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
-        rmTransport.setOnAction(event -> new TransportDialog().deleteEntity());
+        rmTransport.setOnAction(event -> new BookingDialog().deleteEntity());
 
         trackAmbulance.setOnAction(event -> {
             MainApp.setScene(MAPS_SCENE);

@@ -5,8 +5,9 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
+import domain.patientBoundedContext.*;
 import model.*;
-import domain.paziente.PatientDigitalTwin;
+import digitalTwins.patient.PatientDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,12 +17,12 @@ import static org.junit.Assert.assertEquals;
 
 public class DtPatient {
 
-    private final FiscalCode idPatient = new FiscalCode("paziente0");
-    private final PersonalData personalData =
-            new PersonalData("Mario",
+    private final PatientFiscalCode idPatient = new PatientFiscalCode("paziente0");
+    private final PatientPersonalData personalData =
+            new PatientPersonalData("Mario",
                     "Rossi",
                     LocalDate.of(1988, 1,8),
-                    new Location(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
+                    new PatientResidence(new PatientAddress("IV Settembre"),new PatientHouseNumber("13B"),new PatientCity("Cesena"), new PatientDistrict("FC"), new PatientPostalCode(47521)));
     private final HealthState healthState = new HealthState("Niente da riferire");
 
 

@@ -1,8 +1,7 @@
 package view.dialog;
-import domain.ambulanza.AmbulanceDigitalTwin;
+import digitalTwins.ambulance.AmbulanceDigitalTwin;
 import javafx.scene.control.*;
-import model.AmbulanceId;
-import model.AmbulanceState;
+import domain.ambulanceBoundedContext.AmbulanceId;
 
 public class AmbulanceDialog extends DtDialog{
 
@@ -18,7 +17,7 @@ public class AmbulanceDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> AmbulanceDigitalTwin.createAmbulance(AmbulanceState.READY, Integer.parseInt(numAmbulanza.getText())));
+                .ifPresent(response -> AmbulanceDigitalTwin.createAmbulance(Integer.parseInt(numAmbulanza.getText())));
     }
 
     public void deleteEntity(){

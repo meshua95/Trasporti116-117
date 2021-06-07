@@ -1,6 +1,6 @@
 package view;
 import com.sothawo.mapjfx.*;
-import domain.ambulanza.AmbulanceDigitalTwin;
+import digitalTwins.ambulance.AmbulanceDigitalTwin;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.Transition;
@@ -9,8 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.util.Duration;
-import model.AmbulanceId;
-import model.Coordinates;
+import domain.ambulanceBoundedContext.AmbulanceId;
+import domain.ambulanceBoundedContext.Coordinates;
 
 import java.net.URL;
 import java.util.ResourceBundle;
