@@ -17,12 +17,8 @@ branches:
     - master
 
 jdk:
-  - oraclejdk14
-  
-before_install:
-  gradle wrapper
-  
+  - oraclejdk8
+
 script:
-  - ./gradlew -version
-  - ./gradlew build --scan -s
+  - cd Trasporti116-117
   - ./graldew Test
