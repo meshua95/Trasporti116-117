@@ -7037,19 +7037,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/giada/.nuget/packages/": {}
+    "/Users/meshuagalassi/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/giada/Desktop/Trasporti116-117/AzureFunction/iotHubFunction/iotHubFunction/iotHubFunction.csproj",
+      "projectUniqueName": "/Users/meshuagalassi/Desktop/Trasporti116-117/AzureFunction/iotHubFunction/iotHubFunction/iotHubFunction.csproj",
       "projectName": "iotHubFunction",
-      "projectPath": "/Users/giada/Desktop/Trasporti116-117/AzureFunction/iotHubFunction/iotHubFunction/iotHubFunction.csproj",
-      "packagesPath": "/Users/giada/.nuget/packages/",
-      "outputPath": "/Users/giada/Desktop/Trasporti116-117/AzureFunction/iotHubFunction/iotHubFunction/obj/",
+      "projectPath": "/Users/meshuagalassi/Desktop/Trasporti116-117/AzureFunction/iotHubFunction/iotHubFunction/iotHubFunction.csproj",
+      "packagesPath": "/Users/meshuagalassi/.nuget/packages/",
+      "outputPath": "/Users/meshuagalassi/Desktop/Trasporti116-117/AzureFunction/iotHubFunction/iotHubFunction/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/giada/.config/NuGet/NuGet.Config"
+        "/Users/meshuagalassi/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
