@@ -6,7 +6,6 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import domain.patientBoundedContext.*;
-import model.*;
 import digitalTwins.patient.PatientDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
