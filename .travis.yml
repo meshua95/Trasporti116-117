@@ -15,6 +15,13 @@ branches:
   only:
     - develop
     - master
+    
+before_install:
+  - pwd
+  - ls -la
+  - cd Trasporti116-117
+  - pwd
+  - ls -la
 
 jdk:
   - oraclejdk14
