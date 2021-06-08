@@ -20,4 +20,6 @@ jdk:
   - oraclejdk14
 
 script:
-  - Trasporti116-117/graldew Test
+  - ./gradlew -version
+  - ./gradlew build --scan -s
+  - ./graldew Test
