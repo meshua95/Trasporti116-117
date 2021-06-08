@@ -6,7 +6,7 @@ import domain.ambulanceBoundedContext.AmbulanceId;
 public class AmbulanceDialog extends DtDialog{
 
     public void createEntity(){
-        initialize("Crea Ambulanza");
+        initialize("Crea Ambulanza", ButtonType.OK, ButtonType.CANCEL);
 
         TextField numAmbulanza = new TextField();
         numAmbulanza.setPromptText("Numero ambulanza");
@@ -21,12 +21,12 @@ public class AmbulanceDialog extends DtDialog{
     }
 
     public void deleteEntity(){
-        initialize("Cancella Ambulanza");
+        initialize("Cancella Ambulanza", ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<String> ambulanza = new ComboBox<>();
         AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulanza.getItems().add(a.getAmbulanceId()));
-        gridPane.add(new Label("Ambulanza"), 0, 17);
-        gridPane.add(ambulanza, 1, 17);
+        gridPane.add(new Label("Ambulanza"), 0, 0);
+        gridPane.add(ambulanza, 1, 0);
 
         dialog.getDialogPane().setContent(gridPane);
 

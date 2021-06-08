@@ -2,16 +2,23 @@ package view.dialog;
 
 import digitalTwins.booking.BookingDigitalTwin;
 import digitalTwins.patient.PatientDigitalTwin;
+import digitalTwins.request.ServiceRequestDigitalTwin;
 import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.*;
 import javafx.scene.control.*;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
-public class BookingDialog extends DtDialog{
+public class ServiceRequestAndBookingDialog extends DtDialog{
+    private static final String WITHOUT_BOOKING = "Registra richiesta di servizio senza prenotazione";
+    private static final String ADD_BOOKING = "Aggiungi prenotazione";
+
+    private ButtonType addBooking = new ButtonType(ADD_BOOKING);
+    private ButtonType withoutBooking = new ButtonType(WITHOUT_BOOKING);
 
     @Override
     public void createEntity(){
-        initialize("Aggiungi Prenotazione Trasporto");
+        initialize("Richiesta di servizio", addBooking, withoutBooking, ButtonType.CANCEL);
         gridPane.add(new Label("Partenza"), 0, 1);
 
         TextField departureAddress = new TextField();
@@ -85,30 +92,40 @@ public class BookingDialog extends DtDialog{
 
         dialog.getDialogPane().setContent(gridPane);
 
-        dialog.showAndWait()
-                .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> BookingDigitalTwin.createBookingTransport(LocalDateTime.of(transportDate.getValue().getYear(),
-                                transportDate.getValue().getMonth(),
-                                transportDate.getValue().getDayOfMonth(),
-                                Integer.parseInt(hourTrasporto.getText()),
-                                Integer.parseInt(minTrasporto.getText())),
-                        new Route(
-                                new BookingLocation(new BookingAddress(departureAddress.getText()),
-                                        new BookingHouseNumber(departureNumber.getText()),
-                                        new BookingCity(departureCity.getText()),
-                                        new BookingDistrict(departureDistrict.getText()),
-                                        new BookingPostalCode(Integer.parseInt(departurePostalCode.getText()))),
-                                new BookingLocation(new BookingAddress(destinationAddress.getText()),
-                                        new BookingHouseNumber(destinationNumber.getText()),
-                                        new BookingCity(destinationCity.getText()),
-                                        new BookingDistrict(destinationDistrict.getText()),
-                                        new BookingPostalCode(Integer.parseInt(destinationPostalCode.getText())))),
-                        new PatientFiscalCode(patient.getValue())));
+        ButtonType buttonType = dialog.showAndWait().get();
 
+        if (addBooking.equals(buttonType)) {
+            LocalDateTime dateTime = LocalDateTime.now();
+
+            //Create Service Request DT
+            ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now());
+
+            //Create Booking Dt
+            BookingDigitalTwin.createBookingTransport(LocalDateTime.of(transportDate.getValue().getYear(),
+                    transportDate.getValue().getMonth(),
+                    transportDate.getValue().getDayOfMonth(),
+                    Integer.parseInt(hourTrasporto.getText()),
+                    Integer.parseInt(minTrasporto.getText())),
+                    new Route(
+                            new BookingLocation(new BookingAddress(departureAddress.getText()),
+                                    new BookingHouseNumber(departureNumber.getText()),
+                                    new BookingCity(departureCity.getText()),
+                                    new BookingDistrict(departureDistrict.getText()),
+                                    new BookingPostalCode(Integer.parseInt(departurePostalCode.getText()))),
+                            new BookingLocation(new BookingAddress(destinationAddress.getText()),
+                                    new BookingHouseNumber(destinationNumber.getText()),
+                                    new BookingCity(destinationCity.getText()),
+                                    new BookingDistrict(destinationDistrict.getText()),
+                                    new BookingPostalCode(Integer.parseInt(destinationPostalCode.getText())))),
+                    new PatientFiscalCode(patient.getValue()),
+                    ServiceRequestDigitalTwin.generateServiceRequestId(dateTime));
+        } else if (withoutBooking.equals(buttonType)) {
+            ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now());
+        }
     }
 
-    public void deleteEntity() {
-        initialize("Elimina Trasporto");
+    public void deleteBooking() {
+        initialize("Elimina prenotazione", ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<String> transport = new ComboBox<>();
         BookingDigitalTwin.getAllBookingId().forEach(t -> transport.getItems().add(t.getId()));

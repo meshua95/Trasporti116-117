@@ -11,7 +11,7 @@ public class OperatorDialog extends DtDialog {
 
     @Override
     public void createEntity(){
-        initialize("Inserisci operatore");
+        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CANCEL);
         TextField nome = new TextField();
         nome.setPromptText("Nome");
         gridPane.add(new Label("Nome"), 0, 0);

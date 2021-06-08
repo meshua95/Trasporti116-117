@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class PatientDialog extends DtDialog{
     @Override
     public void createEntity(){
-        initialize("Aggiungi Paziente");
+        initialize("Aggiungi Paziente", ButtonType.OK, ButtonType.CANCEL);
 
         TextField nome = new TextField();
         nome.setPromptText("Nome");

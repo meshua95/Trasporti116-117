@@ -7,6 +7,7 @@ import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.booking.BookingDigitalTwin;
+import digitalTwins.request.ServiceRequestDigitalTwin;
 import domain.patientBoundedContext.*;
 import domain.requestBoundedContext.serviceRequest.*;
 import digitalTwins.patient.PatientDigitalTwin;
@@ -20,8 +21,10 @@ import static org.junit.Assert.assertEquals;
 
 public class DtBookingTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode("paziente0");
-    private final LocalDateTime dateTime = LocalDateTime.of(2021,05,05,18,00);
+    private final LocalDateTime dateTime = LocalDateTime.of(2021,07,05,18,00);
     private final BookingTransportId bookingTransportId = BookingDigitalTwin.generateBookingTransportId(patientId, dateTime);
+    private final LocalDateTime dateTimeServiceReq = LocalDateTime.of(2021, 6, 10, 10,30);
+    private final ServiceRequestId serviceReqId = ServiceRequestDigitalTwin.generateServiceRequestId(dateTimeServiceReq);
 
     @BeforeClass
     public static void createConnection(){
@@ -41,15 +44,21 @@ public class DtBookingTransport {
         PatientDigitalTwin.createPatient(patientId, personalData, healthState, Autonomy.NOT_AUTONOMOUS);
     }
 
-    private void createTrasporto(){
+    public void createServiceRequest(){
+        ServiceRequestDigitalTwin.createServiceRequest(dateTimeServiceReq);
+    }
+
+    private void createBooking(){
         createPatient();
+        createServiceRequest();
 
         BookingDigitalTwin.createBookingTransport(
                 dateTime,
                 new Route(
                         new BookingLocation(new BookingAddress("IV Settembre"),new BookingHouseNumber("13B"),new BookingCity("Cesena"), new BookingDistrict("FC"), new BookingPostalCode(47521)),
                         new BookingLocation(new BookingAddress("corso cavour"),new BookingHouseNumber("189C"),new BookingCity("Cesena"), new BookingDistrict("FC"), new BookingPostalCode(47521))),
-                patientId);
+                patientId,
+                serviceReqId);
     }
 
     private void deleteAllTestDigitalTwin(){
@@ -58,7 +67,7 @@ public class DtBookingTransport {
 
     @Test
     public void checkTrasporto(){
-        createTrasporto();
+        createBooking();
 
         assertEquals(Client.getClient().getDigitalTwin(bookingTransportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
@@ -67,8 +76,8 @@ public class DtBookingTransport {
     }
 
     @Test
-    public void checkTrasportoPazienteRelationship(){
-        createTrasporto();
+    public void checkBookingPatientRelationship(){
+        createBooking();
         assertEquals(Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         BookingDigitalTwin.deleteBookingTransport(bookingTransportId);
@@ -76,9 +85,17 @@ public class DtBookingTransport {
     }
 
     @Test
+    public void checkBookingServiceRequestRelationship(){
+        createBooking();
+        assertEquals(Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + serviceReqId.getserviceRequestId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        BookingDigitalTwin.deleteBookingTransport(bookingTransportId);
+        deleteAllTestDigitalTwin();
+    }
+
+    @Test
     public void deleteTransport(){
-        createTrasporto();
-        System.out.println("delete trasporto " + bookingTransportId.getId());
+        createBooking();
         BookingDigitalTwin.deleteBookingTransport(bookingTransportId);
         try{
             Client.getClient().getDigitalTwin(bookingTransportId.getId(), BasicDigitalTwin.class);

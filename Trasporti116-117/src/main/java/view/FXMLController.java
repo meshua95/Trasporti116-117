@@ -9,10 +9,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import view.dialog.AmbulanceDialog;
-import view.dialog.OperatorDialog;
-import view.dialog.PatientDialog;
-import view.dialog.BookingDialog;
+import view.dialog.*;
 
 import static view.SceneType.MAPS_SCENE;
 
@@ -25,11 +22,13 @@ public class FXMLController implements Initializable {
     @FXML
     private Button addAmbulance;
     @FXML
-    private Button addTransport;
+    private Button addServiceRequest;
+    @FXML
+    private Button addInfoRequest;
     @FXML
     private Button rmAmbulance;
     @FXML
-    private Button rmTransport;
+    private Button rmBooking;
     @FXML
     private Button trackAmbulance;
     @FXML
@@ -41,10 +40,10 @@ public class FXMLController implements Initializable {
         addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
         addPatient.setOnAction(event -> new PatientDialog().createEntity());
         addOperator.setOnAction(event -> new OperatorDialog().createEntity());
-        addTransport.setOnAction(event -> new BookingDialog().createEntity());
-
+        addServiceRequest.setOnAction(event -> new ServiceRequestAndBookingDialog().createEntity());
+        addInfoRequest.setOnAction(event -> new InfoRequestDialog().createEntity());
         rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
-        rmTransport.setOnAction(event -> new BookingDialog().deleteEntity());
+        rmBooking.setOnAction(event -> new ServiceRequestAndBookingDialog().deleteBooking());
 
         trackAmbulance.setOnAction(event -> {
             MainApp.setScene(MAPS_SCENE);

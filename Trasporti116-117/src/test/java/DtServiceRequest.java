@@ -20,7 +20,7 @@ public class DtServiceRequest {
     }
 
     @Test
-    public void createInfoRequest(){
+    public void createServiceRequest(){
         ServiceRequestDigitalTwin.createServiceRequest(dateTime);
         assertEquals(Client.getClient().getDigitalTwin(id.getserviceRequestId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 

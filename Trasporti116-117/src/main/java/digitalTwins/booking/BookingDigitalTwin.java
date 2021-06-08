@@ -8,18 +8,24 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
+import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
+import domain.ambulanceBoundedContext.AmbulanceId;
 import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import domain.requestBoundedContext.serviceRequest.Route;
+import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
+import utils.AzureErrorMessage;
 import utils.Constants;
+import utils.errorCode.DeleteAmbulanceStatusCode;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDigitalTwin {
 
-    public static BookingTransportId createBookingTransport(LocalDateTime dateTime, Route route, PatientFiscalCode patientId){
+    public static BookingTransportId createBookingTransport(LocalDateTime dateTime, Route route, PatientFiscalCode patientId, ServiceRequestId serviceRequestId){
         BookingTransportId bookingTransportId = generateBookingTransportId(patientId, dateTime);
 
         BasicDigitalTwin bookingTransportDT = new BasicDigitalTwin(bookingTransportId.getId())
@@ -32,7 +38,8 @@ public class BookingDigitalTwin {
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(bookingTransportId.getId(), bookingTransportDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
-        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
+        //Create relationship with patient
+        BasicRelationship createdRelationshipPatient = Client.getClient().createOrReplaceRelationship(
                 bookingTransportId.getId(),
                 bookingTransportId.getId() + "to" + patientId.getFiscalCode(),
                 new BasicRelationship(
@@ -42,7 +49,19 @@ public class BookingDigitalTwin {
                         "transport"),
                 BasicRelationship.class);
 
-        System.out.println(createdRelationship.getId());
+        //Create relationship with serviceRequest
+        BasicRelationship createdRelationshipServiceRequest = Client.getClient().createOrReplaceRelationship(
+                bookingTransportId.getId(),
+                bookingTransportId.getId() + "to" + serviceRequestId.getserviceRequestId(),
+                new BasicRelationship(
+                        bookingTransportId.getId() + "to" + serviceRequestId.getserviceRequestId(),
+                        bookingTransportId.getId(),
+                        serviceRequestId.getserviceRequestId(),
+                        "requestBy"),
+                BasicRelationship.class);
+
+        System.out.println(createdRelationshipPatient.getId());
+        System.out.println(createdRelationshipServiceRequest.getId());
         return bookingTransportId;
     }
 
@@ -52,7 +71,7 @@ public class BookingDigitalTwin {
         Client.getClient().deleteDigitalTwin(bookingTransportId.getId());
     }
 
-    public static void deleteAllTransport(List<BookingTransportId> dtId) {
+    public static void deleteAllBooking(List<BookingTransportId> dtId) {
         dtId.forEach(BookingDigitalTwin::deleteBookingTransport);
     }
 

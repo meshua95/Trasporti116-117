@@ -1,5 +1,6 @@
 package view.dialog;
 
+import groovy.util.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -11,9 +12,9 @@ abstract class DtDialog {
 
     abstract void createEntity();
 
-    protected void initialize(String title){
+    protected void initialize(String title, ButtonType... buttonsType){
         dialog.setTitle(title);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialog.getDialogPane().getButtonTypes().addAll(buttonsType);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20, 150, 10, 10));
