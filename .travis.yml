@@ -18,7 +18,10 @@ branches:
 
 jdk:
   - oraclejdk14
-
+  
+before_install:
+  gradle wrapper
+  
 script:
   - ./gradlew -version
   - ./gradlew build --scan -s
