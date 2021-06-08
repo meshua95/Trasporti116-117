@@ -17,6 +17,10 @@
     {
       "@type": "Relationship",
       "name": "transport"
+    },
+    {
+      "@type": "Relationship",
+      "name": "requestBy"
     }
   ],
   "schemas": [

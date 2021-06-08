@@ -2,11 +2,11 @@
   "@id": "dtmi:num116117:infoRequest;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
-  "displayName": "IndoRequest",
+  "displayName": "InfoRequest",
   "contents": [
     {
       "@type": "Property",
-      "name": "serviceRequestId",
+      "name": "infoRequestId",
       "schema": "string"
     },
     {
