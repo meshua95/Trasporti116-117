@@ -15,18 +15,11 @@ branches:
   only:
     - develop
     - master
-    
-before_install:
-  - pwd
-  - ls -la
-  - cd Trasporti116-117
-  - pwd
-  - ls -la
-  - ./graldew Test
-
+   
 jdk:
   - oraclejdk14
 
 script:
- 
+ - cd Trasporti116-117
+ - ./graldew Test
 
