@@ -2,18 +2,18 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.requestBoundedContext.serviceRequest;
+package domain.transportBoundedContext;
 
 import domain.*;
 
-public class BookingLocation {
+public class TransportLocation {
     private Address address;
     private HouseNumber houseNumber;
     private City city;
     private District district;
     private PostalCode postalCode;
 
-    public BookingLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
+    public TransportLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
         this.address = address;
         this.houseNumber = houseNumber;
         this.city = city;

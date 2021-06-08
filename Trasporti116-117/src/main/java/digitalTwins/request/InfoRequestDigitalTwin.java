@@ -5,10 +5,8 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
-import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.infoRequest.InfoRequestDescription;
 import domain.requestBoundedContext.infoRequest.InfoRequestId;
-import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import utils.Constants;
 
 import java.time.LocalDateTime;

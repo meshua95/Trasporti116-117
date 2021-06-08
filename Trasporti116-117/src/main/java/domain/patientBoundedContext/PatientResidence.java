@@ -4,15 +4,17 @@
 
 package domain.patientBoundedContext;
 
+import domain.*;
+
 public class PatientResidence {
 
-    private PatientAddress address;
-    private PatientHouseNumber houseNumber;
-    private PatientCity city;
-    private PatientDistrict district;
-    private PatientPostalCode postalCode;
+    private Address address;
+    private HouseNumber houseNumber;
+    private City city;
+    private District district;
+    private PostalCode postalCode;
 
-    public PatientResidence(PatientAddress address, PatientHouseNumber patientHouseNumber, PatientCity patientCity, PatientDistrict patientDistrict, PatientPostalCode patientPostalCode) {
+    public PatientResidence(Address address, HouseNumber patientHouseNumber, City patientCity, District patientDistrict, PostalCode patientPostalCode) {
         this.address = address;
         this.houseNumber = patientHouseNumber;
         this.city = patientCity;

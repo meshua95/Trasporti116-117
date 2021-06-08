@@ -2,12 +2,12 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.transportBoundedContext;
+package domain;
 
-public class OperatorCity {
+public class City {
     private String city;
 
-    public OperatorCity(String name){
+    public City(String name){
         this.city = name;
     }
 

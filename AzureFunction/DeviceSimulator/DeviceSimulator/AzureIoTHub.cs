@@ -58,7 +58,9 @@ namespace DeviceSimulator
                     ContentType = "application/json",
                     ContentEncoding = "utf-8"
                 };
+                
                 await deviceClient.SendEventAsync(message);
+                Console.WriteLine($"indirizzo:{deviceClient}");
                 Console.WriteLine($"{DateTime.Now} > Sending message: {messageString}");
                 
                 //Keep this value above 1000 to keep a safe buffer above the ADT service limits

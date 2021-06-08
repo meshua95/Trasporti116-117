@@ -2,12 +2,12 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.requestBoundedContext.serviceRequest;
+package domain;
 
-public class BookingDistrict {
+public class District {
     private String district;
 
-    public BookingDistrict(String district){
+    public District(String district){
         this.district = district;
     }
 

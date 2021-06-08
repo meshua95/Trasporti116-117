@@ -8,6 +8,7 @@ import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.booking.BookingDigitalTwin;
 import digitalTwins.request.ServiceRequestDigitalTwin;
+import domain.*;
 import domain.patientBoundedContext.*;
 import domain.requestBoundedContext.serviceRequest.*;
 import digitalTwins.patient.PatientDigitalTwin;
@@ -37,7 +38,7 @@ public class DtBookingTransport {
                         "Francesco",
                         "Bianchi",
                         LocalDate.of(1981, 4, 3),
-                        new PatientResidence(new PatientAddress ("Ferrari"), new PatientHouseNumber("111A"), new PatientCity("Forlì"), new PatientDistrict("FC"), new PatientPostalCode(47122))
+                        new PatientResidence(new Address("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode(47122))
                 );
         HealthState healthState = new HealthState("Niente da riferire");
 
@@ -54,9 +55,9 @@ public class DtBookingTransport {
 
         BookingDigitalTwin.createBookingTransport(
                 dateTime,
-                new Route(
-                        new BookingLocation(new BookingAddress("IV Settembre"),new BookingHouseNumber("13B"),new BookingCity("Cesena"), new BookingDistrict("FC"), new BookingPostalCode(47521)),
-                        new BookingLocation(new BookingAddress("corso cavour"),new BookingHouseNumber("189C"),new BookingCity("Cesena"), new BookingDistrict("FC"), new BookingPostalCode(47521))),
+                new BookingRoute(
+                        new BookingLocation(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
+                        new BookingLocation(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521))),
                 patientId,
                 serviceReqId);
     }

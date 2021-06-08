@@ -6,12 +6,12 @@ package domain.requestBoundedContext.serviceRequest;
 
 import domain.patientBoundedContext.PatientResidence;
 
-public class Route {
+public class BookingRoute {
 
     private BookingLocation departure;
     private BookingLocation destination;
 
-    public Route(BookingLocation departure, BookingLocation destination) {
+    public BookingRoute(BookingLocation departure, BookingLocation destination) {
         this.departure = departure;
         this.destination = destination;
     }

@@ -3,11 +3,11 @@ package view.dialog;
 import digitalTwins.booking.BookingDigitalTwin;
 import digitalTwins.patient.PatientDigitalTwin;
 import digitalTwins.request.ServiceRequestDigitalTwin;
+import domain.*;
 import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.*;
 import javafx.scene.control.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 public class ServiceRequestAndBookingDialog extends DtDialog{
     private static final String WITHOUT_BOOKING = "Registra richiesta di servizio senza prenotazione";
@@ -106,17 +106,17 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                     transportDate.getValue().getDayOfMonth(),
                     Integer.parseInt(hourTrasporto.getText()),
                     Integer.parseInt(minTrasporto.getText())),
-                    new Route(
-                            new BookingLocation(new BookingAddress(departureAddress.getText()),
-                                    new BookingHouseNumber(departureNumber.getText()),
-                                    new BookingCity(departureCity.getText()),
-                                    new BookingDistrict(departureDistrict.getText()),
-                                    new BookingPostalCode(Integer.parseInt(departurePostalCode.getText()))),
-                            new BookingLocation(new BookingAddress(destinationAddress.getText()),
-                                    new BookingHouseNumber(destinationNumber.getText()),
-                                    new BookingCity(destinationCity.getText()),
-                                    new BookingDistrict(destinationDistrict.getText()),
-                                    new BookingPostalCode(Integer.parseInt(destinationPostalCode.getText())))),
+                    new BookingRoute(
+                            new BookingLocation(new Address(departureAddress.getText()),
+                                    new HouseNumber(departureNumber.getText()),
+                                    new City(departureCity.getText()),
+                                    new District(departureDistrict.getText()),
+                                    new PostalCode(Integer.parseInt(departurePostalCode.getText()))),
+                            new BookingLocation(new Address(destinationAddress.getText()),
+                                    new HouseNumber(destinationNumber.getText()),
+                                    new City(destinationCity.getText()),
+                                    new District(destinationDistrict.getText()),
+                                    new PostalCode(Integer.parseInt(destinationPostalCode.getText())))),
                     new PatientFiscalCode(patient.getValue()),
                     ServiceRequestDigitalTwin.generateServiceRequestId(dateTime));
         } else if (withoutBooking.equals(buttonType)) {

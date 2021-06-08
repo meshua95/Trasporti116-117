@@ -2,12 +2,12 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package domain.patientBoundedContext;
+package domain;
 
-public class PatientPostalCode {
+public class PostalCode {
     private int postalCode;
 
-    public PatientPostalCode(int postalCode){
+    public PostalCode(int postalCode){
         this.postalCode = postalCode;
     }
 

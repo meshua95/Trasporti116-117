@@ -4,15 +4,17 @@
 
 package domain.transportBoundedContext;
 
+import domain.*;
+
 public class OperatorResidence {
 
-    private OperatorAddress address;
-    private OperatorHouseNumber houseNumber;
-    private OperatorCity city;
-    private OperatorDistrict district;
-    private OperatorPostalCode postalCode;
+    private Address address;
+    private HouseNumber houseNumber;
+    private City city;
+    private District district;
+    private PostalCode postalCode;
 
-    public OperatorResidence(OperatorAddress address, OperatorHouseNumber operatorHouseNumber, OperatorCity city, OperatorDistrict district, OperatorPostalCode operatorPostalCode) {
+    public OperatorResidence(Address address, HouseNumber operatorHouseNumber, City city, District district, PostalCode operatorPostalCode) {
         this.address = address;
         this.houseNumber = operatorHouseNumber;
         this.city = city;

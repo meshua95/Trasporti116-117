@@ -7,17 +7,12 @@
     {
       "@type": "Property",
       "name": "route",
-      "schema": "dtmi:num116117:route;1"
+      "schema": "dtmi:num116117:transportRoute;1"
     },
     {
       "@type": "Property",
       "name": "dateTime",
       "schema": "dateTime"
-    },
-    {
-      "@type": "Property",
-      "name": "state",
-      "schema": "dtmi:num116117:statoTrasporto;1"
     },
     {
       "@type": "Relationship",
@@ -34,74 +29,47 @@
   ],
   "schemas": [
     {
-      "@id": "dtmi:num116117:route;1",
+      "@id": "dtmi:num116117:transportRoute;1",
       "@type": "Object",
       "fields": [
         {
           "name": "departure",
-          "schema": "dtmi:num116117:luogo;1"
+          "schema": "dtmi:num116117:transportLocation;1"
         },
         {
           "name": "destination",
-          "schema": "dtmi:num116117:luogo;1"
+          "schema": "dtmi:num116117:transportLocation;1"
         }
       ]
     },
     {
-      "@id": "dtmi:num116117:statoTrasporto;1",
-      "@type": "Enum",
-      "valueSchema": "integer",
-      "enumValues": [
-        {
-          "name": "notStarted",
-          "displayName": "NotStarted",
-          "enumValue": 1
-        },
-        {
-          "name": "inProgress",
-          "displayName": "InProgress",
-          "enumValue": 2
-        },
-        {
-          "name": "ended",
-          "displayName": "Ended",
-          "enumValue": 3
-        },
-        {
-          "name": "cancelled",
-          "displayName": "Cancelled",
-          "enumValue": 0
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:luogo;1",
+      "@id": "dtmi:num116117:transportLocation;1",
       "@type": "Object",
       "fields": [
         {
           "name": "address",
-          "schema": "dtmi:num116117:address;1"
+          "schema": "dtmi:num116117:transportAddress;1"
         },
         {
           "name": "houseNumber",
-          "schema": "dtmi:num116117:houseNumber;1"
+          "schema": "dtmi:num116117:transportHouseNumber;1"
         },
         {
           "name": "city",
-          "schema": "dtmi:num116117:city;1"
+          "schema": "dtmi:num116117:transportCity;1"
         },
         {
           "name": "district",
-          "schema": "dtmi:num116117:district;1"
+          "schema": "dtmi:num116117:transportDistrict;1"
         },
         {
           "name": "postalCode",
-          "schema": "dtmi:num116117:postalCode;1"
+          "schema": "dtmi:num116117:transportPostalCode;1"
         }
       ]
     },
     {
-      "@id": "dtmi:num116117:address;1",
+      "@id": "dtmi:num116117:transportAddress;1",
       "@type": "Object",
       "fields": [
         {
@@ -111,7 +79,7 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:houseNumber;1",
+      "@id": "dtmi:num116117:transportHouseNumber;1",
       "@type": "Object",
       "fields": [
         {
@@ -121,7 +89,7 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:city;1",
+      "@id": "dtmi:num116117:transportCity;1",
       "@type": "Object",
       "fields": [
         {
@@ -131,7 +99,7 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:postalCode;1",
+      "@id": "dtmi:num116117:transportPostalCode;1",
       "@type": "Object",
       "fields": [
         {
@@ -141,7 +109,7 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:district;1",
+      "@id": "dtmi:num116117:transportDistrict;1",
       "@type": "Object",
       "fields": [
         {

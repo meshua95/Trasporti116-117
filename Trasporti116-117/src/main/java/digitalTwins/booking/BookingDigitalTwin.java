@@ -8,16 +8,12 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
-import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import domain.ambulanceBoundedContext.AmbulanceId;
 import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.BookingTransportId;
-import domain.requestBoundedContext.serviceRequest.Route;
+import domain.requestBoundedContext.serviceRequest.BookingRoute;
 import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
-import utils.AzureErrorMessage;
 import utils.Constants;
-import utils.errorCode.DeleteAmbulanceStatusCode;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +21,7 @@ import java.util.List;
 
 public class BookingDigitalTwin {
 
-    public static BookingTransportId createBookingTransport(LocalDateTime dateTime, Route route, PatientFiscalCode patientId, ServiceRequestId serviceRequestId){
+    public static BookingTransportId createBookingTransport(LocalDateTime dateTime, BookingRoute route, PatientFiscalCode patientId, ServiceRequestId serviceRequestId){
         BookingTransportId bookingTransportId = generateBookingTransportId(patientId, dateTime);
 
         BasicDigitalTwin bookingTransportDT = new BasicDigitalTwin(bookingTransportId.getId())

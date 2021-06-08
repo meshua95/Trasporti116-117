@@ -62,6 +62,7 @@ namespace DeviceSimulator
             var eventHubsHost = default(string);
             var eventHubName = default(string);
 
+            Console.WriteLine($"URI: {serviceEndpoint.AbsoluteUri}");
             try
             {
                 connection = await CreateAndOpenConnectionAsync(

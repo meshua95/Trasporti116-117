@@ -1,6 +1,7 @@
 package view.dialog;
 
 import digitalTwins.patient.PatientDigitalTwin;
+import domain.*;
 import domain.patientBoundedContext.*;
 import javafx.scene.control.*;
 import java.time.LocalDate;
@@ -79,11 +80,11 @@ public class PatientDialog extends DtDialog{
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
                                 new PatientResidence(
-                                        new PatientAddress(via.getText()),
-                                        new PatientHouseNumber(numero.getText()),
-                                        new PatientCity(città.getText()),
-                                        new PatientDistrict(provincia.getText()),
-                                        new PatientPostalCode(Integer.parseInt(cap.getText())))),
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(Integer.parseInt(cap.getText())))),
                         new HealthState(statoSalute.getText()),
                         autonomia.getValue()
                 ));

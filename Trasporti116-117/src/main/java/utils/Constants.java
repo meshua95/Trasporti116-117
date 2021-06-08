@@ -15,6 +15,7 @@ public class Constants {
   public static final String OPERATOR_MODEL_ID = "dtmi:num116117:operatoreAmbulanza;1";
   public static final String PATIENT_MODEL_ID = "dtmi:num116117:paziente;1";
   public static final String BOOKING_MODEL_ID = "dtmi:num116117:booking;1";
+  public static final String TRANSPORT_MODEL_ID = "dtmi:num116117:trasporto;1";
   public static final String GPS_MODEL_ID = "dtmi:num116117:GPS;1";
   public static final String SERVICE_REQUEST_MODEL_ID = "dtmi:num116117:serviceRequest;1";
   public static final String INFO_REQUEST_MODEL_ID = "dtmi:num116117:infoRequest;1";

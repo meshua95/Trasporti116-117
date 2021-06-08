@@ -1,6 +1,7 @@
 package view.dialog;
 
 import digitalTwins.operator.OperatorDigitalTwin;
+import domain.*;
 import domain.transportBoundedContext.*;
 import domain.transportBoundedContext.OperatorId;
 import javafx.scene.control.*;
@@ -68,11 +69,11 @@ public class OperatorDialog extends DtDialog {
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
                                 new OperatorResidence(
-                                        new OperatorAddress(via.getText()),
-                                        new OperatorHouseNumber(numero.getText()),
-                                        new OperatorCity(città.getText()),
-                                        new OperatorDistrict(provincia.getText()),
-                                        new OperatorPostalCode(Integer.parseInt(cap.getText())))
+                                        new Address(via.getText()),
+                                        new HouseNumber(numero.getText()),
+                                        new City(città.getText()),
+                                        new District(provincia.getText()),
+                                        new PostalCode(Integer.parseInt(cap.getText())))
                         )
                 ));
 
