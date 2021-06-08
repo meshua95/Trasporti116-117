@@ -15,14 +15,14 @@ public class InfoRequestDigitalTwin {
     public static InfoRequestId createInfoRequest(LocalDateTime dateTime, InfoRequestDescription description){
         InfoRequestId infoRequestId = generateInfoRequestId(dateTime);
 
-        BasicDigitalTwin bookingTransportDT = new BasicDigitalTwin(infoRequestId.getInfoRequestId())
+        BasicDigitalTwin infoRequestDT = new BasicDigitalTwin(infoRequestId.getInfoRequestId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.INFO_REQUEST_MODEL_ID)
                 )
                 .addToContents("dateTime", dateTime)
                 .addToContents("description", description.getDescription());
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(infoRequestId.getInfoRequestId(), bookingTransportDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(infoRequestId.getInfoRequestId(), infoRequestDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
         return infoRequestId;
     }

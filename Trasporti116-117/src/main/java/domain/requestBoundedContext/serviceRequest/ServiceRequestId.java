@@ -7,7 +7,7 @@ public class ServiceRequestId {
         this.serviceRequestId = serviceRequestId;
     }
 
-    public String getId() {
+    public String getserviceRequestId() {
         return serviceRequestId;
     }
 }
