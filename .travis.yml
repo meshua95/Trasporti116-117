@@ -17,7 +17,7 @@ branches:
     - master
 
 jdk:
-  - oraclejdk8
+  - oraclejdk14
 
 script:
   - cd Trasporti116-117
