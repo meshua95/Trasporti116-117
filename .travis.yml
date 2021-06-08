@@ -20,5 +20,4 @@ jdk:
   - oraclejdk14
 
 script:
-  - cd ./Trasporti116-117/
-  - ./graldew Test
+  - Trasporti116-117/graldew Test
