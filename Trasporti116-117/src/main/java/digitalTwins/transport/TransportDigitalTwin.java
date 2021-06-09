@@ -18,6 +18,7 @@ import utils.Constants;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.Future;
 
 public class TransportDigitalTwin {
 
@@ -58,6 +59,7 @@ public class TransportDigitalTwin {
                         relationshipName);
 
         System.out.println(targetId);
+
         BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
                 transportId.getId(),
                 transportId.getId() + "to" + targetId,

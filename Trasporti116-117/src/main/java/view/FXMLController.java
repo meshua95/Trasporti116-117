@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import view.dialog.*;
 
 import static view.SceneType.MAPS_SCENE;
-
 public class FXMLController implements Initializable {
 
     @FXML
@@ -44,9 +43,7 @@ public class FXMLController implements Initializable {
         addInfoRequest.setOnAction(event -> new InfoRequestDialog().createEntity());
         rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
         rmBooking.setOnAction(event -> new ServiceRequestAndBookingDialog().deleteBooking());
-
-        trackAmbulance.setOnAction(event -> {
-            MainApp.setScene(MAPS_SCENE);
-        });
+        viewTransport.setOnAction(event -> new TransportInProgressDialog().createEntity());
+        trackAmbulance.setOnAction(event -> MainApp.setScene(MAPS_SCENE));
     }
 }

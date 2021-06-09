@@ -2,7 +2,6 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-import com.azure.core.implementation.Option;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
@@ -138,16 +137,15 @@ public class DtTransport {
     @Test
     public void checkTransportInProgress(){
         createTrasporto();
-
+        System.out.println("Transport in progress "+TransportDigitalTwin.getAllTransportInProgress());
         assertEquals(transportId.getId(), TransportDigitalTwin.getAllTransportInProgress()
                 .stream()
                 .filter(id -> id.getId().equals(transportId.getId()))
                 .findAny().get().getId());
-
         TransportDigitalTwin.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
 
-        assertEquals(Optional.empty(), TransportDigitalTwin.getAllTransportInProgress()
+       assertEquals(Optional.empty(), TransportDigitalTwin.getAllTransportInProgress()
                 .stream()
                 .filter(id -> id.getId().equals(transportId.getId()))
                 .findAny());
