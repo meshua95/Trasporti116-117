@@ -1,4 +1,4 @@
-package view;
+package viewCallCenter;
 
 public enum SceneType {
         ROOT_SCENE,
