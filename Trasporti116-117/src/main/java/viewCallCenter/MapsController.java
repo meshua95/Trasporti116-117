@@ -1,4 +1,4 @@
-package view;
+package viewCallCenter;
 import com.sothawo.mapjfx.*;
 import digitalTwins.ambulance.AmbulanceDigitalTwin;
 import javafx.animation.KeyFrame;
@@ -15,7 +15,7 @@ import domain.ambulanceBoundedContext.Coordinates;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static view.SceneType.ROOT_SCENE;
+import static viewCallCenter.SceneTypeCallCenter.ROOT_SCENE;
 
 public class MapsController implements Initializable {
     @FXML
@@ -69,7 +69,7 @@ public class MapsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         back.setOnAction(event ->  {
-            MainApp.setScene(ROOT_SCENE);
+            MainAppCallCenter.setScene(ROOT_SCENE);
             resetAmbulance();
         });
         AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));

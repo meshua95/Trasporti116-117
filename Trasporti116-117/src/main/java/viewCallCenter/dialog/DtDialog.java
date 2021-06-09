@@ -1,6 +1,5 @@
-package view.dialog;
+package viewCallCenter.dialog;
 
-import groovy.util.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;

@@ -19,8 +19,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
 
 public class DtTransport {

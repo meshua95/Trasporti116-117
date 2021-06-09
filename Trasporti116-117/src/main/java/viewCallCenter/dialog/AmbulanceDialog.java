@@ -1,4 +1,4 @@
-package view.dialog;
+package viewCallCenter.dialog;
 import digitalTwins.ambulance.AmbulanceDigitalTwin;
 import javafx.scene.control.*;
 import domain.ambulanceBoundedContext.AmbulanceId;

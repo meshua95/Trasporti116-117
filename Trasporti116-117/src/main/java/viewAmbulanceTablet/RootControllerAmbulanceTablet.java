@@ -2,48 +2,37 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-package viewCallCenter;
+package viewAmbulanceTablet;
+
+import digitalTwins.ambulance.AmbulanceDigitalTwin;
+import digitalTwins.operator.OperatorDigitalTwin;
+import domain.ambulanceBoundedContext.AmbulanceId;
+import domain.transportBoundedContext.OperatorId;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import viewCallCenter.dialog.*;
 
-import static viewCallCenter.SceneType.MAPS_SCENE;
-public class FXMLController implements Initializable {
+public class RootControllerAmbulanceTablet implements Initializable {
 
     @FXML
-    private Button addPatient;
+    private ComboBox<String> ambulanceList;
     @FXML
-    private Button addOperator;
+    private ComboBox<String> operatorList;
     @FXML
-    private Button addAmbulance;
-    @FXML
-    private Button addServiceRequest;
-    @FXML
-    private Button addInfoRequest;
-    @FXML
-    private Button rmAmbulance;
-    @FXML
-    private Button rmBooking;
-    @FXML
-    private Button trackAmbulance;
-    @FXML
-    private Button viewTransport;
+    private Button ok;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
-        addPatient.setOnAction(event -> new PatientDialog().createEntity());
-        addOperator.setOnAction(event -> new OperatorDialog().createEntity());
-        addServiceRequest.setOnAction(event -> new ServiceRequestAndBookingDialog().createEntity());
-        addInfoRequest.setOnAction(event -> new InfoRequestDialog().createEntity());
-        rmAmbulance.setOnAction(event -> new AmbulanceDialog().deleteEntity());
-        rmBooking.setOnAction(event -> new ServiceRequestAndBookingDialog().deleteBooking());
-        viewTransport.setOnAction(event -> new TransportInProgressDialog().createEntity());
-        trackAmbulance.setOnAction(event -> MainAppCallCenter.setScene(MAPS_SCENE));
+        OperatorDigitalTwin.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
+        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
+        ok.setOnAction(event -> {
+            MainAppAmbulanceTablet.saveOperatorAndAmbulance(new OperatorId(operatorList.getValue()), new AmbulanceId(ambulanceList.getValue()));
+            MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);
+        });
     }
 }

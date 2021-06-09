@@ -1,6 +1,7 @@
-package viewCallCenter;
+package viewAmbulanceTablet;
 
-public enum SceneType {
+public enum SceneTypeAmbulanceTablet {
         ROOT_SCENE,
-        MAPS_SCENE;
+        BOOKING_SCENE,
+        TRANSPORT_IN_PROGRESS_SCENE
 }

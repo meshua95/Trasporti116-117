@@ -1,6 +1,6 @@
 package viewCallCenter;
 
-public enum SceneType {
+public enum SceneTypeCallCenter {
         ROOT_SCENE,
         MAPS_SCENE;
 }

@@ -11,8 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import viewCallCenter.dialog.*;
 
-import static viewCallCenter.SceneType.MAPS_SCENE;
-public class FXMLController implements Initializable {
+import static viewCallCenter.SceneTypeCallCenter.MAPS_SCENE;
+public class RootControllerCallCenter implements Initializable {
 
     @FXML
     private Button addPatient;
