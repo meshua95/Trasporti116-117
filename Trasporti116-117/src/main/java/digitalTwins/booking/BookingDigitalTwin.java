@@ -79,18 +79,22 @@ public class BookingDigitalTwin {
         return bookingIds;
     }
 
-  /*  public static ArrayList<BookingTransportId> getTransportOfAmbulance(AmbulanceId id){
+    public static ArrayList<BookingTransportId> getAllBookingForTheDay(LocalDateTime date){
         ArrayList<BookingTransportId> serviceRequestIds = new ArrayList<>();
-        String query = "SELECT source " +
-                "FROM DIGITALTWINS source " +
-                "JOIN target RELATED source.use " +
-                "WHERE target.$dtId = '"+ id.getAmbulanceId() +"'";
+        String query = "SELECT * " +
+                "FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('dtmi:num116117:booking;1') " +
+                "AND STARTSWITH(dateTime, '" + date.getYear() + "-" + date.getMonth() + "-" + date.getDayOfMonth() + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> serviceRequestIds.add(new BookingTransportId(r.getId())));
         return serviceRequestIds;
-    }*/
+    }
+
+    public static ArrayList<BookingTransportId> getAllBookingForToday(){
+        return getAllBookingForTheDay(LocalDateTime.now());
+    }
 
     public static BookingTransportId generateBookingTransportId(PatientFiscalCode patientId, LocalDateTime dataOra){
-        return new BookingTransportId(dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_" + patientId.getFiscalCode());
+        return new BookingTransportId("booking" + dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_" + patientId.getFiscalCode());
     }
 }
