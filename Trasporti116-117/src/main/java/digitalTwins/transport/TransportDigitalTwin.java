@@ -30,7 +30,7 @@ public class TransportDigitalTwin {
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRANSPORT_MODEL_ID)
                 )
-                .addToContents("dateTime", dateTime)
+                .addToContents("startDateTime", dateTime)
                 .addToContents("route", route);
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
