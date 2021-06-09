@@ -1,5 +1,6 @@
 package view.dialog;
 
+import digitalTwins.booking.BookingDigitalTwin;
 import digitalTwins.request.InfoRequestDigitalTwin;
 import digitalTwins.transport.TransportDigitalTwin;
 import domain.requestBoundedContext.infoRequest.InfoRequestDescription;
@@ -17,13 +18,9 @@ public class TransportInProgressDialog extends DtDialog {
     public void createEntity() {
         initialize("Trasporti in corso", ButtonType.CLOSE);
 
-        Label transport = new Label();
-        TransportDigitalTwin.getAllTransportInProgress().forEach(t ->{
-            transport.setText(transport.getText() + t.getId() + "\n");
-
-        });
-
-        gridPane.add(transport, 0, 0);
+        ListView<String> lv = new ListView<>();
+        TransportDigitalTwin.getAllTransportInProgress().forEach(t -> lv.getItems().add(t.getId()));
+        gridPane.add(lv, 0, 0);
 
         dialog.getDialogPane().setContent(gridPane);
         dialog.showAndWait();
