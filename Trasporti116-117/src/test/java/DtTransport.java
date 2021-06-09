@@ -2,7 +2,6 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
-import com.azure.core.implementation.Option;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
@@ -53,7 +52,7 @@ public class DtTransport {
         PatientDigitalTwin.createPatient(patientId, personalData, healthState, Autonomy.NOT_AUTONOMOUS);
     }
 
-    private void createOperatore(){
+    private void createOperator(){
         OperatorPersonalData personalData =
                 new OperatorPersonalData("Mario",
                         "Rossi",
@@ -63,10 +62,10 @@ public class DtTransport {
         OperatorDigitalTwin.createOperator(operatorId, personalData);
     }
 
-    private void createTrasporto(){
+    private void createTransport(){
         createAmbulance();
         createPatient();
-        createOperatore();
+        createOperator();
 
         TransportDigitalTwin.createTransport(
                 dateTime,
@@ -85,8 +84,8 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTrasporto(){
-        createTrasporto();
+    public void checkTransport(){
+        createTransport();
 
         assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
@@ -95,8 +94,8 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTrasportoAmbulanzaRelationship(){
-        createTrasporto();
+    public void checkTransportAmbulanceRelationship(){
+        createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(ambulanceNumber).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
@@ -104,8 +103,8 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTrasportoPazienteRelationship(){
-        createTrasporto();
+    public void checkTransportPatientRelationship(){
+        createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
@@ -114,7 +113,7 @@ public class DtTransport {
 
     @Test
     public void checkTransportOperatorRelationship(){
-        createTrasporto();
+        createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
@@ -123,7 +122,7 @@ public class DtTransport {
 
     @Test
     public void deleteTransport(){
-        createTrasporto();
+        createTransport();
         System.out.println("delete trasporto " + transportId.getId());
         TransportDigitalTwin.deleteTransport(transportId);
         try{
@@ -137,7 +136,7 @@ public class DtTransport {
 
     @Test
     public void checkTransportInProgress(){
-        createTrasporto();
+        createTransport();
 
         assertEquals(transportId.getId(), TransportDigitalTwin.getAllTransportInProgress()
                 .stream()
