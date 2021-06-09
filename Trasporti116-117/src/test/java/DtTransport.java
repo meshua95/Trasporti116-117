@@ -134,19 +134,4 @@ public class DtTransport {
         deleteAllTestDigitalTwin();
     }
 
-    @Test
-    public void checkTransportInProgress(){
-        createTransport();
-        assertEquals(transportId.getId(), TransportDigitalTwin.getAllTransportInProgress()
-                .stream()
-                .filter(id -> id.getId().equals(transportId.getId()))
-                .findAny().get().getId());
-        TransportDigitalTwin.deleteTransport(transportId);
-        deleteAllTestDigitalTwin();
-
-       assertEquals(Optional.empty(), TransportDigitalTwin.getAllTransportInProgress()
-                .stream()
-                .filter(id -> id.getId().equals(transportId.getId()))
-                .findAny());
-    }
 }
