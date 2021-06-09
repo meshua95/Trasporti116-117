@@ -17,8 +17,7 @@ import static org.junit.Assert.*;
 
 public class DtAmbulance {
 
-    private final int ambulanceNumber = 0;
-    private final AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
+    private final AmbulanceId ambulanceId = new AmbulanceId(TestDataValue.AMBULANCE_NUMBER);
 
     @BeforeClass
     public static void createConnection(){
@@ -39,19 +38,19 @@ public class DtAmbulance {
 
     @Test
     public void createAmbulanceWithAmbulanceNumber(){
-        AmbulanceDigitalTwin.createAmbulance(ambulanceNumber);
+        AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_NUMBER);
 
-        assertEquals(Client.getClient().getDigitalTwin(new AmbulanceId(ambulanceNumber).getAmbulanceId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
-        assertEquals(Client.getClient().getDigitalTwin(new AmbulanceId(ambulanceNumber).getGpsId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
-        assertEquals(Client.getClient().getRelationship(new AmbulanceId(ambulanceNumber).getAmbulanceId(), new AmbulanceId(ambulanceNumber).getAmbulanceId() + "to" + new AmbulanceId(ambulanceNumber).getGpsId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(Client.getClient().getDigitalTwin(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(Client.getClient().getDigitalTwin(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getGpsId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(Client.getClient().getRelationship(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getGpsId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         AmbulanceDigitalTwin.deleteAmbulance(ambulanceId);
     }
 
     @Test
     public void deleteAmbulanceWithNoRelationship(){
-        AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
-        AmbulanceDigitalTwin.createAmbulance(ambulanceNumber);
+        AmbulanceId ambulanceId = new AmbulanceId(TestDataValue.AMBULANCE_NUMBER);
+        AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_NUMBER);
 
         assertEquals(AmbulanceDigitalTwin.deleteAmbulance(ambulanceId), DeleteAmbulanceStatusCode.DELETED);
         try {

@@ -8,24 +8,17 @@ import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.booking.BookingDigitalTwin;
 import digitalTwins.request.ServiceRequestDigitalTwin;
-import domain.*;
 import domain.patientBoundedContext.*;
 import domain.requestBoundedContext.serviceRequest.*;
 import digitalTwins.patient.PatientDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertEquals;
 
 public class DtBookingTransport {
-    private final PatientFiscalCode patientId = new PatientFiscalCode("paziente0");
-    private final LocalDateTime dateTime = LocalDateTime.of(2021,07,05,18,00);
-    private final BookingTransportId bookingTransportId = BookingDigitalTwin.generateBookingTransportId(patientId, dateTime);
-    private final LocalDateTime dateTimeServiceReq = LocalDateTime.of(2021, 6, 10, 10,30);
-    private final ServiceRequestId serviceReqId = ServiceRequestDigitalTwin.generateServiceRequestId(dateTimeServiceReq);
+    private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
+     final BookingTransportId bookingTransportId = BookingDigitalTwin.generateBookingTransportId(patientId, TestDataValue.BOOKING_DATE);
+    private final ServiceRequestId serviceReqId = ServiceRequestDigitalTwin.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
 
     @BeforeClass
     public static void createConnection(){
@@ -35,18 +28,16 @@ public class DtBookingTransport {
     private void createPatient(){
         PatientPersonalData personalData =
                 new PatientPersonalData(
-                        "Francesco",
-                        "Bianchi",
-                        LocalDate.of(1981, 4, 3),
-                        new PatientResidence(new Address("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode(47122))
-                );
-        HealthState healthState = new HealthState("Niente da riferire");
+                        TestDataValue.PATIENT_NAME,
+                        TestDataValue.PATIENT_SURNAME,
+                        TestDataValue.PATIENT_BIRTHDAY,
+                        TestDataValue.PATIENT_RESIDENCE);
 
-        PatientDigitalTwin.createPatient(patientId, personalData, healthState, Autonomy.NOT_AUTONOMOUS);
+        PatientDigitalTwin.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
     }
 
     public void createServiceRequest(){
-        ServiceRequestDigitalTwin.createServiceRequest(dateTimeServiceReq);
+        ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
     private void createBooking(){
@@ -54,10 +45,8 @@ public class DtBookingTransport {
         createServiceRequest();
 
         BookingDigitalTwin.createBookingTransport(
-                dateTime,
-                new BookingRoute(
-                        new BookingLocation(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
-                        new BookingLocation(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521))),
+                TestDataValue.BOOKING_DATE,
+                TestDataValue.BOOKING_ROUTE,
                 patientId,
                 serviceReqId);
     }

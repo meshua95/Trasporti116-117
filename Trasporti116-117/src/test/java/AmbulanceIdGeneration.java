@@ -8,30 +8,29 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class AmbulanceIdGeneration {
-    private final int ambulanceNumber = 2;
 
     @Test
     public void createAmbulanceIdByAmbulanceNumber(){
-        AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
-        assertEquals(ambulanceId.getAmbulanceId(), "ambulanza-"+ambulanceNumber);
+        AmbulanceId ambulanceId = new AmbulanceId(TestDataValue.AMBULANCE_NUMBER);
+        assertEquals(ambulanceId.getAmbulanceId(), "ambulanza-"+TestDataValue.AMBULANCE_NUMBER);
     }
 
     @Test
     public void createGpsIdByAmbulanceNumber(){
-        AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
-        assertEquals(ambulanceId.getGpsId(), "gps-"+ambulanceNumber);
+        AmbulanceId ambulanceId = new AmbulanceId(TestDataValue.AMBULANCE_NUMBER);
+        assertEquals(ambulanceId.getGpsId(), "gps-"+TestDataValue.AMBULANCE_NUMBER);
     }
 
     @Test
     public void createGpsIdByAmbulanceId(){
-        AmbulanceId ambulanceId = new AmbulanceId("ambulanza-"+ambulanceNumber);
-        assertEquals(ambulanceId.getGpsId(), "gps-"+ambulanceNumber);
+        AmbulanceId ambulanceId = new AmbulanceId("ambulanza-"+TestDataValue.AMBULANCE_NUMBER);
+        assertEquals(ambulanceId.getGpsId(), "gps-"+TestDataValue.AMBULANCE_NUMBER);
     }
 
     @Test
     public void checkGetAmbulanceNumber(){
-        AmbulanceId ambulanceId = new AmbulanceId("ambulanza-"+ambulanceNumber);
-        assertEquals(ambulanceId.getAmbulanceNumber(), ambulanceNumber);
+        AmbulanceId ambulanceId = new AmbulanceId("ambulanza-"+TestDataValue.AMBULANCE_NUMBER);
+        assertEquals(ambulanceId.getAmbulanceNumber(), TestDataValue.AMBULANCE_NUMBER);
     }
 
 }
