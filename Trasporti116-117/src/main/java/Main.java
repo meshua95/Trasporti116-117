@@ -6,7 +6,6 @@ import viewAmbulanceTablet.MainAppAmbulanceTablet;
 import viewCallCenter.MainAppCallCenter;
 
 
-
 public class Main {
     private static final String AMBULANCE_TABLET = "ambulanceTablet";
     private static final String CALL_CENTER  = "callCenter";

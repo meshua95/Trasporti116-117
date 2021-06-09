@@ -5,6 +5,7 @@
 package digitalTwins.transport;
 
 import com.azure.core.http.rest.PagedIterable;
+import com.azure.core.models.JsonPatchDocument;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
@@ -18,11 +19,11 @@ import utils.Constants;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.Future;
 
 public class TransportDigitalTwin {
 
-    public static TransportId createTransport(LocalDateTime dateTime, TransportRoute route, AmbulanceId ambulanceId, PatientFiscalCode patientId, OperatorId operatorId){
+    public static TransportId startTransport(TransportRoute route, AmbulanceId ambulanceId, PatientFiscalCode patientId, OperatorId operatorId){
+        LocalDateTime dateTime = LocalDateTime.now();
         TransportId transportId = generateTransportId(patientId, dateTime);
         System.out.println(transportId);
 
@@ -81,6 +82,16 @@ public class TransportDigitalTwin {
         return transoprtIds;
     }
 
+    public static TransportId getTransportById(TransportId id){
+        ArrayList<TransportId> transoprtIds = new ArrayList<>();
+        String query = "SELECT $dtId " +
+                "FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('"+ Constants.TRANSPORT_MODEL_ID + "') " +
+                "AND $dtId = '" + id + "'";
+        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
+        return new TransportId(pageableResponse.stream().findFirst().get().getId());
+    }
+
     public static ArrayList<TransportId> getTransportOfAmbulance(AmbulanceId id){
         ArrayList<TransportId> transportIds = new ArrayList<>();
         String query = "SELECT source " +
@@ -92,11 +103,20 @@ public class TransportDigitalTwin {
         return transportIds;
     }
 
+    //tira errore perchè si crea con now e invece il test viene chiamato con una data precisa
+    public static void setTransportEnded(TransportId id){
+        LocalDateTime date = LocalDateTime.now();
+        JsonPatchDocument updateOp = new JsonPatchDocument()
+                .appendReplace("endDateTime", date);
+
+        Client.getClient().updateDigitalTwin(id.getId(), updateOp);
+    }
+
     public static ArrayList<TransportId> getAllTransportInProgress(){
         ArrayList<TransportId> transportIds = new ArrayList<>();
         String query = "SELECT * " +
                 "FROM DIGITALTWINS " +
-                "WHERE IS_OF_MODEL('dtmi:num116117:trasporto;1') AND NOT IS_DEFINED ( endDateTime )";
+                "WHERE IS_OF_MODEL('" + Constants.TRANSPORT_MODEL_ID + "') AND NOT IS_DEFINED ( endDateTime )";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
         return transportIds;

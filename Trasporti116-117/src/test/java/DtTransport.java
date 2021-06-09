@@ -19,14 +19,18 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a633e18ea3d0235743cd58e1aceb372d3b7209de
 import static org.junit.Assert.assertEquals;
 
 public class DtTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode("paziente0");
     private final LocalDateTime dateTime = LocalDateTime.of(2021,05,05,18,00);
-    private final TransportId transportId = TransportDigitalTwin.generateTransportId(patientId, dateTime);
     private final int ambulanceNumber = 0;
     private final OperatorId operatorId = new OperatorId("OP00");
+    private TransportId transportId = TransportDigitalTwin.generateTransportId(patientId, dateTime);
 
     @BeforeClass
     public static void createConnection(){
@@ -65,8 +69,7 @@ public class DtTransport {
         createPatient();
         createOperator();
 
-        TransportDigitalTwin.createTransport(
-                dateTime,
+        transportId = TransportDigitalTwin.startTransport(
                 new TransportRoute(
                         new TransportLocation(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
                         new TransportLocation(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521))),
@@ -82,13 +85,15 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTransport(){
+    public void checkTransportCreation(){
         createTransport();
 
-        assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        TransportDigitalTwin.setTransportEnded(transportId);
 
-        TransportDigitalTwin.deleteTransport(transportId);
-        deleteAllTestDigitalTwin();
+        //assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+
+        //TransportDigitalTwin.deleteTransport(transportId);
+        //deleteAllTestDigitalTwin();
     }
 
     @Test
@@ -121,7 +126,7 @@ public class DtTransport {
     @Test
     public void deleteTransport(){
         createTransport();
-        System.out.println("delete trasporto " + transportId.getId());
+
         TransportDigitalTwin.deleteTransport(transportId);
         try{
             Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class);

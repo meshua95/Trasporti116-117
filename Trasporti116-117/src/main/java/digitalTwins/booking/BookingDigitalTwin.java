@@ -80,13 +80,16 @@ public class BookingDigitalTwin {
     }
 
     public static ArrayList<BookingTransportId> getAllBookingForTheDay(LocalDateTime date){
+
         ArrayList<BookingTransportId> serviceRequestIds = new ArrayList<>();
         String query = "SELECT * " +
                 "FROM DIGITALTWINS " +
-                "WHERE IS_OF_MODEL('dtmi:num116117:booking;1') " +
-                "AND STARTSWITH(dateTime, '" + date.getYear() + "-" + date.getMonth() + "-" + date.getDayOfMonth() + "')";
+                "WHERE IS_OF_MODEL('" + Constants.BOOKING_MODEL_ID + "') " +
+                "AND STARTSWITH(dateTime, '" + date.toLocalDate() + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> serviceRequestIds.add(new BookingTransportId(r.getId())));
+
+        serviceRequestIds.forEach(System.out::println);
         return serviceRequestIds;
     }
 
