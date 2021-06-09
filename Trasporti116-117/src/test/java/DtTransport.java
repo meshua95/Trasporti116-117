@@ -2,6 +2,7 @@
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
 
+import com.azure.core.implementation.Option;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
@@ -19,6 +20,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
@@ -131,5 +133,23 @@ public class DtTransport {
         }
 
         deleteAllTestDigitalTwin();
+    }
+
+    @Test
+    public void checkTransportInProgress(){
+        createTrasporto();
+
+        assertEquals(transportId.getId(), TransportDigitalTwin.getAllTransportInProgress()
+                .stream()
+                .filter(id -> id.getId().equals(transportId.getId()))
+                .findAny().get().getId());
+
+        TransportDigitalTwin.deleteTransport(transportId);
+        deleteAllTestDigitalTwin();
+
+        assertEquals(Optional.empty(), TransportDigitalTwin.getAllTransportInProgress()
+                .stream()
+                .filter(id -> id.getId().equals(transportId.getId()))
+                .findAny());
     }
 }

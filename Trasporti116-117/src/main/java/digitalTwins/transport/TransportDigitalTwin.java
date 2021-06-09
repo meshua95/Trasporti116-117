@@ -30,7 +30,8 @@ public class TransportDigitalTwin {
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.TRANSPORT_MODEL_ID)
                 )
-                .addToContents("dateTime", dateTime)
+                .addToContents("startDateTime", dateTime)
+                .addToContents("endDateTime", null)
                 .addToContents("route", route);
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
@@ -84,6 +85,16 @@ public class TransportDigitalTwin {
                 "FROM DIGITALTWINS source " +
                 "JOIN target RELATED source.use " +
                 "WHERE target.$dtId = '"+ id.getAmbulanceId() +"'";
+        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
+        pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
+        return transportIds;
+    }
+
+    public static ArrayList<TransportId> getAllTransportInProgress(){
+        ArrayList<TransportId> transportIds = new ArrayList<>();
+        String query = "SELECT * " +
+                "FROM DIGITALTWINS " +
+                "WHERE IS_OF_MODEL('dtmi:num116117:trasporto;1') AND NOT IS_DEFINED ( endDateTime )";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
         return transportIds;
