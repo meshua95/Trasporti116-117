@@ -16,7 +16,7 @@ import javafx.scene.control.ComboBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootControllerAmbulanceTablet implements Initializable {
+public class RootAmbulanceTabletController implements Initializable {
 
     @FXML
     private ComboBox<String> ambulanceList;
@@ -24,7 +24,6 @@ public class RootControllerAmbulanceTablet implements Initializable {
     private ComboBox<String> operatorList;
     @FXML
     private Button ok;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -89,7 +89,6 @@ public class BookingDigitalTwin {
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> serviceRequestIds.add(new BookingTransportId(r.getId())));
 
-        serviceRequestIds.forEach(System.out::println);
         return serviceRequestIds;
     }
 
