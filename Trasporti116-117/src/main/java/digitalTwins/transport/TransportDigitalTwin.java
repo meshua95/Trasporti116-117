@@ -88,13 +88,13 @@ public class TransportDigitalTwin {
     }
 
     public static TransportId getTransportById(TransportId id){
-        ArrayList<TransportId> transoprtIds = new ArrayList<>();
-        String query = "SELECT $dtId " +
+        String query = "SELECT * " +
                 "FROM DIGITALTWINS " +
                 "WHERE IS_OF_MODEL('"+ Constants.TRANSPORT_MODEL_ID + "') " +
-                "AND $dtId = '" + id + "'";
-        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        return new TransportId(pageableResponse.stream().findFirst().get().getId());
+                "AND $dtId = '" + id.getId() + "'";
+        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
+        System.out.println(pageableResponse.stream().findFirst().get());
+        return new TransportId(pageableResponse.stream().findFirst().get().toString());
     }
 
     public static ArrayList<TransportId> getTransportOfAmbulance(AmbulanceId id){
@@ -112,7 +112,7 @@ public class TransportDigitalTwin {
     public static void setTransportEnded(TransportId id){
 
         JsonPatchDocument updateOp = new JsonPatchDocument()
-                .appendReplace("/endDateTime", LocalDateTime.now());
+                .appendAdd("/endDateTime", LocalDateTime.now());
 
         Client.getClient().updateDigitalTwin(id.getId(), updateOp);
     }
