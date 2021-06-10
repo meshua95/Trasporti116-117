@@ -44,6 +44,6 @@ public class TestDataValue {
     public static final OperatorResidence OPERATOR_RESIDENCE = new OperatorResidence(new Address("Ferrari"), new HouseNumber("1A"), new City("Forlì"), new District("FC"), new PostalCode(47122));
 
     //Transport
-    public static final LocalDateTime TRANSPORT_DATE = LocalDateTime.now();
+    //public static final LocalDateTime TRANSPORT_DATE = LocalDateTime.now();
 
 }

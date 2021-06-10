@@ -25,11 +25,9 @@ import static org.junit.Assert.assertEquals;
 
 public class DtTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
-    private final TransportId transportId = TransportDigitalTwin.generateTransportId(patientId, TestDataValue.TRANSPORT_DATE);
     private final OperatorId operatorId = new OperatorId(TestDataValue.OPERATOR_ID);
     private final ServiceRequestId serviceRequestId = ServiceRequestDigitalTwin.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
-    private final BookingTransportId bookingId = BookingDigitalTwin.generateBookingTransportId(patientId, TestDataValue.BOOKING_DATE);
-
+    private BookingTransportId bookingId;
     @BeforeClass
     public static void createConnection(){
         Client.getClient();
@@ -44,31 +42,16 @@ public class DtTransport {
                         TestDataValue.PATIENT_RESIDENCE);
 
         PatientDigitalTwin.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void createServiceRequest(){
         ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    private void createBooking(){
+    private BookingTransportId createBooking(){
         createServiceRequest();
         createPatient();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        BookingDigitalTwin.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
+        return BookingDigitalTwin.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
     }
 
     private void createAmbulance(){
@@ -81,76 +64,51 @@ public class DtTransport {
                         TestDataValue.OPERATOR_SURNAME,
                         TestDataValue.OPERATOR_BIRTHDAY,
                         TestDataValue.OPERATOR_RESIDENCE);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         OperatorDigitalTwin.createOperator(operatorId, personalData);
     }
 
-    private void createTransport(){
-        createBooking();
+    private TransportId createTransport(){
+        bookingId = createBooking();
         createAmbulance();
         createOperator();
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        TransportDigitalTwin.startTransport(
+        return TransportDigitalTwin.startTransport(
                 bookingId,
                 new AmbulanceId(TestDataValue.AMBULANCE_NUMBER),
                 operatorId);
     }
 
     private void deleteAllTestDigitalTwin(){
+        BookingDigitalTwin.deleteBookingTransport(bookingId);
         AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER));
         OperatorDigitalTwin.deleteOperatore(operatorId);
-        BookingDigitalTwin.deleteBookingTransport(bookingId);
         ServiceRequestDigitalTwin.deleteServiceRequest(serviceRequestId);
         PatientDigitalTwin.deletePatient(patientId);
     }
 
     @Test
     public void checkTransportCreation(){
-        createTransport();
+        TransportId transportId = createTransport();
 
         TransportDigitalTwin.setTransportEnded(transportId);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         deleteAllTestDigitalTwin();
     }
 
     @Test
     public void checkTransportAmbulanceRelationship(){
-        createTransport();
+        TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         deleteAllTestDigitalTwin();
     }
 
     @Test
     public void checkTransportPatientRelationship(){
-        createTransport();
+        TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
@@ -159,7 +117,7 @@ public class DtTransport {
 
     @Test
     public void checkTransportOperatorRelationship(){
-        createTransport();
+        TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
@@ -169,14 +127,6 @@ public class DtTransport {
     @Test
     public void deleteTransport(){
         createTransport();
-
-        TransportDigitalTwin.deleteTransport(transportId);
-        try{
-            Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class);
-        } catch (Exception ex){
-            assertEquals(ex.getClass(), ErrorResponseException.class);
-        }
-
         deleteAllTestDigitalTwin();
     }
 

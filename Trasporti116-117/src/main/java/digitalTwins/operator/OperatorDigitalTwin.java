@@ -33,7 +33,6 @@ public class OperatorDigitalTwin {
         Client.getClient().deleteDigitalTwin(idOperator.getOperatorId());
     }
 
-
     public static ArrayList<OperatorId> getAllOperatorId(){
         ArrayList<OperatorId> operatoriIds = new ArrayList<>();
         String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.OPERATOR_MODEL_ID + "')";
