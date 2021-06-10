@@ -96,7 +96,7 @@ public class TransportDigitalTwin {
         ArrayList<TransportId> transportIds = new ArrayList<>();
         String query = "SELECT * " +
                 "FROM DIGITALTWINS " +
-                "WHERE IS_OF_MODEL('dtmi:num116117:trasporto;1') AND NOT IS_DEFINED ( endDateTime )";
+                "WHERE IS_OF_MODEL('"+Constants.TRANSPORT_MODEL_ID+"') AND NOT IS_DEFINED ( endDateTime )";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
         return transportIds;

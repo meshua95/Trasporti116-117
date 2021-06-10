@@ -48,32 +48,6 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:patientResidence;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "address",
-          "schema": "dtmi:num116117:patientAddress;1"
-        },
-        {
-          "name": "houseNumber",
-          "schema": "dtmi:num116117:patientHouseNumber;1"
-        },
-        {
-          "name": "city",
-          "schema": "dtmi:num116117:patientCity;1"
-        },
-        {
-          "name": "district",
-          "schema": "dtmi:num116117:patientDistrict;1"
-        },
-        {
-          "name": "postalCode",
-          "schema": "dtmi:num116117:patientPostalCode;1"
-        }
-      ]
-    },
-    {
       "@id": "dtmi:num116117:healthState;1",
       "@type": "Object",
       "fields": [
@@ -102,6 +76,32 @@
           "name": "notAutonomous",
           "displayName": "NotAutonomous",
           "enumValue": 3
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientResidence;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "dtmi:num116117:patientAddress;1"
+        },
+        {
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:patientHouseNumber;1"
+        },
+        {
+          "name": "city",
+          "schema": "dtmi:num116117:patientCity;1"
+        },
+        {
+          "name": "district",
+          "schema": "dtmi:num116117:patientDistrict;1"
+        },
+        {
+          "name": "postalCode",
+          "schema": "dtmi:num116117:patientPostalCode;1"
         }
       ]
     },
@@ -136,22 +136,22 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:patientPostalCode;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "posalCode",
-          "schema": "integer"
-        }
-      ]
-    },
-    {
       "@id": "dtmi:num116117:patientDistrict;1",
       "@type": "Object",
       "fields": [
         {
           "name": "district",
           "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
+          "schema": "integer"
         }
       ]
     }
