@@ -5,26 +5,21 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
-import domain.*;
 import domain.patientBoundedContext.*;
 import digitalTwins.patient.PatientDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDate;
-
 import static org.junit.Assert.assertEquals;
 
 public class DtPatient {
 
-    private final PatientFiscalCode idPatient = new PatientFiscalCode("paziente0");
+    private final PatientFiscalCode idPatient = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
     private final PatientPersonalData personalData =
-            new PatientPersonalData("Mario",
-                    "Rossi",
-                    LocalDate.of(1988, 1,8),
-                    new PatientResidence(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
-    private final HealthState healthState = new HealthState("Niente da riferire");
-
+            new PatientPersonalData(TestDataValue.PATIENT_NAME,
+                    TestDataValue.PATIENT_SURNAME,
+                    TestDataValue.PATIENT_BIRTHDAY,
+                    TestDataValue.PATIENT_RESIDENCE);
 
     @BeforeClass
     public static void createConnection(){
@@ -34,7 +29,7 @@ public class DtPatient {
     @Test
     public void createPaziente(){
 
-        PatientDigitalTwin.createPatient(idPatient, personalData, healthState, Autonomy.PARTIALLY_AUTONOMOUS);
+        PatientDigitalTwin.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
         assertEquals(Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         PatientDigitalTwin.deletePatient(idPatient);
@@ -42,7 +37,7 @@ public class DtPatient {
 
     @Test
     public void deletePaziente(){
-        PatientDigitalTwin.createPatient(idPatient, personalData, healthState, Autonomy.PARTIALLY_AUTONOMOUS);
+        PatientDigitalTwin.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
 
         PatientDigitalTwin.deletePatient(idPatient);
         try{
