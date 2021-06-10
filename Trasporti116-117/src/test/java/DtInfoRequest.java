@@ -11,10 +11,8 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 public class DtInfoRequest {
+    private final InfoRequestId id = InfoRequestDigitalTwin.generateInfoRequestId(TestDataValue.INFO_REQUEST_DATE);
 
-    private final LocalDateTime dateTime = LocalDateTime.of(2021, 6, 10, 10,30);
-    private final InfoRequestDescription description = new InfoRequestDescription("Richiesta costi di trasporto da ospedale di Cesena a Residenza in Imola");
-    private final InfoRequestId id = InfoRequestDigitalTwin.generateInfoRequestId(dateTime);
     @BeforeClass
     public static void createConnection(){
         Client.getClient();
@@ -22,7 +20,7 @@ public class DtInfoRequest {
 
     @Test
     public void createInfoRequest(){
-        InfoRequestDigitalTwin.createInfoRequest(dateTime,description);
+        InfoRequestDigitalTwin.createInfoRequest(TestDataValue.INFO_REQUEST_DATE, TestDataValue.INFO_REQUEST_DESCRIPTION);
         assertEquals(Client.getClient().getDigitalTwin(id.getInfoRequestId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         InfoRequestDigitalTwin.deleteInfoRequest(id);
@@ -30,7 +28,7 @@ public class DtInfoRequest {
 
     @Test
     public void deleteInfoRequest(){
-        InfoRequestDigitalTwin.createInfoRequest(dateTime,description);
+        InfoRequestDigitalTwin.createInfoRequest(TestDataValue.INFO_REQUEST_DATE, TestDataValue.INFO_REQUEST_DESCRIPTION);
 
         InfoRequestDigitalTwin.deleteInfoRequest(id);
         try{

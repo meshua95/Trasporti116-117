@@ -6,13 +6,10 @@ import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertEquals;
 
 public class DtServiceRequest {
-    private final LocalDateTime dateTime = LocalDateTime.of(2021, 6, 10, 10,30);
-    private final ServiceRequestId id = ServiceRequestDigitalTwin.generateServiceRequestId(dateTime);
+    private final ServiceRequestId id = ServiceRequestDigitalTwin.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
 
     @BeforeClass
     public static void createConnection(){
@@ -21,7 +18,7 @@ public class DtServiceRequest {
 
     @Test
     public void createServiceRequest(){
-        ServiceRequestDigitalTwin.createServiceRequest(dateTime);
+        ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
         assertEquals(Client.getClient().getDigitalTwin(id.getserviceRequestId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         ServiceRequestDigitalTwin.deleteServiceRequest(id);
@@ -29,7 +26,7 @@ public class DtServiceRequest {
 
     @Test
     public void deleteInfoRequest(){
-        ServiceRequestDigitalTwin.createServiceRequest(dateTime);
+        ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
 
         ServiceRequestDigitalTwin.deleteServiceRequest(id);
         try{
