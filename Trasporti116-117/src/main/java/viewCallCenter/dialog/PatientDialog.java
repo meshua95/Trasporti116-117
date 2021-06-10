@@ -35,10 +35,10 @@ public class PatientDialog extends DtDialog{
         gridPane.add(new Label("Numero"), 0, 4);
         gridPane.add(numero, 1, 4);
 
-        TextField città = new TextField();
-        città.setPromptText("Città");
+        TextField city = new TextField();
+        city.setPromptText("Città");
         gridPane.add(new Label("Città"), 0, 5);
-        gridPane.add(città, 1, 5);
+        gridPane.add(city, 1, 5);
 
         TextField provincia = new TextField();
         provincia.setPromptText("Provincia");
@@ -82,7 +82,7 @@ public class PatientDialog extends DtDialog{
                                 new PatientResidence(
                                         new Address(via.getText()),
                                         new HouseNumber(numero.getText()),
-                                        new City(città.getText()),
+                                        new City(city.getText()),
                                         new District(provincia.getText()),
                                         new PostalCode(Integer.parseInt(cap.getText())))),
                         new HealthState(statoSalute.getText()),
