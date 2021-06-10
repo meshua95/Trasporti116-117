@@ -18,7 +18,6 @@ import utils.Constants;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.Future;
 
 public class TransportDigitalTwin {
 
