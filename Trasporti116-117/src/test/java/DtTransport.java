@@ -35,7 +35,7 @@ public class DtTransport {
         Client.getClient();
     }
 
-    private void createPatient(){
+    private void createPatient() {
         PatientPersonalData personalData =
                 new PatientPersonalData(
                         TestDataValue.PATIENT_NAME,
@@ -44,16 +44,30 @@ public class DtTransport {
                         TestDataValue.PATIENT_RESIDENCE);
 
         PatientDigitalTwin.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createServiceRequest(){
         ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createBooking(){
         createServiceRequest();
         createPatient();
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         BookingDigitalTwin.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
     }
 
@@ -67,7 +81,11 @@ public class DtTransport {
                         TestDataValue.OPERATOR_SURNAME,
                         TestDataValue.OPERATOR_BIRTHDAY,
                         TestDataValue.OPERATOR_RESIDENCE);
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         OperatorDigitalTwin.createOperator(operatorId, personalData);
     }
 
@@ -76,7 +94,11 @@ public class DtTransport {
         createAmbulance();
         createOperator();
 
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         TransportDigitalTwin.startTransport(
                 bookingId,
                 new AmbulanceId(TestDataValue.AMBULANCE_NUMBER),
@@ -96,10 +118,19 @@ public class DtTransport {
         createTransport();
 
         TransportDigitalTwin.setTransportEnded(transportId);
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         deleteAllTestDigitalTwin();
     }
 
@@ -109,6 +140,11 @@ public class DtTransport {
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         TransportDigitalTwin.deleteTransport(transportId);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         deleteAllTestDigitalTwin();
     }
 

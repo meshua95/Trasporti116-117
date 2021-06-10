@@ -24,7 +24,7 @@ public class TestDataValue {
     public static final HealthState HEALTH_STATE = new HealthState("Niente da riferire");
 
     //Booking
-    public static final LocalDateTime BOOKING_DATE = LocalDateTime.of(2011,7,5,18,0);
+    public static final LocalDateTime BOOKING_DATE = LocalDateTime.now();
     public static final BookingRoute BOOKING_ROUTE = new BookingRoute(
                         new BookingLocation(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
             new BookingLocation(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
@@ -44,7 +44,7 @@ public class TestDataValue {
     public static final OperatorResidence OPERATOR_RESIDENCE = new OperatorResidence(new Address("Ferrari"), new HouseNumber("1A"), new City("Forlì"), new District("FC"), new PostalCode(47122));
 
     //Transport
-    public static final LocalDateTime TRANSPORT_DATE = LocalDateTime.of(2021,8,4,18,0);
+    public static final LocalDateTime TRANSPORT_DATE = LocalDateTime.now();
     public static final TransportRoute TRANSPORT_ROUTE = new TransportRoute(
             new TransportLocation(new Address("IV Settembre"),new HouseNumber("1A"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
             new TransportLocation(new Address("corso cavour"),new HouseNumber("19A"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
