@@ -13,6 +13,8 @@ import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import domain.requestBoundedContext.serviceRequest.BookingRoute;
 import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
+
+import org.json.simple.JSONObject;
 import utils.Constants;
 
 import java.time.LocalDateTime;
@@ -77,6 +79,21 @@ public class BookingDigitalTwin {
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
         return bookingIds;
+    }
+
+    public static JSONObject getRouteByBookingId(BookingTransportId bookingId){
+        String query = "SELECT route FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.BOOKING_MODEL_ID + "') AND $dtId = '" + bookingId.getId() + "'";
+        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
+        return pageableResponse.stream().findFirst().get();
+    }
+
+    public static String getPatientIdByBookingId(BookingTransportId bookingId){
+        String query = "SELECT target.$dtId " +
+                "FROM DIGITALTWINS source " +
+                "JOIN target RELATED source.transport " +
+                "WHERE source.$dtId = '"+ bookingId.getId() +"'";;
+        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
+        return pageableResponse.stream().findFirst().get().get("$dtId").toString();
     }
 
     public static ArrayList<BookingTransportId> getAllBookingForTheDay(LocalDateTime date){

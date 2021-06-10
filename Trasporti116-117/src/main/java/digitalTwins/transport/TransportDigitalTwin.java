@@ -10,11 +10,13 @@ import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
 import digitalTwins.Client;
+import digitalTwins.booking.BookingDigitalTwin;
 import domain.ambulanceBoundedContext.AmbulanceId;
 import domain.patientBoundedContext.PatientFiscalCode;
+import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import domain.transportBoundedContext.OperatorId;
 import domain.transportBoundedContext.TransportId;
-import domain.transportBoundedContext.TransportRoute;
+import org.json.simple.JSONObject;
 import utils.Constants;
 
 import java.time.LocalDateTime;
@@ -22,8 +24,11 @@ import java.util.ArrayList;
 
 public class TransportDigitalTwin {
 
-    public static TransportId startTransport(TransportRoute route, AmbulanceId ambulanceId, PatientFiscalCode patientId, OperatorId operatorId){
+    public static TransportId startTransport(BookingTransportId bookingId, AmbulanceId ambulanceId, OperatorId operatorId){
         LocalDateTime dateTime = LocalDateTime.now();
+        JSONObject route = BookingDigitalTwin.getRouteByBookingId(bookingId);
+        PatientFiscalCode patientId = new PatientFiscalCode(BookingDigitalTwin.getPatientIdByBookingId(bookingId));
+
         TransportId transportId = generateTransportId(patientId, dateTime);
         System.out.println(transportId);
 
@@ -34,7 +39,7 @@ public class TransportDigitalTwin {
                 )
                 .addToContents("startDateTime", dateTime)
                 .addToContents("endDateTime", null)
-                .addToContents("route", route);
+                .addToContents("route", route.get("route"));
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
@@ -107,7 +112,7 @@ public class TransportDigitalTwin {
     public static void setTransportEnded(TransportId id){
 
         JsonPatchDocument updateOp = new JsonPatchDocument()
-                .appendReplace("Trasporto/contents/name/endDateTime", LocalDateTime.now());
+                .appendReplace("/endDateTime", LocalDateTime.now());
 
         Client.getClient().updateDigitalTwin(id.getId(), updateOp);
     }

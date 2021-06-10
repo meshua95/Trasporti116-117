@@ -19,10 +19,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-=======
-
->>>>>>> a633e18ea3d0235743cd58e1aceb372d3b7209de
 import static org.junit.Assert.assertEquals;
 
 public class DtTransport {
@@ -68,14 +64,11 @@ public class DtTransport {
         createAmbulance();
         createPatient();
         createOperator();
-
+/*
         transportId = TransportDigitalTwin.startTransport(
-                new TransportRoute(
-                        new TransportLocation(new Address("IV Settembre"),new HouseNumber("13B"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
-                        new TransportLocation(new Address("corso cavour"),new HouseNumber("189C"),new City("Cesena"), new District("FC"), new PostalCode(47521))),
+
                 new AmbulanceId(ambulanceNumber),
-                patientId,
-                operatorId);
+                operatorId); */
     }
 
     private void deleteAllTestDigitalTwin(){
