@@ -103,11 +103,11 @@ public class TransportDigitalTwin {
         return transportIds;
     }
 
-    //tira errore perchè si crea con now e invece il test viene chiamato con una data precisa
+    //path non valido
     public static void setTransportEnded(TransportId id){
-        LocalDateTime date = LocalDateTime.now();
+
         JsonPatchDocument updateOp = new JsonPatchDocument()
-                .appendReplace("endDateTime", date);
+                .appendReplace("Trasporto/contents/name/endDateTime", LocalDateTime.now());
 
         Client.getClient().updateDigitalTwin(id.getId(), updateOp);
     }
