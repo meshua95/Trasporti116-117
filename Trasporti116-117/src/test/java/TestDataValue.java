@@ -45,8 +45,5 @@ public class TestDataValue {
 
     //Transport
     public static final LocalDateTime TRANSPORT_DATE = LocalDateTime.now();
-    public static final TransportRoute TRANSPORT_ROUTE = new TransportRoute(
-            new TransportLocation(new Address("IV Settembre"),new HouseNumber("1A"),new City("Cesena"), new District("FC"), new PostalCode(47521)),
-            new TransportLocation(new Address("corso cavour"),new HouseNumber("19A"),new City("Cesena"), new District("FC"), new PostalCode(47521)));
 
 }
