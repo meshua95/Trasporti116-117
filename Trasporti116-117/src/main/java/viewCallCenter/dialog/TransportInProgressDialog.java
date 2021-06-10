@@ -1,15 +1,8 @@
-package view.dialog;
+package viewCallCenter.dialog;
 
-import digitalTwins.request.InfoRequestDigitalTwin;
 import digitalTwins.transport.TransportDigitalTwin;
-import domain.requestBoundedContext.infoRequest.InfoRequestDescription;
-import domain.transportBoundedContext.TransportId;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-
-import java.time.LocalDateTime;
 
 public class TransportInProgressDialog extends DtDialog {
 

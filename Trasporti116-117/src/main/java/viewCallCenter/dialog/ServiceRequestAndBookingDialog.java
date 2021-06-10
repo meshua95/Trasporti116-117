@@ -1,4 +1,4 @@
-package view.dialog;
+package viewCallCenter.dialog;
 
 import digitalTwins.booking.BookingDigitalTwin;
 import digitalTwins.patient.PatientDigitalTwin;

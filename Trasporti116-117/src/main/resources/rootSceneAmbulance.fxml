@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="viewAmbulanceTablet.RootAmbulanceTabletController">
+    <fx:define>
+        <Double fx:id="buttonWidth" fx:value="220"/>
+        <Double fx:id="defaultMargin" fx:value="10"/>
+    </fx:define>
+
+    <center>
+        <Label fx:id = "label1" text="Selezionare ambulanza e operatore" alignment="CENTER"/>
+        <HBox alignment="CENTER" spacing="10">
+            <ComboBox fx:id="ambulanceList" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <ComboBox fx:id="operatorList" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+            <Button fx:id="ok" text="Ok" minWidth="$buttonWidth" maxWidth="$buttonWidth" prefWidth="$buttonWidth"/>
+        </HBox>
+    </center>
+</BorderPane>

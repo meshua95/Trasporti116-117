@@ -1,18 +1,16 @@
-package view.dialog;
+package viewCallCenter.dialog;
 
-import digitalTwins.operator.OperatorDigitalTwin;
+import digitalTwins.patient.PatientDigitalTwin;
 import domain.*;
-import domain.transportBoundedContext.*;
-import domain.transportBoundedContext.OperatorId;
+import domain.patientBoundedContext.*;
 import javafx.scene.control.*;
-
 import java.time.LocalDate;
 
-public class OperatorDialog extends DtDialog {
-
+public class PatientDialog extends DtDialog{
     @Override
     public void createEntity(){
-        initialize("Inserisci operatore", ButtonType.OK, ButtonType.CANCEL);
+        initialize("Aggiungi Paziente", ButtonType.OK, ButtonType.CANCEL);
+
         TextField nome = new TextField();
         nome.setPromptText("Nome");
         gridPane.add(new Label("Nome"), 0, 0);
@@ -58,23 +56,37 @@ public class OperatorDialog extends DtDialog {
         gridPane.add(cf, 1, 8);
         TextField statoSalute = new TextField();
 
+        statoSalute.setPromptText("Stato di salute");
+        gridPane.add(new Label("Stato di salute"), 0, 9);
+        gridPane.add(statoSalute, 1, 9);
+
+        ComboBox<Autonomy> autonomia = new ComboBox<>();
+        autonomia.getItems().addAll(
+                Autonomy.AUTONOMOUS,
+                Autonomy.NOT_AUTONOMOUS,
+                Autonomy.PARTIALLY_AUTONOMOUS
+        );
+        gridPane.add(new Label("Autonomia"), 0, 10);
+        gridPane.add(autonomia, 1, 10);
+
         dialog.getDialogPane().setContent(gridPane);
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> OperatorDigitalTwin.createOperator(
-                        new OperatorId(cf.getText()),
-                        new OperatorPersonalData(
+                .ifPresent(response -> PatientDigitalTwin.createPatient(
+                        new PatientFiscalCode(cf.getText()),
+                        new PatientPersonalData(
                                 nome.getText(),
                                 cognome.getText(),
                                 LocalDate.of(dataNascita.getValue().getYear(), dataNascita.getValue().getMonth(),dataNascita.getValue().getDayOfMonth()),
-                                new OperatorResidence(
+                                new PatientResidence(
                                         new Address(via.getText()),
                                         new HouseNumber(numero.getText()),
                                         new City(città.getText()),
                                         new District(provincia.getText()),
-                                        new PostalCode(Integer.parseInt(cap.getText())))
-                        )
+                                        new PostalCode(Integer.parseInt(cap.getText())))),
+                        new HealthState(statoSalute.getText()),
+                        autonomia.getValue()
                 ));
 
     }

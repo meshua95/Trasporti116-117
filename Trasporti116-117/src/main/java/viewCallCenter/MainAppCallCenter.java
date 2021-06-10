@@ -3,7 +3,7 @@
  */
 
 
-package view;
+package viewCallCenter;
 
 import com.sothawo.mapjfx.Projection;
 import javafx.application.Application;
@@ -13,9 +13,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.nio.file.Paths;
 
-import static view.SceneType.ROOT_SCENE;
+import static viewCallCenter.SceneTypeCallCenter.ROOT_SCENE;
 
-public class MainApp extends Application {
+public class MainAppCallCenter extends Application {
     private static Stage stage;
     private static Scene rootScene;
     private static Scene mapsScene;
@@ -26,7 +26,7 @@ public class MainApp extends Application {
         this.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        Parent root = FXMLLoader.load(Paths.get("src/main/resources/scene.fxml").toUri().toURL());
+        Parent root = FXMLLoader.load(Paths.get("src/main/resources/rootSceneCallCenter.fxml").toUri().toURL());
         Parent maps = fxmlLoader.load(getClass().getResourceAsStream("/mapScene.fxml"));
 
         rootScene = new Scene(root);
@@ -44,10 +44,14 @@ public class MainApp extends Application {
         setScene(ROOT_SCENE);
     }
 
-    public static void setScene(SceneType type){
+    public static void setScene(SceneTypeCallCenter type){
         switch (type){
-            case MAPS_SCENE -> stage.setScene(mapsScene);
-            case ROOT_SCENE -> stage.setScene(rootScene);
+            case MAPS_SCENE:
+                stage.setScene(mapsScene);
+                break;
+            case ROOT_SCENE:
+                stage.setScene(rootScene);
+                break;
         }
         stage.show();
     }
