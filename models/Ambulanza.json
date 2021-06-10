@@ -1,0 +1,21 @@
+{
+  "@id": "dtmi:num116117:ambulanza;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Ambulanza",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "number",
+      "schema": "integer"
+    },
+    {
+      "@type": "Relationship",
+      "name": "use"
+    },
+    {
+      "@type": "Relationship",
+      "name": "contains"
+    }
+  ]
+}

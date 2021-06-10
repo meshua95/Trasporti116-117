@@ -1,0 +1,118 @@
+{
+  "@id": "dtmi:num116117:booking;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Booking",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "route",
+      "schema": "dtmi:num116117:route;1"
+    },
+    {
+      "@type": "Property",
+      "name": "dateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Relationship",
+      "name": "transport"
+    },
+    {
+      "@type": "Relationship",
+      "name": "requestBy"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:route;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "departure",
+          "schema": "dtmi:num116117:location;1"
+        },
+        {
+          "name": "destination",
+          "schema": "dtmi:num116117:location;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:location;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "dtmi:num116117:address;1"
+        },
+        {
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:houseNumber;1"
+        },
+        {
+          "name": "city",
+          "schema": "dtmi:num116117:city;1"
+        },
+        {
+          "name": "district",
+          "schema": "dtmi:num116117:district;1"
+        },
+        {
+          "name": "postalCode",
+          "schema": "dtmi:num116117:postalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:address;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:houseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:city;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:postalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
+          "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:district;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
+        }
+      ]
+    }
+  ]
+}

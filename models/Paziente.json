@@ -1,0 +1,159 @@
+{
+  "@id": "dtmi:num116117:paziente;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Paziente",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "autonomy",
+      "schema": "dtmi:num116117:autonomiaPaziente;1"
+    },
+    {
+      "@type": "Property",
+      "name": "personalData",
+      "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
+    },
+    {
+      "@type": "Property",
+      "name": "healthState",
+      "schema": "dtmi:num116117:statoDiSalute;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "transport"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:datiAnagraficiPaziente;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "name",
+          "schema": "string"
+        },
+        {
+          "name": "surname",
+          "schema": "string"
+        },
+        {
+          "name": "birthDate",
+          "schema": "date"
+        },
+        {
+          "name": "residence",
+          "schema": "dtmi:num116117:residenzaPaziente;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:residenzaPaziente;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "dtmi:num116117:patientAddress;1"
+        },
+        {
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:patientHouseNumber;1"
+        },
+        {
+          "name": "city",
+          "schema": "dtmi:num116117:patientCity;1"
+        },
+        {
+          "name": "district",
+          "schema": "dtmi:num116117:patientDistrict;1"
+        },
+        {
+          "name": "postalCode",
+          "schema": "dtmi:num116117:patientPostalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:statoDiSalute;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "description",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:autonomiaPaziente;1",
+      "@type": "Enum",
+      "valueSchema": "integer",
+      "enumValues": [
+        {
+          "name": "autonomous",
+          "displayName": "Autonomous",
+          "enumValue": 1
+        },
+        {
+          "name": "partiallyAutonomous",
+          "displayName": "PartiallyAutonomous",
+          "enumValue": 2
+        },
+        {
+          "name": "notAutonomous",
+          "displayName": "NotAutonomous",
+          "enumValue": 3
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientAddress;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientHouseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientCity;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "posalCode",
+          "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientDistrict;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
+        }
+      ]
+    }
+  ]
+}

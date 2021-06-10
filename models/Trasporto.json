@@ -1,0 +1,122 @@
+{
+  "@id": "dtmi:num116117:trasporto;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Trasporto",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "route",
+      "schema": "dtmi:num116117:transportRoute;1"
+    },
+    {
+      "@type": "Property",
+      "name": "dateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Relationship",
+      "name": "use"
+    },
+    {
+      "@type": "Relationship",
+      "name": "transport"
+    },
+    {
+      "@type": "Relationship",
+      "name": "drive"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:transportRoute;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "departure",
+          "schema": "dtmi:num116117:transportLocation;1"
+        },
+        {
+          "name": "destination",
+          "schema": "dtmi:num116117:transportLocation;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportLocation;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "dtmi:num116117:transportAddress;1"
+        },
+        {
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:transportHouseNumber;1"
+        },
+        {
+          "name": "city",
+          "schema": "dtmi:num116117:transportCity;1"
+        },
+        {
+          "name": "district",
+          "schema": "dtmi:num116117:transportDistrict;1"
+        },
+        {
+          "name": "postalCode",
+          "schema": "dtmi:num116117:transportPostalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportAddress;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportHouseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportCity;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
+          "schema": "integer"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:transportDistrict;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
+        }
+      ]
+    }
+  ]
+}

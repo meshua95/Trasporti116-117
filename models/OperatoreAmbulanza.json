@@ -1,0 +1,117 @@
+{
+  "@id": "dtmi:num116117:operatoreAmbulanza;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "OperatoreAmbulanza",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "personalData",
+      "schema": "dtmi:num116117:datiAnagraficiOperatore;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "drive"
+    }
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:num116117:datiAnagraficiOperatore;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "name",
+          "schema": "string"
+        },
+        {
+          "name": "surname",
+          "schema": "string"
+        },
+        {
+          "name": "birthDate",
+          "schema": "date"
+        },
+        {
+          "name": "residence",
+          "schema": "dtmi:num116117:residenzaOperatore;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:residenzaOperatore;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "dtmi:num116117:operatorAddress;1"
+        },
+        {
+          "name": "houseNumber",
+          "schema": "dtmi:num116117:operatorHouseNumber;1"
+        },
+        {
+          "name": "city",
+          "schema": "dtmi:num116117:operatorCity;1"
+        },
+        {
+          "name": "district",
+          "schema": "dtmi:num116117:operatorDistrict;1"
+        },
+        {
+          "name": "postalCode",
+          "schema": "dtmi:num116117:operatorPostalCode;1"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorAddress;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "address",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorHouseNumber;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "houseNumber",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorCity;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "city",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorDistrict;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "district",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:operatorPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
+          "schema": "integer"
+        }
+      ]
+    }
+  ]
+}

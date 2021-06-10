@@ -1,0 +1,22 @@
+{
+  "@id": "dtmi:num116117:serviceRequest;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "ServiceRequest",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "serviceRequestId",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "dateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Relationship",
+      "name": "requestBy"
+    }
+  ]
+}
