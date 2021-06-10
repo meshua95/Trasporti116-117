@@ -6,8 +6,6 @@ import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertEquals;
 
 public class DtServiceRequest {
