@@ -20,7 +20,7 @@ public class TestDataValue {
     public static final String PATIENT_NAME = "namePatient";
     public static final String PATIENT_SURNAME = "surnamePatient";
     public static final LocalDate PATIENT_BIRTHDAY = LocalDate.of(1970,7,5);
-    public static final PatientResidence PATIENT_RESIDENCE = new PatientResidence(new Address("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode(47122));
+    public static final PatientResidence PATIENT_RESIDENCE = new PatientResidence(new Address("Ferrari"), new HouseNumber("111A"), new City("Forlì"), new District("FC"), new PostalCode(47722));
     public static final HealthState HEALTH_STATE = new HealthState("Niente da riferire");
 
     //Booking

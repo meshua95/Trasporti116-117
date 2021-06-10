@@ -1,13 +1,13 @@
 {
-  "@id": "dtmi:num116117:operatoreAmbulanza;1",
+  "@id": "dtmi:num116117:ambulanceOperator;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
-  "displayName": "OperatoreAmbulanza",
+  "displayName": "AmbulanceOperator",
   "contents": [
     {
       "@type": "Property",
       "name": "personalData",
-      "schema": "dtmi:num116117:datiAnagraficiOperatore;1"
+      "schema": "dtmi:num116117:operatorPersonalData;1"
     },
     {
       "@type": "Relationship",
@@ -16,7 +16,7 @@
   ],
   "schemas": [
     {
-      "@id": "dtmi:num116117:datiAnagraficiOperatore;1",
+      "@id": "dtmi:num116117:operatorPersonalData;1",
       "@type": "Object",
       "fields": [
         {
@@ -33,12 +33,12 @@
         },
         {
           "name": "residence",
-          "schema": "dtmi:num116117:residenzaOperatore;1"
+          "schema": "dtmi:num116117:operatorResidence;1"
         }
       ]
     },
     {
-      "@id": "dtmi:num116117:residenzaOperatore;1",
+      "@id": "dtmi:num116117:operatorResidence;1",
       "@type": "Object",
       "fields": [
         {

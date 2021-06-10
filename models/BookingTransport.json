@@ -21,6 +21,10 @@
     {
       "@type": "Relationship",
       "name": "requestBy"
+    },
+    {
+      "@type": "Relationship",
+      "name": "related"
     }
   ],
   "schemas": [

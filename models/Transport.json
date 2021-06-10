@@ -1,8 +1,8 @@
 {
-  "@id": "dtmi:num116117:trasporto;1",
+  "@id": "dtmi:num116117:transport;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
-  "displayName": "Trasporto",
+  "displayName": "Transpor",
   "contents": [
     {
       "@type": "Property",
@@ -11,7 +11,12 @@
     },
     {
       "@type": "Property",
-      "name": "dateTime",
+      "name": "startDateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Property",
+      "name": "endDateTime",
       "schema": "dateTime"
     },
     {
@@ -25,6 +30,10 @@
     {
       "@type": "Relationship",
       "name": "drive"
+    },
+    {
+      "@type": "Relationship",
+      "name": "related"
     }
   ],
   "schemas": [

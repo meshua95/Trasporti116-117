@@ -1,23 +1,23 @@
 {
-  "@id": "dtmi:num116117:paziente;1",
+  "@id": "dtmi:num116117:patient;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
-  "displayName": "Paziente",
+  "displayName": "Patient",
   "contents": [
     {
       "@type": "Property",
       "name": "autonomy",
-      "schema": "dtmi:num116117:autonomiaPaziente;1"
+      "schema": "dtmi:num116117:patientAutonomy;1"
     },
     {
       "@type": "Property",
       "name": "personalData",
-      "schema": "dtmi:num116117:datiAnagraficiPaziente;1"
+      "schema": "dtmi:num116117:patientPersonalData;1"
     },
     {
       "@type": "Property",
       "name": "healthState",
-      "schema": "dtmi:num116117:statoDiSalute;1"
+      "schema": "dtmi:num116117:healthState;1"
     },
     {
       "@type": "Relationship",
@@ -26,7 +26,7 @@
   ],
   "schemas": [
     {
-      "@id": "dtmi:num116117:datiAnagraficiPaziente;1",
+      "@id": "dtmi:num116117:patientPersonalData;1",
       "@type": "Object",
       "fields": [
         {
@@ -43,12 +43,44 @@
         },
         {
           "name": "residence",
-          "schema": "dtmi:num116117:residenzaPaziente;1"
+          "schema": "dtmi:num116117:patientResidence;1"
         }
       ]
     },
     {
-      "@id": "dtmi:num116117:residenzaPaziente;1",
+      "@id": "dtmi:num116117:healthState;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "description",
+          "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientAutonomy;1",
+      "@type": "Enum",
+      "valueSchema": "integer",
+      "enumValues": [
+        {
+          "name": "autonomous",
+          "displayName": "Autonomous",
+          "enumValue": 1
+        },
+        {
+          "name": "partiallyAutonomous",
+          "displayName": "PartiallyAutonomous",
+          "enumValue": 2
+        },
+        {
+          "name": "notAutonomous",
+          "displayName": "NotAutonomous",
+          "enumValue": 3
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientResidence;1",
       "@type": "Object",
       "fields": [
         {
@@ -70,38 +102,6 @@
         {
           "name": "postalCode",
           "schema": "dtmi:num116117:patientPostalCode;1"
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:statoDiSalute;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "description",
-          "schema": "string"
-        }
-      ]
-    },
-    {
-      "@id": "dtmi:num116117:autonomiaPaziente;1",
-      "@type": "Enum",
-      "valueSchema": "integer",
-      "enumValues": [
-        {
-          "name": "autonomous",
-          "displayName": "Autonomous",
-          "enumValue": 1
-        },
-        {
-          "name": "partiallyAutonomous",
-          "displayName": "PartiallyAutonomous",
-          "enumValue": 2
-        },
-        {
-          "name": "notAutonomous",
-          "displayName": "NotAutonomous",
-          "enumValue": 3
         }
       ]
     },
@@ -136,22 +136,22 @@
       ]
     },
     {
-      "@id": "dtmi:num116117:patientPostalCode;1",
-      "@type": "Object",
-      "fields": [
-        {
-          "name": "posalCode",
-          "schema": "integer"
-        }
-      ]
-    },
-    {
       "@id": "dtmi:num116117:patientDistrict;1",
       "@type": "Object",
       "fields": [
         {
           "name": "district",
           "schema": "string"
+        }
+      ]
+    },
+    {
+      "@id": "dtmi:num116117:patientPostalCode;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "postalCode",
+          "schema": "integer"
         }
       ]
     }
