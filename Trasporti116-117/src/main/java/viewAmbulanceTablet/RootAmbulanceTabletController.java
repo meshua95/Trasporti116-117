@@ -30,7 +30,7 @@ public class RootAmbulanceTabletController implements Initializable {
         OperatorDigitalTwin.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
         AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
         ok.setOnAction(event -> {
-            MainAppAmbulanceTablet.saveOperatorAndAmbulance(new OperatorId(operatorList.getValue()), new AmbulanceId(ambulanceList.getValue()));
+            MainAppAmbulanceTablet.setOperatorAndAmbulance(new OperatorId(operatorList.getValue()), new AmbulanceId(ambulanceList.getValue()));
             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);
         });
     }

@@ -22,17 +22,16 @@ public class TransportInProgressController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Optional<BookingTransportId> bookingTransportId= MainAppAmbulanceTablet.getBookingTransportId();
-        if (bookingTransportId.isPresent())
-            transportLabel.setText(bookingTransportId.get().getId());
+        if (MainAppAmbulanceTablet.getTransportId().isPresent())
+            transportLabel.setText(MainAppAmbulanceTablet.getTransportId().get().getId());
         else{
             new Alert(Alert.AlertType.ERROR, "Nessun trasporto selezionato", ButtonType.CLOSE).show();
             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);
         }
 
         stopBtn.setOnAction(event -> {
-            if (bookingTransportId.isPresent()){
-               // TransportDigitalTwin.setTransportEnded(bookingTransportId.get());
+            if (MainAppAmbulanceTablet.getTransportId().isPresent()){
+                TransportDigitalTwin.setTransportEnded(MainAppAmbulanceTablet.getTransportId().get());
                 MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);
             }
         });

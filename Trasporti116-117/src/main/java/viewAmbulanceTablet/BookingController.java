@@ -1,6 +1,7 @@
 package viewAmbulanceTablet;
 
 import digitalTwins.booking.BookingDigitalTwin;
+import digitalTwins.transport.TransportDigitalTwin;
 import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,8 +27,15 @@ public class BookingController implements Initializable {
                         .filter(res -> res == ButtonType.YES)
                         .ifPresent(res->{
                             BookingTransportId bookingId = new BookingTransportId(lv.getSelectionModel().getSelectedItem());
-                            MainAppAmbulanceTablet.setTransportInProgressId(bookingId);
-                            //TransportDigitalTwin.startTransport(bookingId);
+                            MainAppAmbulanceTablet.setBookingId(bookingId);
+
+                            if (MainAppAmbulanceTablet.getAmbulanceId().isPresent() && MainAppAmbulanceTablet.getOperatorId().isPresent())
+                                MainAppAmbulanceTablet.setTransportId(
+                                        TransportDigitalTwin.startTransport(
+                                                bookingId,
+                                                MainAppAmbulanceTablet.getAmbulanceId().get(),
+                                                MainAppAmbulanceTablet.getOperatorId().get()));
+
                             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.TRANSPORT_IN_PROGRESS_SCENE);
                         });
 

@@ -25,6 +25,7 @@ public class MainAppAmbulanceTablet extends Application {
     private static Optional<OperatorId> operatorId = Optional.empty();
     private static Optional<AmbulanceId> ambulanceId = Optional.empty();
     private static Optional<BookingTransportId> bookingTransportId = Optional.empty();
+    private static Optional<TransportId> transportId = Optional.empty();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,25 +36,25 @@ public class MainAppAmbulanceTablet extends Application {
 
     public static void setScene(SceneTypeAmbulanceTablet type)  {
         try {
-            switch (type){
-                case BOOKING_SCENE:
+            switch (type) {
+                case BOOKING_SCENE -> {
                     Parent booking = FXMLLoader.load(Paths.get("src/main/resources/bookingScene.fxml").toUri().toURL());
                     Scene bookingScene = new Scene(booking);
                     bookingScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
                     stage.setScene(bookingScene);
-                    break;
-                case ROOT_SCENE:
+                }
+                case ROOT_SCENE -> {
                     Parent root = FXMLLoader.load(Paths.get("src/main/resources/rootSceneAmbulance.fxml").toUri().toURL());
                     Scene rootScene = new Scene(root);
                     rootScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
                     stage.setScene(rootScene);
-                    break;
-                case TRANSPORT_IN_PROGRESS_SCENE:
+                }
+                case TRANSPORT_IN_PROGRESS_SCENE -> {
                     Parent transportInProgress = FXMLLoader.load(Paths.get("src/main/resources/transportInProgressScene.fxml").toUri().toURL());
                     Scene transportInProgressScene = new Scene(transportInProgress);
                     transportInProgressScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
                     stage.setScene(transportInProgressScene);
-                    break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,13 +62,17 @@ public class MainAppAmbulanceTablet extends Application {
         stage.show();
     }
 
-    public static void saveOperatorAndAmbulance(OperatorId opId, AmbulanceId ambId){
+    public static void setOperatorAndAmbulance(OperatorId opId, AmbulanceId ambId){
         ambulanceId = Optional.of(ambId);
         operatorId = Optional.of(opId);
     }
 
-    public static void setTransportInProgressId(BookingTransportId id){
+    public static void setBookingId(BookingTransportId id){
         bookingTransportId = Optional.of(id);
+    }
+
+    public static void setTransportId(TransportId id){
+        transportId = Optional.of(id);
     }
 
     public static Optional<AmbulanceId> getAmbulanceId(){
@@ -80,6 +85,10 @@ public class MainAppAmbulanceTablet extends Application {
 
     public static Optional<BookingTransportId> getBookingTransportId(){
          return bookingTransportId;
+    }
+
+    public static Optional<TransportId> getTransportId(){
+        return transportId;
     }
 
     public static void main(String[] args) {
