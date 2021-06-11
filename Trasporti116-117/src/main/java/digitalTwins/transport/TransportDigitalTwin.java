@@ -18,13 +18,14 @@ import domain.transportBoundedContext.OperatorId;
 import domain.transportBoundedContext.TransportId;
 import org.json.simple.JSONObject;
 import utils.Constants;
+import utils.errorCode.QueryTimeOutException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TransportDigitalTwin {
 
-    public static TransportId startTransport(BookingTransportId bookingId, AmbulanceId ambulanceId, OperatorId operatorId){
+    public synchronized static TransportId startTransport(BookingTransportId bookingId, AmbulanceId ambulanceId, OperatorId operatorId) throws QueryTimeOutException {
         LocalDateTime dateTime = LocalDateTime.now();
         JSONObject route = BookingDigitalTwin.getRouteByBookingId(bookingId);
         PatientFiscalCode patientId = new PatientFiscalCode(BookingDigitalTwin.getPatientIdByBookingId(bookingId));

@@ -4,7 +4,6 @@
 
 package digitalTwins.booking;
 
-import com.azure.core.http.rest.PagedFlux;
 import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
@@ -14,19 +13,12 @@ import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import domain.requestBoundedContext.serviceRequest.BookingRoute;
 import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
-
 import org.json.simple.JSONObject;
-import reactor.core.publisher.Mono;
 import utils.Constants;
-
+import utils.errorCode.QueryTimeOutException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 public class BookingDigitalTwin {
 
@@ -88,54 +80,35 @@ public class BookingDigitalTwin {
         return bookingIds;
     }
 
-    public static JSONObject getRouteByBookingId(BookingTransportId bookingId){
+    public static JSONObject getRouteByBookingId(BookingTransportId bookingId) throws QueryTimeOutException {
         String query = "SELECT route FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.BOOKING_MODEL_ID + "') AND $dtId = '" + bookingId.getId() + "'";
-        final int TIME_OUT_CONNECTION = 4000;
 
-        PagedIterable<JSONObject> paged = Client.getClient().query(query, JSONObject.class);
+        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
+
         long startTime = System.currentTimeMillis();
-
-        while(paged.stream().findFirst().isEmpty()){
-            if (System.currentTimeMillis() - startTime > TIME_OUT_CONNECTION)
-                return null;
-        }
-        return paged.stream().findFirst().get();
-
-       /* PagedFlux<JSONObject> res = Client.getClientAsync().query(query, JSONObject.class);
-
-        final CountDownLatch queryLatch = new CountDownLatch(1);
-
-        res.doOnError(throwable -> System.out.println("Query error: " + throwable))
-                .doOnTerminate(queryLatch::countDown)
-                .subscribe();
-
-        try {
-            queryLatch.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while(pageableResponse.stream().findFirst().isEmpty()){
+            if (System.currentTimeMillis() - startTime > QueryTimeOutException.TIME_OUT)
+                throw new QueryTimeOutException();
         }
 
-
-        return res.log().blockFirst();*/
+        return pageableResponse.stream().findFirst().get();
     }
 
-    public static String getPatientIdByBookingId(BookingTransportId bookingId){
-        final int TIME_OUT_CONNECTION = 4000;
-
+    public static String getPatientIdByBookingId(BookingTransportId bookingId) throws QueryTimeOutException {
         String query = "SELECT target.$dtId " +
                 "FROM DIGITALTWINS source " +
                 "JOIN target RELATED source.transport " +
                 "WHERE source.$dtId = '"+ bookingId.getId() +"'";
 
-        PagedIterable<JSONObject> paged = Client.getClient().query(query, JSONObject.class);
+        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
         long startTime = System.currentTimeMillis();
 
-        while(paged.stream().findFirst().isEmpty()){
-            if (System.currentTimeMillis() - startTime > TIME_OUT_CONNECTION)
-                return "Error";
+        while(pageableResponse.stream().findFirst().isEmpty()){
+            if (System.currentTimeMillis() - startTime > QueryTimeOutException.TIME_OUT)
+                throw new QueryTimeOutException();
         }
 
-        return paged.stream().findFirst().get().get("$dtId").toString();
+        return pageableResponse.stream().findFirst().get().get("$dtId").toString();
     }
 
     public static ArrayList<BookingTransportId> getAllBookingForTheDay(LocalDateTime date){

@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import utils.errorCode.QueryTimeOutException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,12 +31,17 @@ public class BookingController implements Initializable {
                             BookingTransportId bookingId = new BookingTransportId(lv.getSelectionModel().getSelectedItem());
                             MainAppAmbulanceTablet.setBookingId(bookingId);
 
-                            if (MainAppAmbulanceTablet.getAmbulanceId().isPresent() && MainAppAmbulanceTablet.getOperatorId().isPresent())
-                                MainAppAmbulanceTablet.setTransportId(
-                                        TransportDigitalTwin.startTransport(
-                                                bookingId,
-                                                MainAppAmbulanceTablet.getAmbulanceId().get(),
-                                                MainAppAmbulanceTablet.getOperatorId().get()));
+                            if (MainAppAmbulanceTablet.getAmbulanceId().isPresent() && MainAppAmbulanceTablet.getOperatorId().isPresent()) {
+                                try {
+                                    MainAppAmbulanceTablet.setTransportId(
+                                            TransportDigitalTwin.startTransport(
+                                                    bookingId,
+                                                    MainAppAmbulanceTablet.getAmbulanceId().get(),
+                                                    MainAppAmbulanceTablet.getOperatorId().get()));
+                                } catch (QueryTimeOutException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
                             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.TRANSPORT_IN_PROGRESS_SCENE);
                         });

@@ -19,6 +19,7 @@ import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
 import domain.transportBoundedContext.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.errorCode.QueryTimeOutException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,12 +29,13 @@ public class DtTransport {
     private final OperatorId operatorId = new OperatorId(TestDataValue.OPERATOR_ID);
     private final ServiceRequestId serviceRequestId = ServiceRequestDigitalTwin.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
     private BookingTransportId bookingId;
+
     @BeforeClass
     public static void createConnection(){
         Client.getClient();
     }
 
-    private void createPatient() {
+    private synchronized void createPatient() {
         PatientPersonalData personalData =
                 new PatientPersonalData(
                         TestDataValue.PATIENT_NAME,
@@ -44,21 +46,21 @@ public class DtTransport {
         PatientDigitalTwin.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
     }
 
-    private void createServiceRequest(){
+    private synchronized void createServiceRequest(){
         ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
-    private BookingTransportId createBooking(){
+    private synchronized BookingTransportId createBooking(){
         createServiceRequest();
         createPatient();
         return BookingDigitalTwin.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
     }
 
-    private void createAmbulance(){
+    private synchronized void createAmbulance(){
         AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_NUMBER);
     }
 
-    private void createOperator(){
+    private synchronized void createOperator(){
         OperatorPersonalData personalData =
                 new OperatorPersonalData(TestDataValue.OPERATOR_NAME,
                         TestDataValue.OPERATOR_SURNAME,
@@ -67,7 +69,7 @@ public class DtTransport {
         OperatorDigitalTwin.createOperator(operatorId, personalData);
     }
 
-    private TransportId createTransport(){
+    private synchronized TransportId createTransport() throws QueryTimeOutException {
         bookingId = createBooking();
         createAmbulance();
         createOperator();
@@ -87,7 +89,7 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTransportCreation(){
+    public void checkTransportCreation() throws QueryTimeOutException {
         TransportId transportId = createTransport();
 
         TransportDigitalTwin.setTransportEnded(transportId);
@@ -98,7 +100,7 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTransportAmbulanceRelationship(){
+    public void checkTransportAmbulanceRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
@@ -107,7 +109,7 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTransportPatientRelationship(){
+    public void checkTransportPatientRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
@@ -116,7 +118,7 @@ public class DtTransport {
     }
 
     @Test
-    public void checkTransportOperatorRelationship(){
+    public void checkTransportOperatorRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
@@ -125,7 +127,7 @@ public class DtTransport {
     }
 
     @Test
-    public void deleteTransport(){
+    public void deleteTransport() throws QueryTimeOutException {
         createTransport();
         deleteAllTestDigitalTwin();
     }
