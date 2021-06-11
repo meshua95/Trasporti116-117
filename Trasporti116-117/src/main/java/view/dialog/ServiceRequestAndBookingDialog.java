@@ -7,6 +7,9 @@ import domain.*;
 import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.*;
 import javafx.scene.control.*;
+import utils.errorCode.DeleteBookingStatusCode;
+import view.utils.ControllInputField;
+
 import java.time.LocalDateTime;
 
 public class ServiceRequestAndBookingDialog extends DtDialog{
@@ -74,16 +77,14 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         gridPane.add(destinationPostalCode, 1, 12);
 
         DatePicker transportDate = new DatePicker();
+        transportDate.setEditable(false);
         gridPane.add(new Label("Data trasporto"), 0, 13);
         gridPane.add(transportDate, 1, 13);
 
         TextField hourTrasporto = new TextField();
-        TextField minTrasporto = new TextField();
-        hourTrasporto.setPromptText("h");
-        minTrasporto.setPromptText("m");
+        hourTrasporto.setPromptText("hh:mm");
         gridPane.add(new Label("Ora trasporto"), 0, 14);
         gridPane.add(hourTrasporto, 1, 14);
-        gridPane.add(minTrasporto, 2, 14);
 
         ComboBox<String> patient = new ComboBox<>();
         PatientDigitalTwin.getAllPatientId().forEach(p -> patient.getItems().add(p.getFiscalCode()));
@@ -95,32 +96,49 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         ButtonType buttonType = dialog.showAndWait().get();
 
         if (addBooking.equals(buttonType)) {
-            LocalDateTime dateTime = LocalDateTime.now();
+            if(ControllInputField.CITY_PATTERN.matcher(departureCity.getText()).matches()
+                    && ControllInputField.ADDRESS_PATTERN.matcher(departureAddress.getText()).matches()
+                    && ControllInputField.DISTRICT_PATTERN.matcher(departureDistrict.getText()).matches()
+                    && ControllInputField.POSTALCODE_NUMBER_PATTERN.matcher(departurePostalCode.getText()).matches()
+                    && ControllInputField.NUMBER_PATTERN.matcher(departureNumber.getText()).matches()
+                    && ControllInputField.CITY_PATTERN.matcher(destinationCity.getText()).matches()
+                    && ControllInputField.ADDRESS_PATTERN.matcher(destinationAddress.getText()).matches()
+                    && ControllInputField.DISTRICT_PATTERN.matcher(destinationDistrict.getText()).matches()
+                    && ControllInputField.POSTALCODE_NUMBER_PATTERN.matcher(destinationPostalCode.getText()).matches()
+                    && ControllInputField.NUMBER_PATTERN.matcher(destinationNumber.getText()).matches()
+                    && ControllInputField.HOUR_PATTERN.matcher(hourTrasporto.getText()).matches()
+            ) {
+                LocalDateTime dateTime = LocalDateTime.now();
 
-            //Create Service Request DT
-            ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now());
+                //Create Service Request DT
+                ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now());
 
-            //Create Booking Dt
-            BookingDigitalTwin.createBookingTransport(LocalDateTime.of(transportDate.getValue().getYear(),
-                    transportDate.getValue().getMonth(),
-                    transportDate.getValue().getDayOfMonth(),
-                    Integer.parseInt(hourTrasporto.getText()),
-                    Integer.parseInt(minTrasporto.getText())),
-                    new BookingRoute(
-                            new BookingLocation(new Address(departureAddress.getText()),
-                                    new HouseNumber(departureNumber.getText()),
-                                    new City(departureCity.getText()),
-                                    new District(departureDistrict.getText()),
-                                    new PostalCode(Integer.parseInt(departurePostalCode.getText()))),
-                            new BookingLocation(new Address(destinationAddress.getText()),
-                                    new HouseNumber(destinationNumber.getText()),
-                                    new City(destinationCity.getText()),
-                                    new District(destinationDistrict.getText()),
-                                    new PostalCode(Integer.parseInt(destinationPostalCode.getText())))),
-                    new PatientFiscalCode(patient.getValue()),
-                    ServiceRequestDigitalTwin.generateServiceRequestId(dateTime));
+                //Create Booking Dt
+                String id = BookingDigitalTwin.createBookingTransport(LocalDateTime.of(transportDate.getValue().getYear(),
+                        transportDate.getValue().getMonth(),
+                        transportDate.getValue().getDayOfMonth(),
+                        Integer.parseInt(hourTrasporto.getText().split(":")[0]),
+                        Integer.parseInt(hourTrasporto.getText().split(":")[1])),
+                        new BookingRoute(
+                                new BookingLocation(new Address(departureAddress.getText()),
+                                        new HouseNumber(Integer.parseInt(departureNumber.getText())),
+                                        new City(departureCity.getText()),
+                                        new District(departureDistrict.getText()),
+                                        new PostalCode(Integer.parseInt(departurePostalCode.getText()))),
+                                new BookingLocation(new Address(destinationAddress.getText()),
+                                        new HouseNumber(Integer.parseInt(destinationNumber.getText())),
+                                        new City(destinationCity.getText()),
+                                        new District(destinationDistrict.getText()),
+                                        new PostalCode(Integer.parseInt(destinationPostalCode.getText())))),
+                        new PatientFiscalCode(patient.getValue()),
+                        ServiceRequestDigitalTwin.generateServiceRequestId(dateTime)).getId();
+                new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_CONFIRM + id, ButtonType.CLOSE).show();
+            }else{
+                new Alert(Alert.AlertType.ERROR, ControllInputField.TEXT_FIELD_ERROR, ButtonType.CLOSE).show();
+            }
         } else if (withoutBooking.equals(buttonType)) {
-            ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now());
+            String id = ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now()).getserviceRequestId();
+            new Alert(Alert.AlertType.INFORMATION, ControllInputField.SERVICE_REQUEST_CONFIRM + id, ButtonType.CLOSE).show();
         }
     }
 
@@ -136,6 +154,9 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
 
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> BookingDigitalTwin.deleteBookingTransport(new BookingTransportId(transport.getValue())));
+                .ifPresent(response -> {
+                    if(BookingDigitalTwin.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteBookingStatusCode.DELETED)
+                        new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_DELETED, ButtonType.CLOSE).show();
+                });
     }
 }

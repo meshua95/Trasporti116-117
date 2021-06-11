@@ -28,7 +28,6 @@ dependencies {
     implementation("com.azure:azure-digitaltwins-core:1.0.3")
     implementation("com.azure:azure-identity:1.2.4")
     implementation("org.slf4j:slf4j-api:1.7.30")
-    implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("com.azure:azure-core-http-okhttp:1.6.1")
     implementation("com.sothawo:mapjfx:2.15.3")
     implementation("org.apache.clerezza.ext:org.json.simple:0.4")

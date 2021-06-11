@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class OperatorDigitalTwin {
 
-    public static void createOperator(OperatorId operatorId, OperatorPersonalData personalData){
+    public static String createOperator(OperatorId operatorId, OperatorPersonalData personalData){
         BasicDigitalTwin operatorDT = new BasicDigitalTwin(operatorId.getOperatorId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.OPERATOR_MODEL_ID)
@@ -25,6 +25,7 @@ public class OperatorDigitalTwin {
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(operatorId.getOperatorId(), operatorDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
+        return basicTwinResponse.getId();
     }
 
     public static void deleteOperatore(OperatorId idOperator) {

@@ -5,13 +5,13 @@
 package domain;
 
 public class HouseNumber {
-    private final String houseNumber;
+    private final int houseNumber;
 
-    public HouseNumber(String houseNumber){
+    public HouseNumber(int houseNumber){
         this.houseNumber = houseNumber;
     }
 
-    public String getHouseNumber(){
+    public int getHouseNumber(){
         return this.houseNumber;
     }
 }
