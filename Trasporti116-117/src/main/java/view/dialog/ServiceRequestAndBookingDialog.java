@@ -26,26 +26,51 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
 
         TextField departureAddress = new TextField();
         departureAddress.setPromptText("Via");
+        departureAddress.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.ADDRESS_PATTERN, departureAddress);
+            }
+        });
         gridPane.add(new Label("Via"), 0, 2);
         gridPane.add(departureAddress, 1, 2);
 
         TextField departureNumber = new TextField();
         departureNumber.setPromptText("Numero");
+        departureNumber.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.NUMBER_PATTERN, departureNumber);
+            }
+        });
         gridPane.add(new Label("Numero"), 0, 3);
         gridPane.add(departureNumber, 1, 3);
 
         TextField departureCity = new TextField();
         departureCity.setPromptText("Città");
+        departureCity.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.CITY_PATTERN, departureCity);
+            }
+        });
         gridPane.add(new Label("Città"), 0, 4);
         gridPane.add(departureCity, 1, 4);
 
         TextField departureDistrict = new TextField();
         departureDistrict.setPromptText("Provincia");
+        departureDistrict.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.DISTRICT_PATTERN, departureDistrict);
+            }
+        });
         gridPane.add(new Label("Provincia"), 0, 5);
         gridPane.add(departureDistrict, 1, 5);
 
         TextField departurePostalCode = new TextField();
         departurePostalCode.setPromptText("Cap");
+        departurePostalCode.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.POSTALCODE_NUMBER_PATTERN, departurePostalCode);
+            }
+        });
         gridPane.add(new Label("Cap"), 0, 6);
         gridPane.add(departurePostalCode, 1, 6);
 
@@ -53,26 +78,51 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
 
         TextField destinationAddress = new TextField();
         destinationAddress.setPromptText("Via");
+        destinationAddress.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.ADDRESS_PATTERN, destinationAddress);
+            }
+        });
         gridPane.add(new Label("Via"), 0, 8);
         gridPane.add(destinationAddress, 1, 8);
 
         TextField destinationNumber = new TextField();
         destinationNumber.setPromptText("Numero");
+        destinationNumber.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.NUMBER_PATTERN, destinationNumber);
+            }
+        });
         gridPane.add(new Label("Numero"), 0, 9);
         gridPane.add(destinationNumber, 1, 9);
 
         TextField destinationCity = new TextField();
         destinationCity.setPromptText("Città");
+        destinationCity.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.CITY_PATTERN, destinationCity);
+            }
+        });
         gridPane.add(new Label("Città"), 0, 10);
         gridPane.add(destinationCity, 1, 10);
 
         TextField destinationDistrict = new TextField();
         destinationDistrict.setPromptText("Provincia");
+        destinationDistrict.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.DISTRICT_PATTERN, destinationDistrict);
+            }
+        });
         gridPane.add(new Label("Provincia"), 0, 11);
         gridPane.add(destinationDistrict, 1, 11);
 
         TextField destinationPostalCode = new TextField();
         destinationPostalCode.setPromptText("Cap");
+        destinationPostalCode.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.POSTALCODE_NUMBER_PATTERN, destinationPostalCode);
+            }
+        });
         gridPane.add(new Label("Cap"), 0, 12);
         gridPane.add(destinationPostalCode, 1, 12);
 
@@ -83,6 +133,11 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
 
         TextField hourTrasporto = new TextField();
         hourTrasporto.setPromptText("hh:mm");
+        hourTrasporto.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                ControllInputField.validate(ControllInputField.HOUR_PATTERN, hourTrasporto);
+            }
+        });
         gridPane.add(new Label("Ora trasporto"), 0, 14);
         gridPane.add(hourTrasporto, 1, 14);
 
