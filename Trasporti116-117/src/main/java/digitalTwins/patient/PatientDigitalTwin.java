@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class PatientDigitalTwin {
 
-    public static void createPatient(PatientFiscalCode patientId, PatientPersonalData patientPersonalData, HealthState healthState, Autonomy autonomy){
+    public static String createPatient(PatientFiscalCode patientId, PatientPersonalData patientPersonalData, HealthState healthState, Autonomy autonomy){
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(patientId.getFiscalCode())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.PATIENT_MODEL_ID)
@@ -28,6 +28,7 @@ public class PatientDigitalTwin {
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(patientId.getFiscalCode(), pazienteDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
+        return basicTwinResponse.getId();
     }
 
     public static void deletePatient(PatientFiscalCode idPatient) {

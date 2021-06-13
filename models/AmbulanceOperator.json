@@ -79,7 +79,7 @@
       "fields": [
         {
           "name": "houseNumber",
-          "schema": "string"
+          "schema": "integer"
         }
       ]
     },

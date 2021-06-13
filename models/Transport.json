@@ -11,7 +11,12 @@
     },
     {
       "@type": "Property",
-      "name": "dateTime",
+      "name": "startDateTime",
+      "schema": "dateTime"
+    },
+    {
+      "@type": "Property",
+      "name": "endDateTime",
       "schema": "dateTime"
     },
     {
@@ -88,7 +93,7 @@
       "fields": [
         {
           "name": "houseNumber",
-          "schema": "string"
+          "schema": "integer"
         }
       ]
     },
