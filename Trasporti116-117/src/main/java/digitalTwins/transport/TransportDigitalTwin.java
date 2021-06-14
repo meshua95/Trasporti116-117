@@ -45,19 +45,22 @@ public class TransportDigitalTwin {
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
         System.out.println(basicTwinResponse.getId());
 
-        //add relationship whit ambulanza
-        createTrasportoRelationship(transportId, ambulanceId.getAmbulanceId(), "use");
+        //add relationship whit ambulance
+        createTransportRelationship(transportId, ambulanceId.getAmbulanceId(), "use");
 
-        //add relationship whit paziente
-        createTrasportoRelationship(transportId, patientId.getFiscalCode(), "transport");
+        //add relationship whit patient
+        createTransportRelationship(transportId, patientId.getFiscalCode(), "transport");
 
-        //add relationship whit operatore
-        createTrasportoRelationship(transportId, operatorId.getOperatorId(), "drive");
+        //add relationship whit operator
+        createTransportRelationship(transportId, operatorId.getOperatorId(), "drive");
+
+        //add relationship with bookingTransport
+        createTransportRelationship(transportId, bookingId.getId(), "related");
 
         return transportId;
     }
 
-    private static void createTrasportoRelationship(TransportId transportId, String targetId, String relationshipName){
+    private static void createTransportRelationship(TransportId transportId, String targetId, String relationshipName){
         BasicRelationship trasportoToTargetRelationship =
                 new BasicRelationship(
                         transportId.getId() + "to" + targetId,
@@ -109,9 +112,7 @@ public class TransportDigitalTwin {
         return transportIds;
     }
 
-    //path non valido
     public static void setTransportEnded(TransportId id){
-
         JsonPatchDocument updateOp = new JsonPatchDocument()
                 .appendAdd("/endDateTime", LocalDateTime.now());
 

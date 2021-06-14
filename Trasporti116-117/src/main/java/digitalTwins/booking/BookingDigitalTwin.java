@@ -80,6 +80,17 @@ public class BookingDigitalTwin {
         return bookingIds;
     }
 
+    public static ArrayList<BookingTransportId> getAllBookingToDo(){
+        ArrayList<BookingTransportId> bookingIds = new ArrayList<>();
+        String query = "SELECT $dtId " +
+                "FROM DIGITALTWINS source JOIN target " +
+                "RELATED source.related " +
+                "WHERE IS_NULL(target.endDateTime)";
+        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
+        pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
+        return bookingIds;
+    }
+
     public static JSONObject getRouteByBookingId(BookingTransportId bookingId) throws QueryTimeOutException {
         String query = "SELECT route FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.BOOKING_MODEL_ID + "') AND $dtId = '" + bookingId.getId() + "'";
 
