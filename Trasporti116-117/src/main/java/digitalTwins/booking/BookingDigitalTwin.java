@@ -138,7 +138,6 @@ public class BookingDigitalTwin {
     }
 
     public static ArrayList<BookingTransportId> getAllBookingForTheDay(LocalDateTime date){
-
         ArrayList<BookingTransportId> serviceRequestIds = new ArrayList<>();
         String query = "SELECT * " +
                 "FROM DIGITALTWINS " +

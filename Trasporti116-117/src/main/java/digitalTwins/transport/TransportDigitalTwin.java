@@ -70,7 +70,7 @@ public class TransportDigitalTwin {
 
         System.out.println(targetId);
 
-        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
+        Client.getClient().createOrReplaceRelationship(
                 transportId.getId(),
                 transportId.getId() + "to" + targetId,
                 trasportoToTargetRelationship,
