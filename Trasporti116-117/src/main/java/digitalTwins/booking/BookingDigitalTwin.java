@@ -5,6 +5,7 @@
 package digitalTwins.booking;
 
 import com.azure.core.http.rest.PagedIterable;
+import com.azure.core.models.JsonPatchDocument;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
@@ -22,7 +23,6 @@ import utils.errorCode.DeleteBookingStatusCode;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookingDigitalTwin {
 
@@ -34,6 +34,7 @@ public class BookingDigitalTwin {
                         new BasicDigitalTwinMetadata().setModelId(Constants.BOOKING_MODEL_ID)
                 )
                 .addToContents("dateTime", dateTime)
+                .addToContents("takeOwnership", false)
                 .addToContents("route", route);
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(bookingTransportId.getId(), bookingTransportDT, BasicDigitalTwin.class);
@@ -81,8 +82,10 @@ public class BookingDigitalTwin {
         }
     }
 
-    public static void deleteAllBooking(List<BookingTransportId> dtId) {
-        dtId.forEach(BookingDigitalTwin::deleteBookingTransport);
+    public static void setTakeOwnership(BookingTransportId bookingId){
+        JsonPatchDocument updateOp = new JsonPatchDocument()
+                .appendAdd("/takeOwnership", true);
+        Client.getClient().updateDigitalTwin(bookingId.getId(), updateOp);
     }
 
     public static ArrayList<BookingTransportId> getAllBookingId(){
@@ -93,12 +96,11 @@ public class BookingDigitalTwin {
         return bookingIds;
     }
 
-    public static ArrayList<BookingTransportId> getAllBookingToDo(){
+    public static ArrayList<BookingTransportId> getAllBookingToDoForTheDay(LocalDateTime dateTime){
         ArrayList<BookingTransportId> bookingIds = new ArrayList<>();
         String query = "SELECT $dtId " +
-                "FROM DIGITALTWINS source JOIN target " +
-                "RELATED source.related " +
-                "WHERE IS_NULL(target.endDateTime)";
+                "FROM DIGITALTWINS " +
+                "WHERE STARTSWITH(dateTime, '" + dateTime.toLocalDate() + "') AND takeOwnership = false";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
         pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
         return bookingIds;

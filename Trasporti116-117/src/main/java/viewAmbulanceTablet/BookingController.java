@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import utils.errorCode.QueryTimeOutException;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class BookingController implements Initializable {
@@ -20,7 +21,7 @@ public class BookingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //BookingDigitalTwin.getAllBookingForToday().forEach(e->System.out.println(e.getId()));
-        BookingDigitalTwin.getAllBookingForToday().forEach(b->lv.getItems().add(b.getId()));
+        BookingDigitalTwin.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b->lv.getItems().add(b.getId()));
 
         lv.setOnMouseClicked(event -> {
             if(lv.getSelectionModel().getSelectedItem() != null){
@@ -33,6 +34,7 @@ public class BookingController implements Initializable {
 
                             if (MainAppAmbulanceTablet.getAmbulanceId().isPresent() && MainAppAmbulanceTablet.getOperatorId().isPresent()) {
                                 try {
+                                    BookingDigitalTwin.setTakeOwnership(bookingId);
                                     MainAppAmbulanceTablet.setTransportId(
                                             TransportDigitalTwin.startTransport(
                                                     bookingId,
@@ -45,7 +47,6 @@ public class BookingController implements Initializable {
 
                             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.TRANSPORT_IN_PROGRESS_SCENE);
                         });
-
             }
         });
     }
