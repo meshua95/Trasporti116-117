@@ -8,6 +8,7 @@ import com.azure.core.http.rest.PagedIterable;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
+import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import domain.patientBoundedContext.PatientFiscalCode;
 import domain.requestBoundedContext.serviceRequest.BookingTransportId;
@@ -16,6 +17,9 @@ import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
 import org.json.simple.JSONObject;
 import utils.Constants;
 import utils.errorCode.QueryTimeOutException;
+import utils.AzureErrorMessage;
+import utils.errorCode.DeleteBookingStatusCode;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +66,19 @@ public class BookingDigitalTwin {
         return bookingTransportId;
     }
 
-    public static void deleteBookingTransport(BookingTransportId bookingTransportId) {
-        Client.getClient().listRelationships(bookingTransportId.getId(), BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(bookingTransportId.getId(), rel.getId()));
-        Client.getClient().deleteDigitalTwin(bookingTransportId.getId());
+    public static DeleteBookingStatusCode deleteBookingTransport(BookingTransportId bookingTransportId) {
+        try{
+            Client.getClient().listRelationships(bookingTransportId.getId(), BasicRelationship.class)
+                    .forEach(rel -> Client.getClient().deleteRelationship(bookingTransportId.getId(), rel.getId()));
+            Client.getClient().deleteDigitalTwin(bookingTransportId.getId());
+
+            return DeleteBookingStatusCode.DELETED;
+        } catch(ErrorResponseException e){
+            if(e.getLocalizedMessage().contains(AzureErrorMessage.RELATIONSHIP_NOT_DELETED)) {
+                return DeleteBookingStatusCode.RELATION_EXISTING;
+            }
+            throw e;
+        }
     }
 
     public static void deleteAllBooking(List<BookingTransportId> dtId) {

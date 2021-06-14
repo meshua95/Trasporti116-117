@@ -4,6 +4,8 @@ package viewCallCenter.dialog;
 import digitalTwins.request.InfoRequestDigitalTwin;
 import domain.requestBoundedContext.infoRequest.InfoRequestDescription;
 import javafx.scene.control.*;
+import view.utils.ControllInputField;
+
 import java.time.LocalDateTime;
 
 public class InfoRequestDialog extends DtDialog {
@@ -20,9 +22,12 @@ public class InfoRequestDialog extends DtDialog {
         dialog.getDialogPane().setContent(gridPane);
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> InfoRequestDigitalTwin.createInfoRequest(
-                        LocalDateTime.now(),
-                        new InfoRequestDescription(desc.getText())));
+                .ifPresent(response -> {
+                    String id = InfoRequestDigitalTwin.createInfoRequest(
+                            LocalDateTime.now(),
+                            new InfoRequestDescription(desc.getText())).getInfoRequestId();
+                    new Alert(Alert.AlertType.INFORMATION, ControllInputField.INFO_REQUEST_CONFIRM + id, ButtonType.CLOSE).show();
+                });
 
     }
 }

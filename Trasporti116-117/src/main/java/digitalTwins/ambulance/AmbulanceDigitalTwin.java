@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class AmbulanceDigitalTwin {
 
-    public static void createAmbulance(int numeroAmbulanza){
+    public static String createAmbulance(int numeroAmbulanza){
         AmbulanceId ambulanceId = new AmbulanceId(numeroAmbulanza);
 
         BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
@@ -53,6 +53,8 @@ public class AmbulanceDigitalTwin {
                 BasicRelationship.class);
 
         System.out.println(createdRelationship.getId());
+
+        return basicTwinResponse.getId();
     }
 
     public static void createAmbulance(AmbulanceId ambulanceId){
