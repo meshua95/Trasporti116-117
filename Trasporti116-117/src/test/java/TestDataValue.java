@@ -1,12 +1,12 @@
 import domain.*;
-import domain.patientBoundedContext.HealthState;
-import domain.patientBoundedContext.PatientResidence;
-import domain.requestBoundedContext.infoRequest.InfoRequestDescription;
-import domain.requestBoundedContext.serviceRequest.BookingLocation;
-import domain.requestBoundedContext.serviceRequest.BookingRoute;
-import domain.transportBoundedContext.OperatorResidence;
-import domain.transportBoundedContext.TransportLocation;
-import domain.transportBoundedContext.TransportRoute;
+import domain.patient.HealthState;
+import domain.patient.PatientResidence;
+import domain.request.infoRequest.InfoRequestDescription;
+import domain.request.serviceRequest.BookingLocation;
+import domain.request.serviceRequest.BookingRoute;
+import domain.transport.operator.OperatorResidence;
+import domain.transport.TransportLocation;
+import domain.transport.TransportRoute;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

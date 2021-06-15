@@ -1,8 +1,9 @@
 package viewAmbulanceTablet;
 
-import digitalTwins.booking.BookingDigitalTwin;
-import digitalTwins.transport.TransportDigitalTwin;
-import domain.requestBoundedContext.serviceRequest.BookingTransportId;
+import digitalTwinsAPI.GetBooking;
+import digitalTwinsAPI.SetTakeOwnership;
+import digitalTwinsAPI.StartTransport;
+import domain.request.serviceRequest.BookingTransportId;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -20,8 +21,8 @@ public class BookingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //BookingDigitalTwin.getAllBookingForToday().forEach(e->System.out.println(e.getId()));
-        BookingDigitalTwin.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b->lv.getItems().add(b.getId()));
+        //DeleteBookingTransport.getAllBookingForToday().forEach(e->System.out.println(e.getId()));
+        GetBooking.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b->lv.getItems().add(b.getId()));
 
         lv.setOnMouseClicked(event -> {
             if(lv.getSelectionModel().getSelectedItem() != null){
@@ -34,9 +35,9 @@ public class BookingController implements Initializable {
 
                             if (MainAppAmbulanceTablet.getAmbulanceId().isPresent() && MainAppAmbulanceTablet.getOperatorId().isPresent()) {
                                 try {
-                                    BookingDigitalTwin.setTakeOwnership(bookingId);
+                                    SetTakeOwnership.setTakeOwnership(bookingId);
                                     MainAppAmbulanceTablet.setTransportId(
-                                            TransportDigitalTwin.startTransport(
+                                            StartTransport.startTransport(
                                                     bookingId,
                                                     MainAppAmbulanceTablet.getAmbulanceId().get(),
                                                     MainAppAmbulanceTablet.getOperatorId().get()));

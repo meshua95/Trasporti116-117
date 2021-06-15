@@ -1,8 +1,6 @@
 package viewAmbulanceTablet;
 
-import digitalTwins.transport.TransportDigitalTwin;
-import domain.requestBoundedContext.serviceRequest.BookingTransportId;
-import domain.transportBoundedContext.TransportId;
+import digitalTwinsAPI.TransportEnded;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -11,7 +9,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TransportInProgressController implements Initializable {
@@ -31,7 +28,7 @@ public class TransportInProgressController implements Initializable {
 
         stopBtn.setOnAction(event -> {
             if (MainAppAmbulanceTablet.getTransportId().isPresent()){
-                TransportDigitalTwin.setTransportEnded(MainAppAmbulanceTablet.getTransportId().get());
+                TransportEnded.setTransportEnded(MainAppAmbulanceTablet.getTransportId().get());
                 MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);
             }
         });

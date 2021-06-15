@@ -4,10 +4,10 @@
 
 package viewAmbulanceTablet;
 
-import digitalTwins.ambulance.AmbulanceDigitalTwin;
-import digitalTwins.operator.OperatorDigitalTwin;
-import domain.ambulanceBoundedContext.AmbulanceId;
-import domain.transportBoundedContext.OperatorId;
+import digitalTwinsAPI.GetAmbulance;
+import digitalTwinsAPI.GetOperator;
+import domain.transport.ambulance.AmbulanceId;
+import domain.transport.operator.OperatorId;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,8 +27,8 @@ public class RootAmbulanceTabletController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        OperatorDigitalTwin.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
-        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
+        GetOperator.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
+        GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
         ok.setOnAction(event -> {
             MainAppAmbulanceTablet.setOperatorAndAmbulance(new OperatorId(operatorList.getValue()), new AmbulanceId(ambulanceList.getValue()));
             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);

@@ -3,10 +3,10 @@
  */
 
 package viewAmbulanceTablet;
-import domain.ambulanceBoundedContext.AmbulanceId;
-import domain.requestBoundedContext.serviceRequest.BookingTransportId;
-import domain.transportBoundedContext.OperatorId;
-import domain.transportBoundedContext.TransportId;
+import domain.transport.ambulance.AmbulanceId;
+import domain.request.serviceRequest.BookingTransportId;
+import domain.transport.operator.OperatorId;
+import domain.transport.TransportId;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.util.Optional;
 

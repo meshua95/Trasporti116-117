@@ -1,9 +1,10 @@
 package viewCallCenter.dialog;
 
-import digitalTwins.operator.OperatorDigitalTwin;
+import digitalTwinsAPI.CreateOperator;
 import domain.*;
-import domain.transportBoundedContext.*;
-import domain.transportBoundedContext.OperatorId;
+import domain.transport.operator.OperatorId;
+import domain.transport.operator.OperatorPersonalData;
+import domain.transport.operator.OperatorResidence;
 import javafx.scene.control.*;
 import view.utils.ControllInputField;
 
@@ -113,7 +114,7 @@ public class OperatorDialog extends DtDialog {
                             && ControllInputField.POSTALCODE_NUMBER_PATTERN.matcher(postalCode.getText()).matches()
                             && ControllInputField.NUMBER_PATTERN.matcher(houseNumber.getText()).matches()
                     ){
-                        String id = OperatorDigitalTwin.createOperator(
+                        String id = CreateOperator.createOperator(
                                 new OperatorId(fiscalCode.getText()),
                                 new OperatorPersonalData(
                                         name.getText(),

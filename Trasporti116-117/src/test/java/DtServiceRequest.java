@@ -1,15 +1,16 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwins.Client;
-import digitalTwins.request.ServiceRequestDigitalTwin;
-import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
+import digitalTwinsAPI.Client;
+import digitalTwinsAPI.GenerateId;
+import digitalTwinsAPI.CreateRequest;
+import digitalTwinsAPI.DeleteRequest;
+import domain.request.serviceRequest.ServiceRequestId;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class DtServiceRequest {
-    private final ServiceRequestId id = ServiceRequestDigitalTwin.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
+    private final ServiceRequestId id = GenerateId.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
 
     @BeforeClass
     public static void createConnection(){
@@ -18,10 +19,10 @@ public class DtServiceRequest {
 
     @Test
     public void createServiceRequest(){
-        ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
+        CreateRequest.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
         assertEquals(Client.getClient().getDigitalTwin(id.getserviceRequestId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
-        ServiceRequestDigitalTwin.deleteServiceRequest(id);
+        DeleteRequest.deleteServiceRequest(id);
     }
 
 }

@@ -1,11 +1,14 @@
 package viewCallCenter.dialog;
 
-import digitalTwins.booking.BookingDigitalTwin;
-import digitalTwins.patient.PatientDigitalTwin;
-import digitalTwins.request.ServiceRequestDigitalTwin;
+import digitalTwinsAPI.GenerateId;
+import digitalTwinsAPI.GetPatient;
+import digitalTwinsAPI.DeleteBookingTransport;
+import digitalTwinsAPI.CreateBookingTransport;
+import digitalTwinsAPI.GetBooking;
+import digitalTwinsAPI.CreateRequest;
 import domain.*;
-import domain.patientBoundedContext.PatientFiscalCode;
-import domain.requestBoundedContext.serviceRequest.*;
+import domain.patient.PatientFiscalCode;
+import domain.request.serviceRequest.*;
 import javafx.scene.control.*;
 import utils.errorCode.DeleteBookingStatusCode;
 import view.utils.ControllInputField;
@@ -142,7 +145,7 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         gridPane.add(hourTrasporto, 1, 14);
 
         ComboBox<String> patient = new ComboBox<>();
-        PatientDigitalTwin.getAllPatientId().forEach(p -> patient.getItems().add(p.getFiscalCode()));
+        GetPatient.getAllPatientId().forEach(p -> patient.getItems().add(p.getFiscalCode()));
         gridPane.add(new Label("Paziente"), 0, 15);
         gridPane.add(patient, 1, 15);
 
@@ -166,10 +169,10 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 LocalDateTime dateTime = LocalDateTime.now();
 
                 //Create Service Request DT
-                ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now());
+                CreateRequest.createServiceRequest(LocalDateTime.now());
 
                 //Create Booking Dt
-                String id = BookingDigitalTwin.createBookingTransport(LocalDateTime.of(transportDate.getValue().getYear(),
+                String id = CreateBookingTransport.createBookingTransport(LocalDateTime.of(transportDate.getValue().getYear(),
                         transportDate.getValue().getMonth(),
                         transportDate.getValue().getDayOfMonth(),
                         Integer.parseInt(hourTrasporto.getText().split(":")[0]),
@@ -186,13 +189,13 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                                         new District(destinationDistrict.getText()),
                                         new PostalCode(Integer.parseInt(destinationPostalCode.getText())))),
                         new PatientFiscalCode(patient.getValue()),
-                        ServiceRequestDigitalTwin.generateServiceRequestId(dateTime)).getId();
+                        GenerateId.generateServiceRequestId(dateTime)).getId();
                 new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_CONFIRM + id, ButtonType.CLOSE).show();
             }else{
                 new Alert(Alert.AlertType.ERROR, ControllInputField.TEXT_FIELD_ERROR, ButtonType.CLOSE).show();
             }
         } else if (withoutBooking.equals(buttonType)) {
-            String id = ServiceRequestDigitalTwin.createServiceRequest(LocalDateTime.now()).getserviceRequestId();
+            String id = CreateRequest.createServiceRequest(LocalDateTime.now()).getserviceRequestId();
             new Alert(Alert.AlertType.INFORMATION, ControllInputField.SERVICE_REQUEST_CONFIRM + id, ButtonType.CLOSE).show();
         }
     }
@@ -201,7 +204,7 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         initialize("Elimina prenotazione", ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<String> transport = new ComboBox<>();
-        BookingDigitalTwin.getAllBookingId().forEach(t -> transport.getItems().add(t.getId()));
+        GetBooking.getAllBookingId().forEach(t -> transport.getItems().add(t.getId()));
         gridPane.add(new Label("Prenotazione trasporto"), 0, 0);
         gridPane.add(transport, 1, 0);
 
@@ -210,7 +213,7 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    if(BookingDigitalTwin.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteBookingStatusCode.DELETED)
+                    if(DeleteBookingTransport.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteBookingStatusCode.DELETED)
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_DELETED, ButtonType.CLOSE).show();
                 });
     }

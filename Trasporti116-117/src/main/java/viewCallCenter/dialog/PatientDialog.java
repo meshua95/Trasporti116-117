@@ -1,10 +1,9 @@
 package viewCallCenter.dialog;
 
-import digitalTwins.patient.PatientDigitalTwin;
+import digitalTwinsAPI.CreatePatient;
 import domain.*;
-import domain.patientBoundedContext.*;
+import domain.patient.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
 import view.utils.ControllInputField;
 
 import java.time.LocalDate;
@@ -127,7 +126,7 @@ public class PatientDialog extends DtDialog{
                             && ControllInputField.NUMBER_PATTERN.matcher(houseNumber.getText()).matches()
                             && ControllInputField.FISCAL_CODE.matcher(fiscalCode.getText()).matches()
                     ){
-                        String id = PatientDigitalTwin.createPatient(
+                        String id = CreatePatient.createPatient(
                                 new PatientFiscalCode(fiscalCode.getText()),
                                 new PatientPersonalData(
                                         name.getText(),

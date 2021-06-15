@@ -1,8 +1,8 @@
 package viewCallCenter.dialog;
 
 
-import digitalTwins.request.InfoRequestDigitalTwin;
-import domain.requestBoundedContext.infoRequest.InfoRequestDescription;
+import digitalTwinsAPI.CreateRequest;
+import domain.request.infoRequest.InfoRequestDescription;
 import javafx.scene.control.*;
 import view.utils.ControllInputField;
 
@@ -23,7 +23,7 @@ public class InfoRequestDialog extends DtDialog {
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    String id = InfoRequestDigitalTwin.createInfoRequest(
+                    String id = CreateRequest.createInfoRequest(
                             LocalDateTime.now(),
                             new InfoRequestDescription(desc.getText())).getInfoRequestId();
                     new Alert(Alert.AlertType.INFORMATION, ControllInputField.INFO_REQUEST_CONFIRM + id, ButtonType.CLOSE).show();

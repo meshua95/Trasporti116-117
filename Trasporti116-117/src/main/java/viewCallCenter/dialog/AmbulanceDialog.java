@@ -1,7 +1,9 @@
 package viewCallCenter.dialog;
-import digitalTwins.ambulance.AmbulanceDigitalTwin;
+import digitalTwinsAPI.DeleteAmbulance;
+import digitalTwinsAPI.CreateAmbulance;
+import digitalTwinsAPI.GetAmbulance;
 import javafx.scene.control.*;
-import domain.ambulanceBoundedContext.AmbulanceId;
+import domain.transport.ambulance.AmbulanceId;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 import view.utils.ControllInputField;
 
@@ -21,7 +23,7 @@ public class AmbulanceDialog extends DtDialog{
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
                     if (ControllInputField.NUMBER_PATTERN.matcher(ambulanceNumber.getText()).matches()) {
-                        String id = AmbulanceDigitalTwin.createAmbulance(Integer.parseInt(ambulanceNumber.getText()));
+                        String id = CreateAmbulance.createAmbulance(Integer.parseInt(ambulanceNumber.getText()));
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.AMBULANCE_CONFIRM + id, ButtonType.CLOSE).show();
                     }else
                         new Alert(Alert.AlertType.ERROR, ControllInputField.TEXT_FIELD_ERROR, ButtonType.CLOSE).show();
@@ -32,7 +34,7 @@ public class AmbulanceDialog extends DtDialog{
         initialize("Cancella Ambulanza", ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<String> ambulance = new ComboBox<>();
-        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
         gridPane.add(new Label("Ambulanza"), 0, 0);
         gridPane.add(ambulance, 1, 0);
 
@@ -41,7 +43,7 @@ public class AmbulanceDialog extends DtDialog{
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    if (AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(ambulance.getValue())).equals(DeleteDigitalTwinStatusCode.DELETED))
+                    if (DeleteAmbulance.deleteAmbulance(new AmbulanceId(ambulance.getValue())).equals(DeleteDigitalTwinStatusCode.DELETED))
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.AMBULANCE_DELETED, ButtonType.CLOSE).show();
                 });
     }

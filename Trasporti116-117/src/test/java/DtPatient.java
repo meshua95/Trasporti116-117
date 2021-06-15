@@ -3,10 +3,10 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwins.Client;
-import domain.patientBoundedContext.*;
-import digitalTwins.patient.PatientDigitalTwin;
+import digitalTwinsAPI.Client;
+import digitalTwinsAPI.CreatePatient;
+import domain.patient.*;
+import digitalTwinsAPI.DeletePatient;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,10 +29,10 @@ public class DtPatient {
     @Test
     public void createPatient(){
 
-        PatientDigitalTwin.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
+        CreatePatient.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
         assertEquals(Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
-        PatientDigitalTwin.deletePatient(idPatient);
+        DeletePatient.deletePatient(idPatient);
     }
 
 }

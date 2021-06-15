@@ -3,10 +3,11 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwins.Client;
-import domain.transportBoundedContext.*;
-import digitalTwins.operator.OperatorDigitalTwin;
+import digitalTwinsAPI.Client;
+import digitalTwinsAPI.CreateOperator;
+import digitalTwinsAPI.DeleteOperator;
+import domain.transport.operator.OperatorId;
+import domain.transport.operator.OperatorPersonalData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -25,10 +26,10 @@ public class DtOperator {
 
     @Test
     public void createOperator(){
-        OperatorDigitalTwin.createOperator(idOperator, personalData);
+        CreateOperator.createOperator(idOperator, personalData);
         assertEquals(Client.getClient().getDigitalTwin(idOperator.getOperatorId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
-        OperatorDigitalTwin.deleteOperatore(idOperator);
+        DeleteOperator.deleteOperatore(idOperator);
     }
 
 }

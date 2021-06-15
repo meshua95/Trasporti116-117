@@ -1,6 +1,6 @@
 package viewCallCenter.dialog;
 
-import digitalTwins.transport.TransportDigitalTwin;
+import digitalTwinsAPI.GetTransport;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 
@@ -11,7 +11,7 @@ public class TransportInProgressDialog extends DtDialog {
         initialize("Trasporti in corso", ButtonType.CLOSE);
 
         ListView<String> lv = new ListView<>();
-        TransportDigitalTwin.getAllTransportInProgress().forEach(t -> lv.getItems().add(t.getId()));
+        GetTransport.getAllTransportInProgress().forEach(t -> lv.getItems().add(t.getId()));
         gridPane.add(lv, 0, 0);
 
         dialog.getDialogPane().setContent(gridPane);

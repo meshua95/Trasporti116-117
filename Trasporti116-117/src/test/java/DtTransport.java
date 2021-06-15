@@ -4,19 +4,28 @@
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
-import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwins.Client;
-import digitalTwins.ambulance.AmbulanceDigitalTwin;
-import digitalTwins.booking.BookingDigitalTwin;
-import digitalTwins.operator.OperatorDigitalTwin;
-import digitalTwins.patient.PatientDigitalTwin;
-import digitalTwins.request.ServiceRequestDigitalTwin;
-import digitalTwins.transport.TransportDigitalTwin;
-import domain.ambulanceBoundedContext.AmbulanceId;
-import domain.patientBoundedContext.*;
-import domain.requestBoundedContext.serviceRequest.BookingTransportId;
-import domain.requestBoundedContext.serviceRequest.ServiceRequestId;
-import domain.transportBoundedContext.*;
+import digitalTwinsAPI.Client;
+import digitalTwinsAPI.GenerateId;
+import digitalTwinsAPI.DeleteAmbulance;
+import digitalTwinsAPI.CreateAmbulance;
+import digitalTwinsAPI.DeleteBookingTransport;
+import digitalTwinsAPI.CreateBookingTransport;
+import digitalTwinsAPI.CreateOperator;
+import digitalTwinsAPI.DeleteOperator;
+import digitalTwinsAPI.CreatePatient;
+import digitalTwinsAPI.DeletePatient;
+import digitalTwinsAPI.CreateRequest;
+import digitalTwinsAPI.DeleteRequest;
+import digitalTwinsAPI.StartTransport;
+import digitalTwinsAPI.DeleteTransport;
+import digitalTwinsAPI.TransportEnded;
+import domain.transport.ambulance.AmbulanceId;
+import domain.patient.*;
+import domain.request.serviceRequest.BookingTransportId;
+import domain.request.serviceRequest.ServiceRequestId;
+import domain.transport.*;
+import domain.transport.operator.OperatorId;
+import domain.transport.operator.OperatorPersonalData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.errorCode.QueryTimeOutException;
@@ -27,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 public class DtTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
     private final OperatorId operatorId = new OperatorId(TestDataValue.OPERATOR_ID);
-    private final ServiceRequestId serviceRequestId = ServiceRequestDigitalTwin.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
+    private final ServiceRequestId serviceRequestId = GenerateId.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
     private BookingTransportId bookingId;
 
     @BeforeClass
@@ -43,21 +52,21 @@ public class DtTransport {
                         TestDataValue.PATIENT_BIRTHDAY,
                         TestDataValue.PATIENT_RESIDENCE);
 
-        PatientDigitalTwin.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
+        CreatePatient.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
     }
 
     private synchronized void createServiceRequest(){
-        ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
+        CreateRequest.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
     private synchronized BookingTransportId createBooking(){
         createServiceRequest();
         createPatient();
-        return BookingDigitalTwin.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
+        return CreateBookingTransport.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
     }
 
     private synchronized void createAmbulance(){
-        AmbulanceDigitalTwin.createAmbulance(TestDataValue.AMBULANCE_NUMBER);
+        CreateAmbulance.createAmbulance(TestDataValue.AMBULANCE_NUMBER);
     }
 
     private synchronized void createOperator(){
@@ -66,7 +75,7 @@ public class DtTransport {
                         TestDataValue.OPERATOR_SURNAME,
                         TestDataValue.OPERATOR_BIRTHDAY,
                         TestDataValue.OPERATOR_RESIDENCE);
-        OperatorDigitalTwin.createOperator(operatorId, personalData);
+        CreateOperator.createOperator(operatorId, personalData);
     }
 
     private synchronized TransportId createTransport() throws QueryTimeOutException {
@@ -74,28 +83,28 @@ public class DtTransport {
         createAmbulance();
         createOperator();
 
-        return TransportDigitalTwin.startTransport(
+        return StartTransport.startTransport(
                 bookingId,
                 new AmbulanceId(TestDataValue.AMBULANCE_NUMBER),
                 operatorId);
     }
 
     private void deleteAllTestDigitalTwin(){
-        BookingDigitalTwin.deleteBookingTransport(bookingId);
-        AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER));
-        OperatorDigitalTwin.deleteOperatore(operatorId);
-        ServiceRequestDigitalTwin.deleteServiceRequest(serviceRequestId);
-        PatientDigitalTwin.deletePatient(patientId);
+        DeleteBookingTransport.deleteBookingTransport(bookingId);
+        DeleteAmbulance.deleteAmbulance(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER));
+        DeleteOperator.deleteOperatore(operatorId);
+        DeleteRequest.deleteServiceRequest(serviceRequestId);
+        DeletePatient.deletePatient(patientId);
     }
 
     @Test
     public void checkTransportCreation() throws QueryTimeOutException {
         TransportId transportId = createTransport();
 
-        TransportDigitalTwin.setTransportEnded(transportId);
+        TransportEnded.setTransportEnded(transportId);
         assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
-        TransportDigitalTwin.deleteTransport(transportId);
+        DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
     }
 
@@ -104,7 +113,7 @@ public class DtTransport {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
-        TransportDigitalTwin.deleteTransport(transportId);
+        DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
     }
 
@@ -113,7 +122,7 @@ public class DtTransport {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
-        TransportDigitalTwin.deleteTransport(transportId);
+        DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
     }
 
@@ -122,7 +131,7 @@ public class DtTransport {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
-        TransportDigitalTwin.deleteTransport(transportId);
+        DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
     }
 

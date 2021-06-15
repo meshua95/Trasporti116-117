@@ -1,6 +1,7 @@
 package viewCallCenter;
 import com.sothawo.mapjfx.*;
-import digitalTwins.ambulance.AmbulanceDigitalTwin;
+import digitalTwinsAPI.GetAmbulance;
+import digitalTwinsAPI.GetGPSCoordinates;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.Transition;
@@ -9,8 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.util.Duration;
-import domain.ambulanceBoundedContext.AmbulanceId;
-import domain.ambulanceBoundedContext.Coordinates;
+import domain.transport.ambulance.AmbulanceId;
+import domain.transport.ambulance.Coordinates;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,7 +73,7 @@ public class MapsController implements Initializable {
             MainAppCallCenter.setScene(ROOT_SCENE);
             resetAmbulance();
         });
-        AmbulanceDigitalTwin.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
         track.setOnAction(event-> {
             resetAmbulance();
             checkGPSPositionChange(new AmbulanceId(ambulance.getValue().toString()));
@@ -85,7 +86,7 @@ public class MapsController implements Initializable {
                 new KeyFrame(
                         Duration.ZERO,
                         actionEvent -> {
-                            Coordinates coordinates = AmbulanceDigitalTwin.getGPSCoordinatesOfAmbulance(ambulanceId);
+                            Coordinates coordinates = GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId);
                             final Coordinate newPosition = new Coordinate(coordinates.getLatitude(), coordinates.getLongitude());
 
                             mapView.setCenter(newPosition);
