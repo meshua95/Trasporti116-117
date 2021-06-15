@@ -26,9 +26,7 @@ namespace UpdateTSI
             {
                 if (operation["op"].ToString() == "replace" || operation["op"].ToString() == "add")
                 {
-                    //Convert from JSON patch path to a flattened property for TSI
-                    //Example input: /Front/Temperature
-                    //        output: Front.Temperature
+                    //Convert from JSON patch path
                     string path = operation["path"].ToString().Substring(1);
                     path = path.Replace("/", ".");
                     tsiUpdate.Add(path, operation["value"]);

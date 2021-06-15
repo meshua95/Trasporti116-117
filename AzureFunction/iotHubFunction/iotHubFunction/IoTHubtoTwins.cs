@@ -38,7 +38,6 @@ namespace IotHubtoTwins
                     log.LogInformation(eventGridEvent.Data.ToString());
 
                     // <Find_device_ID_and_latitudine>
-                    // </Find_device_ID_and_longitudine>
                     JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
                     var lat = deviceMessage["body"]["latitude"];
@@ -52,7 +51,6 @@ namespace IotHubtoTwins
                     updateTwinData.AppendReplace("/longitude", lon.Value<double>());
                     updateTwinData.AppendReplace("/latitude", lat.Value<double>());
                     await client.UpdateDigitalTwinAsync("gps-2", updateTwinData);
-                    // </Update_twin_with_gps>
                 }
             }
             catch (Exception ex)

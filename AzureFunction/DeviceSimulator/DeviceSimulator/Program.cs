@@ -8,10 +8,6 @@ namespace DeviceSimulator
     {
         public static async Task Main(string[] args)
         {
-            // Sample 1: Create device if you didn't have one in Azure IoT Hub, FIRST YOU NEED SPECIFY connectionString first in AzureIoTHub.cs
-            //await CreateDeviceIdentity();
-
-            // Sample 2: comment above line and uncomment following line, FIRST YOU NEED SPECIFY connectingString and deviceConnectionString in AzureIoTHub.cs
             await SimulateDeviceToSendD2cAndReceiveD2c();
         }
 
