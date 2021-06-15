@@ -13,7 +13,11 @@ import domain.requestBoundedContext.serviceRequest.*;
 import digitalTwins.patient.PatientDigitalTwin;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DtBookingTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
@@ -56,7 +60,7 @@ public class DtBookingTransport {
     }
 
     @Test
-    public void checkTrasporto(){
+    public void checkBookingCreation(){
         createBooking();
 
         assertEquals(Client.getClient().getDigitalTwin(bookingTransportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
@@ -78,6 +82,21 @@ public class DtBookingTransport {
     public void checkBookingServiceRequestRelationship(){
         createBooking();
         assertEquals(Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + serviceReqId.getserviceRequestId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        BookingDigitalTwin.deleteBookingTransport(bookingTransportId);
+        deleteAllTestDigitalTwin();
+    }
+
+    @Test
+    public void checkBookingTakeOwnership(){
+        createBooking();
+        BookingDigitalTwin.setTakeOwnership(bookingTransportId);
+
+        List<BookingTransportId> bookingToDo = BookingDigitalTwin.getAllBookingToDoForTheDay(TestDataValue.BOOKING_DATE);
+
+        for(BookingTransportId id: bookingToDo){
+            assertNotEquals(id.getId(), bookingTransportId);
+        }
 
         BookingDigitalTwin.deleteBookingTransport(bookingTransportId);
         deleteAllTestDigitalTwin();
