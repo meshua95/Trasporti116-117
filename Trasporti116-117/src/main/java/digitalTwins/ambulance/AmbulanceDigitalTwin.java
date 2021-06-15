@@ -14,7 +14,7 @@ import domain.ambulanceBoundedContext.AmbulanceId;
 import utils.AzureErrorMessage;
 import domain.ambulanceBoundedContext.Coordinates;
 import utils.Constants;
-import utils.errorCode.DeleteAmbulanceStatusCode;
+import utils.errorCode.DeleteDigitalTwinStatusCode;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
@@ -62,17 +62,17 @@ public class AmbulanceDigitalTwin {
         createAmbulance(ambulanceNumber);
     }
 
-    public static DeleteAmbulanceStatusCode deleteAmbulance(AmbulanceId ambulanceId) {
+    public static DeleteDigitalTwinStatusCode deleteAmbulance(AmbulanceId ambulanceId) {
         try{
             Client.getClient().listRelationships(ambulanceId.getAmbulanceId(), BasicRelationship.class)
                     .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getAmbulanceId(), rel.getId()));
             Client.getClient().deleteDigitalTwin(ambulanceId.getAmbulanceId());
             Client.getClient().deleteDigitalTwin(ambulanceId.getGpsId());
 
-            return DeleteAmbulanceStatusCode.DELETED;
+            return DeleteDigitalTwinStatusCode.DELETED;
         } catch(ErrorResponseException e){
             if(e.getLocalizedMessage().contains(AzureErrorMessage.RELATIONSHIP_NOT_DELETED)) {
-                return DeleteAmbulanceStatusCode.TRANSPORT_RELATION_EXISTING;
+                return DeleteDigitalTwinStatusCode.TRANSPORT_RELATION_EXISTING;
             }
             throw e;
         }

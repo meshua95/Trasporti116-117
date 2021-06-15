@@ -27,24 +27,12 @@ public class DtPatient {
     }
 
     @Test
-    public void createPaziente(){
+    public void createPatient(){
 
         PatientDigitalTwin.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
         assertEquals(Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         PatientDigitalTwin.deletePatient(idPatient);
-    }
-
-    @Test
-    public void deletePaziente(){
-        PatientDigitalTwin.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
-
-        PatientDigitalTwin.deletePatient(idPatient);
-        try{
-            Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class);
-        } catch (Exception ex){
-            assertEquals(ex.getClass(), ErrorResponseException.class);
-        }
     }
 
 }

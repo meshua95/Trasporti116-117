@@ -4,13 +4,13 @@
 
 package utils.errorCode;
 
-public enum DeleteAmbulanceStatusCode {
+public enum DeleteDigitalTwinStatusCode {
     DELETED (1),
     TRANSPORT_RELATION_EXISTING (2);
 
     private int value;
 
-    DeleteAmbulanceStatusCode(int value) {
+    DeleteDigitalTwinStatusCode(int value) {
         this.value = value;
     }
 

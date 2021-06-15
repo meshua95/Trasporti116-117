@@ -2,7 +2,7 @@ package viewCallCenter.dialog;
 import digitalTwins.ambulance.AmbulanceDigitalTwin;
 import javafx.scene.control.*;
 import domain.ambulanceBoundedContext.AmbulanceId;
-import utils.errorCode.DeleteAmbulanceStatusCode;
+import utils.errorCode.DeleteDigitalTwinStatusCode;
 import view.utils.ControllInputField;
 
 public class AmbulanceDialog extends DtDialog{
@@ -41,7 +41,7 @@ public class AmbulanceDialog extends DtDialog{
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    if (AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(ambulance.getValue())).equals(DeleteAmbulanceStatusCode.DELETED))
+                    if (AmbulanceDigitalTwin.deleteAmbulance(new AmbulanceId(ambulance.getValue())).equals(DeleteDigitalTwinStatusCode.DELETED))
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.AMBULANCE_DELETED, ButtonType.CLOSE).show();
                 });
     }

@@ -9,6 +9,7 @@ import com.azure.core.models.JsonPatchDocument;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
 import com.azure.digitaltwins.core.BasicRelationship;
+import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
 import digitalTwins.Client;
 import digitalTwins.booking.BookingDigitalTwin;
 import domain.ambulanceBoundedContext.AmbulanceId;
@@ -17,7 +18,9 @@ import domain.requestBoundedContext.serviceRequest.BookingTransportId;
 import domain.transportBoundedContext.OperatorId;
 import domain.transportBoundedContext.TransportId;
 import org.json.simple.JSONObject;
+import utils.AzureErrorMessage;
 import utils.Constants;
+import utils.errorCode.DeleteDigitalTwinStatusCode;
 import utils.errorCode.QueryTimeOutException;
 
 import java.time.LocalDateTime;
@@ -77,10 +80,18 @@ public class TransportDigitalTwin {
                 BasicRelationship.class);
     }
 
-    public static void deleteTransport(TransportId transportId) {
-        Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)
-                .forEach(rel -> Client.getClient().deleteRelationship(transportId.getId(), rel.getId()));
-        Client.getClient().deleteDigitalTwin(transportId.getId());
+    public static DeleteDigitalTwinStatusCode deleteTransport(TransportId transportId) {
+        try {
+            Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)
+                    .forEach(rel -> Client.getClient().deleteRelationship(transportId.getId(), rel.getId()));
+            Client.getClient().deleteDigitalTwin(transportId.getId());
+            return DeleteDigitalTwinStatusCode.DELETED;
+        } catch(ErrorResponseException ex){
+            if(ex.getLocalizedMessage().contains(AzureErrorMessage.RELATIONSHIP_NOT_DELETED)) {
+                return DeleteDigitalTwinStatusCode.TRANSPORT_RELATION_EXISTING;
+            }
+            throw ex;
+        }
     }
 
     public static ArrayList<TransportId> getAllTransportId(){

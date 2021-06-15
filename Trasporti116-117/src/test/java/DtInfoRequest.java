@@ -26,16 +26,4 @@ public class DtInfoRequest {
         InfoRequestDigitalTwin.deleteInfoRequest(id);
     }
 
-    @Test
-    public void deleteInfoRequest(){
-        InfoRequestDigitalTwin.createInfoRequest(TestDataValue.INFO_REQUEST_DATE, TestDataValue.INFO_REQUEST_DESCRIPTION);
-
-        InfoRequestDigitalTwin.deleteInfoRequest(id);
-        try{
-            Client.getClient().getDigitalTwin(id.getInfoRequestId(), BasicDigitalTwin.class);
-        } catch (Exception ex){
-            assertEquals(ex.getClass(), ErrorResponseException.class);
-        }
-    }
-
 }

@@ -126,10 +126,4 @@ public class DtTransport {
         deleteAllTestDigitalTwin();
     }
 
-    @Test
-    public void deleteTransport() throws QueryTimeOutException {
-        createTransport();
-        deleteAllTestDigitalTwin();
-    }
-
 }

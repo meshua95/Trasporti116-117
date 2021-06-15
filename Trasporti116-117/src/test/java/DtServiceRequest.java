@@ -24,15 +24,4 @@ public class DtServiceRequest {
         ServiceRequestDigitalTwin.deleteServiceRequest(id);
     }
 
-    @Test
-    public void deleteInfoRequest(){
-        ServiceRequestDigitalTwin.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
-
-        ServiceRequestDigitalTwin.deleteServiceRequest(id);
-        try{
-            Client.getClient().getDigitalTwin(id.getserviceRequestId(), BasicDigitalTwin.class);
-        } catch (Exception ex){
-            assertEquals(ex.getClass(), ErrorResponseException.class);
-        }
-    }
 }

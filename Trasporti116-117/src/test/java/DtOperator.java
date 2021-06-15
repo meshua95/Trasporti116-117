@@ -31,16 +31,4 @@ public class DtOperator {
         OperatorDigitalTwin.deleteOperatore(idOperator);
     }
 
-    @Test
-    public void deleteOperator(){
-        OperatorDigitalTwin.createOperator(idOperator, personalData);
-
-        OperatorDigitalTwin.deleteOperatore(idOperator);
-        try{
-            Client.getClient().getDigitalTwin(idOperator.getOperatorId(), BasicDigitalTwin.class);
-        } catch (Exception ex){
-            assertEquals(ex.getClass(), ErrorResponseException.class);
-        }
-    }
-
 }
