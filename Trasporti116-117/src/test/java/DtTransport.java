@@ -92,7 +92,7 @@ public class DtTransport {
     private void deleteAllTestDigitalTwin(){
         DeleteBookingTransport.deleteBookingTransport(bookingId);
         DeleteAmbulance.deleteAmbulance(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER));
-        DeleteOperator.deleteOperatore(operatorId);
+        DeleteOperator.deleteOperator(operatorId);
         DeleteRequest.deleteServiceRequest(serviceRequestId);
         DeletePatient.deletePatient(patientId);
     }

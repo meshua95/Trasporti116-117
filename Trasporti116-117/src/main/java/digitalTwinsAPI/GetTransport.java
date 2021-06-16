@@ -28,22 +28,6 @@ public class GetTransport {
     }
 
     /**
-     * Get a specific transport
-     *
-     * @param id of transport
-     * @return TransportId
-     */
-    public static TransportId getTransportById(TransportId id){
-        String query = "SELECT * " +
-                "FROM DIGITALTWINS " +
-                "WHERE IS_OF_MODEL('"+ Constants.TRANSPORT_MODEL_ID + "') " +
-                "AND $dtId = '" + id.getId() + "'";
-        PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
-        System.out.println(pageableResponse.stream().findFirst().get());
-        return new TransportId(pageableResponse.stream().findFirst().get().toString());
-    }
-
-    /**
      * Get all transport related to an ambulance
      *
      * @param id of ambulance
@@ -71,8 +55,8 @@ public class GetTransport {
                 "FROM DIGITALTWINS " +
                 "WHERE IS_OF_MODEL('" + Constants.TRANSPORT_MODEL_ID + "') AND NOT IS_DEFINED ( endDateTime )";
 
-        PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
+        Client.getClient().query(query, BasicDigitalTwin.class)
+                .forEach(r-> transportIds.add(new TransportId(r.getId())));
         return transportIds;
     }
 }

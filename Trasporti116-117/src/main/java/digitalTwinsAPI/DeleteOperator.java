@@ -13,7 +13,7 @@ public class DeleteOperator {
      *
      * @param  idOperator id of the operator to be canceled
      */
-    public static void deleteOperatore(OperatorId idOperator) {
+    public static void deleteOperator(OperatorId idOperator) {
         Client.getClient().listRelationships(idOperator.getOperatorId(), BasicRelationship.class)
                 .forEach(rel -> Client.getClient().deleteRelationship(idOperator.getOperatorId(), rel.getId()));
         Client.getClient().deleteDigitalTwin(idOperator.getOperatorId());

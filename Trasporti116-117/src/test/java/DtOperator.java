@@ -29,7 +29,7 @@ public class DtOperator {
         CreateOperator.createOperator(idOperator, personalData);
         assertEquals(Client.getClient().getDigitalTwin(idOperator.getOperatorId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
-        DeleteOperator.deleteOperatore(idOperator);
+        DeleteOperator.deleteOperator(idOperator);
     }
 
 }

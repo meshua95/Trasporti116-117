@@ -19,7 +19,7 @@ public class CreateAmbulance {
     public static String createAmbulance(int ambulanceNumber){
         AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
 
-        BasicDigitalTwin ambulanzaDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
+        BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANCE_MODEL_ID)
                 )
@@ -32,7 +32,7 @@ public class CreateAmbulance {
                 .addToContents("longitude", 0)
                 .addToContents("latitude", 0);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getAmbulanceId(), ambulanzaDT, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getAmbulanceId(), ambulanceDT, BasicDigitalTwin.class);
         BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getGpsId(), GPSdt, BasicDigitalTwin.class);
 
         System.out.println(basicTwinResponse.getId());
