@@ -27,7 +27,7 @@ public class DeleteAmbulance {
             return DeleteDigitalTwinStatusCode.DELETED;
         } catch(ErrorResponseException e){
             if(e.getLocalizedMessage().contains(AzureErrorMessage.RELATIONSHIP_NOT_DELETED)) {
-                return DeleteDigitalTwinStatusCode.TRANSPORT_RELATION_EXISTING;
+                return DeleteDigitalTwinStatusCode.RELATION_EXISTING;
             }
             throw e;
         }

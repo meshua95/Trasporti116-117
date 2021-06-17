@@ -6,8 +6,8 @@ package domain.request.serviceRequest;
 
 public class BookingRoute {
 
-    private BookingLocation departure;
-    private BookingLocation destination;
+    private final BookingLocation departure;
+    private final BookingLocation destination;
 
     public BookingRoute(BookingLocation departure, BookingLocation destination) {
         this.departure = departure;

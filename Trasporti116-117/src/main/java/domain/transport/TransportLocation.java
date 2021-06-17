@@ -7,11 +7,11 @@ package domain.transport;
 import domain.*;
 
 public class TransportLocation {
-    private Address address;
-    private HouseNumber houseNumber;
-    private City city;
-    private District district;
-    private PostalCode postalCode;
+    private final Address address;
+    private final HouseNumber houseNumber;
+    private final City city;
+    private final District district;
+    private final PostalCode postalCode;
 
     public TransportLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
         this.address = address;

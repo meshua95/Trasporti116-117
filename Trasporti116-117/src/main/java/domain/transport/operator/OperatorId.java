@@ -5,7 +5,7 @@
 package domain.transport.operator;
 
 public class OperatorId {
-    private String operatorId;
+    private final String operatorId;
 
     public OperatorId(String operatorId) {
         this.operatorId = operatorId;

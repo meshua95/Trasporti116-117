@@ -8,11 +8,11 @@ import domain.*;
 
 public class PatientResidence {
 
-    private Address address;
-    private HouseNumber houseNumber;
-    private City city;
-    private District district;
-    private PostalCode postalCode;
+    private final Address address;
+    private final HouseNumber houseNumber;
+    private final City city;
+    private final District district;
+    private final PostalCode postalCode;
 
     public PatientResidence(Address address, HouseNumber patientHouseNumber, City patientCity, District patientDistrict, PostalCode patientPostalCode) {
         this.address = address;

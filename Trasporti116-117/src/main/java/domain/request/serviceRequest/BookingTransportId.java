@@ -5,7 +5,7 @@
 package domain.request.serviceRequest;
 
 public class BookingTransportId {
-    private String bookingTransportId;
+    private final String bookingTransportId;
 
     public BookingTransportId(String bookingTransportId) {
         this.bookingTransportId = bookingTransportId;

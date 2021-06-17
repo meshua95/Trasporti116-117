@@ -6,7 +6,7 @@ package domain.patient;
 
 public class PatientFiscalCode {
 
-    private String fiscalCode;
+    private final String fiscalCode;
 
     public PatientFiscalCode(String fiscalCode) {
         this.fiscalCode = fiscalCode;

@@ -10,7 +10,7 @@ import domain.*;
 import domain.patient.PatientFiscalCode;
 import domain.request.serviceRequest.*;
 import javafx.scene.control.*;
-import utils.errorCode.DeleteBookingStatusCode;
+import utils.errorCode.DeleteDigitalTwinStatusCode;
 import view.utils.ControllInputField;
 
 import java.time.LocalDateTime;
@@ -213,7 +213,7 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         dialog.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    if(DeleteBookingTransport.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteBookingStatusCode.DELETED)
+                    if(DeleteBookingTransport.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteDigitalTwinStatusCode.DELETED)
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_DELETED, ButtonType.CLOSE).show();
                 });
     }

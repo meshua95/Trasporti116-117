@@ -19,7 +19,7 @@ public class DeleteTransport {
             return DeleteDigitalTwinStatusCode.DELETED;
         } catch(ErrorResponseException ex){
             if(ex.getLocalizedMessage().contains(AzureErrorMessage.RELATIONSHIP_NOT_DELETED)) {
-                return DeleteDigitalTwinStatusCode.TRANSPORT_RELATION_EXISTING;
+                return DeleteDigitalTwinStatusCode.RELATION_EXISTING;
             }
             throw ex;
         }
