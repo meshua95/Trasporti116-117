@@ -6,8 +6,8 @@ package domain.transport;
 
 public class TransportRoute {
 
-    private TransportLocation departure;
-    private TransportLocation destination;
+    private final TransportLocation departure;
+    private final TransportLocation destination;
 
     public TransportRoute(TransportLocation departure, TransportLocation destination) {
         this.departure = departure;

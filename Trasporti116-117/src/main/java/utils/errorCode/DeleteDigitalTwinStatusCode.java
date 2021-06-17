@@ -6,7 +6,7 @@ package utils.errorCode;
 
 public enum DeleteDigitalTwinStatusCode {
     DELETED (1),
-    TRANSPORT_RELATION_EXISTING (2);
+    RELATION_EXISTING(2);
 
     private int value;
 

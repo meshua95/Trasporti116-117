@@ -8,10 +8,10 @@ package domain.patient;
 import java.time.LocalDate;
 
 public class PatientPersonalData {
-    private String name;
-    private String surname;
-    private LocalDate birthDate;
-    private PatientResidence residence;
+    private final String name;
+    private final String surname;
+    private final LocalDate birthDate;
+    private final PatientResidence residence;
 
     public PatientPersonalData(String name, String surname, LocalDate birthDate, PatientResidence residence) {
         this.name = name;
