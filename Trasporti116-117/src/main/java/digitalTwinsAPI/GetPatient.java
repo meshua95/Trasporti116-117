@@ -10,7 +10,6 @@ import domain.request.serviceRequest.BookingTransportId;
 import org.json.simple.JSONObject;
 import utils.Constants;
 import utils.errorCode.QueryTimeOutException;
-
 import java.util.ArrayList;
 
 public class GetPatient {

@@ -19,7 +19,7 @@ public class MainAppCallCenter extends Application {
     private static Stage stage;
     private static Scene rootScene;
     private static Scene mapsScene;
-    private static Scene transportScene;
+    private static MapsController controller;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,7 +32,7 @@ public class MainAppCallCenter extends Application {
         rootScene = new Scene(root);
         rootScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
 
-        final MapsController controller = fxmlLoader.getController();
+        controller = fxmlLoader.getController();
         final Projection projection = getParameters().getUnnamed().contains("wgs84")
                 ? Projection.WGS_84 : Projection.WEB_MERCATOR;
         controller.initMaps(projection);
@@ -47,6 +47,7 @@ public class MainAppCallCenter extends Application {
     public static void setScene(SceneTypeCallCenter type){
         switch (type){
             case MAPS_SCENE:
+                controller.clearMaps();
                 stage.setScene(mapsScene);
                 break;
             case ROOT_SCENE:

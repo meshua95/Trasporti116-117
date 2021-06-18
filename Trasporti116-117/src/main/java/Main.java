@@ -14,6 +14,6 @@ public class Main {
             case AMBULANCE_TABLET -> MainAppAmbulanceTablet.main(arg);
             case CALL_CENTER -> MainAppCallCenter.main(arg);
         }
-
     }
+
 }

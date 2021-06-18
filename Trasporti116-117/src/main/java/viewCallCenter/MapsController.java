@@ -14,6 +14,7 @@ import domain.transport.ambulance.AmbulanceId;
 import domain.transport.ambulance.Coordinates;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static viewCallCenter.SceneTypeCallCenter.ROOT_SCENE;
@@ -24,7 +25,7 @@ public class MapsController implements Initializable {
     @FXML
     private Button back;
     @FXML
-    private ComboBox ambulance;
+    private ComboBox<String> ambulance;
     @FXML
     private Button track;
 
@@ -44,6 +45,11 @@ public class MapsController implements Initializable {
         mapView.setZoom(INITIAL_ZOOM);
     }
 
+    public void clearMaps(){
+        ArrayList<AmbulanceId> amb = GetAmbulance.getAllAmbulanceIdTwins();
+        ambulance.getItems().clear();
+        amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+    }
     private void animateClickMarker(Coordinate oldPosition, Coordinate newPosition) {
         // animate the marker to the new position
         final Transition transition = new Transition() {
@@ -73,10 +79,11 @@ public class MapsController implements Initializable {
             MainAppCallCenter.setScene(ROOT_SCENE);
             resetAmbulance();
         });
-        GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        ArrayList<AmbulanceId> amb = GetAmbulance.getAllAmbulanceIdTwins();
+        amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
         track.setOnAction(event-> {
             resetAmbulance();
-            checkGPSPositionChange(new AmbulanceId(ambulance.getValue().toString()));
+            checkGPSPositionChange(new AmbulanceId(ambulance.getValue()));
         });
     }
 

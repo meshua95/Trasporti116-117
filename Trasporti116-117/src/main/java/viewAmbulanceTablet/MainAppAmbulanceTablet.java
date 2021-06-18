@@ -27,7 +27,7 @@ public class MainAppAmbulanceTablet extends Application {
     private static Optional<TransportId> transportId = Optional.empty();
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         MainAppAmbulanceTablet.stage = stage;
         stage.setTitle("Trasporti 116-117 ");
         setScene(ROOT_SCENE);

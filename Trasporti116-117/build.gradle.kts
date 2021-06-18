@@ -18,7 +18,18 @@ repositories {
     mavenCentral()
 }
 
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "Main"
+    }
+}
+
+application{
+    mainClass.set("Main")
+}
+
 javafx {
+    version = "15.0.1"
     modules = listOf("javafx.controls", "javafx.fxml", "javafx.web")
 }
 
