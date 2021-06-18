@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import static viewCallCenter.SceneTypeCallCenter.ROOT_SCENE;
 
@@ -26,11 +27,11 @@ public class MainAppCallCenter extends Application {
         this.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        Parent root = FXMLLoader.load(Paths.get("src/main/resources/rootSceneCallCenter.fxml").toUri().toURL());
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("rootSceneCallCenter.fxml")));
         Parent maps = fxmlLoader.load(getClass().getResourceAsStream("/mapScene.fxml"));
 
         rootScene = new Scene(root);
-        rootScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
+        rootScene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toString());
 
         controller = fxmlLoader.getController();
         final Projection projection = getParameters().getUnnamed().contains("wgs84")
@@ -40,7 +41,7 @@ public class MainAppCallCenter extends Application {
         stage.setTitle("Trasporti 116-117 ");
 
         mapsScene = new Scene(maps);
-        mapsScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
+        mapsScene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("style.css")).toString());
         setScene(ROOT_SCENE);
     }
 

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.Optional;
 
 import static viewAmbulanceTablet.SceneTypeAmbulanceTablet.ROOT_SCENE;
@@ -37,21 +38,21 @@ public class MainAppAmbulanceTablet extends Application {
         try {
             switch (type) {
                 case BOOKING_SCENE -> {
-                    Parent booking = FXMLLoader.load(Paths.get("src/main/resources/bookingScene.fxml").toUri().toURL());
+                    Parent booking = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("bookingScene.fxml")));
                     Scene bookingScene = new Scene(booking);
-                    bookingScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
+                    bookingScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
                     stage.setScene(bookingScene);
                 }
                 case ROOT_SCENE -> {
-                    Parent root = FXMLLoader.load(Paths.get("src/main/resources/rootSceneAmbulance.fxml").toUri().toURL());
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("rootSceneAmbulance.fxml")));
                     Scene rootScene = new Scene(root);
-                    rootScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
+                    rootScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
                     stage.setScene(rootScene);
                 }
                 case TRANSPORT_IN_PROGRESS_SCENE -> {
-                    Parent transportInProgress = FXMLLoader.load(Paths.get("src/main/resources/transportInProgressScene.fxml").toUri().toURL());
+                    Parent transportInProgress = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("transportInProgressScene.fxml")));
                     Scene transportInProgressScene = new Scene(transportInProgress);
-                    transportInProgressScene.getStylesheets().add((Paths.get("src/main/resources/style.css").toUri().toURL()).toExternalForm());
+                    transportInProgressScene.getStylesheets().add(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString());
                     stage.setScene(transportInProgressScene);
                 }
             }
