@@ -4,21 +4,7 @@
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
-import digitalTwinsAPI.Client;
-import digitalTwinsAPI.GenerateId;
-import digitalTwinsAPI.DeleteAmbulance;
-import digitalTwinsAPI.CreateAmbulance;
-import digitalTwinsAPI.DeleteBookingTransport;
-import digitalTwinsAPI.CreateBookingTransport;
-import digitalTwinsAPI.CreateOperator;
-import digitalTwinsAPI.DeleteOperator;
-import digitalTwinsAPI.CreatePatient;
-import digitalTwinsAPI.DeletePatient;
-import digitalTwinsAPI.CreateRequest;
-import digitalTwinsAPI.DeleteRequest;
-import digitalTwinsAPI.StartTransport;
-import digitalTwinsAPI.DeleteTransport;
-import digitalTwinsAPI.TransportEnded;
+import digitalTwinsAPI.*;
 import domain.transport.ambulance.AmbulanceId;
 import domain.patient.*;
 import domain.request.serviceRequest.BookingTransportId;
@@ -30,7 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.errorCode.QueryTimeOutException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 public class DtTransport {
@@ -130,6 +116,16 @@ public class DtTransport {
     public void checkTransportOperatorRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
         assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+
+        DeleteTransport.deleteTransport(transportId);
+        deleteAllTestDigitalTwin();
+    }
+
+    @Test
+    public void checkGetTransport() throws QueryTimeOutException {
+        TransportId transportId = createTransport();
+
+        assertTrue(GetTransport.getAllTransportInProgress().stream().anyMatch(t-> t.getId().equals(transportId.getId())));
 
         DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();

@@ -10,6 +10,7 @@ import com.azure.identity.ClientSecretCredentialBuilder;
 import utils.Constants;
 
 public class Client {
+    private Client(){}
     private static DigitalTwinsClient client = null;
 
     private static void createClient(){

@@ -13,6 +13,7 @@ import utils.AzureErrorMessage;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 
 public class DeleteBookingTransport {
+    private DeleteBookingTransport() {}
     /**
      * Delete a booking digital twin
      *

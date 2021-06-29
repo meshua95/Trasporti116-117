@@ -10,6 +10,7 @@ import domain.transport.operator.OperatorPersonalData;
 import utils.Constants;
 
 public class CreateOperator {
+    private CreateOperator(){}
     /**
      * Create a operator digital twin
      *

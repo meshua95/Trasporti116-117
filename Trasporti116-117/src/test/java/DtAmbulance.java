@@ -6,13 +6,13 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwinsAPI.Client;
-import digitalTwinsAPI.DeleteAmbulance;
-import digitalTwinsAPI.CreateAmbulance;
+import digitalTwinsAPI.*;
 import domain.transport.ambulance.AmbulanceId;
+import domain.transport.ambulance.Coordinates;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
+import utils.errorCode.QueryTimeOutException;
 
 import static org.junit.Assert.*;
 
@@ -64,6 +64,26 @@ public class DtAmbulance {
         } catch (Exception ex){
             assertEquals(ex.getClass(), ErrorResponseException.class);
         }
+    }
+
+    @Test
+    public void getAmbulance() throws QueryTimeOutException {
+        CreateAmbulance.createAmbulance(ambulanceId);
+
+        assertTrue(GetAmbulance.getAllAmbulanceIdTwins().stream().anyMatch(a-> a.getAmbulanceId().equals(ambulanceId.getAmbulanceId())));
+
+        DeleteAmbulance.deleteAmbulance(ambulanceId);
+    }
+
+    @Test
+    public void getAmbulancePosition() throws QueryTimeOutException {
+        CreateAmbulance.createAmbulance(ambulanceId);
+        Coordinates standardCoordinates = new Coordinates(0.0,0.0);
+
+        assertEquals(standardCoordinates.getLatitude(), GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId).getLatitude(), 0.0);
+        assertEquals(standardCoordinates.getLongitude(), GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId).getLongitude(), 0.0);
+
+        DeleteAmbulance.deleteAmbulance(ambulanceId);
     }
 
 }

@@ -10,9 +10,5 @@ public class HealthState {
     public HealthState(String description) {
         this.description = description;
     }
-
-    public String getDescription(){
-        return this.description;
-    }
 }
 

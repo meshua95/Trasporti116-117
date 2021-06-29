@@ -10,8 +10,4 @@ public class HouseNumber {
     public HouseNumber(int houseNumber){
         this.houseNumber = houseNumber;
     }
-
-    public int getHouseNumber(){
-        return this.houseNumber;
-    }
 }

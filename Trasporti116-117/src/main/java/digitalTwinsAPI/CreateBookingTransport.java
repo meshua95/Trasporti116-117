@@ -15,6 +15,7 @@ import utils.Constants;
 import java.time.LocalDateTime;
 
 public class CreateBookingTransport {
+    private CreateBookingTransport(){}
     /**
      * Create a booking digital twin by number
      *

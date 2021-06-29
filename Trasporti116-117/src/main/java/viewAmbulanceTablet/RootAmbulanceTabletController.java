@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import utils.errorCode.QueryTimeOutException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,8 +28,16 @@ public class RootAmbulanceTabletController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        GetOperator.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
-        GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
+        try {
+            GetOperator.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
+        try {
+            GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
         ok.setOnAction(event -> {
             MainAppAmbulanceTablet.setOperatorAndAmbulance(new OperatorId(operatorList.getValue()), new AmbulanceId(ambulanceList.getValue()));
             MainAppAmbulanceTablet.setScene(SceneTypeAmbulanceTablet.BOOKING_SCENE);

@@ -22,7 +22,11 @@ public class BookingController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //DeleteBookingTransport.getAllBookingForToday().forEach(e->System.out.println(e.getId()));
-        GetBooking.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b->lv.getItems().add(b.getId()));
+        try {
+            GetBooking.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b->lv.getItems().add(b.getId()));
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
 
         lv.setOnMouseClicked(event -> {
             if(lv.getSelectionModel().getSelectedItem() != null){

@@ -2,7 +2,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 plugins {
     jacoco     //java code coverage
     java
-    id("java")  //javadoc
     id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.3"
     id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
     id("io.gitlab.arturbosch.detekt") version "1.17.0-RC2"
@@ -65,16 +64,16 @@ dependencies {
     implementation("com.sothawo:mapjfx:2.15.3")
     implementation("org.apache.clerezza.ext:org.json.simple:0.4")
     testImplementation("junit:junit:4.13")
-
     implementation("javax.vecmath", "vecmath", "1.5.2")
     implementation("org.apache.commons", "commons-csv", "1.8")
 
 }
 
 tasks.jacocoTestReport{
+    dependsOn(tasks.test)
     reports{
-        xml.isEnabled = true
-        html.isEnabled = true
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 
@@ -86,17 +85,6 @@ tasks.withType<Test> {
         showStandardStreams = true
         events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        finalizedBy(tasks.jacocoTestReport)
     }
 }
-
-/*
-sourceSets{
-    buildDir("src/main/java")
-}
-
-tasks.javadoc {
-    //senza sorgente javadoc non crea nessuna documentazione
-    source = sourceSets.main.allJava
-}
-
-*/

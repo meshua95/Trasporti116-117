@@ -10,6 +10,8 @@ import domain.transport.TransportId;
 import java.time.LocalDateTime;
 
 public class TransportEnded {
+    private TransportEnded(){}
+
     /**
      * Set end of a transport
      *

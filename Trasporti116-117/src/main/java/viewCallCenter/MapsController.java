@@ -4,7 +4,6 @@ import digitalTwinsAPI.GetAmbulance;
 import digitalTwinsAPI.GetGPSCoordinates;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.util.Duration;
 import domain.transport.ambulance.AmbulanceId;
 import domain.transport.ambulance.Coordinates;
+import utils.errorCode.QueryTimeOutException;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class MapsController implements Initializable {
 
     Timeline timeline;
     private static final Coordinate cesenaCoordinate = new Coordinate(44.143753271603956 , 12.250847570172596);
-    private Marker ambulanceMarker = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
+    private final Marker ambulanceMarker = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
 
     private static final int INITIAL_ZOOM = 15;
 
@@ -46,31 +46,15 @@ public class MapsController implements Initializable {
     }
 
     public void clearMaps(){
-        ArrayList<AmbulanceId> amb = GetAmbulance.getAllAmbulanceIdTwins();
+        ArrayList<AmbulanceId> amb = null;
+        try {
+            amb = GetAmbulance.getAllAmbulanceIdTwins();
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
         ambulance.getItems().clear();
+        assert amb != null;
         amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
-    }
-    private void animateClickMarker(Coordinate oldPosition, Coordinate newPosition) {
-        // animate the marker to the new position
-        final Transition transition = new Transition() {
-            private final Double oldPositionLongitude = oldPosition.getLongitude();
-            private final Double oldPositionLatitude = oldPosition.getLatitude();
-            private final double deltaLatitude = newPosition.getLatitude() - oldPositionLatitude;
-            private final double deltaLongitude = newPosition.getLongitude() - oldPositionLongitude;
-
-            {
-                setCycleDuration(Duration.seconds(1.0));
-                setOnFinished(evt -> ambulanceMarker.setPosition(newPosition));
-            }
-
-            @Override
-            protected void interpolate(double v) {
-                final double latitude = oldPosition.getLatitude() + v * deltaLatitude;
-                final double longitude = oldPosition.getLongitude() + v * deltaLongitude;
-                ambulanceMarker.setPosition(new Coordinate(latitude, longitude));
-            }
-        };
-        transition.play();
     }
 
     @Override
@@ -79,7 +63,13 @@ public class MapsController implements Initializable {
             MainAppCallCenter.setScene(ROOT_SCENE);
             resetAmbulance();
         });
-        ArrayList<AmbulanceId> amb = GetAmbulance.getAllAmbulanceIdTwins();
+        ArrayList<AmbulanceId> amb = null;
+        try {
+            amb = GetAmbulance.getAllAmbulanceIdTwins();
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
+        assert amb != null;
         amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
         track.setOnAction(event-> {
             resetAmbulance();
@@ -93,16 +83,20 @@ public class MapsController implements Initializable {
                 new KeyFrame(
                         Duration.ZERO,
                         actionEvent -> {
-                            Coordinates coordinates = GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId);
+                            Coordinates coordinates = null;
+                            try {
+                                coordinates = GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId);
+                            } catch (QueryTimeOutException e) {
+                                e.printStackTrace();
+                            }
+                            assert coordinates != null;
                             final Coordinate newPosition = new Coordinate(coordinates.getLatitude(), coordinates.getLongitude());
 
                             mapView.setCenter(newPosition);
                             if (ambulanceMarker.getVisible()) {
                                 final Coordinate oldPosition = ambulanceMarker.getPosition();
-                                if (oldPosition != null) {
-                                    ambulanceMarker.setPosition(newPosition);
-                                } else {
-                                    ambulanceMarker.setPosition(newPosition);
+                                ambulanceMarker.setPosition(newPosition);
+                                if (oldPosition == null) {
                                     mapView.addMarker(ambulanceMarker);
                                 }
                             }

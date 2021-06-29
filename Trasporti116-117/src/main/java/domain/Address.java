@@ -10,9 +10,5 @@ public class Address {
     public Address(String address){
         this.address = address;
     }
-
-    public String getAddress(){
-        return this.address;
-    }
 }
 

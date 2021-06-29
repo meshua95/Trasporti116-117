@@ -11,6 +11,13 @@ import utils.AzureErrorMessage;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 
 public class DeleteTransport {
+    private DeleteTransport(){}
+    /**
+     * Delete a transport digital twin
+     *
+     * @param  transportId  id of the request to be canceled
+     * @return DeleteDigitalTwinStatusCode
+     */
     public static DeleteDigitalTwinStatusCode deleteTransport(TransportId transportId) {
         try {
             Client.getClient().listRelationships(transportId.getId(), BasicRelationship.class)

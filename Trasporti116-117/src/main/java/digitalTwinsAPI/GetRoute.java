@@ -7,9 +7,11 @@ import com.azure.core.http.rest.PagedIterable;
 import domain.request.serviceRequest.BookingTransportId;
 import org.json.simple.JSONObject;
 import utils.Constants;
+import utils.WaitForClientResponse;
 import utils.errorCode.QueryTimeOutException;
 
 public class GetRoute {
+    private GetRoute(){}
 
     /**
      * Get the route for specific booking
@@ -22,11 +24,7 @@ public class GetRoute {
 
         PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
 
-        long startTime = System.currentTimeMillis();
-        while(pageableResponse.stream().findFirst().isEmpty()){
-            if (System.currentTimeMillis() - startTime > QueryTimeOutException.TIME_OUT)
-                throw new QueryTimeOutException();
-        }
+        WaitForClientResponse.waitForClientResponse(pageableResponse);
 
         return pageableResponse.stream().findFirst().get();
     }

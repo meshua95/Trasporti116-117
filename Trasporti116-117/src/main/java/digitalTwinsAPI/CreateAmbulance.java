@@ -10,6 +10,7 @@ import domain.transport.ambulance.AmbulanceId;
 import utils.Constants;
 
 public class CreateAmbulance {
+    private CreateAmbulance(){}
     /**
      * Create an ambulance digital twin by number
      *

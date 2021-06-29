@@ -4,7 +4,7 @@ import digitalTwinsAPI.CreatePatient;
 import domain.*;
 import domain.patient.*;
 import javafx.scene.control.*;
-import view.utils.ControllInputField;
+import viewCallCenter.utils.ControllInputField;
 
 import java.time.LocalDate;
 

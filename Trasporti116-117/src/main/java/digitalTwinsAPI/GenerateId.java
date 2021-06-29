@@ -13,6 +13,8 @@ import domain.transport.TransportId;
 import java.time.LocalDateTime;
 
 public class GenerateId {
+    private GenerateId(){}
+
     /**
      * Generate a unique BookingTransportId
      *

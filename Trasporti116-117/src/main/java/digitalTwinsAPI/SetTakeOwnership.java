@@ -7,6 +7,8 @@ import com.azure.core.models.JsonPatchDocument;
 import domain.request.serviceRequest.BookingTransportId;
 
 public class SetTakeOwnership {
+    private SetTakeOwnership(){}
+
     /**
      * Set the take ownership of a booking
      *

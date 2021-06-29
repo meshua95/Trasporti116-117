@@ -19,6 +19,8 @@ import utils.errorCode.QueryTimeOutException;
 import java.time.LocalDateTime;
 
 public class StartTransport {
+    private StartTransport(){}
+
     /**
      * Create a Transport digital twin
      *

@@ -4,7 +4,7 @@ package viewCallCenter.dialog;
 import digitalTwinsAPI.CreateRequest;
 import domain.request.infoRequest.InfoRequestDescription;
 import javafx.scene.control.*;
-import view.utils.ControllInputField;
+import viewCallCenter.utils.ControllInputField;
 
 import java.time.LocalDateTime;
 

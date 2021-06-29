@@ -11,7 +11,8 @@ import domain.patient.PatientFiscalCode;
 import domain.request.serviceRequest.*;
 import javafx.scene.control.*;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
-import view.utils.ControllInputField;
+import utils.errorCode.QueryTimeOutException;
+import viewCallCenter.utils.ControllInputField;
 
 import java.time.LocalDateTime;
 
@@ -145,7 +146,11 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         gridPane.add(hourTrasporto, 1, 14);
 
         ComboBox<String> patient = new ComboBox<>();
-        GetPatient.getAllPatientId().forEach(p -> patient.getItems().add(p.getFiscalCode()));
+        try {
+            GetPatient.getAllPatientId().forEach(p -> patient.getItems().add(p.getFiscalCode()));
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
         gridPane.add(new Label("Paziente"), 0, 15);
         gridPane.add(patient, 1, 15);
 
@@ -204,7 +209,11 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         initialize("Elimina prenotazione", ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<String> transport = new ComboBox<>();
-        GetBooking.getAllBookingId().forEach(t -> transport.getItems().add(t.getId()));
+        try {
+            GetBooking.getAllBookingId().forEach(t -> transport.getItems().add(t.getId()));
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
         gridPane.add(new Label("Prenotazione trasporto"), 0, 0);
         gridPane.add(transport, 1, 0);
 

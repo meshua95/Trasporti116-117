@@ -5,7 +5,8 @@ import digitalTwinsAPI.GetAmbulance;
 import javafx.scene.control.*;
 import domain.transport.ambulance.AmbulanceId;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
-import view.utils.ControllInputField;
+import utils.errorCode.QueryTimeOutException;
+import viewCallCenter.utils.ControllInputField;
 
 public class AmbulanceDialog extends DtDialog{
 
@@ -34,7 +35,11 @@ public class AmbulanceDialog extends DtDialog{
         initialize("Cancella Ambulanza", ButtonType.OK, ButtonType.CANCEL);
 
         ComboBox<String> ambulance = new ComboBox<>();
-        GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        try {
+            GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        } catch (QueryTimeOutException e) {
+            e.printStackTrace();
+        }
         gridPane.add(new Label("Ambulanza"), 0, 0);
         gridPane.add(ambulance, 1, 0);
 

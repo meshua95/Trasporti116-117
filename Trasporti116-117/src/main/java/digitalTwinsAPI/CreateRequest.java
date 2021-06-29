@@ -13,6 +13,7 @@ import utils.Constants;
 import java.time.LocalDateTime;
 
 public class CreateRequest {
+    private CreateRequest(){}
     /**
      * Create a information request digital twin
      *

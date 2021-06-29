@@ -5,24 +5,16 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwinsAPI.Client;
-import digitalTwinsAPI.GenerateId;
-import digitalTwinsAPI.DeleteBookingTransport;
-import digitalTwinsAPI.CreateBookingTransport;
-import digitalTwinsAPI.GetBooking;
-import digitalTwinsAPI.SetTakeOwnership;
-import digitalTwinsAPI.CreatePatient;
-import digitalTwinsAPI.CreateRequest;
+import digitalTwinsAPI.*;
 import domain.patient.*;
 import domain.request.serviceRequest.*;
-import digitalTwinsAPI.DeletePatient;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.errorCode.QueryTimeOutException;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class DtBookingTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
@@ -49,11 +41,11 @@ public class DtBookingTransport {
         CreateRequest.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
-    private void createBooking(){
+    private BookingTransportId createBooking(){
         createPatient();
         createServiceRequest();
 
-        CreateBookingTransport.createBookingTransport(
+        return CreateBookingTransport.createBookingTransport(
                 TestDataValue.BOOKING_DATE,
                 TestDataValue.BOOKING_ROUTE,
                 patientId,
@@ -93,7 +85,7 @@ public class DtBookingTransport {
     }
 
     @Test
-    public void checkBookingTakeOwnership(){
+    public void checkBookingTakeOwnership() throws QueryTimeOutException {
         createBooking();
         SetTakeOwnership.setTakeOwnership(bookingTransportId);
 
@@ -108,7 +100,17 @@ public class DtBookingTransport {
     }
 
     @Test
-    public void deleteTransport(){
+    public void checkGetBooking() throws QueryTimeOutException {
+        BookingTransportId id = createBooking();
+
+        assertTrue(GetBooking.getAllBookingId().stream().anyMatch(b -> b.getId().equals(id.getId())));
+
+        DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
+        deleteAllTestDigitalTwin();
+    }
+
+    @Test
+    public void deleteBookingTransport(){
         createBooking();
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
         try{

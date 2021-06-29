@@ -11,6 +11,7 @@ import utils.AzureErrorMessage;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 
 public class DeleteAmbulance {
+    private DeleteAmbulance(){}
     /**
      * Delete an ambulance digital twin
      *
