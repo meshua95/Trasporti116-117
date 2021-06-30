@@ -5,10 +5,16 @@
 import viewAmbulanceTablet.MainAppAmbulanceTablet;
 import viewCallCenter.MainAppCallCenter;
 
+/**
+ * Main class
+ */
 public class Main {
     private static final String AMBULANCE_TABLET = "ambulanceTablet";
     private static final String CALL_CENTER  = "callCenter";
 
+    /**
+     * @param arg the argument can match to "ambulanceTablet" or "callCenter" and it will run two different view
+     */
     public static void main(String... arg) {
         switch (arg[0]) {
             case AMBULANCE_TABLET -> MainAppAmbulanceTablet.main(arg);

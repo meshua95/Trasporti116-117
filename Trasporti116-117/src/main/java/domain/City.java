@@ -4,11 +4,25 @@
 
 package domain;
 
+/**
+ * Class that represents a city
+ */
 public class City {
-    private String city;
+    private final String city;
 
+    /**
+     * Create new City
+     *
+     * @param name city name
+     */
     public City(String name){
         this.city = name;
     }
 
+    /**
+     * @return city name
+     */
+    public String getCity(){
+        return this.city;
+    }
 }

@@ -4,10 +4,25 @@
 
 package domain;
 
+/**
+ * Class that represents postal code number
+ */
 public class PostalCode {
-    private int postalCode;
+    private final int postalCode;
 
+    /**
+     * Create a new postal code number
+     *
+     * @param postalCode postal code number
+     */
     public PostalCode(int postalCode){
         this.postalCode = postalCode;
+    }
+
+    /**
+     * @return postal code number
+     */
+    public int getPostalCode(){
+        return this.postalCode;
     }
 }
