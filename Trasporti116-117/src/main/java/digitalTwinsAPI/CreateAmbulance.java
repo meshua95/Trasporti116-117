@@ -57,7 +57,6 @@ public class CreateAmbulance {
      * Create an ambulance digital twin by id
      *
      * @param ambulanceId id of the ambulance to be created
-     * @return void
      */
     public static void createAmbulance(AmbulanceId ambulanceId){
         int ambulanceNumber = ambulanceId.getAmbulanceNumber();

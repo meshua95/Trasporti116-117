@@ -1,10 +1,13 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+version = project.version
+
 plugins {
-    jacoco     //java code coverage
+    jacoco //java code coverage
     java
+    id("java")
     id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.3"
     id("pl.droidsonroids.jacoco.testkit") version "1.0.8"
-    id("io.gitlab.arturbosch.detekt") version "1.17.0-RC2"
     kotlin("jvm") version "1.4.10"
     application
     id("org.openjfx.javafxplugin") version "0.0.9"
@@ -21,14 +24,12 @@ tasks {
     }
 }
 
-repositories {
-    mavenCentral()
+tasks.register("createJavaDoc", Javadoc::class){
+    source = java.sourceSets.create("src.main.java.digitalTwinsAPI").java
 }
 
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "Main"
-    }
+repositories {
+    mavenCentral()
 }
 
 application{
@@ -41,22 +42,8 @@ javafx {
     modules = listOf("javafx.controls", "javafx.fxml", "javafx.web")
 }
 
-buildscript {
-    repositories {
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
-    }
-    dependencies {
-        classpath("gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0")
-    }
-}
-
-apply(plugin = "com.github.johnrengelman.shadow")
-
 dependencies {
     implementation(gradleApi()) // Implementation: available at compile and runtime, non transitive
-    implementation("com.puppycrawl.tools:checkstyle:8.42")
     implementation("com.azure:azure-digitaltwins-core:1.0.3")
     implementation("com.azure:azure-identity:1.2.4")
     implementation("org.slf4j:slf4j-api:1.7.30")
@@ -64,10 +51,8 @@ dependencies {
     implementation("com.sothawo:mapjfx:2.15.3")
     implementation("org.apache.clerezza.ext:org.json.simple:0.4")
     testImplementation("junit:junit:4.13")
-    implementation("javax.vecmath", "vecmath", "1.5.2")
-    implementation("org.apache.commons", "commons-csv", "1.8")
-
 }
+
 
 tasks.jacocoTestReport{
     dependsOn(tasks.test)
