@@ -4,8 +4,13 @@
 
 package utils;
 
+/**
+ * Class that represents a possible Azure error messages
+ */
 public class AzureErrorMessage {
-    private AzureErrorMessage(){}
 
+    /**
+     * Relationship not deleted error message
+     */
     public static final String RELATIONSHIP_NOT_DELETED = "RelationshipsNotDeleted";
 }

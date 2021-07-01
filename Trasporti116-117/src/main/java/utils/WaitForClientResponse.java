@@ -6,6 +6,11 @@ import utils.errorCode.QueryTimeOutException;
 public class WaitForClientResponse {
     private WaitForClientResponse(){}
 
+    /**
+     *
+     * @param pageableResponse
+     * @throws QueryTimeOutException
+     */
     public static void waitForClientResponse(PagedIterable<?> pageableResponse) throws QueryTimeOutException {
         long startTime = System.currentTimeMillis();
 
