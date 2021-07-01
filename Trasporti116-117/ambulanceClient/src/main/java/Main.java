@@ -5,11 +5,11 @@
 import viewAmbulanceTablet.MainAppAmbulanceTablet;
 
 /**
- * MainAmbulanceClient class
+ * Main class
  */
-public class MainAmbulanceClient {
+public class Main {
     /**
-     * MainAmbulanceClient
+     * Main
      */
     public static void main(String... arg) {
         MainAppAmbulanceTablet.main(arg);
