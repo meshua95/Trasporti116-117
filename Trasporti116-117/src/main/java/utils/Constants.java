@@ -4,6 +4,9 @@
 
 package utils;
 
+/**
+ * Class that contains a set of constants
+ */
 public class Constants {
   private Constants(){}
 
