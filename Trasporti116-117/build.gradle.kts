@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 version = project.version
 
 plugins {
@@ -14,62 +13,28 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
-gitSemVer{
-    version = computeGitSemVer()
-}
-
-tasks {
-    "shadowJar"(ShadowJar::class) {
-        isZip64 = true
+allprojects {
+    repositories {
+        mavenCentral()
     }
 }
 
-tasks.register("createJavaDoc", Javadoc::class){
-    source = java.sourceSets.create("src.main.java.digitalTwinsAPI").java
-}
+subprojects{
+    apply(plugin = "org.openjfx.javafxplugin")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.danilopianini.git-sensitive-semantic-versioning")
+    apply(plugin = "org.gradle.jacoco")
+    apply(plugin = "pl.droidsonroids.jacoco.testkit")
+    apply(plugin = "org.gradle.application")
+    apply(plugin = "org.gradle.java")
+    apply(plugin = "com.github.johnrengelman.shadow")
 
-repositories {
-    mavenCentral()
-}
-
-application{
-    mainModule.set("Trasporti116-117.main")
-    mainClass.set("Main")
-}
-
-javafx {
-    version = "15.0.1"
-    modules = listOf("javafx.controls", "javafx.fxml", "javafx.web")
-}
-
-dependencies {
-    implementation(gradleApi()) // Implementation: available at compile and runtime, non transitive
-    implementation("com.azure:azure-digitaltwins-core:1.0.3")
-    implementation("com.azure:azure-identity:1.2.4")
-    implementation("org.slf4j:slf4j-api:1.7.30")
-    implementation("com.azure:azure-core-http-okhttp:1.6.1")
-    implementation("com.sothawo:mapjfx:2.15.3")
-    implementation("org.apache.clerezza.ext:org.json.simple:0.4")
-    testImplementation("junit:junit:4.13")
-}
-
-
-tasks.jacocoTestReport{
-    dependsOn(tasks.test)
-    reports{
-        xml.required.set(true)
-        html.required.set(true)
+    javafx {
+        version = "15.0.1"
+        modules = listOf("javafx.controls", "javafx.fxml", "javafx.web")
     }
-}
 
-tasks.withType<Test> {
-    testLogging.showStandardStreams = true
-    testLogging {
-        showCauses = true
-        showStackTraces = true
-        showStandardStreams = true
-        events(*org.gradle.api.tasks.testing.logging.TestLogEvent.values())
-        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-        finalizedBy(tasks.jacocoTestReport)
+    gitSemVer{
+        version = computeGitSemVer()
     }
 }

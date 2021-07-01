@@ -1,0 +1,36 @@
+
+* {
+	/* Some general colors */
+	backgroundColor: rgb(147, 255, 246);
+	backgroundColorDark: derive(backgroundColor, -80%);
+
+	buttonColor: rgb(147, 255, 246);
+	buttonColorHover: derive(buttonColor, +15%);
+	buttonColorPressed: derive(buttonColorHover, +15%);
+
+	textButtonColor: #0033ce;
+
+	progressColor: #4286f4;
+	darkTextColor: rgb(15,15,15);
+	lightTextColor: rgb(240,240,240);
+}
+
+/* General buttons */
+.button {
+    -fx-padding: 10 25 10 25;
+    -fx-border-width: 0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-background-color: buttonColor;
+    -fx-font-weight: bold;
+    -fx-text-fill: textButtonColor;
+    -fx-width: 15px;
+}
+
+.button:hover {
+    -fx-background-color: buttonColorHover;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: buttonColorPressed;
+}
