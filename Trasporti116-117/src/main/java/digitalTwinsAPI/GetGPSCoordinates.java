@@ -10,13 +10,18 @@ import org.json.simple.JSONObject;
 import utils.WaitForClientResponse;
 import utils.errorCode.QueryTimeOutException;
 
+/**
+ * Get gps coordinates of ambulance digital twin API
+ */
 public class GetGPSCoordinates {
     private GetGPSCoordinates(){}
 
     /**
      * Get the GPS coordinates of a ambulance
      *
-     * @param ambulanceId
+     * @param ambulanceId ambulance id
+     *
+     * @throws QueryTimeOutException if the server takes too long to respond
      * @return coordinates of a ambulance
      */
     public static Coordinates getGPSCoordinatesOfAmbulance(AmbulanceId ambulanceId) throws QueryTimeOutException {

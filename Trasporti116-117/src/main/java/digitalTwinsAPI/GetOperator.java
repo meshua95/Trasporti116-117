@@ -12,6 +12,9 @@ import utils.errorCode.QueryTimeOutException;
 
 import java.util.ArrayList;
 
+/**
+ * Get operator digital twin API
+ */
 public class GetOperator {
     private GetOperator(){}
 
@@ -19,6 +22,7 @@ public class GetOperator {
      * Get all digital twin operator
      *
      * @return id of all operator
+     * @throws QueryTimeOutException if the server takes too long to respond
      */
     public static ArrayList<OperatorId> getAllOperatorId() throws QueryTimeOutException {
         ArrayList<OperatorId> operatoriIds = new ArrayList<>();

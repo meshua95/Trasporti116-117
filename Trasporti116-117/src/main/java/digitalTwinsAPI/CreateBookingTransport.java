@@ -14,6 +14,9 @@ import utils.Constants;
 
 import java.time.LocalDateTime;
 
+/**
+ * Contains create boooking transport digital twin API
+ */
 public class CreateBookingTransport {
     private CreateBookingTransport(){}
     /**

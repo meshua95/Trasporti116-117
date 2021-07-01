@@ -13,6 +13,9 @@ import utils.WaitForClientResponse;
 import utils.errorCode.QueryTimeOutException;
 import java.util.ArrayList;
 
+/**
+ * Get patient digital twin API
+ */
 public class GetPatient {
     private GetPatient(){}
 
@@ -21,6 +24,7 @@ public class GetPatient {
      *
      * @param  bookingId booking of which you want the patient
      * @return Fiscal Code of the patient
+     * @throws QueryTimeOutException if the server takes too long to respond
      */
     public static PatientFiscalCode getPatientIdByBookingId(BookingTransportId bookingId) throws QueryTimeOutException {
         String query = "SELECT target.$dtId " +
@@ -38,6 +42,7 @@ public class GetPatient {
      * Get all patients
      *
      * @return List of patient Fiscal Code
+     * @throws QueryTimeOutException if the server takes too long to respond
      */
     public static ArrayList<PatientFiscalCode> getAllPatientId() throws QueryTimeOutException {
         ArrayList<PatientFiscalCode> patientsIds = new ArrayList<>();

@@ -12,11 +12,16 @@ import utils.errorCode.QueryTimeOutException;
 
 import java.util.ArrayList;
 
+/**
+ * Get ambulance digital twin API
+ */
 public class GetAmbulance {
     private GetAmbulance(){}
 
     /**
      * Get all digital twin ambulances available
+     *
+     * @throws QueryTimeOutException if the server takes too long to respond
      *
      * @return id of all ambulances available
      */

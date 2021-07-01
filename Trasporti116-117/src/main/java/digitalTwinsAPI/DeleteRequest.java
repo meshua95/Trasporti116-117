@@ -3,10 +3,12 @@
  */
 package digitalTwinsAPI;
 
-import com.azure.digitaltwins.core.BasicRelationship;
 import domain.request.infoRequest.InfoRequestId;
 import domain.request.serviceRequest.ServiceRequestId;
 
+/**
+ * Contains delete request digital twin API
+ */
 public class DeleteRequest {
     private DeleteRequest(){}
     /**

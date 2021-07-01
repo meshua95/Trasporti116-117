@@ -9,6 +9,9 @@ import com.azure.digitaltwins.core.BasicRelationship;
 import domain.transport.ambulance.AmbulanceId;
 import utils.Constants;
 
+/**
+ * Contains create ambulance digital twin API
+ */
 public class CreateAmbulance {
     private CreateAmbulance(){}
     /**

@@ -10,6 +10,9 @@ import domain.transport.TransportId;
 import utils.AzureErrorMessage;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 
+/**
+ * Contains delete transport digital twin API
+ */
 public class DeleteTransport {
     private DeleteTransport(){}
     /**

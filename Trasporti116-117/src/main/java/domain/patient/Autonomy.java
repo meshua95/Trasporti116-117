@@ -4,17 +4,37 @@
 
 package domain.patient;
 
+/**
+ * Represents the patient's autonomy
+ */
 public enum Autonomy {
+    /**
+     * Patient is autonomous
+     */
     AUTONOMOUS(1),
+    /**
+     * Patient is partially autonomous
+     */
     PARTIALLY_AUTONOMOUS(2),
+    /**
+     * Patient isn't autonomous
+     */
     NOT_AUTONOMOUS(3);
 
-    private int value;
+    private final int value;
 
+    /**
+     * Patient's autonomy
+     *
+     * @param value Patient's autonomy
+     */
     Autonomy(int value) {
         this.value = value;
     }
 
+    /**
+     * @return patient's autonomy
+     */
     public int getValue() {
         return this.value;
     }

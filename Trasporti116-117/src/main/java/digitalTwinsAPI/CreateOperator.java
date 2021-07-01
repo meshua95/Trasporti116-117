@@ -9,6 +9,9 @@ import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
 import utils.Constants;
 
+/**
+ * Contains create operator digital twin API
+ */
 public class CreateOperator {
     private CreateOperator(){}
     /**

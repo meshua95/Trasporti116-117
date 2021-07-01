@@ -6,6 +6,9 @@ package digitalTwinsAPI;
 import com.azure.core.models.JsonPatchDocument;
 import domain.request.serviceRequest.BookingTransportId;
 
+/**
+ * Set Take Ownership of booking
+ */
 public class SetTakeOwnership {
     private SetTakeOwnership(){}
 

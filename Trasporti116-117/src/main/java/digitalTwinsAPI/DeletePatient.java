@@ -4,9 +4,11 @@
 
 package digitalTwinsAPI;
 
-import com.azure.digitaltwins.core.BasicRelationship;
 import domain.patient.PatientFiscalCode;
 
+/**
+ * Contains delete patient digital twin API
+ */
 public class DeletePatient {
     private DeletePatient(){}
 

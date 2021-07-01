@@ -14,13 +14,16 @@ import utils.errorCode.QueryTimeOutException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Get booking digital twin API
+ */
 public class GetBooking {
     private GetBooking(){}
 
     /**
      * Get all booking
-     *
-     * @return all booking
+     * @throws QueryTimeOutException if the server takes too long to respond
+     *  @return all booking
      */
     public static ArrayList<BookingTransportId> getAllBookingId() throws QueryTimeOutException {
         ArrayList<BookingTransportId> bookingIds = new ArrayList<>();
@@ -37,6 +40,9 @@ public class GetBooking {
      * Get all booking still to be made for specific day
      *
      * @param  dateTime date of the booking you want to take
+     *
+     * @throws QueryTimeOutException if the server takes too long to respond
+     *
      * @return list of booking
      */
     public static ArrayList<BookingTransportId> getAllBookingToDoForTheDay(LocalDateTime dateTime) throws QueryTimeOutException {

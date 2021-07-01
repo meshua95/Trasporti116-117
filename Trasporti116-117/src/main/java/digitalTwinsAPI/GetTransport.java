@@ -13,6 +13,9 @@ import utils.errorCode.QueryTimeOutException;
 
 import java.util.ArrayList;
 
+/**
+ * Get transport digital twin API
+ */
 public class GetTransport {
     private GetTransport(){}
 
@@ -20,6 +23,7 @@ public class GetTransport {
      * Get all transport in progress
      *
      * @return list of TransportId in progress
+     * @throws QueryTimeOutException if the server takes too long to respond
      */
     public static ArrayList<TransportId> getAllTransportInProgress() throws QueryTimeOutException {
         ArrayList<TransportId> transportIds = new ArrayList<>();

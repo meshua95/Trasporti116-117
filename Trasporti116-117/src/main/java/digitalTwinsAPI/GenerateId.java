@@ -12,6 +12,9 @@ import domain.transport.TransportId;
 
 import java.time.LocalDateTime;
 
+/**
+ * Generate digital twin id
+ */
 public class GenerateId {
     private GenerateId(){}
 

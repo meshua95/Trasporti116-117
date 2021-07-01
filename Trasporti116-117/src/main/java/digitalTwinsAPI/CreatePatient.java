@@ -11,6 +11,9 @@ import domain.patient.PatientFiscalCode;
 import domain.patient.PatientPersonalData;
 import utils.Constants;
 
+/**
+ * Contains create patient digital twin API
+ */
 public final class CreatePatient {
     private CreatePatient(){}
 

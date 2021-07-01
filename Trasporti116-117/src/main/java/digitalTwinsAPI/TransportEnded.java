@@ -9,6 +9,9 @@ import domain.transport.TransportId;
 
 import java.time.LocalDateTime;
 
+/**
+ * Set ended transport digital twin
+ */
 public class TransportEnded {
     private TransportEnded(){}
 

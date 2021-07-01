@@ -10,6 +10,9 @@ import domain.transport.ambulance.AmbulanceId;
 import utils.AzureErrorMessage;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 
+/**
+ * Contains delete ambulance digital twin API
+ */
 public class DeleteAmbulance {
     private DeleteAmbulance(){}
     /**

@@ -18,6 +18,9 @@ import utils.errorCode.QueryTimeOutException;
 
 import java.time.LocalDateTime;
 
+/**
+ * Create transport digital twin API
+ */
 public class StartTransport {
     private StartTransport(){}
 
@@ -27,6 +30,8 @@ public class StartTransport {
      * @param bookingId relative booking
      * @param ambulanceId ambulance doing the transport
      * @param operatorId operator doing the transport
+     *
+     * @throws QueryTimeOutException if the server takes too long to respond
      *
      * @return id of the request created
      */

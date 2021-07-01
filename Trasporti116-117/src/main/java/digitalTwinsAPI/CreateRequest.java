@@ -12,6 +12,9 @@ import utils.Constants;
 
 import java.time.LocalDateTime;
 
+/**
+ * Contains create request digital twin API
+ */
 public class CreateRequest {
     private CreateRequest(){}
     /**

@@ -12,6 +12,9 @@ import domain.request.serviceRequest.BookingTransportId;
 import utils.AzureErrorMessage;
 import utils.errorCode.DeleteDigitalTwinStatusCode;
 
+/**
+ * Contains delete booking transport digital twin API
+ */
 public class DeleteBookingTransport {
     private DeleteBookingTransport() {}
     /**

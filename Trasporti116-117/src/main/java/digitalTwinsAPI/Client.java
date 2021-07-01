@@ -9,6 +9,9 @@ import com.azure.digitaltwins.core.DigitalTwinsClientBuilder;
 import com.azure.identity.ClientSecretCredentialBuilder;
 import utils.Constants;
 
+/**
+ * Reppresent the client for use Azure API
+ */
 public class Client {
     private Client(){}
     private static DigitalTwinsClient client = null;
@@ -27,6 +30,9 @@ public class Client {
                 .buildClient();
     }
 
+    /**
+     * @return the sync client
+     */
     public static DigitalTwinsClient getClient(){
         if (client == null) {
             createClient();

@@ -4,9 +4,11 @@
 
 package digitalTwinsAPI;
 
-import com.azure.digitaltwins.core.BasicRelationship;
 import domain.transport.operator.OperatorId;
 
+/**
+ * Contains delete operator digital twin API
+ */
 public class DeleteOperator {
     private DeleteOperator() {}
     /**
