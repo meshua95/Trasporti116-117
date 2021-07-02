@@ -3,15 +3,17 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinsAPI.Client;
-import digitalTwinsAPI.CreateOperator;
-import digitalTwinsAPI.DeleteOperator;
-import digitalTwinsAPI.GetOperator;
+import digitalTwinsAPI.*;
+import domain.patient.Autonomy;
 import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.errorCode.QueryTimeOutException;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -37,8 +39,9 @@ public class DtOperator {
     }
 
     @Test
-    public void getOperator() throws QueryTimeOutException {
+    public void getOperator() throws QueryTimeOutException, InterruptedException {
         CreateOperator.createOperator(idOperator, personalData);
+        Thread.sleep(2000);
 
         assertTrue(GetOperator.getAllOperatorId().stream().anyMatch(a-> a.getOperatorId().equals(idOperator.getOperatorId())));
 

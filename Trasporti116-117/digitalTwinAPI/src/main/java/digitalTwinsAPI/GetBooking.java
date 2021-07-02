@@ -30,7 +30,7 @@ public class GetBooking {
         String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.BOOKING_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
-        WaitForClientResponse.waitForClientResponse(pageableResponse);
+        WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
         pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
         return bookingIds;
@@ -51,7 +51,7 @@ public class GetBooking {
                 "FROM DIGITALTWINS " +
                 "WHERE STARTSWITH(dateTime, '" + dateTime.toLocalDate() + "') AND takeOwnership = false";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        WaitForClientResponse.waitForClientResponse(pageableResponse);
+        WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
         pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
         return bookingIds;

@@ -29,7 +29,7 @@ public class GetOperator {
         String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.OPERATOR_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
-        WaitForClientResponse.waitForClientResponse(pageableResponse);
+        WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
         pageableResponse.forEach(r-> operatoriIds.add(new OperatorId(r.getId())));
 

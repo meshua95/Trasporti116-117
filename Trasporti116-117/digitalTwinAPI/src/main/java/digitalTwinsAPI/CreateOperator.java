@@ -3,8 +3,11 @@
  */
 package digitalTwinsAPI;
 
+import com.azure.core.http.rest.Response;
+import com.azure.core.util.Context;
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicDigitalTwinMetadata;
+import com.azure.digitaltwins.core.models.CreateOrReplaceDigitalTwinOptions;
 import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
 import utils.Constants;
@@ -29,8 +32,9 @@ public class CreateOperator {
                 )
                 .addToContents("personalData", personalData);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(operatorId.getOperatorId(), operatorDT, BasicDigitalTwin.class);
-        System.out.println(basicTwinResponse.getId());
-        return basicTwinResponse.getId();
+        Response<BasicDigitalTwin> basicTwinResponse = Client.getClient().createOrReplaceDigitalTwinWithResponse(operatorId.getOperatorId(), operatorDT, BasicDigitalTwin.class, new CreateOrReplaceDigitalTwinOptions(),
+                new Context("Key", "Value"));
+        System.out.println(basicTwinResponse.getStatusCode());
+        return basicTwinResponse.getValue().getId();
     }
 }

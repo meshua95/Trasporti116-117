@@ -3,9 +3,7 @@
  */
 
 package domain.transport;
-
 import domain.*;
-
 /**
  * Class that represents a transport location
  */

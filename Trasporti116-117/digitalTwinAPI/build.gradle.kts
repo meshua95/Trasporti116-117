@@ -1,5 +1,5 @@
 tasks.register("createJavaDoc", Javadoc::class){
-    source = sourceSets.create("src.main.java").java
+    source = sourceSets.create("digitalTwinsAPI.src.main.java").java
 }
 
 dependencies {
