@@ -32,7 +32,7 @@ public class GetTransport {
                 "WHERE IS_OF_MODEL('" + Constants.TRANSPORT_MODEL_ID + "') AND NOT IS_DEFINED ( endDateTime )";
 
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-        WaitForClientResponse.waitForClientResponse(pageableResponse);
+     //   WaitForClientResponse.waitForClientResponse(pageableResponse);
 
         pageableResponse.forEach(r-> transportIds.add(new TransportId(r.getId())));
         return transportIds;

@@ -7,10 +7,7 @@ import digitalTwinsAPI.*;
 import domain.patient.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import utils.errorCode.QueryTimeOutException;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class DtPatient {
 
@@ -35,12 +32,4 @@ public class DtPatient {
         DeletePatient.deletePatient(idPatient);
     }
 
-    @Test
-    public void getPatient() throws QueryTimeOutException {
-        CreatePatient.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
-
-        assertTrue(GetPatient.getAllPatientId().stream().anyMatch(a-> a.getFiscalCode().equals(idPatient.getFiscalCode())));
-
-        DeletePatient.deletePatient(idPatient);
-    }
 }

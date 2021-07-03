@@ -49,7 +49,7 @@ public class GetPatient {
         String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.PATIENT_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
-        WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
+     //   WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
         pageableResponse.forEach(r-> patientsIds.add(new PatientFiscalCode(r.getId())));
         return patientsIds;

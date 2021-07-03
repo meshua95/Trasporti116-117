@@ -30,7 +30,7 @@ public class GetAmbulance {
             String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.AMBULANCE_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
-        WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
+       // WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
         pageableResponse.forEach(r-> ambulanzeIds.add(new AmbulanceId(r.getId())));
         return ambulanzeIds;

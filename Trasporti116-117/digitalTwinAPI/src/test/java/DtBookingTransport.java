@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 public class DtBookingTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
-     final BookingTransportId bookingTransportId = GenerateId.generateBookingTransportId(patientId, TestDataValue.BOOKING_DATE);
+    final BookingTransportId bookingTransportId = GenerateId.generateBookingTransportId(patientId, TestDataValue.BOOKING_DATE);
     private final ServiceRequestId serviceReqId = GenerateId.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
 
     @BeforeClass
@@ -41,11 +41,11 @@ public class DtBookingTransport {
         CreateRequest.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
-    private BookingTransportId createBooking(){
+    private void createBooking(){
         createPatient();
         createServiceRequest();
 
-        return CreateBookingTransport.createBookingTransport(
+        CreateBookingTransport.createBookingTransport(
                 TestDataValue.BOOKING_DATE,
                 TestDataValue.BOOKING_ROUTE,
                 patientId,
@@ -94,16 +94,6 @@ public class DtBookingTransport {
         for(BookingTransportId id: bookingToDo){
             assertNotEquals(id.getId(), bookingTransportId);
         }
-
-        DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
-        deleteAllTestDigitalTwin();
-    }
-
-    @Test
-    public void checkGetBooking() throws QueryTimeOutException {
-        BookingTransportId id = createBooking();
-
-        assertTrue(GetBooking.getAllBookingId().stream().anyMatch(b -> b.getId().equals(id.getId())));
 
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
         deleteAllTestDigitalTwin();

@@ -23,23 +23,4 @@ public class WaitForClientResponse {
                 throw new QueryTimeOutException();
         }
     }
-
-    /**
-     * Wait a server response
-     *
-     * @param pageableResponse server response
-     * @throws QueryTimeOutException timeout for response
-     */
-    public static void waitForClientResponseIfExist(PagedIterable<?> pageableResponse) throws QueryTimeOutException {
-        long startTime = System.currentTimeMillis();
-
-        while(pageableResponse.stream().findFirst().isEmpty()){
-            if (System.currentTimeMillis() - startTime > QueryTimeOutException.TIME_OUT ) {
-                System.out.println("Timeout");
-                break;
-            }
-        }
-       pageableResponse.forEach(System.out::println);
-    }
-
 }

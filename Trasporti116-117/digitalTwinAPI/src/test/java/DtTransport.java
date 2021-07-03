@@ -121,14 +121,4 @@ public class DtTransport {
         deleteAllTestDigitalTwin();
     }
 
-    @Test
-    public void checkGetTransport() throws QueryTimeOutException {
-        TransportId transportId = createTransport();
-
-        assertTrue(GetTransport.getAllTransportInProgress().stream().anyMatch(t-> t.getId().equals(transportId.getId())));
-
-        DeleteTransport.deleteTransport(transportId);
-        deleteAllTestDigitalTwin();
-    }
-
 }

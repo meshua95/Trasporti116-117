@@ -67,15 +67,6 @@ public class DtAmbulance {
     }
 
     @Test
-    public void getAmbulance() throws QueryTimeOutException {
-        CreateAmbulance.createAmbulance(ambulanceId);
-
-        assertTrue(GetAmbulance.getAllAmbulanceIdTwins().stream().anyMatch(a-> a.getAmbulanceId().equals(ambulanceId.getAmbulanceId())));
-
-        DeleteAmbulance.deleteAmbulance(ambulanceId);
-    }
-
-    @Test
     public void getAmbulancePosition() throws QueryTimeOutException {
         CreateAmbulance.createAmbulance(ambulanceId);
         Coordinates standardCoordinates = new Coordinates(0.0,0.0);
