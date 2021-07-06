@@ -10,10 +10,7 @@ In particolare il progetto fornisce due tipologie di client:
 
 Questo è il client ipoteticamente presente a bordo dell’ambulanza. L'operatore tramite esso può visualizzare le prenotazioni previste in giornata ed avviare/terminare trasporti.
 
-Per avviare l'applicazione il main deve essere eseguito passandogli come argomento *ambulanceTablet*.
-
 ## Call Center Client
 
 Questo è il client utilizzato ipoteticamente dall’ufficio che gestisce le chiamate, le prenotazioni ed il sistema 116117 in generale.
 
-Per avviare l'applicazione il main deve essere eseguito passandogli come argomento *callCenter*.
