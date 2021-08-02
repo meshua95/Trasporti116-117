@@ -18,12 +18,12 @@ jobs:
         os: [ubuntu, windows, macos]
         java_version: [11, 14, 16]
     runs-on: [ubuntu, windows, macos]
-  steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      working-directory: ./Trasporti116-117
-      run: ./gradlew check
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        working-directory: ./Trasporti116-117
+        run: ./gradlew check
