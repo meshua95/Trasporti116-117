@@ -36,27 +36,26 @@ public final class MainAppAmbulanceTablet extends Application {
     public static void setScene(final SceneTypeAmbulanceTablet type)  {
         try {
             switch (type) {
-                case BOOKING_SCENE -> {
-                    Parent booking = FXMLLoader.load(
-                            Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("bookingScene.fxml")));
+                case BOOKING_SCENE:
+                    Parent booking = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("bookingScene.fxml")));
                     Scene bookingScene = new Scene(booking);
                     bookingScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
                     stage.setScene(bookingScene);
-                }
+                    break;
 
-                case TRANSPORT_IN_PROGRESS_SCENE -> {
+                case TRANSPORT_IN_PROGRESS_SCENE:
                     Parent transportInProgress = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("transportInProgressScene.fxml")));
                     Scene transportInProgressScene = new Scene(transportInProgress);
                     transportInProgressScene.getStylesheets().add(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString());
                     stage.setScene(transportInProgressScene);
-                }
+                    break;
 
-                default -> {
+                default:
                     Parent root = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("rootSceneAmbulance.fxml")));
                     Scene rootScene = new Scene(root);
                     rootScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
                     stage.setScene(rootScene);
-                }
+                    break;
             }
         } catch (IOException e) {
             e.printStackTrace();
