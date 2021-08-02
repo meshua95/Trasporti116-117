@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 /**
  * Contains create request digital twin API
  */
-public class CreateRequest {
-    private CreateRequest(){}
+public final class CreateRequest {
+    private CreateRequest() { }
     /**
      * Create a information request digital twin
      *
@@ -25,7 +25,7 @@ public class CreateRequest {
      *
      * @return id of the request created
      */
-    public static InfoRequestId createInfoRequest(LocalDateTime dateTime, InfoRequestDescription description){
+    public static InfoRequestId createInfoRequest(final LocalDateTime dateTime, final InfoRequestDescription description) {
         InfoRequestId infoRequestId = GenerateId.generateInfoRequestId(dateTime);
 
         BasicDigitalTwin infoRequestDT = new BasicDigitalTwin(infoRequestId.getInfoRequestId())
@@ -47,7 +47,7 @@ public class CreateRequest {
      *
      * @return id of the request created
      */
-    public static ServiceRequestId createServiceRequest(LocalDateTime dateTime){
+    public static ServiceRequestId createServiceRequest(final LocalDateTime dateTime) {
         ServiceRequestId serviceRequestId = GenerateId.generateServiceRequestId(dateTime);
 
         BasicDigitalTwin serviceRequestDT = new BasicDigitalTwin(serviceRequestId.getserviceRequestId())

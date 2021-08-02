@@ -18,16 +18,16 @@ public class OperatorPersonalData {
     /**
      * Create operator personal data
      *
-     * @param name operator name
-     * @param surname operator surname
-     * @param birthDate operator birth date
-     * @param residence operator residence
+     * @param n operator name
+     * @param s operator surname
+     * @param bd operator birth date
+     * @param r operator residence
      */
-    public OperatorPersonalData(String name, String surname, LocalDate birthDate, OperatorResidence residence) {
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = birthDate;
-        this.residence = residence;
+    public OperatorPersonalData(final String n, final String s, final LocalDate bd, final OperatorResidence r) {
+        this.name = n;
+        this.surname = s;
+        this.birthDate = bd;
+        this.residence = r;
     }
 
     /**

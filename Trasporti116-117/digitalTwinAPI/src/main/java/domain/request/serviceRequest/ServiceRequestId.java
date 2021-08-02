@@ -9,10 +9,10 @@ public class ServiceRequestId {
     /**
      * Id for ServiceRequest
      *
-     * @param serviceRequestId id
+     * @param id ServiceRequest id
      */
-    public ServiceRequestId(String serviceRequestId) {
-        this.serviceRequestId = serviceRequestId;
+    public ServiceRequestId(final String id) {
+        this.serviceRequestId = id;
     }
 
     /**

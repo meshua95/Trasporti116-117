@@ -18,16 +18,16 @@ public class PatientPersonalData {
     /**
      * Patient's personal data
      *
-     * @param name name of patient
-     * @param surname surname of patient
-     * @param birthDate birth date of patient
-     * @param residence residence of patient
+     * @param n name of patient
+     * @param s surname of patient
+     * @param bd birth date of patient
+     * @param r residence of patient
      */
-    public PatientPersonalData(String name, String surname, LocalDate birthDate, PatientResidence residence) {
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = birthDate;
-        this.residence = residence;
+    public PatientPersonalData(final String n, final String s, final LocalDate bd, final PatientResidence r) {
+        this.name = n;
+        this.surname = s;
+        this.birthDate = bd;
+        this.residence = r;
     }
 
     /**

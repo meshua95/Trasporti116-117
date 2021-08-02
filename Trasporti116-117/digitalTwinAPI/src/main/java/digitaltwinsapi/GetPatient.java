@@ -12,12 +12,13 @@ import utils.Constants;
 import utils.WaitForClientResponse;
 import utils.errorCode.QueryTimeOutException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Get patient digital twin API
  */
-public class GetPatient {
-    private GetPatient(){}
+public final class GetPatient {
+    private GetPatient() { }
 
     /**
      * Get the patient for specific booking
@@ -26,11 +27,11 @@ public class GetPatient {
      * @return Fiscal Code of the patient
      * @throws QueryTimeOutException if the server takes too long to respond
      */
-    public static PatientFiscalCode getPatientIdByBookingId(BookingTransportId bookingId) throws QueryTimeOutException {
-        String query = "SELECT target.$dtId " +
-                "FROM DIGITALTWINS source " +
-                "JOIN target RELATED source.transport " +
-                "WHERE source.$dtId = '"+ bookingId.getId() +"'";
+    public static PatientFiscalCode getPatientIdByBookingId(final BookingTransportId bookingId) throws QueryTimeOutException {
+        String query = "SELECT target.$dtId "
+                + "FROM DIGITALTWINS source "
+                + "JOIN target RELATED source.transport "
+                + "WHERE source.$dtId = '" + bookingId.getId() + "'";
 
         PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
         WaitForClientResponse.waitForClientResponse(pageableResponse);
@@ -44,14 +45,14 @@ public class GetPatient {
      * @return List of patient Fiscal Code
      * @throws QueryTimeOutException if the server takes too long to respond
      */
-    public static ArrayList<PatientFiscalCode> getAllPatientId() throws QueryTimeOutException {
-        ArrayList<PatientFiscalCode> patientsIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.PATIENT_MODEL_ID + "')";
+    public static List<PatientFiscalCode> getAllPatientId() throws QueryTimeOutException {
+        List<PatientFiscalCode> patientsIds = new ArrayList<>();
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.PATIENT_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
      //   WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
-        pageableResponse.forEach(r-> patientsIds.add(new PatientFiscalCode(r.getId())));
+        pageableResponse.forEach(r -> patientsIds.add(new PatientFiscalCode(r.getId())));
         return patientsIds;
     }
 }

@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 /**
  * Create transport digital twin API
  */
-public class StartTransport {
-    private StartTransport(){}
+public final class StartTransport {
+    private StartTransport() { }
 
     /**
      * Create a Transport digital twin
@@ -35,7 +35,7 @@ public class StartTransport {
      *
      * @return id of the request created
      */
-    public static TransportId startTransport(BookingTransportId bookingId, AmbulanceId ambulanceId, OperatorId operatorId) throws QueryTimeOutException {
+    public static TransportId startTransport(final BookingTransportId bookingId, final AmbulanceId ambulanceId, final OperatorId operatorId) throws QueryTimeOutException {
         LocalDateTime dateTime = LocalDateTime.now();
         JSONObject route = GetRoute.getRouteByBookingId(bookingId);
         PatientFiscalCode patientId = GetPatient.getPatientIdByBookingId(bookingId);
@@ -69,7 +69,7 @@ public class StartTransport {
         return transportId;
     }
 
-    private static void createTransportRelationship(TransportId transportId, String targetId, String relationshipName){
+    private static void createTransportRelationship(final TransportId transportId, final String targetId, final String relationshipName) {
         BasicRelationship trasportoToTargetRelationship =
                 new BasicRelationship(
                         transportId.getId() + "to" + targetId,

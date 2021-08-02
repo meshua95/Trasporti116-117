@@ -16,15 +16,15 @@ import java.util.Objects;
 
 import static viewcallcenter.SceneTypeCallCenter.ROOT_SCENE;
 
-public class MainAppCallCenter extends Application {
+public final class MainAppCallCenter extends Application {
     private static Stage stage;
     private static Scene rootScene;
     private static Scene mapsScene;
     private static MapsController controller;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        this.stage = stage;
+    public void start(final Stage s) throws Exception {
+        MainAppCallCenter.stage = s;
         FXMLLoader fxmlLoader = new FXMLLoader();
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("rootSceneCallCenter.fxml")));
@@ -45,20 +45,20 @@ public class MainAppCallCenter extends Application {
         setScene(ROOT_SCENE);
     }
 
-    public static void setScene(SceneTypeCallCenter type){
-        switch (type){
+    public static void setScene(final SceneTypeCallCenter type) {
+        switch (type) {
             case MAPS_SCENE:
                 controller.clearMaps();
                 stage.setScene(mapsScene);
                 break;
-            case ROOT_SCENE:
+            default:
                 stage.setScene(rootScene);
                 break;
         }
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 

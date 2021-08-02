@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 /**
  * Contains create boooking transport digital twin API
  */
-public class CreateBookingTransport {
-    private CreateBookingTransport(){}
+public final class CreateBookingTransport {
+    private CreateBookingTransport() { }
     /**
      * Create a booking digital twin by number
      *
@@ -29,7 +29,7 @@ public class CreateBookingTransport {
      *
      * @return id of the booking created
      */
-    public static BookingTransportId createBookingTransport(LocalDateTime dateTime, BookingRoute route, PatientFiscalCode patientId, ServiceRequestId serviceRequestId){
+    public static BookingTransportId createBookingTransport(final LocalDateTime dateTime, final BookingRoute route, final PatientFiscalCode patientId, final ServiceRequestId serviceRequestId) {
         BookingTransportId bookingTransportId = GenerateId.generateBookingTransportId(patientId, dateTime);
 
         BasicDigitalTwin bookingTransportDT = new BasicDigitalTwin(bookingTransportId.getId())

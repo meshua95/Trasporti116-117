@@ -13,8 +13,8 @@ import utils.errorCode.QueryTimeOutException;
 /**
  * Get route digital twin API
  */
-public class GetRoute {
-    private GetRoute(){}
+public final class GetRoute {
+    private GetRoute() { }
 
     /**
      * Get the route for specific booking
@@ -23,8 +23,8 @@ public class GetRoute {
      * @return JSONObject representing the route
      * @throws QueryTimeOutException if the server takes too long to respond
      */
-    public static JSONObject getRouteByBookingId(BookingTransportId bookingId) throws QueryTimeOutException {
-        String query = "SELECT route FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.BOOKING_MODEL_ID + "') AND $dtId = '" + bookingId.getId() + "'";
+    public static JSONObject getRouteByBookingId(final BookingTransportId bookingId) throws QueryTimeOutException {
+        String query = "SELECT route FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.BOOKING_MODEL_ID + "') AND $dtId = '" + bookingId.getId() + "'";
 
         PagedIterable<JSONObject> pageableResponse = Client.getClient().query(query, JSONObject.class);
 

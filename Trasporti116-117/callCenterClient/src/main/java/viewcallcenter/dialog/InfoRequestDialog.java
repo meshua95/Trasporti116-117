@@ -10,7 +10,7 @@ import viewcallcenter.utils.ControllInputField;
 
 import java.time.LocalDateTime;
 
-public class InfoRequestDialog extends DtDialog {
+public final class InfoRequestDialog extends DtDialog {
 
     @Override
     public void createEntity() {
@@ -18,11 +18,11 @@ public class InfoRequestDialog extends DtDialog {
 
         TextArea desc = new TextArea();
         desc.setPromptText("Descrizione della richiesta");
-        gridPane.add(new Label("Descrizione"), 0, 0);
-        gridPane.add(desc, 1, 0);
+        getDtGridPane().add(new Label("Descrizione"), 0, 0);
+        getDtGridPane().add(desc, 1, 0);
 
-        dialog.getDialogPane().setContent(gridPane);
-        dialog.showAndWait()
+        getDtDialog().getDialogPane().setContent(getDtGridPane());
+        getDtDialog().showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
                     String id = CreateRequest.createInfoRequest(

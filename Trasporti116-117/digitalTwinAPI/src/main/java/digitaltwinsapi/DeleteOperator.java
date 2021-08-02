@@ -9,14 +9,14 @@ import domain.transport.operator.OperatorId;
 /**
  * Contains delete operator digital twin API
  */
-public class DeleteOperator {
-    private DeleteOperator() {}
+public final class DeleteOperator {
+    private DeleteOperator() { }
     /**
      * Delete a operator digital twin
      *
      * @param  idOperator id of the operator to be canceled
      */
-    public static void deleteOperator(OperatorId idOperator) {
+    public static void deleteOperator(final OperatorId idOperator) {
         Client.getClient().deleteDigitalTwin(idOperator.getOperatorId());
     }
 

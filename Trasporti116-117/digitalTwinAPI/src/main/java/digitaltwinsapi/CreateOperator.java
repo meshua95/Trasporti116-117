@@ -15,8 +15,8 @@ import utils.Constants;
 /**
  * Contains create operator digital twin API
  */
-public class CreateOperator {
-    private CreateOperator(){}
+public final class CreateOperator {
+    private CreateOperator() { }
     /**
      * Create a operator digital twin
      *
@@ -25,7 +25,7 @@ public class CreateOperator {
      *
      * @return id of the ambulance created
      */
-    public static String createOperator(OperatorId operatorId, OperatorPersonalData personalData){
+    public static String createOperator(final OperatorId operatorId, final OperatorPersonalData personalData) {
         BasicDigitalTwin operatorDT = new BasicDigitalTwin(operatorId.getOperatorId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.OPERATOR_MODEL_ID)

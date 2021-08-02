@@ -26,10 +26,10 @@ public enum Autonomy {
     /**
      * Patient's autonomy
      *
-     * @param value Patient's autonomy
+     * @param v Patient's autonomy
      */
-    Autonomy(int value) {
-        this.value = value;
+    Autonomy(final int v) {
+        this.value = v;
     }
 
     /**

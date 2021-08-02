@@ -13,16 +13,16 @@ public class District {
     /**
      * Create new district
      *
-     * @param district address district
+     * @param d address district
      */
-    public District(String district){
-        this.district = district;
+    public District(final String d) {
+        this.district = d;
     }
 
     /**
      * @return district name
      */
-    public String getDistrict(){
+    public String getDistrict() {
         return this.district;
     }
 }

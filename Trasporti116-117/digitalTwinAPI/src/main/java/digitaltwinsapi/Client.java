@@ -12,11 +12,11 @@ import utils.Constants;
 /**
  * Reppresent the client for use Azure API
  */
-public class Client {
-    private Client(){}
+public final class Client {
+    private Client() { }
     private static DigitalTwinsClient client = null;
 
-    private static void createClient(){
+    private static void createClient() {
     // Create client connection
         client = new DigitalTwinsClientBuilder()
                 .credential(
@@ -33,7 +33,7 @@ public class Client {
     /**
      * @return the sync client
      */
-    public static DigitalTwinsClient getClient(){
+    public static DigitalTwinsClient getClient() {
         if (client == null) {
             createClient();
         }

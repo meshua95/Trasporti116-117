@@ -3,7 +3,13 @@
  */
 
 package domain.transport;
-import domain.*;
+
+import domain.PostalCode;
+import domain.Address;
+import domain.City;
+import domain.District;
+import domain.HouseNumber;
+
 /**
  * Class that represents a transport location
  */
@@ -17,18 +23,18 @@ public class TransportLocation {
     /**
      * Create transport location
      *
-     * @param address location address
-     * @param houseNumber location house number
-     * @param city location city
-     * @param district location district
-     * @param postalCode location postal code
+     * @param a location address
+     * @param hN location house number
+     * @param c location city
+     * @param d location district
+     * @param pC location postal code
      */
-    public TransportLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
-        this.address = address;
-        this.houseNumber = houseNumber;
-        this.city = city;
-        this.district = district;
-        this.postalCode = postalCode;
+    public TransportLocation(final Address a, final HouseNumber hN, final City c, final District d, final PostalCode pC) {
+        this.address = a;
+        this.houseNumber = hN;
+        this.city = c;
+        this.district = d;
+        this.postalCode = pC;
     }
 
     /**

@@ -1,14 +1,13 @@
 package utils;
 
 import com.azure.core.http.rest.PagedIterable;
-import com.azure.core.http.rest.PagedResponse;
 import utils.errorCode.QueryTimeOutException;
 
 /**
  * Class that allows to wait for the server response
  */
-public class WaitForClientResponse {
-    private WaitForClientResponse(){}
+public final class WaitForClientResponse {
+    private WaitForClientResponse() { }
 
     /**
      * Wait a server response
@@ -16,11 +15,13 @@ public class WaitForClientResponse {
      * @param pageableResponse server response
      * @throws QueryTimeOutException timeout for response
      */
-    public static void waitForClientResponse(PagedIterable<?> pageableResponse) throws QueryTimeOutException {
+    public static void waitForClientResponse(final PagedIterable<?> pageableResponse) throws QueryTimeOutException {
         long startTime = System.currentTimeMillis();
-        while(pageableResponse.stream().findFirst().isEmpty()){
-            if (System.currentTimeMillis() - startTime > QueryTimeOutException.TIME_OUT)
+        while (pageableResponse.stream().findFirst().isEmpty()) {
+            if (System.currentTimeMillis() - startTime > QueryTimeOutException.TIME_OUT) {
                 throw new QueryTimeOutException();
+            }
+
         }
     }
 }

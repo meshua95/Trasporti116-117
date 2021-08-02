@@ -17,7 +17,7 @@ import utils.errorCode.QueryTimeOutException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootAmbulanceTabletController implements Initializable {
+public final class RootAmbulanceTabletController implements Initializable {
 
     @FXML
     private ComboBox<String> ambulanceList;
@@ -27,7 +27,7 @@ public class RootAmbulanceTabletController implements Initializable {
     private Button ok;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void  initialize(final URL url, final ResourceBundle rb) {
         try {
             GetOperator.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
         } catch (QueryTimeOutException e) {

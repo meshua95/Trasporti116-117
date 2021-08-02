@@ -12,15 +12,15 @@ import utils.Constants;
 /**
  * Contains create ambulance digital twin API
  */
-public class CreateAmbulance {
-    private CreateAmbulance(){}
+public final class CreateAmbulance {
+    private CreateAmbulance() { }
     /**
      * Create an ambulance digital twin by number
      *
      * @param ambulanceNumber number of the ambulance to be created
      * @return id of the ambulance created
      */
-    public static String createAmbulance(int ambulanceNumber){
+    public static String createAmbulance(final int ambulanceNumber) {
         AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
 
         BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
@@ -29,7 +29,7 @@ public class CreateAmbulance {
                 )
                 .addToContents("number", ambulanceNumber);
 
-        BasicDigitalTwin GPSdt = new BasicDigitalTwin(ambulanceId.getGpsId())
+        BasicDigitalTwin gpsDt = new BasicDigitalTwin(ambulanceId.getGpsId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.GPS_MODEL_ID)
                 )
@@ -37,7 +37,7 @@ public class CreateAmbulance {
                 .addToContents("latitude", 0);
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getAmbulanceId(), ambulanceDT, BasicDigitalTwin.class);
-        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getGpsId(), GPSdt, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getGpsId(), gpsDt, BasicDigitalTwin.class);
 
         System.out.println(basicTwinResponse.getId());
         System.out.println(basicTwinResponseGPS.getId());
@@ -61,7 +61,7 @@ public class CreateAmbulance {
      *
      * @param ambulanceId id of the ambulance to be created
      */
-    public static void createAmbulance(AmbulanceId ambulanceId){
+    public static void createAmbulance(final AmbulanceId ambulanceId) {
         int ambulanceNumber = ambulanceId.getAmbulanceNumber();
         createAmbulance(ambulanceNumber);
     }

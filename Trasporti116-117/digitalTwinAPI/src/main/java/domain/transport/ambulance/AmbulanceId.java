@@ -16,7 +16,7 @@ public class AmbulanceId {
      *
      * @param ambulanceNumber ambulance number
      */
-    public AmbulanceId(int ambulanceNumber) {
+    public AmbulanceId(final int ambulanceNumber) {
         this.ambulanceId = "ambulanza-" + ambulanceNumber;
         this.gpsAmbulanceId = new GpsId(ambulanceNumber);
     }
@@ -24,10 +24,10 @@ public class AmbulanceId {
     /**
      * Create id of an ambulance by ambulance id
      *
-     * @param ambulanceId ambulance id
+     * @param ambId ambulance id
      */
-    public AmbulanceId(String ambulanceId) {
-        this.ambulanceId = ambulanceId;
+    public AmbulanceId(final String ambId) {
+        this.ambulanceId = ambId;
         int ambulanceNumber = getAmbulanceNumber();
         this.gpsAmbulanceId = new GpsId(ambulanceNumber);
     }
@@ -42,26 +42,26 @@ public class AmbulanceId {
     /**
      * @return gps id
      */
-    public String getGpsId(){
+    public String getGpsId() {
         return this.gpsAmbulanceId.getGpsId();
     }
 
     /**
      * @return ambulance number
      */
-    public int getAmbulanceNumber(){
+    public int getAmbulanceNumber() {
         String[] ambulanceIdSplitted = ambulanceId.split("-");
         return Integer.parseInt(ambulanceIdSplitted[1]);
     }
 
-    private static class GpsId{
+    private static class GpsId {
         private final String gpsAmbulanceId;
 
-        public GpsId(int ambulanceNumber){
+         GpsId(final int ambulanceNumber) {
             this.gpsAmbulanceId = "gps-" + ambulanceNumber;
         }
 
-        public String getGpsId(){
+         String getGpsId() {
             return this.gpsAmbulanceId;
         }
     }

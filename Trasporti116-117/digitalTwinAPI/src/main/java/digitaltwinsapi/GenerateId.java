@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 /**
  * Generate digital twin id
  */
-public class GenerateId {
-    private GenerateId(){}
+public final class GenerateId {
+    private GenerateId() { }
 
     /**
      * Generate a unique BookingTransportId
@@ -25,7 +25,7 @@ public class GenerateId {
      * @param dataOra date of booking
      * @return a new BookingTransportId
      */
-    public static BookingTransportId generateBookingTransportId(PatientFiscalCode patientId, LocalDateTime dataOra){
+    public static BookingTransportId generateBookingTransportId(final PatientFiscalCode patientId, final LocalDateTime dataOra) {
         return new BookingTransportId("booking" + dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_" + patientId.getFiscalCode());
     }
 
@@ -35,8 +35,8 @@ public class GenerateId {
      * @param dataOra date of service request
      * @return a new ServiceRequestId
      */
-    public static ServiceRequestId generateServiceRequestId(LocalDateTime dataOra){
-        return new ServiceRequestId("serviceRequest_"+dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_");
+    public static ServiceRequestId generateServiceRequestId(final LocalDateTime dataOra) {
+        return new ServiceRequestId("serviceRequest_" + dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_");
     }
 
     /**
@@ -45,8 +45,8 @@ public class GenerateId {
      * @param dataOra date of info request
      * @return a new InfoRequestId
      */
-    public static InfoRequestId generateInfoRequestId(LocalDateTime dataOra){
-        return new InfoRequestId("infoRequest_"+dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_");
+    public static InfoRequestId generateInfoRequestId(final LocalDateTime dataOra) {
+        return new InfoRequestId("infoRequest_" + dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_");
     }
 
     /**
@@ -57,7 +57,7 @@ public class GenerateId {
      *
      * @return a new TransportId
      */
-    public static TransportId generateTransportId(PatientFiscalCode patientId, LocalDateTime dataOra){
+    public static TransportId generateTransportId(final PatientFiscalCode patientId, final LocalDateTime dataOra) {
         return new TransportId(dataOra.toLocalDate() + "_" + dataOra.getHour() + "-" + dataOra.getMinute() + "_" + patientId.getFiscalCode());
     }
 }

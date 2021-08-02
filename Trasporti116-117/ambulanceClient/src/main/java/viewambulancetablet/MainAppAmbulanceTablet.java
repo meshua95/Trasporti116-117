@@ -19,7 +19,7 @@ import java.util.Optional;
 
 import static viewambulancetablet.SceneTypeAmbulanceTablet.ROOT_SCENE;
 
-public class MainAppAmbulanceTablet extends Application {
+public final class MainAppAmbulanceTablet extends Application {
     private static Stage stage;
     private static Optional<OperatorId> operatorId = Optional.empty();
     private static Optional<AmbulanceId> ambulanceId = Optional.empty();
@@ -27,32 +27,35 @@ public class MainAppAmbulanceTablet extends Application {
     private static Optional<TransportId> transportId = Optional.empty();
 
     @Override
-    public void start(Stage stage) {
-        MainAppAmbulanceTablet.stage = stage;
+    public void start(final Stage s) {
+        MainAppAmbulanceTablet.stage = s;
         stage.setTitle("Trasporti 116-117 ");
         setScene(ROOT_SCENE);
     }
 
-    public static void setScene(SceneTypeAmbulanceTablet type)  {
+    public static void setScene(final SceneTypeAmbulanceTablet type)  {
         try {
             switch (type) {
                 case BOOKING_SCENE -> {
-                    Parent booking = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("bookingScene.fxml")));
+                    Parent booking = FXMLLoader.load(
+                            Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("bookingScene.fxml")));
                     Scene bookingScene = new Scene(booking);
                     bookingScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
                     stage.setScene(bookingScene);
                 }
-                case ROOT_SCENE -> {
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("rootSceneAmbulance.fxml")));
-                    Scene rootScene = new Scene(root);
-                    rootScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
-                    stage.setScene(rootScene);
-                }
+
                 case TRANSPORT_IN_PROGRESS_SCENE -> {
                     Parent transportInProgress = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("transportInProgressScene.fxml")));
                     Scene transportInProgressScene = new Scene(transportInProgress);
                     transportInProgressScene.getStylesheets().add(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString());
                     stage.setScene(transportInProgressScene);
+                }
+
+                default -> {
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("rootSceneAmbulance.fxml")));
+                    Scene rootScene = new Scene(root);
+                    rootScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
+                    stage.setScene(rootScene);
                 }
             }
         } catch (IOException e) {
@@ -61,36 +64,36 @@ public class MainAppAmbulanceTablet extends Application {
         stage.show();
     }
 
-    public static void setOperatorAndAmbulance(OperatorId opId, AmbulanceId ambId){
+    public static void setOperatorAndAmbulance(final OperatorId opId, final AmbulanceId ambId) {
         ambulanceId = Optional.of(ambId);
         operatorId = Optional.of(opId);
     }
 
-    public static void setBookingId(BookingTransportId id){
+    public static void setBookingId(final BookingTransportId id) {
         bookingTransportId = Optional.of(id);
     }
 
-    public static void setTransportId(TransportId id){
+    public static void setTransportId(final TransportId id) {
         transportId = Optional.of(id);
     }
 
-    public static Optional<AmbulanceId> getAmbulanceId(){
+    public static Optional<AmbulanceId> getAmbulanceId() {
         return ambulanceId;
     }
 
-    public static Optional<OperatorId> getOperatorId(){
+    public static Optional<OperatorId> getOperatorId() {
         return operatorId;
     }
 
-    public static Optional<BookingTransportId> getBookingTransportId(){
+    public static Optional<BookingTransportId> getBookingTransportId() {
          return bookingTransportId;
     }
 
-    public static Optional<TransportId> getTransportId(){
+    public static Optional<TransportId> getTransportId() {
         return transportId;
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 

@@ -13,10 +13,10 @@ public class OperatorId {
     /**
      * Create an operator identifier
      *
-     * @param operatorId operator identifier
+     * @param id operator identifier
      */
-    public OperatorId(String operatorId) {
-        this.operatorId = operatorId;
+    public OperatorId(final String id) {
+        this.operatorId = id;
     }
 
     /**

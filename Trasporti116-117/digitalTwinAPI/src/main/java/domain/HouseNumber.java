@@ -13,16 +13,16 @@ public class HouseNumber {
     /**
      * Create a new house number
      *
-     * @param houseNumber address house number
+     * @param hN address house number
      */
-    public HouseNumber(int houseNumber){
-        this.houseNumber = houseNumber;
+    public HouseNumber(final int hN) {
+        this.houseNumber = hN;
     }
 
     /**
      * @return house number
      */
-    public int getHouseNumber(){
+    public int getHouseNumber() {
         return this.houseNumber;
     }
 }

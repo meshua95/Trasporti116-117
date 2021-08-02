@@ -5,7 +5,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import utils.errorCode.QueryTimeOutException;
 
-public class TransportInProgressDialog extends DtDialog {
+public final class TransportInProgressDialog extends DtDialog {
 
     @Override
     public void createEntity() {
@@ -17,9 +17,9 @@ public class TransportInProgressDialog extends DtDialog {
         } catch (QueryTimeOutException e) {
             e.printStackTrace();
         }
-        gridPane.add(lv, 0, 0);
+        getDtGridPane().add(lv, 0, 0);
 
-        dialog.getDialogPane().setContent(gridPane);
-        dialog.showAndWait();
+        getDtDialog().getDialogPane().setContent(getDtGridPane());
+        getDtDialog().showAndWait();
     }
 }

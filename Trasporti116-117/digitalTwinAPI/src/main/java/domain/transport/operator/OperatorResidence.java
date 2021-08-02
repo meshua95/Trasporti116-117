@@ -4,7 +4,11 @@
 
 package domain.transport.operator;
 
-import domain.*;
+import domain.PostalCode;
+import domain.Address;
+import domain.City;
+import domain.District;
+import domain.HouseNumber;
 
 /**
  * Class that represents the operator residence
@@ -19,18 +23,18 @@ public class OperatorResidence {
 
     /**
      * Create operator residence
-     * @param address operator residence address
-     * @param operatorHouseNumber operator residence house number
-     * @param city operator residence city
-     * @param district operator residence district
-     * @param operatorPostalCode operator residence postal code
+     * @param a operator residence address
+     * @param hn operator residence house number
+     * @param c operator residence city
+     * @param d operator residence district
+     * @param pc operator residence postal code
      */
-    public OperatorResidence(Address address, HouseNumber operatorHouseNumber, City city, District district, PostalCode operatorPostalCode) {
-        this.address = address;
-        this.houseNumber = operatorHouseNumber;
-        this.city = city;
-        this.district = district;
-        this.postalCode = operatorPostalCode;
+    public OperatorResidence(final Address a, final HouseNumber hn, final City c, final District d, final PostalCode pc) {
+        this.address = a;
+        this.houseNumber = hn;
+        this.city = c;
+        this.district = d;
+        this.postalCode = pc;
     }
 
     /**

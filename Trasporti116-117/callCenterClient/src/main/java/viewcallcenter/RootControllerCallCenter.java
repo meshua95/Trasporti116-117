@@ -17,7 +17,7 @@ import viewcallcenter.dialog.PatientDialog;
 import viewcallcenter.dialog.ServiceRequestAndBookingDialog;
 
 import static viewcallcenter.SceneTypeCallCenter.MAPS_SCENE;
-public class RootControllerCallCenter implements Initializable {
+public final class RootControllerCallCenter implements Initializable {
 
     @FXML
     private Button addPatient;
@@ -39,8 +39,7 @@ public class RootControllerCallCenter implements Initializable {
     private Button viewTransport;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
+    public void initialize(final URL url, final ResourceBundle rb) {
         addAmbulance.setOnAction(event -> new AmbulanceDialog().createEntity());
         addPatient.setOnAction(event -> new PatientDialog().createEntity());
         addOperator.setOnAction(event -> new OperatorDialog().createEntity());

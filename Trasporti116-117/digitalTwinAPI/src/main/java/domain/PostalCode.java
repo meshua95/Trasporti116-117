@@ -13,16 +13,16 @@ public class PostalCode {
     /**
      * Create a new postal code number
      *
-     * @param postalCode postal code number
+     * @param pC postal code number
      */
-    public PostalCode(int postalCode){
-        this.postalCode = postalCode;
+    public PostalCode(final int pC) {
+        this.postalCode = pC;
     }
 
     /**
      * @return postal code number
      */
-    public int getPostalCode(){
+    public int getPostalCode() {
         return this.postalCode;
     }
 }

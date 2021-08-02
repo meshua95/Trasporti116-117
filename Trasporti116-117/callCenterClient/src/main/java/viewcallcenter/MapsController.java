@@ -16,14 +16,14 @@ import javafx.util.Duration;
 import domain.transport.ambulance.AmbulanceId;
 import domain.transport.ambulance.Coordinates;
 import utils.errorCode.QueryTimeOutException;
-
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static viewcallcenter.SceneTypeCallCenter.ROOT_SCENE;
 
-public class MapsController implements Initializable {
+public final class MapsController implements Initializable {
+    public static final double KEY_FRAME_DURATION = 0.5;
     @FXML
     private MapView mapView;
     @FXML
@@ -33,13 +33,14 @@ public class MapsController implements Initializable {
     @FXML
     private Button track;
 
-    Timeline timeline;
-    private static final Coordinate CESENA_COORDINATE = new Coordinate(44.143753271603956 , 12.250847570172596);
+    private Timeline timeline;
+
+    private static final Coordinate CESENA_COORDINATE = new Coordinate(44.143753271603956, 12.250847570172596);
     private final Marker ambulanceMarker = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
 
     private static final int INITIAL_ZOOM = 15;
 
-    public void initMaps(Projection projection) {
+    public void initMaps(final Projection projection) {
         mapView.initialize(Configuration.builder()
                 .projection(projection)
                 .showZoomControls(true)
@@ -49,8 +50,8 @@ public class MapsController implements Initializable {
         mapView.setZoom(INITIAL_ZOOM);
     }
 
-    public void clearMaps(){
-        ArrayList<AmbulanceId> amb = null;
+    public void clearMaps() {
+        List<AmbulanceId> amb = null;
         try {
             amb = GetAmbulance.getAllAmbulanceIdTwins();
         } catch (QueryTimeOutException e) {
@@ -62,12 +63,13 @@ public class MapsController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         back.setOnAction(event ->  {
             MainAppCallCenter.setScene(ROOT_SCENE);
             resetAmbulance();
         });
-        ArrayList<AmbulanceId> amb = null;
+
+        List<AmbulanceId> amb = null;
         try {
             amb = GetAmbulance.getAllAmbulanceIdTwins();
         } catch (QueryTimeOutException e) {
@@ -75,13 +77,13 @@ public class MapsController implements Initializable {
         }
         assert amb != null;
         amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
-        track.setOnAction(event-> {
+        track.setOnAction(event -> {
             resetAmbulance();
             checkGPSPositionChange(new AmbulanceId(ambulance.getValue()));
         });
     }
 
-    private void checkGPSPositionChange(AmbulanceId ambulanceId){
+    private void checkGPSPositionChange(final AmbulanceId ambulanceId) {
         mapView.addMarker(ambulanceMarker);
         timeline = new Timeline(
                 new KeyFrame(
@@ -107,15 +109,15 @@ public class MapsController implements Initializable {
                         }
                 ),
                 new KeyFrame(
-                        Duration.seconds(0.5)
+                        Duration.seconds(KEY_FRAME_DURATION)
                 )
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
-    private void resetAmbulance(){
-        if (timeline!=null) {
+    private void resetAmbulance() {
+        if (timeline != null) {
             timeline.stop();
             mapView.removeMarker(ambulanceMarker);
             mapView.setCenter(CESENA_COORDINATE);

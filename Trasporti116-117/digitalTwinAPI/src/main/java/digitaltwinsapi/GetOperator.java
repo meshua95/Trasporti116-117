@@ -10,12 +10,13 @@ import utils.Constants;
 import utils.errorCode.QueryTimeOutException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Get operator digital twin API
  */
-public class GetOperator {
-    private GetOperator(){}
+public final class GetOperator {
+    private GetOperator() { }
 
     /**
      * Get all digital twin operator
@@ -23,14 +24,14 @@ public class GetOperator {
      * @return id of all operator
      * @throws QueryTimeOutException if the server takes too long to respond
      */
-    public static ArrayList<OperatorId> getAllOperatorId() throws QueryTimeOutException {
-        ArrayList<OperatorId> operatoriIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.OPERATOR_MODEL_ID + "')";
+    public static List<OperatorId> getAllOperatorId() throws QueryTimeOutException {
+        List<OperatorId> operatoriIds = new ArrayList<>();
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.OPERATOR_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
        // WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
-        pageableResponse.forEach(r-> operatoriIds.add(new OperatorId(r.getId())));
+        pageableResponse.forEach(r -> operatoriIds.add(new OperatorId(r.getId())));
 
         return operatoriIds;
     }

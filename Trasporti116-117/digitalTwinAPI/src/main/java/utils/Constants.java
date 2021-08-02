@@ -7,8 +7,8 @@ package utils;
 /**
  * Class that contains a set of constants
  */
-public class Constants {
-  private Constants(){}
+public final class Constants {
+  private Constants() { }
 
   /**
    * Endpoint path string

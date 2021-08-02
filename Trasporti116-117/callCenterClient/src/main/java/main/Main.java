@@ -1,17 +1,18 @@
-package main;/*
+/*
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
-
+package main;
 import viewcallcenter.MainAppCallCenter;
 
 /**
  * main.Main class
  */
-public class Main {
+public final class Main {
+    private Main() { }
     /**
      * main.Main
      */
-    public static void main(String... arg) {
+    public static void main(final String... arg) {
         MainAppCallCenter.main(arg);
     }
 

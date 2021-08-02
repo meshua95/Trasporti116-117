@@ -4,7 +4,11 @@
 
 package domain.request.serviceRequest;
 
-import domain.*;
+import domain.PostalCode;
+import domain.Address;
+import domain.City;
+import domain.District;
+import domain.HouseNumber;
 
 /**
  * Represents location for a booking
@@ -19,19 +23,19 @@ public class BookingLocation {
     /**
      * Location for a booking
      *
-     * @param address location's address
-     * @param houseNumber location's house number
-     * @param city location's city
-     * @param district location's district
-     * @param postalCode location's postal code
+     * @param a location's address
+     * @param hN location's house number
+     * @param c location's city
+     * @param d location's district
+     * @param pC location's postal code
      *
      */
-    public BookingLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
-        this.address = address;
-        this.houseNumber = houseNumber;
-        this.city = city;
-        this.district = district;
-        this.postalCode = postalCode;
+    public BookingLocation(final Address a, final HouseNumber hN, final City c, final District d, final PostalCode pC) {
+        this.address = a;
+        this.houseNumber = hN;
+        this.city = c;
+        this.district = d;
+        this.postalCode = pC;
     }
 
     /**

@@ -27,7 +27,7 @@ import viewcallcenter.utils.ControllInputField;
 
 import java.time.LocalDateTime;
 
-public class ServiceRequestAndBookingDialog extends DtDialog{
+public final class ServiceRequestAndBookingDialog extends DtDialog {
     private static final String WITHOUT_BOOKING = "Registra richiesta di servizio senza prenotazione";
     private static final String ADD_BOOKING = "Aggiungi prenotazione";
 
@@ -35,9 +35,9 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
     private final ButtonType withoutBooking = new ButtonType(WITHOUT_BOOKING);
 
     @Override
-    public void createEntity(){
+    public void createEntity() {
         initialize("Richiesta di servizio", addBooking, withoutBooking, ButtonType.CANCEL);
-        gridPane.add(new Label("Partenza"), 0, 1);
+        getDtGridPane().add(new Label("Partenza"), 0, 1);
 
         TextField departureAddress = new TextField();
         departureAddress.setPromptText("Via");
@@ -46,8 +46,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.ADDRESS_PATTERN, departureAddress);
             }
         });
-        gridPane.add(new Label("Via"), 0, 2);
-        gridPane.add(departureAddress, 1, 2);
+        getDtGridPane().add(new Label("Via"), 0, 2);
+        getDtGridPane().add(departureAddress, 1, 2);
 
         TextField departureNumber = new TextField();
         departureNumber.setPromptText("Numero");
@@ -56,8 +56,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.NUMBER_PATTERN, departureNumber);
             }
         });
-        gridPane.add(new Label("Numero"), 0, 3);
-        gridPane.add(departureNumber, 1, 3);
+        getDtGridPane().add(new Label("Numero"), 0, 3);
+        getDtGridPane().add(departureNumber, 1, 3);
 
         TextField departureCity = new TextField();
         departureCity.setPromptText("Città");
@@ -66,8 +66,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.CITY_PATTERN, departureCity);
             }
         });
-        gridPane.add(new Label("Città"), 0, 4);
-        gridPane.add(departureCity, 1, 4);
+        getDtGridPane().add(new Label("Città"), 0, 4);
+        getDtGridPane().add(departureCity, 1, 4);
 
         TextField departureDistrict = new TextField();
         departureDistrict.setPromptText("Provincia");
@@ -76,8 +76,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.DISTRICT_PATTERN, departureDistrict);
             }
         });
-        gridPane.add(new Label("Provincia"), 0, 5);
-        gridPane.add(departureDistrict, 1, 5);
+        getDtGridPane().add(new Label("Provincia"), 0, 5);
+        getDtGridPane().add(departureDistrict, 1, 5);
 
         TextField departurePostalCode = new TextField();
         departurePostalCode.setPromptText("Cap");
@@ -86,10 +86,10 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.POSTALCODE_NUMBER_PATTERN, departurePostalCode);
             }
         });
-        gridPane.add(new Label("Cap"), 0, 6);
-        gridPane.add(departurePostalCode, 1, 6);
+        getDtGridPane().add(new Label("Cap"), 0, 6);
+        getDtGridPane().add(departurePostalCode, 1, 6);
 
-        gridPane.add(new Label("Arrivo"), 0, 7);
+        getDtGridPane().add(new Label("Arrivo"), 0, 7);
 
         TextField destinationAddress = new TextField();
         destinationAddress.setPromptText("Via");
@@ -98,8 +98,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.ADDRESS_PATTERN, destinationAddress);
             }
         });
-        gridPane.add(new Label("Via"), 0, 8);
-        gridPane.add(destinationAddress, 1, 8);
+        getDtGridPane().add(new Label("Via"), 0, 8);
+        getDtGridPane().add(destinationAddress, 1, 8);
 
         TextField destinationNumber = new TextField();
         destinationNumber.setPromptText("Numero");
@@ -108,8 +108,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.NUMBER_PATTERN, destinationNumber);
             }
         });
-        gridPane.add(new Label("Numero"), 0, 9);
-        gridPane.add(destinationNumber, 1, 9);
+        getDtGridPane().add(new Label("Numero"), 0, 9);
+        getDtGridPane().add(destinationNumber, 1, 9);
 
         TextField destinationCity = new TextField();
         destinationCity.setPromptText("Città");
@@ -118,8 +118,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.CITY_PATTERN, destinationCity);
             }
         });
-        gridPane.add(new Label("Città"), 0, 10);
-        gridPane.add(destinationCity, 1, 10);
+        getDtGridPane().add(new Label("Città"), 0, 10);
+        getDtGridPane().add(destinationCity, 1, 10);
 
         TextField destinationDistrict = new TextField();
         destinationDistrict.setPromptText("Provincia");
@@ -128,8 +128,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.DISTRICT_PATTERN, destinationDistrict);
             }
         });
-        gridPane.add(new Label("Provincia"), 0, 11);
-        gridPane.add(destinationDistrict, 1, 11);
+        getDtGridPane().add(new Label("Provincia"), 0, 11);
+        getDtGridPane().add(destinationDistrict, 1, 11);
 
         TextField destinationPostalCode = new TextField();
         destinationPostalCode.setPromptText("Cap");
@@ -138,13 +138,13 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.POSTALCODE_NUMBER_PATTERN, destinationPostalCode);
             }
         });
-        gridPane.add(new Label("Cap"), 0, 12);
-        gridPane.add(destinationPostalCode, 1, 12);
+        getDtGridPane().add(new Label("Cap"), 0, 12);
+        getDtGridPane().add(destinationPostalCode, 1, 12);
 
         DatePicker transportDate = new DatePicker();
         transportDate.setEditable(false);
-        gridPane.add(new Label("Data trasporto"), 0, 13);
-        gridPane.add(transportDate, 1, 13);
+        getDtGridPane().add(new Label("Data trasporto"), 0, 13);
+        getDtGridPane().add(transportDate, 1, 13);
 
         TextField hourTrasporto = new TextField();
         hourTrasporto.setPromptText("hh:mm");
@@ -153,8 +153,8 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                 ControllInputField.validate(ControllInputField.HOUR_PATTERN, hourTrasporto);
             }
         });
-        gridPane.add(new Label("Ora trasporto"), 0, 14);
-        gridPane.add(hourTrasporto, 1, 14);
+        getDtGridPane().add(new Label("Ora trasporto"), 0, 14);
+        getDtGridPane().add(hourTrasporto, 1, 14);
 
         ComboBox<String> patient = new ComboBox<>();
         try {
@@ -162,15 +162,15 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         } catch (QueryTimeOutException e) {
             e.printStackTrace();
         }
-        gridPane.add(new Label("Paziente"), 0, 15);
-        gridPane.add(patient, 1, 15);
+        getDtGridPane().add(new Label("Paziente"), 0, 15);
+        getDtGridPane().add(patient, 1, 15);
 
-        dialog.getDialogPane().setContent(gridPane);
+        getDtDialog().getDialogPane().setContent(getDtGridPane());
 
-        ButtonType buttonType = dialog.showAndWait().get();
+        ButtonType buttonType = getDtDialog().showAndWait().get();
 
         if (addBooking.equals(buttonType)) {
-            if(ControllInputField.CITY_PATTERN.matcher(departureCity.getText()).matches()
+            if (ControllInputField.CITY_PATTERN.matcher(departureCity.getText()).matches()
                     && ControllInputField.ADDRESS_PATTERN.matcher(departureAddress.getText()).matches()
                     && ControllInputField.DISTRICT_PATTERN.matcher(departureDistrict.getText()).matches()
                     && ControllInputField.POSTALCODE_NUMBER_PATTERN.matcher(departurePostalCode.getText()).matches()
@@ -207,7 +207,7 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
                         new PatientFiscalCode(patient.getValue()),
                         GenerateId.generateServiceRequestId(dateTime)).getId();
                 new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_CONFIRM + id, ButtonType.CLOSE).show();
-            }else{
+            } else {
                 new Alert(Alert.AlertType.ERROR, ControllInputField.TEXT_FIELD_ERROR, ButtonType.CLOSE).show();
             }
         } else if (withoutBooking.equals(buttonType)) {
@@ -225,16 +225,17 @@ public class ServiceRequestAndBookingDialog extends DtDialog{
         } catch (QueryTimeOutException e) {
             e.printStackTrace();
         }
-        gridPane.add(new Label("Prenotazione trasporto"), 0, 0);
-        gridPane.add(transport, 1, 0);
+        getDtGridPane().add(new Label("Prenotazione trasporto"), 0, 0);
+        getDtGridPane().add(transport, 1, 0);
 
-        dialog.getDialogPane().setContent(gridPane);
+        getDtDialog().getDialogPane().setContent(getDtGridPane());
 
-        dialog.showAndWait()
+        getDtDialog().showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    if(DeleteBookingTransport.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteDigitalTwinStatusCode.DELETED)
+                    if (DeleteBookingTransport.deleteBookingTransport(new BookingTransportId(transport.getValue())) == DeleteDigitalTwinStatusCode.DELETED) {
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.BOOKING_DELETED, ButtonType.CLOSE).show();
+                    }
                 });
     }
 }

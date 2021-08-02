@@ -13,10 +13,10 @@ public class TransportId {
     /**
      * Create transport ID
      *
-     * @param transportId transport identifier
+     * @param id transport id
      */
-    public TransportId(String transportId) {
-        this.transportId = transportId;
+    public TransportId(final String id) {
+        this.transportId = id;
     }
 
     /**

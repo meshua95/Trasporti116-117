@@ -7,8 +7,8 @@ package utils;
 /**
  * Class that represents a possible Azure error messages
  */
-public class AzureErrorMessage {
-
+public final class AzureErrorMessage {
+    private AzureErrorMessage() { }
     /**
      * Relationship not deleted error message
      */

@@ -15,25 +15,25 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-public class BookingController implements Initializable {
+public final class BookingController implements Initializable {
     @FXML
-    ListView<String> lv;
+    private ListView<String> lv;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         //DeleteBookingTransport.getAllBookingForToday().forEach(e->System.out.println(e.getId()));
         try {
-            GetBooking.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b->lv.getItems().add(b.getId()));
+            GetBooking.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b -> lv.getItems().add(b.getId()));
         } catch (QueryTimeOutException e) {
             e.printStackTrace();
         }
 
         lv.setOnMouseClicked(event -> {
-            if(lv.getSelectionModel().getSelectedItem() != null){
+            if (lv.getSelectionModel().getSelectedItem() != null) {
                 new Alert(Alert.AlertType.WARNING, "Vuoi davvero iniziare il trasporto?", ButtonType.YES, ButtonType.NO)
                         .showAndWait()
                         .filter(res -> res == ButtonType.YES)
-                        .ifPresent(res->{
+                        .ifPresent(res -> {
                             BookingTransportId bookingId = new BookingTransportId(lv.getSelectionModel().getSelectedItem());
                             MainAppAmbulanceTablet.setBookingId(bookingId);
 

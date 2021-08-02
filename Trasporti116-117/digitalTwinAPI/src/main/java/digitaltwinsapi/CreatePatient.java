@@ -15,7 +15,7 @@ import utils.Constants;
  * Contains create patient digital twin API
  */
 public final class CreatePatient {
-    private CreatePatient(){}
+    private CreatePatient() { }
 
     /**
      * Create a patient digital twin
@@ -27,7 +27,7 @@ public final class CreatePatient {
      *
      * @return id of the ambulance created
      */
-    public static String createPatient(PatientFiscalCode patientId, PatientPersonalData patientPersonalData, HealthState healthState, Autonomy autonomy){
+    public static String createPatient(final PatientFiscalCode patientId, final PatientPersonalData patientPersonalData, final HealthState healthState, final Autonomy autonomy) {
         BasicDigitalTwin pazienteDT = new BasicDigitalTwin(patientId.getFiscalCode())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.PATIENT_MODEL_ID)

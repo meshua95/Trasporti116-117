@@ -13,10 +13,10 @@ public class BookingTransportId {
     /**
      * Booking trasport id
      *
-     * @param bookingTransportId booking trasport id
+     * @param id booking trasport id
      * */
-    public BookingTransportId(String bookingTransportId) {
-        this.bookingTransportId = bookingTransportId;
+    public BookingTransportId(final String id) {
+        this.bookingTransportId = id;
     }
 
     /**

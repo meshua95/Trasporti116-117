@@ -5,15 +5,15 @@ package domain.request.infoRequest;
  * Represents a request for information from a user
  */
 public class InfoRequestDescription {
-    String description;
+    private String description;
 
     /**
      * Request for information from a user
      *
-     * @param description description
+     * @param d description
      */
-    public InfoRequestDescription(String description) {
-        this.description = description;
+    public InfoRequestDescription(final String d) {
+        this.description = d;
     }
 
     /**

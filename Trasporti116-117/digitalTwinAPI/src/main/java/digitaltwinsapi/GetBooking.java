@@ -12,12 +12,13 @@ import utils.errorCode.QueryTimeOutException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Get booking digital twin API
  */
-public class GetBooking {
-    private GetBooking(){}
+public final class GetBooking {
+    private GetBooking() { }
 
     /**
      * Get all booking
@@ -26,12 +27,12 @@ public class GetBooking {
      */
     public static ArrayList<BookingTransportId> getAllBookingId() throws QueryTimeOutException {
         ArrayList<BookingTransportId> bookingIds = new ArrayList<>();
-        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('"+ Constants.BOOKING_MODEL_ID + "')";
+        String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.BOOKING_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 
       //  WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
-        pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
+        pageableResponse.forEach(r -> bookingIds.add(new BookingTransportId(r.getId())));
         return bookingIds;
     }
 
@@ -44,15 +45,14 @@ public class GetBooking {
      *
      * @return list of booking
      */
-    public static ArrayList<BookingTransportId> getAllBookingToDoForTheDay(LocalDateTime dateTime) throws QueryTimeOutException {
-        ArrayList<BookingTransportId> bookingIds = new ArrayList<>();
-        String query = "SELECT $dtId " +
-                "FROM DIGITALTWINS " +
-                "WHERE STARTSWITH(dateTime, '" + dateTime.toLocalDate() + "') AND takeOwnership = false";
+    public static List<BookingTransportId> getAllBookingToDoForTheDay(final LocalDateTime dateTime) throws QueryTimeOutException {
+        List<BookingTransportId> bookingIds = new ArrayList<>();
+        String query = "SELECT $dtId "
+                + "FROM DIGITALTWINS "
+                + "WHERE STARTSWITH(dateTime, '" + dateTime.toLocalDate() + "') AND takeOwnership = false";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
-       // WaitForClientResponse.waitForClientResponseIfExist(pageableResponse);
 
-        pageableResponse.forEach(r-> bookingIds.add(new BookingTransportId(r.getId())));
+        pageableResponse.forEach(r -> bookingIds.add(new BookingTransportId(r.getId())));
         return bookingIds;
     }
 }

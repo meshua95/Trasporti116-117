@@ -15,14 +15,14 @@ public class City {
      *
      * @param name city name
      */
-    public City(String name){
+    public City(final String name) {
         this.city = name;
     }
 
     /**
      * @return city name
      */
-    public String getCity(){
+    public String getCity() {
         return this.city;
     }
 }

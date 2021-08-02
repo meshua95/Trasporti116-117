@@ -9,14 +9,14 @@ import domain.request.serviceRequest.ServiceRequestId;
 /**
  * Contains delete request digital twin API
  */
-public class DeleteRequest {
-    private DeleteRequest(){}
+public final class DeleteRequest {
+    private DeleteRequest() { }
     /**
      * Delete a service request digital twin
      *
      * @param  serviceRequestId  id of the request to be canceled
      */
-    public static void deleteServiceRequest(ServiceRequestId serviceRequestId) {
+    public static void deleteServiceRequest(final ServiceRequestId serviceRequestId) {
         Client.getClient().deleteDigitalTwin(serviceRequestId.getserviceRequestId());
     }
 
@@ -25,7 +25,7 @@ public class DeleteRequest {
      *
      * @param  infoRequestId  id of the request to be canceled
      */
-    public static void deleteInfoRequest(InfoRequestId infoRequestId) {
+    public static void deleteInfoRequest(final InfoRequestId infoRequestId) {
         Client.getClient().deleteDigitalTwin(infoRequestId.getInfoRequestId());
     }
 }

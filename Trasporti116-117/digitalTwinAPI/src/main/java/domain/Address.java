@@ -13,16 +13,16 @@ public class Address {
     /**
      * Create address
      *
-     * @param address location address
+     * @param a location address
      */
-    public Address(String address){
-        this.address = address;
+    public Address(final String a) {
+        this.address = a;
     }
 
     /**
      * @return address string
      */
-    public String getAddress(){
+    public String getAddress() {
         return this.address;
     }
 }

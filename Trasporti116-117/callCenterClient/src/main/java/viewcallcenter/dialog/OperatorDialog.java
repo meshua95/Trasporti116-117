@@ -18,10 +18,10 @@ import viewcallcenter.utils.ControllInputField;
 
 import java.time.LocalDate;
 
-public class OperatorDialog extends DtDialog {
+public final class OperatorDialog extends DtDialog {
 
     @Override
-    public void createEntity(){
+    public void createEntity() {
         initialize("Inserisci operatore", ButtonType.OK, ButtonType.CANCEL);
 
         TextField name = new TextField();
@@ -31,8 +31,8 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.STRING_PATTERN, name);
             }
         });
-        gridPane.add(new Label("Nome"), 0, 0);
-        gridPane.add(name, 1, 0);
+        getDtGridPane().add(new Label("Nome"), 0, 0);
+        getDtGridPane().add(name, 1, 0);
 
         TextField surname = new TextField();
         surname.setPromptText("Cognome");
@@ -41,13 +41,13 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.STRING_PATTERN, surname);
             }
         });
-        gridPane.add(new Label("Cognome"), 0, 1);
-        gridPane.add(surname, 1, 1);
+        getDtGridPane().add(new Label("Cognome"), 0, 1);
+        getDtGridPane().add(surname, 1, 1);
 
         DatePicker birthday = new DatePicker();
         birthday.setEditable(false);
-        gridPane.add(new Label("Data di nascita"), 0, 2);
-        gridPane.add(birthday, 1, 2);
+        getDtGridPane().add(new Label("Data di nascita"), 0, 2);
+        getDtGridPane().add(birthday, 1, 2);
 
         TextField address = new TextField();
         address.setPromptText("Via");
@@ -56,8 +56,8 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.ADDRESS_PATTERN, address);
             }
         });
-        gridPane.add(new Label("Via"), 0, 3);
-        gridPane.add(address, 1, 3);
+        getDtGridPane().add(new Label("Via"), 0, 3);
+        getDtGridPane().add(address, 1, 3);
 
         TextField houseNumber = new TextField();
         houseNumber.setPromptText("Numero");
@@ -66,8 +66,8 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.NUMBER_PATTERN, houseNumber);
             }
         });
-        gridPane.add(new Label("Numero"), 0, 4);
-        gridPane.add(houseNumber, 1, 4);
+        getDtGridPane().add(new Label("Numero"), 0, 4);
+        getDtGridPane().add(houseNumber, 1, 4);
 
         TextField city = new TextField();
         city.setPromptText("Città");
@@ -76,8 +76,8 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.CITY_PATTERN, city);
             }
         });
-        gridPane.add(new Label("Città"), 0, 5);
-        gridPane.add(city, 1, 5);
+        getDtGridPane().add(new Label("Città"), 0, 5);
+        getDtGridPane().add(city, 1, 5);
 
         TextField district = new TextField();
         district.setPromptText("Provincia");
@@ -86,8 +86,8 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.DISTRICT_PATTERN, district);
             }
         });
-        gridPane.add(new Label("Provincia"), 0, 6);
-        gridPane.add(district, 1, 6);
+        getDtGridPane().add(new Label("Provincia"), 0, 6);
+        getDtGridPane().add(district, 1, 6);
 
         TextField postalCode = new TextField();
         postalCode.setPromptText("Cap");
@@ -96,8 +96,8 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.POSTALCODE_NUMBER_PATTERN, postalCode);
             }
         });
-        gridPane.add(new Label("Cap"), 0, 7);
-        gridPane.add(postalCode, 1, 7);
+        getDtGridPane().add(new Label("Cap"), 0, 7);
+        getDtGridPane().add(postalCode, 1, 7);
 
         TextField fiscalCode = new TextField();
         fiscalCode.setPromptText("Codice fiscale");
@@ -106,28 +106,28 @@ public class OperatorDialog extends DtDialog {
                 ControllInputField.validate(ControllInputField.FISCAL_CODE, fiscalCode);
             }
         });
-        gridPane.add(new Label("Codice fiscale"), 0, 8);
-        gridPane.add(fiscalCode, 1, 8);
+        getDtGridPane().add(new Label("Codice fiscale"), 0, 8);
+        getDtGridPane().add(fiscalCode, 1, 8);
 
-        dialog.getDialogPane().setContent(gridPane);
+        getDtDialog().getDialogPane().setContent(getDtGridPane());
 
-        dialog.showAndWait()
+        getDtDialog().showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
-                    if(ControllInputField.STRING_PATTERN.matcher(name.getText()).matches()
+                    if (ControllInputField.STRING_PATTERN.matcher(name.getText()).matches()
                             && ControllInputField.STRING_PATTERN.matcher(surname.getText()).matches()
                             && ControllInputField.CITY_PATTERN.matcher(city.getText()).matches()
                             && ControllInputField.ADDRESS_PATTERN.matcher(address.getText()).matches()
                             && ControllInputField.DISTRICT_PATTERN.matcher(district.getText()).matches()
                             && ControllInputField.POSTALCODE_NUMBER_PATTERN.matcher(postalCode.getText()).matches()
                             && ControllInputField.NUMBER_PATTERN.matcher(houseNumber.getText()).matches()
-                    ){
+                    ) {
                         String id = CreateOperator.createOperator(
                                 new OperatorId(fiscalCode.getText()),
                                 new OperatorPersonalData(
                                         name.getText(),
                                         surname.getText(),
-                                        LocalDate.of(birthday.getValue().getYear(), birthday.getValue().getMonth(),birthday.getValue().getDayOfMonth()),
+                                        LocalDate.of(birthday.getValue().getYear(), birthday.getValue().getMonth(), birthday.getValue().getDayOfMonth()),
                                         new OperatorResidence(
                                                 new Address(address.getText()),
                                                 new HouseNumber(Integer.parseInt(houseNumber.getText())),
@@ -137,7 +137,7 @@ public class OperatorDialog extends DtDialog {
                                 )
                         );
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.OPERATOR_CONFIRM + id, ButtonType.CLOSE).show();
-                    }else{
+                    } else {
                         new Alert(Alert.AlertType.ERROR, ControllInputField.TEXT_FIELD_ERROR, ButtonType.CLOSE).show();
                     }
                 });

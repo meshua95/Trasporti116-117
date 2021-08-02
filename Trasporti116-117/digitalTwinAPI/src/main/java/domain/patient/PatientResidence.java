@@ -4,7 +4,11 @@
 
 package domain.patient;
 
-import domain.*;
+import domain.PostalCode;
+import domain.Address;
+import domain.City;
+import domain.District;
+import domain.HouseNumber;
 
 /**
  * Represents the patient's personal residence
@@ -19,19 +23,19 @@ public class PatientResidence {
     /**
      * Patient's residence
      *
-     * @param address patient's address
-     * @param patientHouseNumber patient's house number
-     * @param patientCity patient's city
-     * @param patientDistrict patient's district
-     * @param patientPostalCode patient's postal code
+     * @param a patient's address
+     * @param hn patient's house number
+     * @param c patient's city
+     * @param d patient's district
+     * @param pc patient's postal code
      *
      */
-    public PatientResidence(Address address, HouseNumber patientHouseNumber, City patientCity, District patientDistrict, PostalCode patientPostalCode) {
-        this.address = address;
-        this.houseNumber = patientHouseNumber;
-        this.city = patientCity;
-        this.district = patientDistrict;
-        this.postalCode = patientPostalCode;
+    public PatientResidence(final Address a, final HouseNumber hn, final City c, final District d, final PostalCode pc) {
+        this.address = a;
+        this.houseNumber = hn;
+        this.city = c;
+        this.district = d;
+        this.postalCode = pc;
     }
 
     /**

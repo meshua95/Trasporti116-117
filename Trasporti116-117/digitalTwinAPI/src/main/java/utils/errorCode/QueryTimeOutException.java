@@ -3,7 +3,7 @@ package utils.errorCode;
 /**
  * Time out to apply to any query
  */
-public class QueryTimeOutException extends Throwable{
+public class QueryTimeOutException extends Throwable {
 
     /**
      * Time out
