@@ -19,7 +19,9 @@ jobs:
         java_version: [11, 14, 16]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Clone repository
+        uses: actions/checkout@v2
+          fetch-depth: 0
       - name: Set up JDK ${{ matrix.java_version }}
         uses: actions/setup-java@v2
         with:
