@@ -3,7 +3,7 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinsAPI.*;
+import digitaltwinsapi.*;
 import domain.patient.*;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -5,7 +5,7 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwinsAPI.*;
+import digitaltwinsapi.*;
 import domain.patient.*;
 import domain.request.serviceRequest.*;
 import org.junit.BeforeClass;

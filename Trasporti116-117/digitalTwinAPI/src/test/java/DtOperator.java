@@ -3,7 +3,7 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinsAPI.*;
+import digitaltwinsapi.*;
 import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
 import org.junit.BeforeClass;

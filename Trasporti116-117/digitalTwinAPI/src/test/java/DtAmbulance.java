@@ -6,7 +6,7 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwinsAPI.*;
+import digitaltwinsapi.*;
 import domain.transport.ambulance.AmbulanceId;
 import domain.transport.ambulance.Coordinates;
 import org.junit.BeforeClass;

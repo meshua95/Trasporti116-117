@@ -1,8 +1,8 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinsAPI.Client;
-import digitalTwinsAPI.GenerateId;
-import digitalTwinsAPI.CreateRequest;
-import digitalTwinsAPI.DeleteRequest;
+import digitaltwinsapi.Client;
+import digitaltwinsapi.GenerateId;
+import digitaltwinsapi.CreateRequest;
+import digitaltwinsapi.DeleteRequest;
 import domain.request.serviceRequest.ServiceRequestId;
 import org.junit.BeforeClass;
 import org.junit.Test;
