@@ -2,11 +2,22 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ develop, master ]
+    branches:
+      - develop
+      - master
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu, windows, macos]
+        java_version: [11, 14, 16]
+    runs-on:
+      - windows-latest
+      - ubuntu-latest
+      - macos-latest
+      - macos-11
 
     steps:
     - uses: actions/checkout@v2
