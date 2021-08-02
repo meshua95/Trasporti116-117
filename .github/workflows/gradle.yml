@@ -17,10 +17,7 @@ jobs:
       matrix:
         os: [ubuntu, windows, macos]
         java_version: [11, 14, 16]
-    runs-on: 
-      - ubuntu-latest
-      - windows-latest
-      - macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
