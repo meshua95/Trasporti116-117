@@ -14,11 +14,11 @@ import utils.Constants;
  */
 public final class Client {
     private Client() { }
-    private static DigitalTwinsClient client = null;
+    private static DigitalTwinsClient dtClient = null;
 
     private static void createClient() {
     // Create client connection
-        client = new DigitalTwinsClientBuilder()
+        dtClient = new DigitalTwinsClientBuilder()
                 .credential(
                         new ClientSecretCredentialBuilder()
                                 .tenantId(Constants.TENANT_ID)
@@ -34,10 +34,10 @@ public final class Client {
      * @return the sync client
      */
     public static DigitalTwinsClient getClient() {
-        if (client == null) {
+        if (dtClient == null) {
             createClient();
         }
-        return client;
+        return dtClient;
     }
 
 }

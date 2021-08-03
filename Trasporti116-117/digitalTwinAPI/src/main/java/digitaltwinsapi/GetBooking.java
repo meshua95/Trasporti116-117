@@ -25,8 +25,8 @@ public final class GetBooking {
      * @throws QueryTimeOutException if the server takes too long to respond
      *  @return all booking
      */
-    public static ArrayList<BookingTransportId> getAllBookingId() throws QueryTimeOutException {
-        ArrayList<BookingTransportId> bookingIds = new ArrayList<>();
+    public static List<BookingTransportId> getAllBookingId() throws QueryTimeOutException {
+        List<BookingTransportId> bookingIds = new ArrayList<>();
         String query = "SELECT $dtId FROM DIGITALTWINS WHERE IS_OF_MODEL('" + Constants.BOOKING_MODEL_ID + "')";
         PagedIterable<BasicDigitalTwin> pageableResponse = Client.getClient().query(query, BasicDigitalTwin.class);
 

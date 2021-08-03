@@ -20,23 +20,23 @@ import static viewcallcenter.SceneTypeCallCenter.MAPS_SCENE;
 public final class RootControllerCallCenter implements Initializable {
 
     @FXML
-    private Button addPatient;
+    private transient Button addPatient;
     @FXML
-    private Button addOperator;
+    private transient Button addOperator;
     @FXML
-    private Button addAmbulance;
+    private transient Button addAmbulance;
     @FXML
-    private Button addServiceRequest;
+    private transient Button addServiceRequest;
     @FXML
-    private Button addInfoRequest;
+    private transient Button addInfoRequest;
     @FXML
-    private Button rmAmbulance;
+    private transient Button rmAmbulance;
     @FXML
-    private Button rmBooking;
+    private transient Button rmBooking;
     @FXML
-    private Button trackAmbulance;
+    private transient Button trackAmbulance;
     @FXML
-    private Button viewTransport;
+    private transient Button viewTransport;
 
     @Override
     public void initialize(final URL url, final ResourceBundle rb) {

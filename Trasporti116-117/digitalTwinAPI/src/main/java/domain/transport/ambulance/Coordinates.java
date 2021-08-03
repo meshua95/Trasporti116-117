@@ -4,8 +4,8 @@ package domain.transport.ambulance;
  * Represents the earth's coordinates
  * */
 public class Coordinates {
-    private double longitude;
-    private double latitude;
+    private final double longitude;
+    private final double latitude;
 
     /**
      * Create the coordinates

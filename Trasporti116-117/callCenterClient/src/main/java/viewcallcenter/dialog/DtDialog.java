@@ -12,8 +12,8 @@ abstract class DtDialog {
     public static final int INS_RIGHT = 150;
     public static final int INS_BOTTOM = 10;
     public static final int INS_LEFT = 10;
-    private Dialog<ButtonType> dialog = new Dialog<>();
-    private GridPane gridPane = new GridPane();
+    private static Dialog<ButtonType> dialog = new Dialog<>();
+    private static GridPane gridPane = new GridPane();
 
     abstract void createEntity();
 

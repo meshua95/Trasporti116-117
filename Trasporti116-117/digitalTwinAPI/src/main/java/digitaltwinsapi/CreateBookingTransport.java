@@ -40,11 +40,10 @@ public final class CreateBookingTransport {
                 .addToContents("takeOwnership", false)
                 .addToContents("route", route);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(bookingTransportId.getId(), bookingTransportDT, BasicDigitalTwin.class);
-        System.out.println(basicTwinResponse.getId());
+        Client.getClient().createOrReplaceDigitalTwin(bookingTransportId.getId(), bookingTransportDT, BasicDigitalTwin.class);
 
         //Create relationship with patient
-        BasicRelationship createdRelationshipPatient = Client.getClient().createOrReplaceRelationship(
+       Client.getClient().createOrReplaceRelationship(
                 bookingTransportId.getId(),
                 bookingTransportId.getId() + "to" + patientId.getFiscalCode(),
                 new BasicRelationship(
@@ -55,18 +54,16 @@ public final class CreateBookingTransport {
                 BasicRelationship.class);
 
         //Create relationship with serviceRequest
-        BasicRelationship createdRelationshipServiceRequest = Client.getClient().createOrReplaceRelationship(
+        Client.getClient().createOrReplaceRelationship(
                 bookingTransportId.getId(),
-                bookingTransportId.getId() + "to" + serviceRequestId.getserviceRequestId(),
+                bookingTransportId.getId() + "to" + serviceRequestId.getId(),
                 new BasicRelationship(
-                        bookingTransportId.getId() + "to" + serviceRequestId.getserviceRequestId(),
+                        bookingTransportId.getId() + "to" + serviceRequestId.getId(),
                         bookingTransportId.getId(),
-                        serviceRequestId.getserviceRequestId(),
+                        serviceRequestId.getId(),
                         "requestBy"),
                 BasicRelationship.class);
 
-        System.out.println(createdRelationshipPatient.getId());
-        System.out.println(createdRelationshipServiceRequest.getId());
         return bookingTransportId;
     }
 }

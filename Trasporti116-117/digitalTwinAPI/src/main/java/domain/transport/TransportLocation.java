@@ -4,21 +4,21 @@
 
 package domain.transport;
 
-import domain.PostalCode;
-import domain.Address;
-import domain.City;
-import domain.District;
-import domain.HouseNumber;
+import domain.DTDLAddress;
+import domain.DTDLCity;
+import domain.DTDLHouseNumber;
+import domain.DTDLDistrict;
+import domain.DTDLPostalCode;
 
 /**
  * Class that represents a transport location
  */
 public class TransportLocation {
-    private final Address address;
-    private final HouseNumber houseNumber;
-    private final City city;
-    private final District district;
-    private final PostalCode postalCode;
+    private final DTDLAddress address;
+    private final DTDLHouseNumber houseNumber;
+    private final DTDLCity city;
+    private final DTDLDistrict district;
+    private final DTDLPostalCode postalCode;
 
     /**
      * Create transport location
@@ -29,7 +29,7 @@ public class TransportLocation {
      * @param d location district
      * @param pC location postal code
      */
-    public TransportLocation(final Address a, final HouseNumber hN, final City c, final District d, final PostalCode pC) {
+    public TransportLocation(final DTDLAddress a, final DTDLHouseNumber hN, final DTDLCity c, final DTDLDistrict d, final DTDLPostalCode pC) {
         this.address = a;
         this.houseNumber = hN;
         this.city = c;
@@ -38,39 +38,39 @@ public class TransportLocation {
     }
 
     /**
-     * Address getter
+     * DTDLAddress getter
      *
      * @return address
      */
-    public Address getAddress() {
+    public DTDLAddress getAddress() {
         return address;
     }
 
     /**
      * @return house number
      */
-    public HouseNumber getHouseNumber() {
+    public DTDLHouseNumber getHouseNumber() {
         return houseNumber;
     }
 
     /**
      * @return city
      */
-    public City getCity() {
+    public DTDLCity getCity() {
         return city;
     }
 
     /**
      * @return district
      */
-    public District getDistrict() {
+    public DTDLDistrict getDistrict() {
         return district;
     }
 
     /**
      * @return postal code
      */
-    public PostalCode getPostalCode() {
+    public DTDLPostalCode getPostalCode() {
         return postalCode;
     }
 }

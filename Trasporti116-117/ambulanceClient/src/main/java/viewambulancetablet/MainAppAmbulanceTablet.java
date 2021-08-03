@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static viewambulancetablet.SceneTypeAmbulanceTablet.ROOT_SCENE;
 
@@ -25,6 +27,8 @@ public final class MainAppAmbulanceTablet extends Application {
     private static Optional<AmbulanceId> ambulanceId = Optional.empty();
     private static Optional<BookingTransportId> bookingTransportId = Optional.empty();
     private static Optional<TransportId> transportId = Optional.empty();
+
+    private static final Logger LOGGER = Logger.getLogger(MainAppAmbulanceTablet.class.toString());
 
     @Override
     public void start(final Stage s) {
@@ -37,28 +41,30 @@ public final class MainAppAmbulanceTablet extends Application {
         try {
             switch (type) {
                 case BOOKING_SCENE:
-                    Parent booking = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("bookingScene.fxml")));
+                    Parent booking = FXMLLoader.load(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("bookingScene.fxml")));
                     Scene bookingScene = new Scene(booking);
-                    bookingScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
+                    bookingScene.getStylesheets().add((Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("style.css")).toString()));
                     stage.setScene(bookingScene);
                     break;
 
                 case TRANSPORT_IN_PROGRESS_SCENE:
-                    Parent transportInProgress = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("transportInProgressScene.fxml")));
+                    Parent transportInProgress = FXMLLoader.load(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("transportInProgressScene.fxml")));
                     Scene transportInProgressScene = new Scene(transportInProgress);
-                    transportInProgressScene.getStylesheets().add(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString());
+                    transportInProgressScene.getStylesheets().add(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("style.css")).toString());
                     stage.setScene(transportInProgressScene);
                     break;
 
                 default:
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("rootSceneAmbulance.fxml")));
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("rootSceneAmbulance.fxml")));
                     Scene rootScene = new Scene(root);
-                    rootScene.getStylesheets().add((Objects.requireNonNull(MainAppAmbulanceTablet.class.getClassLoader().getResource("style.css")).toString()));
+                    rootScene.getStylesheets().add((Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("style.css")).toString()));
                     stage.setScene(rootScene);
                     break;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
         stage.show();
     }

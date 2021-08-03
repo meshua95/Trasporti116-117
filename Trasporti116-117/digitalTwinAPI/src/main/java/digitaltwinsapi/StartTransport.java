@@ -41,7 +41,6 @@ public final class StartTransport {
         PatientFiscalCode patientId = GetPatient.getPatientIdByBookingId(bookingId);
 
         TransportId transportId = GenerateId.generateTransportId(patientId, dateTime);
-        System.out.println(transportId);
 
         BasicDigitalTwin transportDT = new BasicDigitalTwin(transportId.getId())
                 .setMetadata(
@@ -51,17 +50,16 @@ public final class StartTransport {
                 .addToContents("endDateTime", null)
                 .addToContents("route", route.get("route"));
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
-        System.out.println(basicTwinResponse.getId());
+        Client.getClient().createOrReplaceDigitalTwin(transportId.getId(), transportDT, BasicDigitalTwin.class);
 
         //add relationship whit ambulance
-        createTransportRelationship(transportId, ambulanceId.getAmbulanceId(), "use");
+        createTransportRelationship(transportId, ambulanceId.getId(), "use");
 
         //add relationship whit patient
         createTransportRelationship(transportId, patientId.getFiscalCode(), "transport");
 
         //add relationship whit operator
-        createTransportRelationship(transportId, operatorId.getOperatorId(), "drive");
+        createTransportRelationship(transportId, operatorId.getId(), "drive");
 
         //add relationship with bookingTransport
         createTransportRelationship(transportId, bookingId.getId(), "related");
@@ -76,8 +74,6 @@ public final class StartTransport {
                         transportId.getId(),
                         targetId,
                         relationshipName);
-
-        System.out.println(targetId);
 
         Client.getClient().createOrReplaceRelationship(
                 transportId.getId(),

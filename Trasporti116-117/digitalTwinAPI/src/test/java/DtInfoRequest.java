@@ -13,14 +13,14 @@ public class DtInfoRequest {
     private final InfoRequestId id = GenerateId.generateInfoRequestId(TestDataValue.INFO_REQUEST_DATE);
 
     @BeforeClass
-    public static void createConnection(){
+    public static void createConnection() {
         Client.getClient();
     }
 
     @Test
-    public void createInfoRequest(){
+    public void createInfoRequest() {
         CreateRequest.createInfoRequest(TestDataValue.INFO_REQUEST_DATE, TestDataValue.INFO_REQUEST_DESCRIPTION);
-        assertEquals(Client.getClient().getDigitalTwin(id.getInfoRequestId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getDigitalTwin(id.getInfoRequestId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         DeleteRequest.deleteInfoRequest(id);
     }

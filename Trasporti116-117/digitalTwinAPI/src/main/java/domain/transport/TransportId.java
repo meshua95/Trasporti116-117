@@ -8,21 +8,21 @@ package domain.transport;
  * Class that represents the transport identifier
  */
 public class TransportId {
-    private final String transportId;
+    private final String id;
 
     /**
      * Create transport ID
      *
-     * @param id transport id
+     * @param transId transport id
      */
-    public TransportId(final String id) {
-        this.transportId = id;
+    public TransportId(final String transId) {
+        this.id = transId;
     }
 
     /**
      * @return transport identifier
      */
     public String getId() {
-        return transportId;
+        return id;
     }
 }

@@ -4,21 +4,21 @@ package domain.request.infoRequest;
  * Represents id for InfoRequest
  */
 public class InfoRequestId {
-    private String infoRequestId;
+    private final String id;
 
     /**
      * Id for InfoRequest
      *
-     * @param id id
+     * @param value the id
      */
-    public InfoRequestId(final String id) {
-        this.infoRequestId = id;
+    public InfoRequestId(final String value) {
+        this.id = value;
     }
 
     /**
      * @return infoRequest id
      */
     public String getInfoRequestId() {
-        return infoRequestId;
+        return id;
     }
 }

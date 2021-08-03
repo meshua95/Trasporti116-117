@@ -18,27 +18,32 @@ import domain.transport.ambulance.Coordinates;
 import utils.errorCode.QueryTimeOutException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static viewcallcenter.SceneTypeCallCenter.ROOT_SCENE;
 
 public final class MapsController implements Initializable {
     public static final double KEY_FRAME_DURATION = 0.5;
     @FXML
-    private MapView mapView;
+    private transient MapView mapView;
     @FXML
-    private Button back;
+    private transient Button back;
     @FXML
-    private ComboBox<String> ambulance;
+    private transient ComboBox<String> ambulance;
     @FXML
-    private Button track;
+    private transient Button track;
 
-    private Timeline timeline;
+    private static Timeline timeline;
 
     private static final Coordinate CESENA_COORDINATE = new Coordinate(44.143753271603956, 12.250847570172596);
-    private final Marker ambulanceMarker = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
+    private static final Marker AMBULANCE_MARKER = Marker.createProvided(Marker.Provided.ORANGE).setVisible(true);
 
     private static final int INITIAL_ZOOM = 15;
+
+    private static final Logger LOGGER = Logger.getLogger(MapsController.class.toString());
 
     public void initMaps(final Projection projection) {
         mapView.initialize(Configuration.builder()
@@ -51,15 +56,16 @@ public final class MapsController implements Initializable {
     }
 
     public void clearMaps() {
-        List<AmbulanceId> amb = null;
+        Optional<List<AmbulanceId>> amb = Optional.empty();
         try {
-            amb = GetAmbulance.getAllAmbulanceIdTwins();
+            amb = Optional.of(GetAmbulance.getAllAmbulanceIdTwins());
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
         ambulance.getItems().clear();
-        assert amb != null;
-        amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        amb.ifPresent(ambulanceIds -> ambulanceIds.forEach(a -> ambulance.getItems().add(a.getId())));
     }
 
     @Override
@@ -69,14 +75,16 @@ public final class MapsController implements Initializable {
             resetAmbulance();
         });
 
-        List<AmbulanceId> amb = null;
+        Optional<List<AmbulanceId>> amb = Optional.empty();
         try {
-            amb = GetAmbulance.getAllAmbulanceIdTwins();
+            amb = Optional.of(GetAmbulance.getAllAmbulanceIdTwins());
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
-        assert amb != null;
-        amb.forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+        amb.ifPresent(ambulanceIds -> ambulanceIds.forEach(a -> ambulance.getItems().add(a.getId())));
+
         track.setOnAction(event -> {
             resetAmbulance();
             checkGPSPositionChange(new AmbulanceId(ambulance.getValue()));
@@ -84,26 +92,27 @@ public final class MapsController implements Initializable {
     }
 
     private void checkGPSPositionChange(final AmbulanceId ambulanceId) {
-        mapView.addMarker(ambulanceMarker);
+        mapView.addMarker(AMBULANCE_MARKER);
         timeline = new Timeline(
                 new KeyFrame(
                         Duration.ZERO,
                         actionEvent -> {
-                            Coordinates coordinates = null;
+                            Optional<Coordinates> coordinates = Optional.empty();
                             try {
-                                coordinates = GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId);
+                                coordinates = Optional.of(GetGPSCoordinates.getGPSCoordinatesOfAmbulance(ambulanceId));
                             } catch (QueryTimeOutException e) {
-                                e.printStackTrace();
+                                if (LOGGER.isLoggable(Level.SEVERE)) {
+                                    LOGGER.log(Level.SEVERE, e.toString(), e);
+                                }
                             }
-                            assert coordinates != null;
-                            final Coordinate newPosition = new Coordinate(coordinates.getLatitude(), coordinates.getLongitude());
+                            final Coordinate newPosition = new Coordinate(coordinates.get().getLatitude(), coordinates.get().getLongitude());
 
                             mapView.setCenter(newPosition);
-                            if (ambulanceMarker.getVisible()) {
-                                final Coordinate oldPosition = ambulanceMarker.getPosition();
-                                ambulanceMarker.setPosition(newPosition);
+                            if (AMBULANCE_MARKER.getVisible()) {
+                                final Coordinate oldPosition = AMBULANCE_MARKER.getPosition();
+                                AMBULANCE_MARKER.setPosition(newPosition);
                                 if (oldPosition == null) {
-                                    mapView.addMarker(ambulanceMarker);
+                                    mapView.addMarker(AMBULANCE_MARKER);
                                 }
                             }
                         }
@@ -119,7 +128,7 @@ public final class MapsController implements Initializable {
     private void resetAmbulance() {
         if (timeline != null) {
             timeline.stop();
-            mapView.removeMarker(ambulanceMarker);
+            mapView.removeMarker(AMBULANCE_MARKER);
             mapView.setCenter(CESENA_COORDINATE);
             mapView.setZoom(INITIAL_ZOOM);
         }

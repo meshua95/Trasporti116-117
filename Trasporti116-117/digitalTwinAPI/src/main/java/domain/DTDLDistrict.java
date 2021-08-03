@@ -7,7 +7,7 @@ package domain;
 /**
  * Class that represents a district
  */
-public class District {
+public class DTDLDistrict {
     private final String district;
 
     /**
@@ -15,7 +15,7 @@ public class District {
      *
      * @param d address district
      */
-    public District(final String d) {
+    public DTDLDistrict(final String d) {
         this.district = d;
     }
 

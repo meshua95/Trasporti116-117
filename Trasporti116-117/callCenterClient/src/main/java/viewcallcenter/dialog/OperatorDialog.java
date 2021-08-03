@@ -1,11 +1,12 @@
 package viewcallcenter.dialog;
 
 import digitaltwinsapi.CreateOperator;
-import domain.PostalCode;
-import domain.Address;
-import domain.City;
-import domain.District;
-import domain.HouseNumber;
+
+import domain.DTDLAddress;
+import domain.DTDLCity;
+import domain.DTDLHouseNumber;
+import domain.DTDLDistrict;
+import domain.DTDLPostalCode;
 import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
 import domain.transport.operator.OperatorResidence;
@@ -129,11 +130,11 @@ public final class OperatorDialog extends DtDialog {
                                         surname.getText(),
                                         LocalDate.of(birthday.getValue().getYear(), birthday.getValue().getMonth(), birthday.getValue().getDayOfMonth()),
                                         new OperatorResidence(
-                                                new Address(address.getText()),
-                                                new HouseNumber(Integer.parseInt(houseNumber.getText())),
-                                                new City(city.getText()),
-                                                new District(district.getText()),
-                                                new PostalCode(Integer.parseInt(postalCode.getText())))
+                                                new DTDLAddress(address.getText()),
+                                                new DTDLHouseNumber(Integer.parseInt(houseNumber.getText())),
+                                                new DTDLCity(city.getText()),
+                                                new DTDLDistrict(district.getText()),
+                                                new DTDLPostalCode(Integer.parseInt(postalCode.getText())))
                                 )
                         );
                         new Alert(Alert.AlertType.INFORMATION, ControllInputField.OPERATOR_CONFIRM + id, ButtonType.CLOSE).show();

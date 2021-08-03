@@ -37,7 +37,7 @@ public final class CreatePatient {
                 .addToContents("autonomy", autonomy.getValue());
 
         BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(patientId.getFiscalCode(), pazienteDT, BasicDigitalTwin.class);
-        System.out.println(basicTwinResponse.getId());
+
         return basicTwinResponse.getId();
     }
 }

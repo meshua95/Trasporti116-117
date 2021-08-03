@@ -4,19 +4,35 @@
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
-import digitaltwinsapi.*;
+import domain.transport.TransportId;
 import domain.transport.ambulance.AmbulanceId;
-import domain.patient.*;
 import domain.request.serviceRequest.BookingTransportId;
 import domain.request.serviceRequest.ServiceRequestId;
-import domain.transport.*;
+import digitaltwinsapi.Client;
+import digitaltwinsapi.DeleteBookingTransport;
+import digitaltwinsapi.DeletePatient;
+import digitaltwinsapi.GenerateId;
+import digitaltwinsapi.CreateBookingTransport;
+import digitaltwinsapi.CreatePatient;
+import digitaltwinsapi.CreateRequest;
+import digitaltwinsapi.CreateAmbulance;
+import digitaltwinsapi.CreateOperator;
+import digitaltwinsapi.DeleteOperator;
+import digitaltwinsapi.DeleteRequest;
+import digitaltwinsapi.DeleteAmbulance;
+import digitaltwinsapi.DeleteTransport;
+import digitaltwinsapi.TransportEnded;
+import digitaltwinsapi.StartTransport;
+import domain.patient.Autonomy;
+import domain.patient.PatientFiscalCode;
+import domain.patient.PatientPersonalData;
 import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.errorCode.QueryTimeOutException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class DtTransport {
@@ -26,7 +42,7 @@ public class DtTransport {
     private BookingTransportId bookingId;
 
     @BeforeClass
-    public static void createConnection(){
+    public static void createConnection() {
         Client.getClient();
     }
 
@@ -41,21 +57,21 @@ public class DtTransport {
         CreatePatient.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
     }
 
-    private synchronized void createServiceRequest(){
+    private synchronized void createServiceRequest() {
         CreateRequest.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
-    private synchronized BookingTransportId createBooking(){
+    private synchronized BookingTransportId createBooking() {
         createServiceRequest();
         createPatient();
         return CreateBookingTransport.createBookingTransport(TestDataValue.BOOKING_DATE, TestDataValue.BOOKING_ROUTE, patientId, serviceRequestId);
     }
 
-    private synchronized void createAmbulance(){
+    private synchronized void createAmbulance() {
         CreateAmbulance.createAmbulance(TestDataValue.AMBULANCE_NUMBER);
     }
 
-    private synchronized void createOperator(){
+    private synchronized void createOperator() {
         OperatorPersonalData personalData =
                 new OperatorPersonalData(TestDataValue.OPERATOR_NAME,
                         TestDataValue.OPERATOR_SURNAME,
@@ -75,7 +91,7 @@ public class DtTransport {
                 operatorId);
     }
 
-    private void deleteAllTestDigitalTwin(){
+    private void deleteAllTestDigitalTwin() {
         DeleteBookingTransport.deleteBookingTransport(bookingId);
         DeleteAmbulance.deleteAmbulance(new AmbulanceId(TestDataValue.AMBULANCE_NUMBER));
         DeleteOperator.deleteOperator(operatorId);
@@ -88,7 +104,7 @@ public class DtTransport {
         TransportId transportId = createTransport();
 
         TransportEnded.setTransportEnded(transportId);
-        assertEquals(Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getDigitalTwin(transportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
@@ -97,7 +113,7 @@ public class DtTransport {
     @Test
     public void checkTransportAmbulanceRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
-        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getAmbulanceId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(TestDataValue.EQUALS_REL, Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + new AmbulanceId(TestDataValue.AMBULANCE_NUMBER).getId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
@@ -106,7 +122,7 @@ public class DtTransport {
     @Test
     public void checkTransportPatientRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
-        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(TestDataValue.EQUALS_REL, Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();
@@ -115,7 +131,7 @@ public class DtTransport {
     @Test
     public void checkTransportOperatorRelationship() throws QueryTimeOutException {
         TransportId transportId = createTransport();
-        assertEquals(Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getOperatorId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(TestDataValue.EQUALS_REL, Client.getClient().getRelationship(transportId.getId(), transportId.getId() + "to" + operatorId.getId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         DeleteTransport.deleteTransport(transportId);
         deleteAllTestDigitalTwin();

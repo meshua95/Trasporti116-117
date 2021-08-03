@@ -5,13 +5,12 @@
 import com.azure.digitaltwins.core.DigitalTwinsClient;
 import digitaltwinsapi.Client;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-
-public class DtConnection{
+public class DtConnection {
 
     @Test
-    public void testConnection(){
-        assertEquals(Client.getClient().getClass(), DigitalTwinsClient.class);
+    public void testConnection() {
+        assertEquals(TestDataValue.EQUALS_VALUE, Client.getClient().getClass(), DigitalTwinsClient.class);
     }
 }

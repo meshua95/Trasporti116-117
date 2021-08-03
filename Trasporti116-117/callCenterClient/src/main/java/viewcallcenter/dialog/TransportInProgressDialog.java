@@ -5,7 +5,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import utils.errorCode.QueryTimeOutException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public final class TransportInProgressDialog extends DtDialog {
+    private static final Logger LOGGER = Logger.getLogger(TransportInProgressDialog.class.toString());
 
     @Override
     public void createEntity() {
@@ -15,7 +19,9 @@ public final class TransportInProgressDialog extends DtDialog {
         try {
             GetTransport.getAllTransportInProgress().forEach(t -> lv.getItems().add(t.getId()));
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
         getDtGridPane().add(lv, 0, 0);
 

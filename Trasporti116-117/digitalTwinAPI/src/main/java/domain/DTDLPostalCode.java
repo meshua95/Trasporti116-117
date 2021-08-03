@@ -7,7 +7,7 @@ package domain;
 /**
  * Class that represents postal code number
  */
-public class PostalCode {
+public class DTDLPostalCode {
     private final int postalCode;
 
     /**
@@ -15,7 +15,7 @@ public class PostalCode {
      *
      * @param pC postal code number
      */
-    public PostalCode(final int pC) {
+    public DTDLPostalCode(final int pC) {
         this.postalCode = pC;
     }
 

@@ -7,15 +7,15 @@ package domain;
 /**
  * Class that represents a city
  */
-public class City {
+public class DTDLCity {
     private final String city;
 
     /**
-     * Create new City
+     * Create new DTDLCity
      *
      * @param name city name
      */
-    public City(final String name) {
+    public DTDLCity(final String name) {
         this.city = name;
     }
 

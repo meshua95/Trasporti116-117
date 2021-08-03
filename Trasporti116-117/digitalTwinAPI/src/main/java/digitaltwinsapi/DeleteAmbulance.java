@@ -23,9 +23,9 @@ public final class DeleteAmbulance {
      */
     public static DeleteDigitalTwinStatusCode deleteAmbulance(final AmbulanceId ambulanceId) {
         try {
-            Client.getClient().listRelationships(ambulanceId.getAmbulanceId(), BasicRelationship.class)
-                    .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getAmbulanceId(), rel.getId()));
-            Client.getClient().deleteDigitalTwin(ambulanceId.getAmbulanceId());
+            Client.getClient().listRelationships(ambulanceId.getId(), BasicRelationship.class)
+                    .forEach(rel -> Client.getClient().deleteRelationship(ambulanceId.getId(), rel.getId()));
+            Client.getClient().deleteDigitalTwin(ambulanceId.getId());
             Client.getClient().deleteDigitalTwin(ambulanceId.getGpsId());
 
             return DeleteDigitalTwinStatusCode.DELETED;

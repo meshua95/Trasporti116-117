@@ -12,8 +12,14 @@ import utils.errorCode.DeleteDigitalTwinStatusCode;
 import utils.errorCode.QueryTimeOutException;
 import viewcallcenter.utils.ControllInputField;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public final class AmbulanceDialog extends DtDialog {
 
+    private static final Logger LOGGER = Logger.getLogger(AmbulanceDialog.class.toString());
+
+    @Override
     public void createEntity() {
         initialize("Crea Ambulanza", ButtonType.OK, ButtonType.CANCEL);
 
@@ -41,9 +47,11 @@ public final class AmbulanceDialog extends DtDialog {
 
         ComboBox<String> ambulance = new ComboBox<>();
         try {
-            GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getAmbulanceId()));
+            GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulance.getItems().add(a.getId()));
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
         getDtGridPane().add(new Label("Ambulanza"), 0, 0);
         getDtGridPane().add(ambulance, 1, 0);

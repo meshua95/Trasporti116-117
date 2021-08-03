@@ -7,7 +7,7 @@ package domain;
 /**
  * Class that represents the house number
  */
-public class HouseNumber {
+public class DTDLHouseNumber {
     private final int houseNumber;
 
     /**
@@ -15,7 +15,7 @@ public class HouseNumber {
      *
      * @param hN address house number
      */
-    public HouseNumber(final int hN) {
+    public DTDLHouseNumber(final int hN) {
         this.houseNumber = hN;
     }
 

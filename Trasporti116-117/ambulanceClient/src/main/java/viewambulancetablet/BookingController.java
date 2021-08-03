@@ -14,18 +14,23 @@ import utils.errorCode.QueryTimeOutException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class BookingController implements Initializable {
     @FXML
-    private ListView<String> lv;
+    private transient ListView<String> lv;
+
+    private static final Logger LOGGER = Logger.getLogger(BookingController.class.toString());
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        //DeleteBookingTransport.getAllBookingForToday().forEach(e->System.out.println(e.getId()));
         try {
             GetBooking.getAllBookingToDoForTheDay(LocalDateTime.now()).forEach(b -> lv.getItems().add(b.getId()));
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString());
+            }
         }
 
         lv.setOnMouseClicked(event -> {
@@ -46,7 +51,9 @@ public final class BookingController implements Initializable {
                                                     MainAppAmbulanceTablet.getAmbulanceId().get(),
                                                     MainAppAmbulanceTablet.getOperatorId().get()));
                                 } catch (QueryTimeOutException e) {
-                                    e.printStackTrace();
+                                    if (LOGGER.isLoggable(Level.SEVERE)) {
+                                        LOGGER.log(Level.SEVERE, e.toString(), e);
+                                    }
                                 }
                             }
 

@@ -16,27 +16,35 @@ import utils.errorCode.QueryTimeOutException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class RootAmbulanceTabletController implements Initializable {
 
     @FXML
-    private ComboBox<String> ambulanceList;
+    private transient ComboBox<String> ambulanceList;
     @FXML
-    private ComboBox<String> operatorList;
+    private transient ComboBox<String> operatorList;
     @FXML
-    private Button ok;
+    private transient Button ok;
+
+    private static final Logger LOGGER = Logger.getLogger(RootAmbulanceTabletController.class.toString());
 
     @Override
     public void  initialize(final URL url, final ResourceBundle rb) {
         try {
-            GetOperator.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getOperatorId()));
+            GetOperator.getAllOperatorId().forEach(o -> operatorList.getItems().add(o.getId()));
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
         try {
-            GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getAmbulanceId()));
+            GetAmbulance.getAllAmbulanceIdTwins().forEach(a -> ambulanceList.getItems().add(a.getId()));
         } catch (QueryTimeOutException e) {
-            e.printStackTrace();
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.log(Level.SEVERE, e.toString(), e);
+            }
         }
         ok.setOnAction(event -> {
             MainAppAmbulanceTablet.setOperatorAndAmbulance(new OperatorId(operatorList.getValue()), new AmbulanceId(ambulanceList.getValue()));

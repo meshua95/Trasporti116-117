@@ -5,7 +5,7 @@ package domain.request.infoRequest;
  * Represents a request for information from a user
  */
 public class InfoRequestDescription {
-    private String description;
+    private final String description;
 
     /**
      * Request for information from a user

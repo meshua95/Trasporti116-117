@@ -26,15 +26,15 @@ public final class CreateOperator {
      * @return id of the ambulance created
      */
     public static String createOperator(final OperatorId operatorId, final OperatorPersonalData personalData) {
-        BasicDigitalTwin operatorDT = new BasicDigitalTwin(operatorId.getOperatorId())
+        BasicDigitalTwin operatorDT = new BasicDigitalTwin(operatorId.getId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.OPERATOR_MODEL_ID)
                 )
                 .addToContents("personalData", personalData);
 
-        Response<BasicDigitalTwin> basicTwinResponse = Client.getClient().createOrReplaceDigitalTwinWithResponse(operatorId.getOperatorId(), operatorDT, BasicDigitalTwin.class, new CreateOrReplaceDigitalTwinOptions(),
+        Response<BasicDigitalTwin> basicTwinResponse = Client.getClient().createOrReplaceDigitalTwinWithResponse(operatorId.getId(), operatorDT, BasicDigitalTwin.class, new CreateOrReplaceDigitalTwinOptions(),
                 new Context("Key", "Value"));
-        System.out.println(basicTwinResponse.getStatusCode());
+
         return basicTwinResponse.getValue().getId();
     }
 }

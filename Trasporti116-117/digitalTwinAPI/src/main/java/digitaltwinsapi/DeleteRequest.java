@@ -17,7 +17,7 @@ public final class DeleteRequest {
      * @param  serviceRequestId  id of the request to be canceled
      */
     public static void deleteServiceRequest(final ServiceRequestId serviceRequestId) {
-        Client.getClient().deleteDigitalTwin(serviceRequestId.getserviceRequestId());
+        Client.getClient().deleteDigitalTwin(serviceRequestId.getId());
     }
 
     /**

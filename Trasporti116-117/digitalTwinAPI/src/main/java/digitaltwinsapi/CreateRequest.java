@@ -35,8 +35,8 @@ public final class CreateRequest {
                 .addToContents("dateTime", dateTime)
                 .addToContents("description", description.getDescription());
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(infoRequestId.getInfoRequestId(), infoRequestDT, BasicDigitalTwin.class);
-        System.out.println(basicTwinResponse.getId());
+       Client.getClient().createOrReplaceDigitalTwin(infoRequestId.getInfoRequestId(), infoRequestDT, BasicDigitalTwin.class);
+
         return infoRequestId;
     }
 
@@ -50,14 +50,14 @@ public final class CreateRequest {
     public static ServiceRequestId createServiceRequest(final LocalDateTime dateTime) {
         ServiceRequestId serviceRequestId = GenerateId.generateServiceRequestId(dateTime);
 
-        BasicDigitalTwin serviceRequestDT = new BasicDigitalTwin(serviceRequestId.getserviceRequestId())
+        BasicDigitalTwin serviceRequestDT = new BasicDigitalTwin(serviceRequestId.getId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.SERVICE_REQUEST_MODEL_ID)
                 )
                 .addToContents("dateTime", dateTime);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(serviceRequestId.getserviceRequestId(), serviceRequestDT, BasicDigitalTwin.class);
-        System.out.println(basicTwinResponse.getId());
+        Client.getClient().createOrReplaceDigitalTwin(serviceRequestId.getId(), serviceRequestDT, BasicDigitalTwin.class);
+
         return serviceRequestId;
     }
 }

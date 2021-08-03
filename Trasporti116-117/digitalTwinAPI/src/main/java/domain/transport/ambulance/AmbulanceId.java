@@ -7,8 +7,8 @@ package domain.transport.ambulance;
 /**
  * Represents the id of an ambulance
  */
-public class AmbulanceId {
-    private final String ambulanceId;
+public final class AmbulanceId {
+    private final String id;
     private final GpsId gpsAmbulanceId;
 
     /**
@@ -17,7 +17,7 @@ public class AmbulanceId {
      * @param ambulanceNumber ambulance number
      */
     public AmbulanceId(final int ambulanceNumber) {
-        this.ambulanceId = "ambulanza-" + ambulanceNumber;
+        this.id = "ambulanza-" + ambulanceNumber;
         this.gpsAmbulanceId = new GpsId(ambulanceNumber);
     }
 
@@ -27,7 +27,7 @@ public class AmbulanceId {
      * @param ambId ambulance id
      */
     public AmbulanceId(final String ambId) {
-        this.ambulanceId = ambId;
+        this.id = ambId;
         int ambulanceNumber = getAmbulanceNumber();
         this.gpsAmbulanceId = new GpsId(ambulanceNumber);
     }
@@ -35,8 +35,8 @@ public class AmbulanceId {
     /**
      * @return ambulance id
      */
-    public String getAmbulanceId() {
-        return this.ambulanceId;
+    public String getId() {
+        return this.id;
     }
 
     /**
@@ -50,7 +50,7 @@ public class AmbulanceId {
      * @return ambulance number
      */
     public int getAmbulanceNumber() {
-        String[] ambulanceIdSplitted = ambulanceId.split("-");
+        String[] ambulanceIdSplitted = id.split("-");
         return Integer.parseInt(ambulanceIdSplitted[1]);
     }
 

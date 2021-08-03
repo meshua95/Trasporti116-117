@@ -7,7 +7,7 @@ package domain;
 /**
  * Class that represents an address
  */
-public class Address {
+public class DTDLAddress {
     private final String address;
 
     /**
@@ -15,7 +15,7 @@ public class Address {
      *
      * @param a location address
      */
-    public Address(final String a) {
+    public DTDLAddress(final String a) {
         this.address = a;
     }
 

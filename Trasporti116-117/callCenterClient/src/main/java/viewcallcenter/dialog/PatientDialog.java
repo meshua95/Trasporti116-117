@@ -2,11 +2,11 @@ package viewcallcenter.dialog;
 
 import digitaltwinsapi.CreatePatient;
 
-import domain.Address;
-import domain.City;
-import domain.District;
-import domain.HouseNumber;
-import domain.PostalCode;
+import domain.DTDLAddress;
+import domain.DTDLCity;
+import domain.DTDLDistrict;
+import domain.DTDLHouseNumber;
+import domain.DTDLPostalCode;
 import domain.patient.Autonomy;
 import domain.patient.HealthState;
 import domain.patient.PatientFiscalCode;
@@ -147,11 +147,11 @@ public final class PatientDialog extends DtDialog {
                                         surname.getText(),
                                         LocalDate.of(birthday.getValue().getYear(), birthday.getValue().getMonth(), birthday.getValue().getDayOfMonth()),
                                         new PatientResidence(
-                                                new Address(address.getText()),
-                                                new HouseNumber(Integer.parseInt(houseNumber.getText())),
-                                                new City(city.getText()),
-                                                new District(district.getText()),
-                                                new PostalCode(Integer.parseInt(postalCode.getText())))),
+                                                new DTDLAddress(address.getText()),
+                                                new DTDLHouseNumber(Integer.parseInt(houseNumber.getText())),
+                                                new DTDLCity(city.getText()),
+                                                new DTDLDistrict(district.getText()),
+                                                new DTDLPostalCode(Integer.parseInt(postalCode.getText())))),
                                 new HealthState(healthState.getText()),
                                 autonomy.getValue()
                         );

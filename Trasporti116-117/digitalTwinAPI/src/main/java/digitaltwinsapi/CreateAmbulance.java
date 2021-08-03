@@ -23,7 +23,7 @@ public final class CreateAmbulance {
     public static String createAmbulance(final int ambulanceNumber) {
         AmbulanceId ambulanceId = new AmbulanceId(ambulanceNumber);
 
-        BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(ambulanceId.getAmbulanceId())
+        BasicDigitalTwin ambulanceDT = new BasicDigitalTwin(ambulanceId.getId())
                 .setMetadata(
                         new BasicDigitalTwinMetadata().setModelId(Constants.AMBULANCE_MODEL_ID)
                 )
@@ -36,23 +36,18 @@ public final class CreateAmbulance {
                 .addToContents("longitude", 0)
                 .addToContents("latitude", 0);
 
-        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getAmbulanceId(), ambulanceDT, BasicDigitalTwin.class);
-        BasicDigitalTwin basicTwinResponseGPS = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getGpsId(), gpsDt, BasicDigitalTwin.class);
+        BasicDigitalTwin basicTwinResponse = Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getId(), ambulanceDT, BasicDigitalTwin.class);
+        Client.getClient().createOrReplaceDigitalTwin(ambulanceId.getGpsId(), gpsDt, BasicDigitalTwin.class);
 
-        System.out.println(basicTwinResponse.getId());
-        System.out.println(basicTwinResponseGPS.getId());
-
-        BasicRelationship createdRelationship = Client.getClient().createOrReplaceRelationship(
-                ambulanceId.getAmbulanceId(),
-                ambulanceId.getAmbulanceId() + "to" + ambulanceId.getGpsId(),
+        Client.getClient().createOrReplaceRelationship(
+                ambulanceId.getId(),
+                ambulanceId.getId() + "to" + ambulanceId.getGpsId(),
                 new BasicRelationship(
-                        ambulanceId.getAmbulanceId() + "to" + ambulanceId.getGpsId(),
-                        ambulanceId.getAmbulanceId(),
+                        ambulanceId.getId() + "to" + ambulanceId.getGpsId(),
+                        ambulanceId.getId(),
                         ambulanceId.getGpsId(),
                         "contains"),
                 BasicRelationship.class);
-
-        System.out.println(createdRelationship.getId());
 
         return basicTwinResponse.getId();
     }
