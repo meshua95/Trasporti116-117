@@ -1,19 +1,19 @@
 /*
  * Copyright (c) 2021. Galassi Meshua, Gibertoni Giada
  */
-package main;
-import viewcallcenter.MainAppCallCenter;
+package ambulanceclient;
+import viewambulancetablet.MainAppAmbulanceTablet;
 
 /**
- * main.Main class
+ * Main class
  */
 public final class Main {
     private Main() { }
     /**
-     * main.Main
+     * Main
      */
     public static void main(final String... arg) {
-        MainAppCallCenter.main(arg);
+        MainAppAmbulanceTablet.main(arg);
     }
 
 }

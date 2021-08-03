@@ -29,6 +29,7 @@ subprojects{
     apply(plugin = "org.gradle.java")
     apply(plugin = "checkstyle")
     apply(plugin = "pmd")
+    apply(plugin = "java")
 
     javafx {
         version = "15.0.1"
@@ -56,5 +57,16 @@ subprojects{
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>{
         kotlinOptions.allWarningsAsErrors = true
+    }
+
+    buildscript {
+        repositories {
+            maven {
+                url = uri("https://plugins.gradle.org/m2/")
+            }
+        }
+        dependencies {
+            classpath("gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0")
+        }
     }
 }
