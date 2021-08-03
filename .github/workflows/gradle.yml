@@ -39,7 +39,7 @@ jobs:
         
   TagJob:
     needs: GradleJob
-    if:  ${{github.head_ref}} == 'master'
+    if:  success() && ${{github.head_ref}} == 'master'
     runs-on: ubuntu-latest
     outputs:
       outputTag: '${{ steps.relese_msg.outputs.RELESE_NAME }}' #The outuput of the job
@@ -73,7 +73,7 @@ jobs:
 
   ReleaseJob:
     needs: TagJob
-    if:  (${{ needs.TagJob.outputs.outputTag }} != '''')
+    if:  success() && (${{ needs.TagJob.outputs.outputTag }} != '''')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
