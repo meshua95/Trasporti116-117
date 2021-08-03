@@ -13,7 +13,7 @@ concurrency: staging_environment
 
 jobs:
 
-  TestJob:
+  GradleJob:
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -31,13 +31,12 @@ jobs:
         with:
           java-version: ${{ matrix.java_version }}
           distribution: 'adopt'
-          check-latest: true
       - name: Build with Gradle
         working-directory: ./Trasporti116-117
-        run: ./gradlew check
+        run: ./gradlew build
 
   TagJob:
-    needs: TestJob
+    needs: GradleJob
     if:  success() && (${{github.head_ref}} == 'master')
     runs-on: ubuntu-latest
     outputs:
@@ -66,13 +65,13 @@ jobs:
           then #if yes use it
               echo "::set-output name=RELESE_NAME::$(echo ${{steps.extract_tag_msg.outputs.TAG_MSG}})"
           else #if generate one new tag incrementing fixes number like x.y.z+1
-              val=$(git describe)
+              val=$(git describe --tags)
               echo "::set-output name=RELESE_NAME::$(echo $val)"
           fi
 
   ReleaseJob:
     needs: TagJob
-    if:  ${{ needs.TagJob.outputs.outputTag }} != ''''
+    if:  (${{ needs.TagJob.outputs.outputTag }} != '''')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
