@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Java CI
 
 on:
   push:
@@ -9,14 +9,17 @@ on:
     # il primo giorno di ogni mese
     - cron:  '* * 1 * *'
 
+concurrency: staging_environment
+
 jobs:
-  build:
+
+  TestJob:
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
-        os: [ubuntu, windows, macos]
-        java_version: [11, 14, 16]
+        os: [ubuntu]
+        java_version: [14]
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -29,6 +32,62 @@ jobs:
           java-version: ${{ matrix.java_version }}
           distribution: 'adopt'
           check-latest: true
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Build with Gradle
         working-directory: ./Trasporti116-117
         run: ./gradlew check
+
+  TagJob:
+    needs: TestJob
+    if:  success() && (${{github.head_ref}} == 'master')
+    runs-on: ubuntu-latest
+    outputs:
+      outputTag: '${{ steps.relese_msg.outputs.RELESE_NAME }}' #The outuput of the job
+    steps:
+      - name: Clone Repo with Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Extract relese message if present
+        shell: bash
+        id: extract_tag_msg
+        run: >
+          echo "::set-output name=TAG_MSG::$(echo
+          "${{github.event.head_commit.message}}" | grep -o -P
+          '(?<=-TAG{).*(?=})')" #Extract tag name if present
+      - name: Fetch tag
+        shell: bash
+        run: |
+          git fetch --prune --tags #Pull all tags
+      - name: Fill tag if empty
+        id: relese_msg
+        shell: bash
+        run: |
+          if [ "${{steps.extract_tag_msg.outputs.TAG_MSG}}" != "" ] #Check if the user has specified a name for the tag
+          then #if yes use it
+              echo "::set-output name=RELESE_NAME::$(echo ${{steps.extract_tag_msg.outputs.TAG_MSG}})"
+          else #if generate one new tag incrementing fixes number like x.y.z+1
+              val=$(git describe)
+              echo "::set-output name=RELESE_NAME::$(echo $val)"
+          fi
+
+  ReleaseJob:
+    needs: TagJob
+    if:  ${{ needs.TagJob.outputs.outputTag }} != ''''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Create relese
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        with:
+          tag_name: '${{ needs.TagJob.outputs.outputTag }}'
+          release_name: 'Release ${{ needs.TagJob.outputs.outputTag }}'
+          draft: false
+          prerelease: false
