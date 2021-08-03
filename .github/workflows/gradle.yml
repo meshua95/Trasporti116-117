@@ -34,10 +34,12 @@ jobs:
       - name: Build with Gradle
         working-directory: ./Trasporti116-117
         run: ./gradlew build
-
+      - name: PRint head
+        run: echo ${{github.head_ref}} 
+        
   TagJob:
     needs: GradleJob
-    if:  success() && (${{github.head_ref}} == 'master')
+    if:  ${{github.head_ref}} == 'master'
     runs-on: ubuntu-latest
     outputs:
       outputTag: '${{ steps.relese_msg.outputs.RELESE_NAME }}' #The outuput of the job
