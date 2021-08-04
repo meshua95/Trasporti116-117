@@ -5,21 +5,36 @@ on:
     branches:
       - develop
       - master
+    tags:
+      - "*"
+      
   schedule:
-    # il primo giorno di ogni mese
-    - cron:  '* * 1 * *'
-
+    # Re-run jobs every first of the month
+    - cron:  '0 0 1 * *'
+    
 concurrency: staging_environment
 
 jobs:
-
+  AzureJob:
+   runs-on: ubuntu-latest
+   outputs:
+      output1: '${{ steps.azure.outputs.SUBSCRIPTION_STATE }}'
+   steps:
+      - name: Check Azure subscription state
+        id: azure
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            echo "::set-output name=SUBSCRIPTION_STATE::$(az login --service-principal -u f00ec15a-5310-4dcf-a766-77fcc1bcf40e -p n5_i0mRm8TD6x725E~k2jgtTunx.f-lGzc --tenant 9a97eb40-e341-4a0f-8c5d-c6264663964c | jq '.[].state')"
+     
   GradleJob:
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
-        os: [ubuntu]
-        java_version: [14]
+        os: [ubuntu, macos, windows]
+        java_version: [11, 12, 13, 14, 15, 16]
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -31,62 +46,38 @@ jobs:
         with:
           java-version: ${{ matrix.java_version }}
           distribution: 'adopt'
-      - name: Build with Gradle
+      - run: echo ${{ needs.AzureJob.outputs.output1 }}
+      - if:  ${{ needs.AzureJob.outputs.output1 }} == 'Enabled'
+        name: Subscription is enabled
         working-directory: ./Trasporti116-117
-        run: ./gradlew build
-      - name: PRint head
-        run: echo ${{github.head_ref}} 
+        run: ./gradlew check
+      - if: ${{ needs.AzureJob.outputs.output1 }} != 'Enabled'
+        name: Subscription is disabled
+        working-directory: ./Trasporti116-117
+        run: ./gradlew check -x Test
         
-  TagJob:
+  Release:
     needs: GradleJob
-    if:  success() && ${{github.head_ref}} == 'master'
-    runs-on: ubuntu-latest
-    outputs:
-      outputTag: '${{ steps.relese_msg.outputs.RELESE_NAME }}' #The outuput of the job
-    steps:
-      - name: Clone Repo with Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      - name: Extract relese message if present
-        shell: bash
-        id: extract_tag_msg
-        run: >
-          echo "::set-output name=TAG_MSG::$(echo
-          "${{github.event.head_commit.message}}" | grep -o -P
-          '(?<=-TAG{).*(?=})')" #Extract tag name if present
-      - name: Fetch tag
-        shell: bash
-        run: |
-          git fetch --prune --tags #Pull all tags
-      - name: Fill tag if empty
-        id: relese_msg
-        shell: bash
-        run: |
-          if [ "${{steps.extract_tag_msg.outputs.TAG_MSG}}" != "" ] #Check if the user has specified a name for the tag
-          then #if yes use it
-              echo "::set-output name=RELESE_NAME::$(echo ${{steps.extract_tag_msg.outputs.TAG_MSG}})"
-          else #if generate one new tag incrementing fixes number like x.y.z+1
-              val=$(git describe --tags)
-              echo "::set-output name=RELESE_NAME::$(echo $val)"
-          fi
-
-  ReleaseJob:
-    needs: TagJob
-    if:  success() && (${{ needs.TagJob.outputs.outputTag }} != '''')
+    if: success() && startsWith(github.ref, 'refs/tags')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: '0'
-      - name: Create relese
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
         with:
-          tag_name: '${{ needs.TagJob.outputs.outputTag }}'
-          release_name: 'Release ${{ needs.TagJob.outputs.outputTag }}'
-          draft: false
+          java-version: 15
+      - name: Shadow Jar with Gradle
+        working-directory: ./Trasporti116-117
+        run: ./gradlew shadowJar
+      - name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
+          files: |
+            LICENSE
+            ./Trasporti116-117/ambulanceClient/build/libs/*all.jar
+            ./Trasporti116-117/callCenterClient/build/libs/*all.jar
