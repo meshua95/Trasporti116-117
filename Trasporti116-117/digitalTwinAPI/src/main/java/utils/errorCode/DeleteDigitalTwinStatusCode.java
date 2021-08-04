@@ -11,7 +11,7 @@ public enum DeleteDigitalTwinStatusCode {
     /**
      * Status code delated
      */
-    DELETED (1),
+    DELETED(1),
 
     /**
      * Status code when relation existing
@@ -23,10 +23,10 @@ public enum DeleteDigitalTwinStatusCode {
     /**
      * Digital twin status code creation
      *
-     * @param value status code
+     * @param v status code
      */
-    DeleteDigitalTwinStatusCode(int value) {
-        this.value = value;
+    DeleteDigitalTwinStatusCode(final int v) {
+        this.value = v;
     }
 
     /**

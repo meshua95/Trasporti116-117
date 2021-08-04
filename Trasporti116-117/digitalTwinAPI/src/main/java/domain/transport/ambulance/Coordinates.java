@@ -4,18 +4,18 @@ package domain.transport.ambulance;
  * Represents the earth's coordinates
  * */
 public class Coordinates {
-    double longitude;
-    double latitude;
+    private final double longitude;
+    private final double latitude;
 
     /**
      * Create the coordinates
      *
-     * @param latitude latitude of coordinates
-     * @param longitude longitude of coordinates
+     * @param lat latitude of coordinates
+     * @param lon longitude of coordinates
      * */
-    public Coordinates(double longitude, double latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    public Coordinates(final double lon, final double lat) {
+        this.longitude = lon;
+        this.latitude = lat;
     }
 
     /**

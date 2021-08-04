@@ -3,7 +3,9 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinsAPI.*;
+import digitaltwinsapi.Client;
+import digitaltwinsapi.CreateOperator;
+import digitaltwinsapi.DeleteOperator;
 import domain.transport.operator.OperatorId;
 import domain.transport.operator.OperatorPersonalData;
 import org.junit.BeforeClass;
@@ -18,14 +20,14 @@ public class DtOperator {
                     TestDataValue.OPERATOR_BIRTHDAY,
                     TestDataValue.OPERATOR_RESIDENCE);
     @BeforeClass
-    public static void createConnection(){
+    public static void createConnection() {
         Client.getClient();
     }
 
     @Test
-    public void createOperator(){
+    public void createOperator() {
         CreateOperator.createOperator(idOperator, personalData);
-        assertEquals(Client.getClient().getDigitalTwin(idOperator.getOperatorId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getDigitalTwin(idOperator.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         DeleteOperator.deleteOperator(idOperator);
     }

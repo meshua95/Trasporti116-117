@@ -7,8 +7,8 @@ package domain.transport.ambulance;
 /**
  * Represents the id of an ambulance
  */
-public class AmbulanceId {
-    private final String ambulanceId;
+public final class AmbulanceId {
+    private final String id;
     private final GpsId gpsAmbulanceId;
 
     /**
@@ -16,18 +16,18 @@ public class AmbulanceId {
      *
      * @param ambulanceNumber ambulance number
      */
-    public AmbulanceId(int ambulanceNumber) {
-        this.ambulanceId = "ambulanza-" + ambulanceNumber;
+    public AmbulanceId(final int ambulanceNumber) {
+        this.id = "ambulanza-" + ambulanceNumber;
         this.gpsAmbulanceId = new GpsId(ambulanceNumber);
     }
 
     /**
      * Create id of an ambulance by ambulance id
      *
-     * @param ambulanceId ambulance id
+     * @param ambId ambulance id
      */
-    public AmbulanceId(String ambulanceId) {
-        this.ambulanceId = ambulanceId;
+    public AmbulanceId(final String ambId) {
+        this.id = ambId;
         int ambulanceNumber = getAmbulanceNumber();
         this.gpsAmbulanceId = new GpsId(ambulanceNumber);
     }
@@ -35,33 +35,33 @@ public class AmbulanceId {
     /**
      * @return ambulance id
      */
-    public String getAmbulanceId() {
-        return this.ambulanceId;
+    public String getId() {
+        return this.id;
     }
 
     /**
      * @return gps id
      */
-    public String getGpsId(){
+    public String getGpsId() {
         return this.gpsAmbulanceId.getGpsId();
     }
 
     /**
      * @return ambulance number
      */
-    public int getAmbulanceNumber(){
-        String[] ambulanceIdSplitted = ambulanceId.split("-");
+    public int getAmbulanceNumber() {
+        String[] ambulanceIdSplitted = id.split("-");
         return Integer.parseInt(ambulanceIdSplitted[1]);
     }
 
-    private static class GpsId{
+    private static class GpsId {
         private final String gpsAmbulanceId;
 
-        public GpsId(int ambulanceNumber){
+         GpsId(final int ambulanceNumber) {
             this.gpsAmbulanceId = "gps-" + ambulanceNumber;
         }
 
-        public String getGpsId(){
+         String getGpsId() {
             return this.gpsAmbulanceId;
         }
     }

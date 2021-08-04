@@ -5,28 +5,42 @@
 import com.azure.digitaltwins.core.BasicDigitalTwin;
 import com.azure.digitaltwins.core.BasicRelationship;
 import com.azure.digitaltwins.core.implementation.models.ErrorResponseException;
-import digitalTwinsAPI.*;
-import domain.patient.*;
-import domain.request.serviceRequest.*;
+
+import digitaltwinsapi.Client;
+import digitaltwinsapi.DeleteBookingTransport;
+import digitaltwinsapi.DeletePatient;
+import digitaltwinsapi.GenerateId;
+import digitaltwinsapi.CreateBookingTransport;
+import digitaltwinsapi.CreatePatient;
+import digitaltwinsapi.CreateRequest;
+import domain.patient.Autonomy;
+import domain.patient.PatientFiscalCode;
+import domain.patient.PatientPersonalData;
+import domain.request.serviceRequest.BookingTransportId;
+import domain.request.serviceRequest.ServiceRequestId;
+import digitaltwinsapi.SetTakeOwnership;
+import digitaltwinsapi.GetBooking;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import utils.errorCode.QueryTimeOutException;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DtBookingTransport {
     private final PatientFiscalCode patientId = new PatientFiscalCode(TestDataValue.PATIENT_FISCAL_CODE);
-    final BookingTransportId bookingTransportId = GenerateId.generateBookingTransportId(patientId, TestDataValue.BOOKING_DATE);
+    private final BookingTransportId bookingTransportId = GenerateId.generateBookingTransportId(patientId, TestDataValue.BOOKING_DATE);
     private final ServiceRequestId serviceReqId = GenerateId.generateServiceRequestId(TestDataValue.SERVICE_REQUEST_DATE);
 
     @BeforeClass
-    public static void createConnection(){
+    public static void createConnection() {
         Client.getClient();
     }
 
-    private void createPatient(){
+    private void createPatient() {
         PatientPersonalData personalData =
                 new PatientPersonalData(
                         TestDataValue.PATIENT_NAME,
@@ -37,11 +51,11 @@ public class DtBookingTransport {
         CreatePatient.createPatient(patientId, personalData, TestDataValue.HEALTH_STATE, Autonomy.NOT_AUTONOMOUS);
     }
 
-    public void createServiceRequest(){
+    private void createServiceRequest() {
         CreateRequest.createServiceRequest(TestDataValue.SERVICE_REQUEST_DATE);
     }
 
-    private void createBooking(){
+    private void createBooking() {
         createPatient();
         createServiceRequest();
 
@@ -52,33 +66,33 @@ public class DtBookingTransport {
                 serviceReqId);
     }
 
-    private void deleteAllTestDigitalTwin(){
+    private void deleteAllTestDigitalTwin() {
         DeletePatient.deletePatient(patientId);
     }
 
     @Test
-    public void checkBookingCreation(){
+    public void checkBookingCreation() {
         createBooking();
 
-        assertEquals(Client.getClient().getDigitalTwin(bookingTransportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getDigitalTwin(bookingTransportId.getId(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
         deleteAllTestDigitalTwin();
     }
 
     @Test
-    public void checkBookingPatientRelationship(){
+    public void checkBookingPatientRelationship() {
         createBooking();
-        assertEquals(Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(TestDataValue.EQUALS_REL, Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + patientId.getFiscalCode(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
         deleteAllTestDigitalTwin();
     }
 
     @Test
-    public void checkBookingServiceRequestRelationship(){
+    public void checkBookingServiceRequestRelationship() {
         createBooking();
-        assertEquals(Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + serviceReqId.getserviceRequestId(), BasicRelationship.class).getClass(), BasicRelationship.class);
+        assertEquals(TestDataValue.EQUALS_REL, Client.getClient().getRelationship(bookingTransportId.getId(), bookingTransportId.getId() + "to" + serviceReqId.getId(), BasicRelationship.class).getClass(), BasicRelationship.class);
 
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
         deleteAllTestDigitalTwin();
@@ -91,8 +105,8 @@ public class DtBookingTransport {
 
         List<BookingTransportId> bookingToDo = GetBooking.getAllBookingToDoForTheDay(TestDataValue.BOOKING_DATE);
 
-        for(BookingTransportId id: bookingToDo){
-            assertNotEquals(id.getId(), bookingTransportId);
+        for (BookingTransportId id: bookingToDo) {
+            assertNotEquals(TestDataValue.NOT_EQUALS_VALUE, id.getId(), bookingTransportId);
         }
 
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
@@ -100,13 +114,13 @@ public class DtBookingTransport {
     }
 
     @Test
-    public void deleteBookingTransport(){
+    public void deleteBookingTransport() {
         createBooking();
         DeleteBookingTransport.deleteBookingTransport(bookingTransportId);
-        try{
+        try {
             Client.getClient().getDigitalTwin(bookingTransportId.getId(), BasicDigitalTwin.class);
-        } catch (Exception ex){
-            assertEquals(ex.getClass(), ErrorResponseException.class);
+        } catch (Exception ex) {
+            assertEquals(TestDataValue.NOT_EXIST, ex.getClass(), ErrorResponseException.class);
         }
 
         deleteAllTestDigitalTwin();

@@ -15,25 +15,25 @@ public class TransportRoute {
     /**
      * Create transport route
      *
-     * @param departure location of departure
-     * @param destination location of destination
+     * @param dep location of departure
+     * @param dest location of destination
      */
-    public TransportRoute(TransportLocation departure, TransportLocation destination) {
-        this.departure = departure;
-        this.destination = destination;
+    public TransportRoute(final TransportLocation dep, final TransportLocation dest) {
+        this.departure = dep;
+        this.destination = dest;
     }
 
     /**
      * @return departure location
      */
-    public TransportLocation getDeparture(){
+    public TransportLocation getDeparture() {
         return this.departure;
     }
 
     /**
      * @return destination location
      */
-    public TransportLocation getDestination(){
+    public TransportLocation getDestination() {
         return this.destination;
     }
 }

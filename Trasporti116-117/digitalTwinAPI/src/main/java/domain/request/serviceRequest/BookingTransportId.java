@@ -8,21 +8,21 @@ package domain.request.serviceRequest;
  * Represents a booking trasport id
  * */
 public class BookingTransportId {
-    private final String bookingTransportId;
+    private final String id;
 
     /**
      * Booking trasport id
      *
-     * @param bookingTransportId booking trasport id
+     * @param value booking trasport id
      * */
-    public BookingTransportId(String bookingTransportId) {
-        this.bookingTransportId = bookingTransportId;
+    public BookingTransportId(final String value) {
+        this.id = value;
     }
 
     /**
      * @return booking trasport id
      * */
     public String getId() {
-        return bookingTransportId;
+        return id;
     }
 }

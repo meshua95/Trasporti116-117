@@ -3,8 +3,12 @@
  */
 
 import com.azure.digitaltwins.core.BasicDigitalTwin;
-import digitalTwinsAPI.*;
-import domain.patient.*;
+import digitaltwinsapi.Client;
+import digitaltwinsapi.DeletePatient;
+import digitaltwinsapi.CreatePatient;
+import domain.patient.Autonomy;
+import domain.patient.PatientFiscalCode;
+import domain.patient.PatientPersonalData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -19,15 +23,15 @@ public class DtPatient {
                     TestDataValue.PATIENT_RESIDENCE);
 
     @BeforeClass
-    public static void createConnection(){
+    public static void createConnection() {
         Client.getClient();
     }
 
     @Test
-    public void createPatient(){
+    public void createPatient() {
 
         CreatePatient.createPatient(idPatient, personalData, TestDataValue.HEALTH_STATE, Autonomy.PARTIALLY_AUTONOMOUS);
-        assertEquals(Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
+        assertEquals(TestDataValue.EQUALS_DT, Client.getClient().getDigitalTwin(idPatient.getFiscalCode(), BasicDigitalTwin.class).getClass(), BasicDigitalTwin.class);
 
         DeletePatient.deletePatient(idPatient);
     }

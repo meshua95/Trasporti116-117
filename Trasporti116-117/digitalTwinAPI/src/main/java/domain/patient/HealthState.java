@@ -13,10 +13,10 @@ public class HealthState {
     /**
      * Patient's health state
      *
-     * @param description description of health state
+     * @param d description of health state
      */
-    public HealthState(String description) {
-        this.description = description;
+    public HealthState(final String d) {
+        this.description = d;
     }
 
     /**

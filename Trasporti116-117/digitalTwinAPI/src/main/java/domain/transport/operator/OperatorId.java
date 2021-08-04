@@ -8,21 +8,21 @@ package domain.transport.operator;
  * Class that represents the operator identifier
  */
 public class OperatorId {
-    private final String operatorId;
+    private final String id;
 
     /**
      * Create an operator identifier
      *
-     * @param operatorId operator identifier
+     * @param opId operator identifier
      */
-    public OperatorId(String operatorId) {
-        this.operatorId = operatorId;
+    public OperatorId(final String opId) {
+        this.id = opId;
     }
 
     /**
      * @return operator identifier
      */
-    public String getOperatorId() {
-        return this.operatorId;
+    public String getId() {
+        return this.id;
     }
 }

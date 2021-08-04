@@ -14,10 +14,10 @@ public class PatientFiscalCode {
     /**
      * Patient's fiscal code
      *
-     * @param fiscalCode fiscal code
+     * @param fc fiscal code
      */
-    public PatientFiscalCode(String fiscalCode) {
-        this.fiscalCode = fiscalCode;
+    public PatientFiscalCode(final String fc) {
+        this.fiscalCode = fc;
     }
 
     /**

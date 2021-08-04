@@ -1,20 +1,102 @@
-name: Java CI with Gradle
+name: Java CI
 
 on:
   push:
-    branches: [ develop, master ]
+    branches:
+      - develop
+      - master
+    tags:
+      - "*"
+
+  schedule:
+    # Re-run jobs every first of the month
+    - cron:  '0 0 1 * *'
+
+concurrency: staging_environment
 
 jobs:
-  build:
-    runs-on: windows-latest
+  AzureJob:
+   runs-on: ubuntu-latest
+   outputs:
+      output1: '${{ steps.azure.outputs.SUBSCRIPTION_STATE }}'
+   steps:
+      - name: Check Azure subscription state
+        id: azure
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            echo "::set-output name=SUBSCRIPTION_STATE::$(az login --service-principal -u f00ec15a-5310-4dcf-a766-77fcc1bcf40e -p n5_i0mRm8TD6x725E~k2jgtTunx.f-lGzc --tenant 9a97eb40-e341-4a0f-8c5d-c6264663964c | jq '.[].state')"
 
+  GradleJob:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu, macos, windows]
+        java_version: [11, 14, 16]
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 14
-      uses: actions/setup-java@v2
+      - name: Clone repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Set up JDK ${{ matrix.java_version }}
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java_version }}
+          distribution: 'adopt'
+      - if:  ${{ needs.AzureJob.outputs.output1 }} == 'Enabled'
+        name: Subscription is enabled
+        working-directory: ./Trasporti116-117
+        run: |
+          chmod +x ./gradlew
+          ./gradlew check
+      - if: ${{ needs.AzureJob.outputs.output1 }} != 'Enabled'
+        name: Subscription is disabled
+        working-directory: ./Trasporti116-117
+        run: |
+          chmod +x ./gradlew
+          ./gradlew check -x Test
+
+  CompileLatexJob:
+    runs-on: ubuntu-latest
+    name: Compile latext report
+    steps:
+    - uses: actions/checkout@v1
+    - name: Compilation
+      uses: vinay0410/tectonic-action@master
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        java-version: '14'
-        distribution: 'adopt'
-    - name: Build with Gradle
-      working-directory: ./Trasporti116-117
-      run: ./gradlew check
+        tex_path: 'Report/report.tex'
+        push: 'yes'
+
+  Release:
+    needs: GradleJob
+    if: success() && startsWith(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+      - name: Shadow Jar with Gradle
+        working-directory: ./Trasporti116-117
+        run: |
+          chmod +x ./gradlew
+          ./gradlew shadowJar
+      - name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE
+            ./Trasporti116-117/ambulanceClient/build/libs/*all.jar
+            ./Trasporti116-117/callCenterClient/build/libs/*all.jar
+            ./Report/report.pdf

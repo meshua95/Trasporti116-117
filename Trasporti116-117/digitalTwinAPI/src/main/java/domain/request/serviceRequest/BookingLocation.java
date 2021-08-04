@@ -4,68 +4,72 @@
 
 package domain.request.serviceRequest;
 
-import domain.*;
+import domain.DTDLAddress;
+import domain.DTDLCity;
+import domain.DTDLHouseNumber;
+import domain.DTDLDistrict;
+import domain.DTDLPostalCode;
 
 /**
  * Represents location for a booking
  */
 public class BookingLocation {
-    private final Address address;
-    private final HouseNumber houseNumber;
-    private final City city;
-    private final District district;
-    private final PostalCode postalCode;
+    private final DTDLAddress address;
+    private final DTDLHouseNumber houseNumber;
+    private final DTDLCity city;
+    private final DTDLDistrict district;
+    private final DTDLPostalCode postalCode;
 
     /**
      * Location for a booking
      *
-     * @param address location's address
-     * @param houseNumber location's house number
-     * @param city location's city
-     * @param district location's district
-     * @param postalCode location's postal code
+     * @param a location's address
+     * @param hN location's house number
+     * @param c location's city
+     * @param d location's district
+     * @param pC location's postal code
      *
      */
-    public BookingLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
-        this.address = address;
-        this.houseNumber = houseNumber;
-        this.city = city;
-        this.district = district;
-        this.postalCode = postalCode;
+    public BookingLocation(final DTDLAddress a, final DTDLHouseNumber hN, final DTDLCity c, final DTDLDistrict d, final DTDLPostalCode pC) {
+        this.address = a;
+        this.houseNumber = hN;
+        this.city = c;
+        this.district = d;
+        this.postalCode = pC;
     }
 
     /**
      * @return location's address
      * */
-    public Address getAddress() {
+    public DTDLAddress getAddress() {
         return address;
     }
 
     /**
      * @return location's house number
      * */
-    public HouseNumber getHouseNumber() {
+    public DTDLHouseNumber getHouseNumber() {
         return houseNumber;
     }
 
     /**
      * @return location's city
      * */
-    public City getCity() {
+    public DTDLCity getCity() {
         return city;
     }
 
     /**
      * @return location's district
      * */
-    public District getDistrict() {
+    public DTDLDistrict getDistrict() {
         return district;
     }
 
     /**
      * @return location's postal code
      * */
-    public PostalCode getPostalCode() {
+    public DTDLPostalCode getPostalCode() {
         return postalCode;
     }
 }

@@ -3,68 +3,74 @@
  */
 
 package domain.transport;
-import domain.*;
+
+import domain.DTDLAddress;
+import domain.DTDLCity;
+import domain.DTDLHouseNumber;
+import domain.DTDLDistrict;
+import domain.DTDLPostalCode;
+
 /**
  * Class that represents a transport location
  */
 public class TransportLocation {
-    private final Address address;
-    private final HouseNumber houseNumber;
-    private final City city;
-    private final District district;
-    private final PostalCode postalCode;
+    private final DTDLAddress address;
+    private final DTDLHouseNumber houseNumber;
+    private final DTDLCity city;
+    private final DTDLDistrict district;
+    private final DTDLPostalCode postalCode;
 
     /**
      * Create transport location
      *
-     * @param address location address
-     * @param houseNumber location house number
-     * @param city location city
-     * @param district location district
-     * @param postalCode location postal code
+     * @param a location address
+     * @param hN location house number
+     * @param c location city
+     * @param d location district
+     * @param pC location postal code
      */
-    public TransportLocation(Address address, HouseNumber houseNumber, City city, District district, PostalCode postalCode) {
-        this.address = address;
-        this.houseNumber = houseNumber;
-        this.city = city;
-        this.district = district;
-        this.postalCode = postalCode;
+    public TransportLocation(final DTDLAddress a, final DTDLHouseNumber hN, final DTDLCity c, final DTDLDistrict d, final DTDLPostalCode pC) {
+        this.address = a;
+        this.houseNumber = hN;
+        this.city = c;
+        this.district = d;
+        this.postalCode = pC;
     }
 
     /**
-     * Address getter
+     * DTDLAddress getter
      *
      * @return address
      */
-    public Address getAddress() {
+    public DTDLAddress getAddress() {
         return address;
     }
 
     /**
      * @return house number
      */
-    public HouseNumber getHouseNumber() {
+    public DTDLHouseNumber getHouseNumber() {
         return houseNumber;
     }
 
     /**
      * @return city
      */
-    public City getCity() {
+    public DTDLCity getCity() {
         return city;
     }
 
     /**
      * @return district
      */
-    public District getDistrict() {
+    public DTDLDistrict getDistrict() {
         return district;
     }
 
     /**
      * @return postal code
      */
-    public PostalCode getPostalCode() {
+    public DTDLPostalCode getPostalCode() {
         return postalCode;
     }
 }

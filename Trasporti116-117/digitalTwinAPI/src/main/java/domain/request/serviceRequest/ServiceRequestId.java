@@ -4,21 +4,21 @@ package domain.request.serviceRequest;
  * Represents id for ServiceRequest
  */
 public class ServiceRequestId {
-    private final String serviceRequestId;
+    private final String id;
 
     /**
      * Id for ServiceRequest
      *
-     * @param serviceRequestId id
+     * @param value ServiceRequest id
      */
-    public ServiceRequestId(String serviceRequestId) {
-        this.serviceRequestId = serviceRequestId;
+    public ServiceRequestId(final String value) {
+        this.id = value;
     }
 
     /**
      * @return Id for ServiceRequest
      */
-    public String getserviceRequestId() {
-        return serviceRequestId;
+    public String getId() {
+        return id;
     }
 }

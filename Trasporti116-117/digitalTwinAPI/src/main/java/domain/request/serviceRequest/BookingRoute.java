@@ -15,12 +15,12 @@ public class BookingRoute {
     /**
      * Booking route
      *
-     * @param departure departure location
-     * @param destination destination location
+     * @param dep departure location
+     * @param dest destination location
      * */
-    public BookingRoute(BookingLocation departure, BookingLocation destination) {
-        this.departure = departure;
-        this.destination = destination;
+    public BookingRoute(final BookingLocation dep, final BookingLocation dest) {
+        this.departure = dep;
+        this.destination = dest;
     }
 
     /**
