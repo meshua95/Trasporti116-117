@@ -34,7 +34,7 @@ jobs:
       max-parallel: 1
       matrix:
         os: [ubuntu, macos, windows]
-        java_version: [11, 12, 13, 14, 15, 16]
+        java_version: [11, 14, 16]
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -46,7 +46,6 @@ jobs:
         with:
           java-version: ${{ matrix.java_version }}
           distribution: 'adopt'
-      - run: echo ${{ needs.AzureJob.outputs.output1 }}
       - if:  ${{ needs.AzureJob.outputs.output1 }} == 'Enabled'
         name: Subscription is enabled
         working-directory: ./Trasporti116-117
