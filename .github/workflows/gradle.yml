@@ -7,11 +7,11 @@ on:
       - master
     tags:
       - "*"
-      
+
   schedule:
     # Re-run jobs every first of the month
     - cron:  '0 0 1 * *'
-    
+
 concurrency: staging_environment
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
           azcliversion: 2.0.72
           inlineScript: |
             echo "::set-output name=SUBSCRIPTION_STATE::$(az login --service-principal -u f00ec15a-5310-4dcf-a766-77fcc1bcf40e -p n5_i0mRm8TD6x725E~k2jgtTunx.f-lGzc --tenant 9a97eb40-e341-4a0f-8c5d-c6264663964c | jq '.[].state')"
-     
+
   GradleJob:
     strategy:
       fail-fast: false
@@ -49,12 +49,29 @@ jobs:
       - if:  ${{ needs.AzureJob.outputs.output1 }} == 'Enabled'
         name: Subscription is enabled
         working-directory: ./Trasporti116-117
-        run: ./gradlew check
+        run: |
+          chmod +x ./gradlew
+          ./gradlew check
       - if: ${{ needs.AzureJob.outputs.output1 }} != 'Enabled'
         name: Subscription is disabled
         working-directory: ./Trasporti116-117
-        run: ./gradlew check -x Test
-        
+        run: |
+          chmod +x ./gradlew
+          ./gradlew check -x Test
+
+  CompileLatexJob:
+    runs-on: ubuntu-latest
+    name: Compile latext report
+    steps:
+    - uses: actions/checkout@v1
+    - name: Compilation
+      uses: vinay0410/tectonic-action@master
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tex_path: 'Report/report.tex'
+        push: 'yes'
+
   Release:
     needs: GradleJob
     if: success() && startsWith(github.ref, 'refs/tags')
@@ -67,10 +84,12 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 15
+          java-version: 14
       - name: Shadow Jar with Gradle
         working-directory: ./Trasporti116-117
-        run: ./gradlew shadowJar
+        run: |
+          chmod +x ./gradlew
+          ./gradlew shadowJar
       - name: Create release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -80,3 +99,4 @@ jobs:
             LICENSE
             ./Trasporti116-117/ambulanceClient/build/libs/*all.jar
             ./Trasporti116-117/callCenterClient/build/libs/*all.jar
+            ./Report/report.pdf
