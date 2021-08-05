@@ -29,6 +29,8 @@ jobs:
             echo "::set-output name=SUBSCRIPTION_STATE::$(az login --service-principal -u f00ec15a-5310-4dcf-a766-77fcc1bcf40e -p n5_i0mRm8TD6x725E~k2jgtTunx.f-lGzc --tenant 9a97eb40-e341-4a0f-8c5d-c6264663964c | jq '.[].state')"
 
   GradleJob:
+    needs: AzureJob
+    if: success()
     strategy:
       fail-fast: false
       max-parallel: 1
