@@ -33,7 +33,7 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \center
 
-\textsc{\Large Relazione di progetto di Laboratorio di Sistemi Software e Pervasive Computin}\\[0.5cm]
+\textsc{\Large Relazione di progetto di Laboratorio di Sistemi Software}\\[0.5cm]
 
 \HRule \\[0.4cm]
 { \huge \bfseries Trasporti 116117 - Digital Twin}\\[0.4cm]
@@ -477,4 +477,44 @@ Inoltre, il bounded context relativo alle richieste è stato collassato all'inte
 \centerline{\includegraphics[width=15cm]{fig/BoundedContext2.png}}
 
 In figura è mostrata la nuova organizzazione relativa alle entità ed ai value object all'interno dei diversi bounded context, rispetto all'individuazione di un nuovo bounded context ed alla modifica di quelli presenti in precedenza. 
+
+
+\section{Integrazione Elaborato}
+\subsection{Build Automation}
+\subsubsection{Processo di QA}
+Per il processo di QA sono stati utilizzati i seguenti strumenti:
+\begin{itemize}
+    \item\textbf{Checkstyle}: è stata utilizzata la configurazione che segue le Sun Code Conventions. Da questa configurazione sono stati tolti alcuni moduli che abbiamo ritenuto non in linea con il nostro progetto, pur rispettando le best practices di Java. Una di queste è quella relativa ai magic number, poichè nei form all'interno della GUI è utilizzato un GridPane e Checkstyle chiedeva di sostituire gli svariati indici per il posizionamento degli elementi con costanti. Abbiamo riscontrato una migliore leggibilità del codice senza l'utilizzo di costanti.
+    
+    \item \textbf{PMD}: sono stati utilizzati due rule sets standard, ovvero: errorProne e bestPractices. Gli ulteriori rule sets standard non sono stati inclusi poiché alcuni erano in sovrapposizione con l'analisi svolta da checkstyle mentre altri non erano utili al fine del progetto.
+    Inoltre, è stata impostato il parametro rulesMinimumPriority a 4 anziché a 5 (equivalente ad un consiglio di modifica altamente opzionale).
+\end{itemize}
+
+\subsubsection{Shadow JAR}
+Per la creazioni dei due jar relativi a ambulanceClient e callCenterClient è stato utilizzato Shadow Jar.
+Questo plug-in permette, appunto, la creazione di fat jar, ovvero jar eseguibili che contengono, oltre le classi compilate, anche tutte le dipendenze del progetto. 
+
+\subsection{Continuos Integration}
+Il workflow viene eseguito solo quando vengono effettuati push sul branch master e develop, quando viene aggiunto un tag e, in ogni caso, alla mezzanotte del primo giorno di ogni mese. 
+
+\subsubsection{Controllo sottoscrizione Azure}
+Il job \textbf{AzureJob} si occupa di controllare lo stato della sottoscrizione di Azure.
+Tramite la CLI di Azure effettua la connessione al portale: per effettuare il login utilizza il client secret dell'applicazione registrata su Azure Active Directory, lo stesso metodo utilizzato dall'applicazione Java.
+
+La risposta ricevuta dalla richiesta di connessione contiene diverse informazioni relative alla sottoscrizione. Tra queste si può estrapolare lo stato (abilitato o disabilitato) della sottoscrizione per poi inserirlo in una variabile che permetterà al job di test, \textbf{GradleJob}, di distinguere tra due diversi comandi da eseguire: il test completo dell'applicazione o i task relativi alla quality assurance del codice.
+
+\subsubsection{Integrazione build}
+All'interno di \textbf{GradleJob} vengono eseguiti i test e i controlli di QA. Questo job si serve dell'output generato dall'esecuzione del job precedente per eseguire due processi diversi nel caso in cui la sottoscrizione sia attiva o meno: in caso affermativo effettua sia i test che il processo di QA, in caso negativo effettua solo il processo di QA.
+In quest'ultimo caso, si è scelto di non svolgere i test poiché essi sono tutti dipendenti da Azure. 
+
+Le operazioni effettuate da questo job vengono eseguite su sistemi operativi MacOs, Linux e Ubuntu per le versioni 11, 14, 16 di Java. Le varie run vengono eseguite sequenzialmente, questo serve poiché durante i test si vanno a creare e ad eliminare, all'interno dell'ambiente Azure, dei Digital Twin di prova che causerebbero una sovrapposizione all'interno dell'ambiente che potrebbe portare ad un comportamento imprevedibile dei test.
+
+\subsubsection{Sincronizzazione con Overleaf e compilazione}
+Per avere sempre un report aggiornato è stato sincronizzato il progetto Overleaf al repository. Questo permette di fare il push delle modifiche al report, ogni volta che si ritenga necessario, direttamente da Overleaf.
+
+Tramite le Github Actions è stato creato un job che si occupa, successivamente, della compilazione del codice Latex e la produzione del pdf relativo. Questo artefatto verrà poi inserito all'interno della release.
+
+\subsubsection{Creazione automatica dalla release}
+Il job \textbf{Release} è dipendente da \textbf{GradleJob}, questo assicura il corretto funzionamento della release. Il job viene eseguito ogni qual volta viene effettuato un tag. Per ogni tag, quindi, creerà una release contenente il source code, la licenza, il report e i due jar eseguibili relativi ai client. Prima di creare la release, infatti, vengono creati i jar tramite il task di gradle \textit{shadowJar}.
+
 \end{document}
